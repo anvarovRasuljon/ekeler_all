@@ -1,0 +1,20 @@
+{
+  "name": "adminka",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm --prefix ekeler run dev -- --host 0.0.0.0",
+    "start": "npm --prefix ekeler run start -- --host 0.0.0.0",
+    "build": "npm --prefix ekeler run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@sanity/cli": "^7.12.0",
+    "@sanity/client": "^7.24.0"
+  }
+}
