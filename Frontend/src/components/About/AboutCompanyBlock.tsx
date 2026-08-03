@@ -1,3 +1,5 @@
+import React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import { getImageUrl, hasSanityImage } from '../../sanity/client';
 
@@ -28,15 +30,27 @@ function SanityImage({
 }) {
   const url = getImageUrl(source, { width, height });
   if (!url) return null;
-  return <img src={url} alt={alt || ''} className={className} />;
+  return (
+    <img
+      src={url}
+      alt={alt || ''}
+      className={className}
+      width={width}
+      height={height}
+      loading="lazy"
+      decoding="async"
+      fetchPriority="low"
+    />
+  );
 }
 
-export default function AboutCompanyBlock({
+function AboutCompanyBlock({
   data,
 }: {
   data: AboutCompanyBlockData | null;
 }) {
   const { t } = useLanguage();
+  const reduced = useReducedMotion();
 
   if (!data) return null;
 
@@ -47,12 +61,19 @@ export default function AboutCompanyBlock({
     <div className="flex flex-col gap-12 md:gap-16">
       
       {/* —— 1-blok: katta + kichik rasm → title + description —— */}
-      <div className="flex flex-col min-h-[500px] justify-between">
+      {/* Responsive: mobilda majburiy min-height yo'q, matn bloklari ustma-ust joylashadi */}
+      <div className="flex flex-col justify-between gap-8 lg:min-h-[500px] lg:gap-0">
         
         {/* Rasmlar: 370×300 + 250×200 */}
-        <div className="flex flex-col items-end gap-4 mb-15 sm:flex-row">
+        <div className="flex flex-col gap-4 items-end mb-15 sm:flex-row">
           {hasSanityImage(data.image370_1) && (
-            <div className="w-full sm:w-[380px] h-[320px] rounded-[8px] overflow-hidden shrink-0">
+            <motion.div
+              initial={{ opacity: reduced ? 1 : 0, x: reduced ? 0 : -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: reduced ? 0.01 : 0.6 }}
+              className="w-full sm:w-[380px] h-[320px] rounded-[8px] overflow-hidden shrink-0"
+            >
               <SanityImage
                 source={data.image370_1}
                 alt={(data.image370_1 as { alt?: string })?.alt}
@@ -60,10 +81,16 @@ export default function AboutCompanyBlock({
                 width={370}
                 height={300}
               />
-            </div>
+            </motion.div>
           )}
           {hasSanityImage(data.image370_2) && (
-            <div className="w-full sm:w-[270px] h-[200px] rounded-[8px] overflow-hidden shrink-0">
+            <motion.div
+              initial={{ opacity: reduced ? 1 : 0, x: reduced ? 0 : 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.15 }}
+              className="w-full sm:w-[270px] h-[200px] rounded-[8px] overflow-hidden shrink-0"
+            >
               <SanityImage
                 source={data.image370_2}
                 alt={(data.image370_2 as { alt?: string })?.alt}
@@ -71,31 +98,43 @@ export default function AboutCompanyBlock({
                 width={250}
                 height={200}
               />
-            </div>
+            </motion.div>
           )}
         </div>
 
         {/* Title (start) + Description (space-between) */}
-        <div className="flex flex-col justify-between gap-4 sm:flex-row">
+        <motion.div
+          initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: reduced ? 0.01 : 0.5 }}
+          className="flex flex-col items-start justify-between gap-4 sm:flex-row"
+        >
           {data.title1 && (
-            <h2 className={`${textClass} `}>
+            <h2 className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 w-fit font-inter text-xs font-medium tracking-wide text-neutral-500" >
               {t(data.title1)}
             </h2>
           )}
           {data.description1 && (
-            <p className={`${textClass} max-w-[480px] whitespace-pre-line text-left`}>
+            <p className={`text-left whitespace-pre-line ${textClass} max-w-[480px]`}>
               {t(data.description1)}
             </p>
           )}
-        </div>
+        </motion.div>
       </div>
 
       {/* —— 2-blok: kichik + katta rasm → title + description → mini descr —— */}
-      <div className="flex flex-col min-h-[500px] justify-between">
+      <div className="flex flex-col justify-between gap-8 lg:min-h-[500px] lg:gap-0">
         {/* Rasmlar: 250×200 + 370×300 */}
-        <div className="flex flex-col items-end gap-4 mb-5 sm:flex-row">
+        <div className="flex flex-col gap-4 items-end mb-5 sm:flex-row">
           {hasSanityImage(data.image350_1) && (
-            <div className="w-full sm:w-[270px] h-[200px] rounded-[8px] overflow-hidden shrink-0">
+            <motion.div
+              initial={{ opacity: reduced ? 1 : 0, x: reduced ? 0 : -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: reduced ? 0.01 : 0.6 }}
+              className="w-full sm:w-[270px] h-[200px] rounded-[8px] overflow-hidden shrink-0"
+            >
               <SanityImage
                 source={data.image350_1}
                 alt={(data.image350_1 as { alt?: string })?.alt}
@@ -103,10 +142,16 @@ export default function AboutCompanyBlock({
                 width={250}
                 height={200}
               />
-            </div>
+            </motion.div>
           )}
           {hasSanityImage(data.image350_2) && (
-            <div className="w-full sm:w-[380px] h-[300px] rounded-[8px] overflow-hidden shrink-0">
+            <motion.div
+              initial={{ opacity: reduced ? 1 : 0, x: reduced ? 0 : 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.15 }}
+              className="w-full sm:w-[380px] h-[300px] rounded-[8px] overflow-hidden shrink-0"
+            >
               <SanityImage
                 source={data.image350_2}
                 alt={(data.image350_2 as { alt?: string })?.alt}
@@ -114,22 +159,28 @@ export default function AboutCompanyBlock({
                 width={370}
                 height={300}
               />
-            </div>
+            </motion.div>
           )}
         </div>
 
-      <div className="flex flex-row items-start justify-between gap-4">
+      <motion.div
+        initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: reduced ? 0.01 : 0.5 }}
+        className="flex flex-col items-start justify-between gap-4 sm:flex-row"
+      >
   {/* Chap: title */}
   {data.title2 && (
-    <h2 className={`${textClass}  shrink-0`}>
+    <h2  className="mb-6 rounded-full w-fit border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500" >
       {t(data.title2)}
     </h2>
   )}
 
   {/* O'ng: 2 ta description — flex-col */}
-  <div className="flex flex-col gap-5 max-w-[480px]">
+  <div className="flex w-full max-w-[480px] flex-col gap-5">
     {data.description2 && (
-      <p className={`${textClass} whitespace-pre-line text-start`}>
+      <p className={`whitespace-pre-line ${textClass} text-start`}>
         {t(data.description2)}
       </p>
     )}
@@ -154,15 +205,17 @@ export default function AboutCompanyBlock({
         />
       </svg>
     </span>
-    <p className={`${textClass} whitespace-pre-line text-start`}>
+    <p className={`whitespace-pre-line ${textClass} text-start`}>
       {t(data.bodyText)}
     </p>
   </div>
 )}
   </div>
-</div>
+</motion.div>
 
       </div>
     </div>
   );
 }
+
+export default React.memo(AboutCompanyBlock);

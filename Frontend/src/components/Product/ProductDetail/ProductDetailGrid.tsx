@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { urlFor } from "../../../sanity/client";
-
+import { getImageUrl } from "../../../sanity/client";
 
 interface ProductDetailGridProps {
   images: any[];
 }
 
 const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
+  const reduced = useReducedMotion();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   if (!images || images.length === 0) return null;
@@ -33,25 +33,26 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
   const selectedImage =
     selectedIndex !== null ? images[selectedIndex] : null;
 
+  // Responsive: 1 -> 2 -> 3 ustun, kartalar kengligi fluid
   return (
-    <section className="w-full px-4 py-16 mx-auto max-w-[1500px] md:px-6">
-      <div className="grid grid-cols-3 gap-6 justify-items-center">
+    <section className="mx-auto w-full max-w-[1500px] px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
+      <div className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {images.map((image, index) => (
           <motion.div
             key={index}
-            className="group relative w-[450px] h-[420px] overflow-hidden rounded-2xl cursor-pointer"
+            className="group relative h-[260px] w-full max-w-[450px] cursor-pointer overflow-hidden rounded-xl sm:h-[340px] sm:rounded-2xl lg:h-[420px]"
             onClick={() => setSelectedIndex(index)}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            whileHover={{ scale: 1.03 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={reduced ? undefined : { scale: 1.03 }}
+            transition={{ duration: reduced ? 0.01 : 0.5, delay: index * 0.1 }}
           >
             <img
-              src={urlFor(image).width(600).url()}
+              src={getImageUrl(image, { width: 600 }) || ""}
               alt={image.alt || ""}
               className="object-cover absolute inset-0 w-full h-full transition-all duration-500 ease-out"
-              loading="eager"
+              loading="lazy"
               decoding="async"
             />
             <div className="absolute inset-0 transition-all duration-500 bg-black/0 group-hover:bg-black/40" />
@@ -65,7 +66,7 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
           onClick={closeModal}
         >
           <button
-            className="absolute top-4 right-4 p-2 text-white hover:text-gray-300"
+            className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center p-2 text-white hover:text-gray-300 sm:right-4 sm:top-4"
             onClick={closeModal}
             aria-label="Close"
           >
@@ -73,28 +74,28 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
           </button>
 
           <button
-            className="absolute left-4 top-1/2 p-2 text-white -translate-y-1/2 hover:text-gray-300"
+            className="absolute left-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center p-2 text-white hover:text-gray-300 sm:left-4"
             onClick={handlePrev}
             aria-label="Previous"
           >
-            <ChevronLeft size={48} />
+            <ChevronLeft className="h-8 w-8 sm:h-12 sm:w-12" />
           </button>
 
           <img
-            src={urlFor(selectedImage).width(1200).url()}
+            src={getImageUrl(selectedImage, { width: 1200 }) || ""}
             alt={selectedImage.alt || ""}
-            className="max-w-[90%] max-h-[90%] object-contain rounded-2xl"
+            className="max-h-[80%] max-w-[80%] rounded-xl object-contain sm:max-h-[90%] sm:max-w-[90%] sm:rounded-2xl"
             loading="eager"
             decoding="async"
             onClick={(e) => e.stopPropagation()}
           />
 
           <button
-            className="absolute right-4 top-1/2 p-2 text-white -translate-y-1/2 hover:text-gray-300"
+            className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center p-2 text-white hover:text-gray-300 sm:right-4"
             onClick={handleNext}
             aria-label="Next"
           >
-            <ChevronRight size={48} />
+            <ChevronRight className="h-8 w-8 sm:h-12 sm:w-12" />
           </button>
         </div>
       )}
@@ -102,4 +103,4 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
   );
 };
 
-export default ProductDetailGrid;
+export default React.memo(ProductDetailGrid);

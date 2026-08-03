@@ -11,6 +11,7 @@ export const client = createClient({
 const builder = createImageUrlBuilder(client)
 
 export function hasSanityImage(source: unknown): boolean {
+  if (typeof source === 'string') return true
   if (!source || typeof source !== 'object') return false
   const img = source as { asset?: { _ref?: string; _id?: string; url?: string } }
   return Boolean(img.asset?._ref || img.asset?._id || img.asset?.url)
@@ -24,6 +25,7 @@ export function getImageUrl(
   source: unknown,
   options?: { width?: number; height?: number },
 ): string | null {
+  if (typeof source === 'string') return source
   if (!hasSanityImage(source)) return null
   try {
     let imageBuilder = urlFor(source)

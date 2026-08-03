@@ -3,18 +3,20 @@ import { Skeleton, SkeletonBox, SkeletonText, SkeletonCircle } from './Skeleton'
 
 const HomePageSkeleton: React.FC = () => {
   return (
-    <div className="p-2 min-h-screen bg-white">
+    // Responsive: skeleton ham mobil ekranga mos padding/grid ishlatadi
+    <div className="min-h-screen bg-white p-1 sm:p-2">
       {/* Hero skeleton */}
       <div className="overflow-hidden relative w-full h-screen rounded-lg">
         <SkeletonBox className="absolute inset-0 w-full h-full" />
         <div className="absolute top-[6%] left-[4%] max-w-[38%] z-10 space-y-6">
-          <SkeletonText lines={4} className="w-[500px]" />
+          {/* Responsive: fiksatsiyalangan px o'rniga max-w */}
+          <SkeletonText lines={4} className="w-full max-w-[500px]" />
           <Skeleton width="120px" height="20px" />
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="sticky top-0 z-50 h-[65px] w-full bg-white flex items-center justify-between px-8">
+      <div className="sticky top-0 z-50 flex h-[65px] w-full items-center justify-between bg-white px-4 sm:px-8">
         <div className="flex gap-6">
           <Skeleton width="80px" height="16px" />
           <Skeleton width="80px" height="16px" />
@@ -27,7 +29,7 @@ const HomePageSkeleton: React.FC = () => {
       </div>
 
       {/* About Us */}
-      <section className="px-8 py-20">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
         <div className="flex flex-col gap-12 md:flex-row">
           <div className="flex-1 space-y-4">
             <Skeleton width="120px" height="14px" />
@@ -43,7 +45,7 @@ const HomePageSkeleton: React.FC = () => {
       </section>
 
       {/* Stats */}
-      <section className="px-8 py-20">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="space-y-3">
@@ -56,7 +58,7 @@ const HomePageSkeleton: React.FC = () => {
       </section>
 
       {/* Contact */}
-      <section className="px-8 py-20">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
           <SkeletonBox className="w-full h-[300px] rounded-2xl" />
           <div className="space-y-6">
@@ -75,8 +77,8 @@ const HomePageSkeleton: React.FC = () => {
       </section>
 
       {/* Features */}
-      <section className="px-8 py-20">
-        <div className="grid grid-cols-3 gap-6">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           <SkeletonBox className="w-full h-[350px] rounded-2xl" />
           <div className="flex flex-col justify-center space-y-6">
             <Skeleton width="100%" height="28px" />
@@ -87,14 +89,14 @@ const HomePageSkeleton: React.FC = () => {
       </section>
 
       {/* Products */}
-      <section className="px-8 py-20">
-        <div className="flex justify-between items-center mb-8">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
+        <div className="mb-8 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div className="flex gap-6 items-center">
-            <SkeletonBox className="w-[240px] h-[140px] rounded-2xl" />
+            <SkeletonBox className="h-[140px] w-full max-w-[240px] rounded-2xl" />
             <Skeleton width="160px" height="28px" />
           </div>
           <div className="flex gap-4 items-center">
-            <SkeletonText lines={2} className="w-[300px]" />
+            <SkeletonText lines={2} className="w-full max-w-[300px]" />
             <SkeletonCircle width="20px" height="20px" className="text-neutral-200" />
           </div>
         </div>
@@ -124,7 +126,7 @@ const HomePageSkeleton: React.FC = () => {
         <div className="relative w-full h-[400px] rounded-2xl overflow-hidden">
           <SkeletonBox className="absolute inset-0" />
           <div className="relative z-10 p-10">
-            <SkeletonText lines={3} className="w-[600px]" />
+            <SkeletonText lines={3} className="w-full max-w-[600px]" />
             <div className="flex gap-4 items-center mt-8">
               <SkeletonCircle width="60px" height="60px" />
               <div className="space-y-2">

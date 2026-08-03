@@ -5,7 +5,8 @@ const ProductDetailSkeleton: React.FC = () => {
   return (
     <div className="min-h-screen p-2 bg-white">
       {/* Navigation */}
-      <div className="sticky top-0 z-50 h-[65px] w-full bg-white flex items-center justify-between px-8">
+      {/* Responsive: mobil paddinglar */}
+      <div className="sticky top-0 z-50 flex h-[65px] w-full items-center justify-between bg-white px-4 sm:px-8">
         <div className="flex gap-6">
           <Skeleton width="80px" height="16px" />
           <Skeleton width="80px" height="16px" />
@@ -17,8 +18,8 @@ const ProductDetailSkeleton: React.FC = () => {
         </div>
       </div>
 
-      <section className="py-20 px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
           {/* Image */}
           <SkeletonBox className="w-full h-[500px] rounded-2xl" />
           {/* Details */}
@@ -44,8 +45,8 @@ const ProductDetailSkeleton: React.FC = () => {
       </section>
 
       {/* Extra images / gallery */}
-      <section className="py-20 px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <SkeletonBox key={i} className="w-full h-[200px] rounded-2xl" />
           ))}

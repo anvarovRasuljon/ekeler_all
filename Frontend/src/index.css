@@ -7,8 +7,24 @@
     font-family: 'Manrope', sans-serif;
   }
 
+  /* Responsive: root darajada gorizontal scrollni butunlay yo'q qilamiz */
+  html,
+  body,
+  #root {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   body {
     font-family: 'Manrope', sans-serif;
+  }
+
+  /* Responsive: media elementlar hech qachon konteynerdan chiqib ketmasin */
+  img,
+  video,
+  iframe,
+  svg {
+    max-width: 100%;
   }
 
   a {

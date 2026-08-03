@@ -1,10 +1,10 @@
 import React, { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Plus, Minus } from "lucide-react";
 import { useLanguage } from "../../../context/LanguageContext";
-import { urlFor } from "../../../sanity/client";
+import { getImageUrl } from "../../../sanity/client";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -38,6 +38,7 @@ interface SpecItem {
 
 const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) => {
   const { t } = useLanguage();
+  const reduced = useReducedMotion();
   const [isOpen, setIsOpen] = useState(true);
 
   const images = data.images || [];
@@ -74,36 +75,37 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
   return (
     <motion.section
       className="w-full bg-[#3F5D53] text-white"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      initial={reduced ? { opacity: 1 } : { opacity: 0 }}
+      whileInView={reduced ? undefined : { opacity: 1 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: reduced ? 0.01 : 0.6 }}
     >
-      <div className="grid grid-cols-1 gap-12 items-start px-6 py-20 mx-auto max-w-[1500px] md:px-12 lg:grid-cols-2">
+      {/* Responsive: mobilda kichik padding, spec grid 1 ustun bo'ladi */}
+      <div className="mx-auto grid max-w-[1500px] grid-cols-1 items-start gap-8 px-4 py-12 sm:px-6 sm:py-16 md:px-12 md:py-20 lg:grid-cols-2 lg:gap-12">
         {/* LEFT: Accordion specs */}
         <motion.div
           className="flex flex-col"
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={reduced ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+          whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.1 }}
         >
           <motion.span
             className="self-start px-4 py-1.5 mb-6 text-xs font-medium tracking-wide text-white/80 uppercase border rounded-full border-white/40"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: reduced ? 0.01 : 0.5 }}
           >
             Asosiy malumot
           </motion.span>
 
           <motion.h2
-            className="mb-6 text-4xl font-medium md:text-5xl"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="mb-6 break-words text-2xl font-medium sm:text-3xl md:text-4xl lg:text-5xl"
+            initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: reduced ? 0.01 : 0.5, delay: reduced ? 0 : 0.1 }}
           >
             Texnik parametrlar
           </motion.h2>
@@ -114,10 +116,11 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
             <button
               type="button"
               onClick={() => setIsOpen((v) => !v)}
-              className="flex justify-between items-center px-6 py-5 w-full text-left transition-colors hover:bg-white/5"
+              aria-expanded={isOpen}
+              className="flex min-h-[44px] w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors hover:bg-white/5 sm:px-6 sm:py-5"
             >
-              <span className="text-2xl font-medium">umumiy malumot</span>
-              <span className="flex justify-center items-center w-10 h-10 rounded-full border border-white/40">
+              <span className="break-words text-lg font-medium sm:text-xl md:text-2xl">umumiy malumot</span>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/40">
                 {isOpen ? <Minus size={20} /> : <Plus size={20} />}
               </span>
             </button>
@@ -127,20 +130,20 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
               animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
               className="overflow-hidden"
             >
-              <div className="grid grid-cols-2 gap-y-6 gap-x-8 px-6 pb-8">
+              <div className="grid grid-cols-1 gap-x-6 gap-y-5 px-4 pb-6 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-6 sm:px-6 sm:pb-8">
                 {specs.map((spec, i) => (
                   <motion.div
                     key={i}
                     className="flex flex-col"
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+                    whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.4, delay: 0.2 + i * 0.05 }}
+                    transition={{ duration: reduced ? 0.01 : 0.4, delay: reduced ? 0 : (0.2 + i * 0.05) }}
                   >
                     <span className="text-xs tracking-wider uppercase text-white/50">
                       {t(spec.label)}
                     </span>
-                    <span className="text-lg font-normal text-white">
+                    <span className="break-words text-base font-normal text-white sm:text-lg">
                       {t(spec.value)}
                     </span>
                   </motion.div>
@@ -153,19 +156,19 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
         {/* RIGHT: Swiper gallery */}
         {images.length > 0 && (
           <motion.div
-            className="p-6 rounded-3xl bg-[#C9B79C] md:p-8"
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="rounded-2xl bg-[#C9B79C] p-4 sm:p-6 md:rounded-3xl md:p-8"
+            initial={reduced ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+            whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.2 }}
           >
-            <div className="p-4 bg-white rounded-2xl md:p-6">
+            <div className="rounded-xl bg-white p-3 sm:p-4 md:rounded-2xl md:p-6">
               <div className="w-full aspect-[4/3]">
                 <Swiper
                   modules={[Pagination]}
                   pagination={{ clickable: true }}
                   loop={images.length > 1}
-                  speed={600}
+                  speed={reduced ? 0 : 300}
                   grabCursor={true}
                   simulateTouch={true}
                   allowTouchMove={true}
@@ -179,11 +182,12 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
                   {images.map((img, idx) => (
                     <SwiperSlide key={idx}>
                       <img
-                        src={urlFor(img).width(900).url()}
+                        src={getImageUrl(img, { width: 900 }) || ""}
                         alt={img.alt || t(data.title)}
                         className="object-contain p-4 w-full h-full md:p-8"
-                        loading="eager"
+                        loading="lazy"
                         decoding="async"
+                        fetchPriority="low"
                       />
                     </SwiperSlide>
                   ))}
@@ -197,4 +201,4 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
   );
 };
 
-export default ProductSpecifications;
+export default React.memo(ProductSpecifications);

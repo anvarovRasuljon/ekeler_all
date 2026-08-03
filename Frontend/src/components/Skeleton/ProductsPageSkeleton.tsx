@@ -10,12 +10,13 @@ const ProductsPageSkeleton: React.FC = () => {
         <div className="absolute bottom-8 left-8 max-w-2xl z-10 space-y-4">
           <Skeleton width="200px" height="14px" />
           <Skeleton width="100%" height="60px" rounded="8px" />
-          <SkeletonText lines={2} className="w-[400px]" />
+          {/* Responsive: fiksatsiyalangan px o'rniga max-w */}
+          <SkeletonText lines={2} className="w-full max-w-[400px]" />
         </div>
       </div>
 
       {/* Navigation */}
-      <div className="sticky top-0 z-50 h-[65px] w-full bg-white flex items-center justify-between px-8">
+      <div className="sticky top-0 z-50 flex h-[65px] w-full items-center justify-between bg-white px-4 sm:px-8">
         <div className="flex gap-6">
           <Skeleton width="80px" height="16px" />
           <Skeleton width="80px" height="16px" />
@@ -28,7 +29,7 @@ const ProductsPageSkeleton: React.FC = () => {
       </div>
 
       {/* Catalog CTA */}
-      <section className="py-20 px-8">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
         <div className="flex flex-col md:flex-row gap-12 items-center">
           <div className="flex-1 space-y-4">
             <Skeleton width="120px" height="14px" />
@@ -43,8 +44,8 @@ const ProductsPageSkeleton: React.FC = () => {
       </section>
 
       {/* Product Grid */}
-      <section className="py-20 px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 md:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="space-y-4">
               <SkeletonBox className="w-full h-[280px] rounded-2xl" />
@@ -59,7 +60,7 @@ const ProductsPageSkeleton: React.FC = () => {
       </section>
 
       {/* Product About */}
-      <section className="py-20 px-8">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
         <div className="flex flex-col md:flex-row gap-12">
           <div className="flex-1 space-y-4">
             <Skeleton width="60%" height="32px" />
@@ -74,11 +75,11 @@ const ProductsPageSkeleton: React.FC = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 px-8">
+      <section className="px-4 py-12 sm:px-8 sm:py-20">
         <div className="relative w-full h-[400px] rounded-2xl overflow-hidden">
           <SkeletonBox className="absolute inset-0" />
           <div className="relative z-10 p-10">
-            <SkeletonText lines={3} className="w-[600px]" />
+            <SkeletonText lines={3} className="w-full max-w-[600px]" />
             <div className="flex items-center gap-4 mt-8">
               <SkeletonCircle width="60px" height="60px" />
               <div className="space-y-2">

@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { urlFor } from "../../sanity/client";
+import React, { useRef, useMemo } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
-// import topImage from "../../assets/hero.png";
-// import bottomImage from "../../assets/hero.png";
+import topImageUrl from "../../assets/home_about_first_img.png";
+import bottomImageUrl from "../../assets/home_about_second_img.png";
 
 interface AboutUsProps {
   title?: any;
@@ -17,105 +16,79 @@ interface AboutUsProps {
 }
 
 const AboutUs: React.FC<AboutUsProps> = ({
-  title,
-  descriptionPart1,
-  descriptionHighlight,
-  descriptionPart2,
-  buttonText = "Our Services",
-  topImage: topImageData,
-  bottomImage: bottomImageData,
+  title = "ABOUT US",
+  descriptionPart1 = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim.",
+  buttonText = "ABOUT US",
+  // topImage: topImageData,
+  // bottomImage: bottomImageData,
 }) => {
   const { t } = useLanguage();
-  const imageParams = { w: 250, h: 125, fit: 'crop' };
-  const topImageUrl = topImageData ? urlFor(topImageData).width(imageParams.w).height(imageParams.h).fit('crop').url() : "";
-  const bottomImageUrl = bottomImageData ? urlFor(bottomImageData).width(imageParams.w).height(imageParams.h).fit('crop').url() : "";
+  const reduced = useReducedMotion();
   const ref = useRef(null);
+  const titleText = useMemo(() => (title ? t(title) : 'ABOUT US'), [t, title]);
+  const descriptionText = useMemo(() => (descriptionPart1 ? t(descriptionPart1) : null), [t, descriptionPart1]);
+  const buttonLabel = useMemo(() => (buttonText ? t(buttonText) : 'ABOUT US'), [t, buttonText]);
   const isInView = useInView(ref, { once: true, amount: 0.5 });
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const yLeft = useTransform(scrollYProgress, [0, 1], [-40, 40]);
-  const yRight = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
     <motion.section
       ref={ref}
-      className="relative w-full h-[640px] bg-white overflow-hidden flex justify-between items-center px-[32px]"
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-      transition={{ duration: 0.6 }}
+      // Responsive: mobilda vertikal stack, desktopda 3 ustunli gorizontal layout
+      className="relative flex w-full flex-col items-center gap-8 overflow-hidden bg-white px-4 py-12 sm:px-6 lg:h-[640px] lg:flex-row lg:justify-between lg:gap-0 lg:py-0 lg:px-8 xl:px-[32px]"
+      initial={{ opacity: 0, y: reduced ? 0 : 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: reduced ? 0 : 40 }}
+      transition={{ duration: reduced ? 0.01 : 0.6 }}
     >
       {/* Left image */}
-      <div className="w-[250px] h-full flex-shrink-0 flex flex-col justify-start">
+      <div className="flex w-full max-w-[250px] flex-shrink-0 flex-col justify-start lg:h-full lg:w-[250px] lg:max-w-none">
         {topImageUrl && (
           <motion.img
             src={topImageUrl}
             alt=""
             width={250}
             height={125}
-            loading="eager"
+            loading="lazy"
             decoding="async"
-            className="w-[250px] h-[125px] object-cover rounded-b-lg"
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{ y: yLeft }}
+            fetchPriority="low"
+            className="h-[125px] w-full max-w-full rounded-b-lg object-cover lg:w-[250px]"
+            initial={{ opacity: 0, x: reduced ? 0 : -40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reduced ? 0 : -40 }}
+            transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.2 }}
           />
         )}
       </div>
 
       {/* Center text */}
-      <div className="flex-1 min-w-0 flex flex-col items-center text-center px-[32px]">
+      <div className="flex w-full min-w-0 flex-1 flex-col items-center px-0 text-center sm:px-6 lg:px-[32px]">
         <motion.span
-          className="uppercase tracking-[4px] text-[12px] text-[#1B1D20] mb-5 block"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
+          className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500"
+          initial={{ opacity: 0, y: reduced ? 0 : 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: reduced ? 0 : 20 }}
+          transition={{ duration: reduced ? 0.01 : 0.5 }}
         >
-          {title ? t(title) : 'ABOUT US'}
+          {titleText}
         </motion.span>
 
-        <h2 className="text-[40px] leading-[50px] mb-8 break-words max-h-[240px] w-[610px]">
+        <h2 className="mb-8 w-full max-w-[610px] break-words text-[26px] leading-[34px] sm:text-[32px] sm:leading-[42px] lg:max-h-[240px] lg:text-[40px] lg:leading-[50px]">
           {descriptionPart1 && (
             <motion.span
               className="text-[#1B1D20]"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              initial={{ opacity: 0, y: reduced ? 0 : 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: reduced ? 0 : 20 }}
+              transition={{ duration: reduced ? 0.01 : 0.5, delay: reduced ? 0 : 0.1 }}
             >
-              {t(descriptionPart1)}{" "}
-            </motion.span>
-          )}
-          {descriptionHighlight && (
-            <motion.span
-              className="text-[#E88029]"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              {t(descriptionHighlight)}{" "}
-            </motion.span>
-          )}
-          {descriptionPart2 && (
-            <motion.span
-              className="text-[#1B1D20]"
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              {t(descriptionPart2)}
+              {descriptionText}{" "}
             </motion.span>
           )}
         </h2>
 
         <a
-          href="#services"
+          href="/about"
           className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] transition mt-[28px] cursor-pointer"
         >
-          <span className="inline-flex items-center gap-6">
-            {t(buttonText)}
-            <ArrowRight size={18} className="text-[#E88029] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          <span className="inline-flex gap-6 items-center">
+            {buttonLabel}
+            <ArrowUpRight size={18} className="text-[#E88029] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </span>
           <div className="relative mt-[8px] h-[1px] w-full bg-neutral-300 overflow-hidden">
             <div className="absolute left-0 top-0 h-full w-full origin-left scale-x-0 bg-[#1B1D20] transition-transform duration-500 ease-out group-hover:scale-x-100" />
@@ -124,20 +97,20 @@ const AboutUs: React.FC<AboutUsProps> = ({
       </div>
 
       {/* Right image */}
-      <div className="w-[250px] h-full flex-shrink-0 flex flex-col justify-end">
+      <div className="flex w-full max-w-[250px] flex-shrink-0 flex-col justify-end lg:h-full lg:w-[250px] lg:max-w-none">
         {bottomImageUrl && (
           <motion.img
             src={bottomImageUrl}
             alt=""
             width={250}
             height={125}
-            loading="eager"
+            loading="lazy"
             decoding="async"
-            className="w-[250px] h-[125px] object-cover rounded-t-lg"
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            style={{ y: yRight }}
+            fetchPriority="low"
+            className="h-[125px] w-full max-w-full rounded-t-lg object-cover lg:w-[250px]"
+            initial={{ opacity: 0, x: reduced ? 0 : 40 }}
+            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reduced ? 0 : 40 }}
+            transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.3 }}
           />
         )}
       </div>
@@ -145,4 +118,4 @@ const AboutUs: React.FC<AboutUsProps> = ({
   );
 };
 
-export default AboutUs;
+export default React.memo(AboutUs);

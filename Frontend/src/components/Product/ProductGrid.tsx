@@ -1,7 +1,11 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useLanguage } from "../../context/LanguageContext";
+import prochni_1 from "../../assets/productPage_first_img.png";
+import prochni_2 from "../../assets/prochni_2.png";
+import prochni_3 from "../../assets/prochni_3.png";
+import prochni_4 from "../../assets/prochni_4.png";
 
 interface LocaleString {
   eng?: string;
@@ -19,42 +23,78 @@ export interface ProductCardData {
   detailSlug?: string;
 }
 
-interface ProductGridProps {
-  items: ProductCardData[];
-}
+const DEFAULT_ITEMS: ProductCardData[] = [
+  {
+    id: "1",
+    title: { ru: "Продукт 1", uz: "Mahsulot 1", eng: "Product 1" },
+    tags: [{ ru: "Тег", uz: "Teg", eng: "Tag" }],
+    imageUrl: prochni_1,
+    imageAlt: "Product 1",
+    detailSlug: "product-1",
+  },
+  {
+    id: "2",
+    title: { ru: "Продукт 2", uz: "Mahsulot 2", eng: "Product 2" },
+    tags: [{ ru: "Тег 2", uz: "Teg 2", eng: "Tag 2" }],
+    imageUrl: prochni_2,
+    imageAlt: "Product 2",
+    detailSlug: "product-2",
+  },
+  {
+    id: "3",
+    title: { ru: "Продукт 3", uz: "Mahsulot 3", eng: "Product 3" },
+    tags: [{ ru: "Тег 3", uz: "Teg 3", eng: "Tag 3" }],
+    imageUrl: prochni_3,
+    imageAlt: "Product 3",
+    detailSlug: "product-3",
+  },
+  {
+    id: "4",
+    title: { ru: "Продукт 4", uz: "Mahsulot 4", eng: "Product 4" },
+    tags: [{ ru: "Тег 4", uz: "Teg 4", eng: "Tag 4" }],
+    imageUrl: prochni_4,
+    imageAlt: "Product 4",
+    detailSlug: "product-4",
+  },
+];
 
-const ProductGrid: React.FC<ProductGridProps> = ({ items }) => {
+const ProductGrid: React.FC = () => {
   const { t } = useLanguage();
+  const reduced = useReducedMotion();
+  const items = useMemo(() => DEFAULT_ITEMS, []);
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   try {
+    // Responsive: 1 -> 2 -> 3 ustun, kartalar balandligi ekranga moslashadi
     return (
-      <section ref={sectionRef} className="w-full px-4 py-16 mx-auto max-w-[1500px] md:px-6 overflow-hidden">
-        <div className="grid grid-cols-1 gap-6 justify-items-center sm:grid-cols-2 md:grid-cols-3">
+      <section ref={sectionRef} className="mx-auto w-full max-w-[1500px] overflow-hidden px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {items.map((item, index) => {
             const card = (
               <motion.div
-                className="group relative w-full max-w-[450px] h-[420px] overflow-hidden rounded-2xl cursor-pointer flex items-center justify-center"
-                initial={{ opacity: 0, y: 24 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-                whileHover={{ scale: 1.03, y: -8 }}
+                className="group relative flex h-[280px] w-full max-w-[450px] cursor-pointer items-center justify-center overflow-hidden rounded-xl sm:h-[340px] sm:rounded-2xl lg:h-[420px]"
+                initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+                animate={reduced ? undefined : (isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 })}
+                whileHover={reduced ? undefined : { scale: 1.03, y: -8 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20, delay: index * 0.1 }}
               >
   <img
     src={item.imageUrl}
     alt={item.imageAlt || t(item.title) || ""}
     className="object-contain w-full h-full transition-transform duration-500 ease-out group-hover:scale-105"
-    loading="eager"
+    loading="lazy"
     decoding="async"
+    fetchPriority="low"
+    style={{ willChange: 'transform' }}
   />
   <div className="absolute inset-0 bg-gradient-to-t to-transparent opacity-0 transition-opacity duration-500 from-black/70 via-black/20 group-hover:opacity-100" />
-  <div className="flex absolute right-6 bottom-6 left-6 flex-col gap-2 opacity-0 transition-all duration-500 ease-out translate-y-2 group-hover:opacity-100 group-hover:translate-y-0">
-    <h3 className="text-2xl font-semibold text-white drop-shadow-md">
+  <div className="absolute bottom-4 left-4 right-4 flex translate-y-0 flex-col gap-2 opacity-100 transition-all duration-500 ease-out sm:bottom-6 sm:left-6 sm:right-6 md:translate-y-2 md:opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+    <h3 className="break-words text-lg font-semibold text-white drop-shadow-md sm:text-xl lg:text-2xl">
       {t(item.title)}
     </h3>
     {item.tags && item.tags.length > 0 && (
-      <p className="text-sm leading-6 drop-shadow-md text-white/85">
+      <p className="break-words text-xs leading-5 text-white/85 drop-shadow-md sm:text-sm sm:leading-6">
         {item.tags.map((tag) => t(tag)).join(" • ")}
       </p>
     )}
@@ -63,11 +103,11 @@ const ProductGrid: React.FC<ProductGridProps> = ({ items }) => {
             );
 
             return item.detailSlug ? (
-              <Link to={`/products/${item.detailSlug}`} key={item.id}>
+              <Link to={`/products/${item.detailSlug}`} key={item.id} className="w-full max-w-[450px]">
                 {card}
               </Link>
             ) : (
-              <div key={item.id}>{card}</div>
+              <div key={item.id} className="w-full max-w-[450px]">{card}</div>
             );
           })}
         </div>
@@ -76,11 +116,11 @@ const ProductGrid: React.FC<ProductGridProps> = ({ items }) => {
   } catch (e: any) {
     console.error("[DEBUG] ProductGrid render error:", e);
     return (
-      <section className="w-full px-4 py-16 mx-auto max-w-[1500px] md:px-6 overflow-hidden">
+      <section className="mx-auto w-full max-w-[1500px] overflow-hidden px-4 py-10 sm:px-6 lg:py-16">
         <p className="text-center text-red-500">ProductGrid xatosi: {String(e)}</p>
       </section>
     );
   }
 };
 
-export default ProductGrid;
+export default React.memo(ProductGrid);

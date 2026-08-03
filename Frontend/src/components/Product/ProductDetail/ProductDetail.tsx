@@ -1,107 +1,66 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useMemo, useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useLanguage } from "../../../context/LanguageContext";
-import { client, urlFor } from "../../../sanity/client";
+import productMain from "../../../assets/productPage_first_img.png";
 import ProductSpecifications, { type ProductDetailData } from "./ProductSpecifications";
 import ProductDetailGrid from "./ProductDetailGrid";
 
-const PRODUCT_DETAIL_QUERY = `*[_type == "productDetail" && slug.current == $slug][0]{
-  title,
-  shortDescription,
-  sizes,
-  material,
-  productCode,
-  specifications,
-  image,
-  images
-}`;
+const DEFAULT_DATA: ProductDetailData = {
+  title: { ru: "Продукт 1", uz: "Mahsulot 1", eng: "Product 1" },
+  shortDescription: {
+    ru: "Высококачественный материал для различных отраслей.",
+    uz: "Turli sohalarda ishlatiladigan yuqori sifatli material.",
+    eng: "High-quality material for various industries.",
+  },
+  sizes: ["1200×2400", "600×1200"],
+  material: {
+    ru: "МДФ",
+    uz: "MDF",
+    eng: "MDF",
+  },
+  productCode: "PRD-001",
+  image: productMain,
+  images: [],
+};
 
 const ProductDetail: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
   const { t } = useLanguage();
-  const [data, setData] = useState<ProductDetailData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  const reduced = useReducedMotion();
+  const data = DEFAULT_DATA;
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const yImg = useTransform(scrollYProgress, [0, 1], [-60, 60]);
+  const yImg = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [-60, 60]);
 
-  useEffect(() => {
-    if (!slug) {
-      setLoading(false);
-      setNotFound(true);
-      return;
-    }
-
-    let isMounted = true;
-    setLoading(true);
-    setNotFound(false);
-
-    client
-      .fetch(PRODUCT_DETAIL_QUERY, { slug })
-      .then((result: ProductDetailData | null) => {
-        if (!isMounted) return;
-        if (!result) {
-          setNotFound(true);
-        } else {
-          setData(result);
-        }
-      })
-      .catch(() => {
-        if (isMounted) setNotFound(true);
-      })
-      .finally(() => {
-        if (isMounted) setLoading(false);
-      });
-
-    return () => {
-      isMounted = false;
-    };
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        Loading...
-      </div>
-    );
-  }
-
-  if (notFound || !data) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        Mahsulot topilmadi
-      </div>
-    );
-  }
-
-
+  const titleText = useMemo(() => t(data.title), [t, data.title]);
+  const shortDescriptionText = useMemo(() => data.shortDescription ? t(data.shortDescription) : "", [t, data.shortDescription]);
+  const materialText = useMemo(() => data.material ? t(data.material) : "", [t, data.material]);
+  const galleryImages = useMemo(() => data.images?.slice(1) || [], [data.images]);
 
   return (
     <>
     <motion.section
       ref={ref}
       className="w-full bg-[#f5f5f4] rounded-2xl"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.7 }}
+      transition={{ duration: reduced ? 0.01 : 0.7 }}
     >
-      <div className="grid items-center grid-cols-1 gap-10 px-8 py-20 mx-auto max-w-[1500px] md:grid-cols-2 md:px-16">
+      {/* Responsive: mobilda 1 ustun, kichik padding va kichikroq sarlavha */}
+      <div className="mx-auto grid max-w-[1500px] grid-cols-1 items-center gap-8 px-4 py-12 sm:px-6 sm:py-16 md:grid-cols-2 md:gap-10 md:px-16 md:py-20">
         {/* LEFT: TEXT */}
         <div className="flex flex-col gap-6">
           <motion.h1
-            className="text-6xl font-medium leading-tight text-neutral-900 md:text-7xl"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="break-words text-3xl font-medium leading-tight text-neutral-900 sm:text-4xl md:text-6xl lg:text-7xl"
+            initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.1 }}
           >
-            {t(data.title)}
+            {titleText}
           </motion.h1>
 
           {data.shortDescription && (
@@ -112,7 +71,7 @@ const ProductDetail: React.FC = () => {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              {t(data.shortDescription)}
+              {shortDescriptionText}
             </motion.p>
           )}
 
@@ -124,7 +83,7 @@ const ProductDetail: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <p className="mb-1 text-sm text-neutral-400">Razmerlar</p>
-              <div className="flex gap-6 text-lg text-neutral-800">
+              <div className="flex flex-wrap gap-4 text-base text-neutral-800 sm:gap-6 sm:text-lg">
                 {data.sizes.map((size, i) => (
                   <span key={i}>{size}</span>
                 ))}
@@ -140,7 +99,7 @@ const ProductDetail: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <p className="mb-1 text-sm text-neutral-400">Material</p>
-              <p className="text-lg text-neutral-800">{t(data.material)}</p>
+              <p className="break-words text-base text-neutral-800 sm:text-lg">{materialText}</p>
             </motion.div>
           )}
 
@@ -152,37 +111,37 @@ const ProductDetail: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.5 }}
             >
               <p className="mb-1 text-sm text-neutral-400">Tovar kodi</p>
-              <p className="text-lg text-neutral-800">{data.productCode}</p>
+              <p className="break-words text-base text-neutral-800 sm:text-lg">{data.productCode}</p>
             </motion.div>
           )}
         </div>
 
         {/* RIGHT: IMAGE */}
         <div className="flex justify-center items-center">
-          {(data.images?.[0] || data.image) && (
+          {data.image && (
             <motion.img
-              src={urlFor(data.images?.[0] || data.image).width(900).url()}
-              alt={data.images?.[0]?.alt || t(data.title) || ""}
+              src={data.image}
+              alt={titleText}
               loading="eager"
               decoding="async"
-              className="max-h-[600px] w-auto object-contain"
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className="h-auto max-h-[320px] w-full max-w-full object-contain sm:max-h-[440px] lg:max-h-[600px] lg:w-auto"
+              initial={reduced ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+              whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              whileHover={{ scale: 1.03 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              style={{ y: yImg }}
+              whileHover={reduced ? undefined : { scale: 1.03 }}
+              transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.3 }}
+              style={{ y: yImg, willChange: 'transform' }}
             />
           )}
         </div>
       </div>
     </motion.section>
 
-    <ProductDetailGrid images={data.images?.slice(1) || []} />
+    <ProductDetailGrid images={galleryImages} />
     <ProductSpecifications data={data} />
 
     </>
   );
 };
 
-export default ProductDetail;
+export default React.memo(ProductDetail);

@@ -1,10 +1,11 @@
-import React from "react";
-
-import Location from "../../assets/location.svg";
+import React, { useMemo, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "../../context/LanguageContext";
 import SmsIco from "../../assets/sms.svg"
 import Call from "../../assets/call.svg"
-import { urlFor } from "../../sanity/client";
+import LocationIcon from "../../assets/location.svg"
+import imageUrl from "../../assets/Home_Contact_img.png"
+
 
 interface ContactSectionProps {
   eyebrow?: any;
@@ -22,23 +23,35 @@ interface ContactSectionProps {
   image?: any;
 }
 
+const LOREM_20 =
+  "Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim.";
+
 const ContactSection: React.FC<ContactSectionProps> = ({
-  eyebrow,
-  shortDescription,
-  miniDescription,
+  eyebrow = "Contact",
+  shortDescription = "Get in touch with us",
+  miniDescription = LOREM_20,
   twoColorMode = false,
-  description,
+  description = LOREM_20,
   longDescription,
   descriptionPart1,
   descriptionHighlight,
   descriptionPart2,
-  phone,
-  email,
-  mapText,
-  image,
+  phone = "+998 90 123 45 67",
+  email = "info@ekeler.uz",
+  mapText = "Tashkent, Uzbekistan",
 }) => {
 
   const { t } = useLanguage();
+  const reduced = useReducedMotion();
+  const ref = useRef(null);
+  const eyebrowText = useMemo(() => (eyebrow ? t(eyebrow) : null), [t, eyebrow]);
+  const shortText = useMemo(() => (shortDescription ? t(shortDescription) : null), [t, shortDescription]);
+  const miniText = useMemo(() => (miniDescription ? t(miniDescription) : null), [t, miniDescription]);
+  const part1Text = useMemo(() => (descriptionPart1 ? t(descriptionPart1) : null), [t, descriptionPart1]);
+  const highlightText = useMemo(() => (descriptionHighlight ? t(descriptionHighlight) : null), [t, descriptionHighlight]);
+  const part2Text = useMemo(() => (descriptionPart2 ? t(descriptionPart2) : null), [t, descriptionPart2]);
+  const displayText = useMemo(() => (description || longDescription), [description, longDescription]);
+  const mapTextValue = useMemo(() => (mapText ? t(mapText) : null), [t, mapText]);
 
   const displayDescription = twoColorMode
     ? (descriptionPart1 || descriptionHighlight || descriptionPart2 ? true : false)
@@ -48,40 +61,61 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     return null;
   }
 
-  const imageUrl = image ? urlFor(image).url() : "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=1400&auto=format&fit=crop";
 
   return (
-    <div className="w-full bg-white">
+    <motion.div
+      ref={ref}
+      id="contact"
+      className="w-full bg-white"
+      initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: reduced ? 0.01 : 0.6 }}
+    >
       {/* Main content */}
-      <div className="grid grid-cols-1 gap-12 mx-auto md:grid-cols-2 md:px-12 md:py-20">
+      {/* Responsive: mobilda 1 ustun + kichik padding, fiksatsiyalangan px kengliklar fluid qilindi */}
+      <div className="mx-auto grid grid-cols-1 gap-8 px-4 py-12 sm:px-6 md:grid-cols-2 md:gap-12 md:px-12 md:py-20">
         {/* Left column - image */}
-        <div className="overflow-hidden rounded-2xl">
-          <img
-            src={imageUrl}
-            alt="Contact section"
-            className="object-cover w-full h-full"
-          />
-        </div>
+        {imageUrl && (
+          <motion.div
+            initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.2 }}
+            className="overflow-hidden rounded-xl md:rounded-2xl"
+          >
+            <img
+              src={imageUrl}
+              alt="Contact section"
+              width={600}
+              height={400}
+              loading="lazy"
+              decoding="async"
+              fetchPriority="low"
+              className="h-auto max-h-[380px] w-full object-cover md:max-h-none md:h-full will-change-transform"
+            />
+          </motion.div>
+        )}
 
         {/* Right column */}
-        <div className="flex flex-col justify-between pb-10 h-full">
+        <div className="flex h-full flex-col justify-between pb-6 md:pb-10">
           {/* Top block: eyebrow + title + mini description */}
           <div>
-            {eyebrow && (
-              <div className="mb-6 inline-flex w-fit items-center rounded-full border border-neutral-300 px-4 py-1.5 text-[10px] leading-[18px] font-normal font-inter uppercase tracking-wide text-[#1B1D20]">
-                {t(eyebrow)}
+            {eyebrowText && (
+              <div className="mb-6 inline-flex w-fit items-center rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
+                {eyebrowText}
               </div>
             )}
 
-            {shortDescription && (
-              <p className="text-[40px] leading-[48px] font-normal text-black font-manrope w-[400px]">
-                {t(shortDescription)}
+            {shortText && (
+              <p className="w-full max-w-[400px] break-words font-manrope text-[26px] font-normal leading-[34px] text-black sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[48px]">
+                {shortText}
               </p>
             )}
 
-            {miniDescription && (
-              <p className="mt-4 text-[18px] leading-[28px] font-normal text-[#1B1D20] font-inter w-[500px]">
-                {t(miniDescription)}
+            {miniText && (
+              <p className="mt-4 w-full max-w-[500px] break-words font-inter text-[15px] font-normal leading-relaxed text-[#1B1D20] md:text-[18px] md:leading-[28px]">
+                {miniText}
               </p>
             )}
           </div>
@@ -90,16 +124,16 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           <div className="mb-8">
             {twoColorMode ? (
               (descriptionPart1 || descriptionHighlight || descriptionPart2) && (
-                <p className="mb-8 text-[24px] leading-[32px] font-normal font-inter w-[500px]">
-                  {descriptionPart1 && <span className="text-[#1B1D20]">{t(descriptionPart1)} </span>}
-                  {descriptionHighlight && <span className="text-[#E88029]">{t(descriptionHighlight)} </span>}
-                  {descriptionPart2 && <span className="text-[#1B1D20]">{t(descriptionPart2)}</span>}
+                <p className="mb-8 w-full max-w-[500px] break-words font-inter text-[18px] font-normal leading-relaxed md:text-[24px] md:leading-[32px]">
+                  {part1Text && <span className="text-[#1B1D20]">{part1Text} </span>}
+                  {highlightText && <span className="text-[#E88029]">{highlightText} </span>}
+                  {part2Text && <span className="text-[#1B1D20]">{part2Text}</span>}
                 </p>
               )
             ) : (
               displayDescription && (
-                <p className="mb-8 text-[24px] leading-[32px] font-normal text-[#1B1D20] font-inter w-[500px]">
-                  {t(displayDescription)}
+                <p className="mb-8 w-full max-w-[500px] break-words font-inter text-[18px] font-normal leading-relaxed text-[#1B1D20] md:text-[24px] md:leading-[32px]">
+                  {t(displayText)}
                 </p>
               )
             )}
@@ -127,16 +161,16 @@ const ContactSection: React.FC<ContactSectionProps> = ({
              {mapText && (
                 <a href={`https://maps.google.com/?q=${encodeURIComponent(mapText)}`} target="_blank" rel="noopener noreferrer" className="flex gap-3 items-center cursor-pointer">
                   <div className="flex justify-center items-center w-10 h-10">
-                    <img src={Location} alt="" />
+                    <img src={LocationIcon} alt="" />
                   </div>
-                  <span className="text-[14px] leading-[22px] font-normal text-[#1B1D20] font-inter w-[200px]">{t(mapText)}</span>
+                  <span className="w-full max-w-[200px] break-words font-inter text-[14px] font-normal leading-[22px] text-[#1B1D20]">{mapTextValue}</span>
                 </a>
               )}
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-export default ContactSection;
+export default React.memo(ContactSection);

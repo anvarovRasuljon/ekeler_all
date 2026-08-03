@@ -1,6 +1,7 @@
-import React from "react";
-import { urlFor } from "../../sanity/client";
+import React, { useMemo, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "../../context/LanguageContext";
+import imageUrl  from "../../assets/home_stat_img.png";
 
 interface StatItem {
   value: string;
@@ -20,18 +21,20 @@ interface StatsSectionProps {
   image?: any;
 }
 
-const fallbackImage = "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=1400&auto=format&fit=crop";
+const LOREM_20 = "Lorem Impus porum dor, forem dorem quick, lore puel duit Lorem Impus porum dor, forem dorem ";
+
+const DEFAULT_STATISTICS: StatItem[] = [
+  { value: "10+", title: "Years", description: LOREM_20 },
+  { value: "500+", title: "Projects", description: LOREM_20 },
+  { value: "50+", title: "Clients", description: LOREM_20 },
+  { value: "24/7", title: "Support", description: LOREM_20 },
+];
 
 const StatsSection: React.FC<StatsSectionProps> = ({
-  eyebrow,
-  twoColorMode = false,
-  description,
-  descriptionPart1,
-  descriptionHighlight,
-  descriptionPart2,
-  miniDescription,
-  statistics,
-  image,
+  eyebrow = "Stats",
+  descriptionPart1 = LOREM_20,
+  miniDescription = LOREM_20,
+  statistics = DEFAULT_STATISTICS,
 }) => {
   // Agar ma'lumot bo'lmasa, component ko'rsatilmaydi
   if (!statistics || statistics.length === 0) {
@@ -39,45 +42,43 @@ const StatsSection: React.FC<StatsSectionProps> = ({
   }
 
   const { t } = useLanguage();
-  const imageUrl = image ? urlFor(image).url() : fallbackImage;
-
-  const hasDescription = twoColorMode
-    ? descriptionPart1 || descriptionHighlight || descriptionPart2
-    : description;
+  const reduced = useReducedMotion();
+  const ref = useRef(null);
+  const eyebrowText = useMemo(() => (eyebrow ? t(eyebrow) : null), [t, eyebrow]);
+  const descriptionText = useMemo(() => (descriptionPart1 ? t(descriptionPart1) : null), [t, descriptionPart1]);
+  const miniText = useMemo(() => (miniDescription ? t(miniDescription) : null), [t, miniDescription]);
 
   return (
-    <div className="w-full bg-white">
+    <motion.div
+      ref={ref}
+      className="w-full bg-white"
+      initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: reduced ? 0.01 : 0.6 }}
+    >
       {/* Main content */}
-      <div className="grid grid-cols-1 gap-12 items-center mx-auto md:grid-cols-2 md:px-12 md:py-20">
+      {/* Responsive: mobilda 1 ustun + kichik padding, md dan boshlab 2 ustun */}
+      <div className="grid grid-cols-1 items-center gap-8 mx-auto px-4 py-12 sm:px-6 md:grid-cols-2 md:gap-12 md:px-12 md:py-20">
         {" "}
         {/* Left column */}
         <div className="flex flex-col">
           {/* Eyebrow badge */}
-          {eyebrow && (
-            <div className="mb-6 inline-flex w-fit items-center rounded-full  px-4 py-1.5 text-[11px] font-medium uppercase tracking-wide text-neutral-500">
-              {t(eyebrow)}
+          {eyebrowText && (
+            <div className="mb-6 inline-flex w-fit items-center rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
+              {eyebrowText}
             </div>
           )}
 
           {/* Paragraph — bitta yoki uchta rangli qismdan iborat bo'lishi mumkin */}
-          {hasDescription && (
-            <p className="my-12 w-[320px] text-[15px] leading-relaxed">
-              {twoColorMode ? (
-                <>
-                  {descriptionPart1 && <span className="text-[#1B1D20]">{t(descriptionPart1)} </span>}
-                  {descriptionHighlight && <span className="text-[#E88029]">{t(descriptionHighlight)} </span>}
-                  {descriptionPart2 && <span className="text-[#1B1D20]">{t(descriptionPart2)}</span>}
-                </>
-              ) : (
-                <span className="text-[#1B1D20]">{t(description)}</span>
-              )}
+            <p className="mb-8 break-words text-[26px] leading-[34px] sm:text-[32px] sm:leading-[42px] md:mb-12 lg:text-[40px] lg:leading-[48px]">
+                  {descriptionText && <span className="text-[#1B1D20]">{descriptionText} </span>}
             </p>
-          )}
 
           {/* Mini description */}
-          {miniDescription && (
-            <p className="mb-10 w-[400px] text-[16px] leading-[24px] font-normal text-[#1B1D20]">
-              {t(miniDescription)}
+          {miniText && (
+            <p className="mb-8 w-full max-w-[400px] break-words text-[15px] leading-relaxed font-normal text-[#1B1D20] md:mb-10 md:text-[16px] md:leading-[24px]">
+              {miniText}
             </p>
           )}
 
@@ -87,25 +88,42 @@ const StatsSection: React.FC<StatsSectionProps> = ({
               <div
                 key={i}
                 className={[
-                  "border-t border-dotted border-neutral-300 py-7 pr-8",
+                  "border-t border-dotted border-neutral-300 py-6 pr-0 sm:py-7",
                   i % 2 === 0 ? "sm:pr-8" : "sm:pl-8 sm:border-l",
                 ].join(" ")}>
-                <div className="mb-4 text-4xl font-normal text-[#E88029] md:text-[2.5rem]">{t(stat.value)}</div>
+                <div className="mb-3 text-3xl font-normal text-[#E88029] sm:mb-4 sm:text-4xl md:text-[2.5rem]">{t(stat.value)}</div>
                 <div className="mb-1 text-[15px] font-semibold text-neutral-800">{t(stat.title)}</div>
                 {stat.description && (
-                  <p className="text-[14px] leading-snug text-neutral-500 w-[170px]">{t(stat.description)}</p>
+                  <p className="w-full max-w-[170px] break-words text-[14px] leading-snug text-neutral-500">{t(stat.description)}</p>
                 )}
               </div>
             ))}
           </div>
         </div>
         {/* Right column - image */}
-        <div className="overflow-hidden rounded-2xl">
-          <img src={imageUrl} alt="Stats section" className="object-cover w-full h-full grayscale" />
-        </div>
+        {imageUrl && (
+          <motion.div
+            initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.2 }}
+            className="overflow-hidden rounded-xl md:rounded-2xl"
+          >
+            <img
+              src={imageUrl}
+              alt="Stats section"
+              width={600}
+              height={400}
+              loading="lazy"
+              decoding="async"
+              fetchPriority="low"
+              className="h-auto max-h-[420px] w-full object-cover grayscale md:max-h-none md:h-full will-change-transform"
+            />
+          </motion.div>
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
-export default StatsSection;
+export default React.memo(StatsSection);

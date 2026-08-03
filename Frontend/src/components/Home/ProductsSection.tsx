@@ -1,6 +1,9 @@
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { urlFor } from "../../sanity/client";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import prochni_1 from "../../assets/prochni_1.png";
+import prochni_2 from "../../assets/prochni_2.png";
+import prochni_3 from "../../assets/prochni_3.png";
+import prochni_4 from "../../assets/prochni_4.png";
 
 
 interface Product {
@@ -14,28 +17,41 @@ interface ProductsSectionProps {
   products?: Product[];
 }
 
-const ProductsSection: React.FC<ProductsSectionProps> = ({ products }) => {
+const LOREM_20 =
+  "Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim.";
+
+const DEFAULT_PRODUCTS: Product[] = [
+  { name: "Product One", description: LOREM_20, image: prochni_1, slug: "product-one" },
+  { name: "Product Two", description: LOREM_20, image: prochni_2, slug: "product-two" },
+  { name: "Product Three", description: LOREM_20, image: prochni_3, slug: "product-three" },
+  { name: "Product Four", description: LOREM_20, image: prochni_4, slug: "product-four" },
+];
+
+const ProductsSection: React.FC<ProductsSectionProps> = ({ products = DEFAULT_PRODUCTS }) => {
   if (!products || products.length === 0) {
     return null;
   }
 
+  const reduced = useReducedMotion();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
     <motion.div
       ref={ref}
-      className="w-full mb-20 bg-white"
+      className="mb-12 w-full bg-white md:mb-20"
       initial={{ opacity: 0 }}
-      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.6 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: reduced ? 0.01 : 0.6 }}
     >
       <div>
         {products.map((product, index) => (
           <a
-            key={index}
+            key={product.slug || index}
             href={product.slug ? `/products/${product.slug}` : "#"}
-            className="group relative flex flex-col items-start justify-between gap-6 py-8 border-b border-dashed border-neutral-200 last:border-b-0 md:flex-row md:items-center md:gap-10 md:py-10"
+            // Responsive: mobilda vertikal stack va kichikroq padding
+            className="flex relative flex-col gap-5 justify-between items-start px-4 py-6 border-b border-dashed group border-neutral-200 last:border-b-0 sm:px-6 sm:py-8 md:flex-row md:items-center md:gap-10 md:px-8 md:py-10"
           >
             {/* Hover line */}
             <div className="absolute bottom-0 left-0 h-[1px] w-full bg-neutral-200 overflow-hidden">
@@ -43,39 +59,42 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products }) => {
             </div>
 
             {/* Left: image + title */}
-            <div className="flex flex-col items-start w-full gap-6 md:w-auto md:flex-row md:items-center md:gap-10">
+            <div className="flex flex-col gap-6 items-start w-full md:w-auto md:flex-row md:items-center md:gap-10">
               {product.image && (
                 <motion.img
-                  src={urlFor(product.image).url()}
+                  src={product.image}
                   alt={product.name}
-                  loading="eager"
+                  width={200}
+                  height={150}
+                  loading="lazy"
                   decoding="async"
-                  className="h-[150px] w-full flex-shrink-0 rounded-2xl object-cover md:w-[200px]"
-                  initial={{ opacity: 0, x: -40 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  fetchPriority="low"
+                  className="h-[150px] w-full flex-shrink-0 rounded-2xl object-cover md:w-[200px] will-change-transform"
+                  initial={{ opacity: 0, x: reduced ? 0 : -40 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reduced ? 0 : -40 }}
+                  transition={{ duration: reduced ? 0.01 : 0.5, delay: reduced ? 0 : index * 0.1 }}
                 />
               )}
 
-              <h3 className="font-inter text-[24px] font-medium leading-[32px] text-[#1B1D20]">
+              <h3 className="break-words font-inter text-[20px] font-medium leading-[28px] text-[#1B1D20] sm:text-[22px] md:text-[24px] md:leading-[32px]">
                 {product.name}
               </h3>
             </div>
 
             {/* Right: description + icon */}
-            <div className="flex items-center justify-between w-full gap-6 md:w-auto">
+            <div className="flex gap-6 justify-between items-center w-full md:w-auto">
               {product.description && (
                 <motion.p
-                  className="w-full font-inter text-[16px] font-normal leading-[20px] text-neutral-500 md:w-[500px]"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                  transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
+                  className="w-full break-words font-inter text-[14px] font-normal leading-relaxed text-neutral-500 sm:text-[15px] md:w-[450px] md:text-[16px] md:leading-[20px]"
+                  initial={{ opacity: 0, y: reduced ? 0 : 10 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: reduced ? 0 : 10 }}
+                  transition={{ duration: reduced ? 0.01 : 0.4, delay: reduced ? 0 : 0.1 + index * 0.1 }}
                 >
                   {product.description}
                 </motion.p>
               )}
 
-              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full border border-neutral-200 transition-colors duration-200 group-hover:border-[#D96C33]">
+              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center border-[#D96C33] md:h-12 md:w-12">
                 <svg
                   width="18"
                   height="18"
@@ -98,4 +117,4 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products }) => {
   );
 };
 
-export default ProductsSection;
+export default React.memo(ProductsSection);

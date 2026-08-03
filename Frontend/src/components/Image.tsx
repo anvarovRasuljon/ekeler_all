@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { urlFor } from '../sanity/client';
 
 interface OptimizedImageProps {
@@ -7,7 +7,6 @@ interface OptimizedImageProps {
   width?: number;
   height?: number;
   className?: string;
-  priority?: boolean;
   fallback?: string;
 }
 
@@ -17,11 +16,16 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   width = 800,
   height,
   className = '',
-  priority = false,
   fallback,
 }) => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
+
+  const onLoad = useCallback(() => setLoaded(true), []);
+  const onError = useCallback(() => {
+    setError(true);
+    setLoaded(true);
+  }, []);
 
   if (!src) {
     if (fallback) {
@@ -40,13 +44,14 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     return null;
   }
 
-  const imageUrl = src?._type === 'image' || src?.asset
-    ? urlFor(src).width(width).auto('format').url()
-    : typeof src === 'string'
-    ? src
-    : '';
+  const imageUrl = useMemo(() => {
+    if (src?._type === 'image' || src?.asset) {
+      return urlFor(src).width(width).auto('format').url();
+    }
+    return typeof src === 'string' ? src : '';
+  }, [src, width]);
 
-  const lqipUrl = src?.asset?.lqip || '';
+  const lqipUrl = useMemo(() => src?.asset?.lqip || '', [src]);
 
   return (
     <div className={`overflow-hidden relative ${className}`} style={{ width: '100%', height: '100%' }}>
@@ -66,11 +71,8 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         loading="eager"
         decoding="async"
-        onLoad={() => setLoaded(true)}
-        onError={() => {
-          setError(true);
-          setLoaded(true);
-        }}
+        onLoad={onLoad}
+        onError={onError}
       />
       {error && fallback && (
         <img
@@ -85,4 +87,4 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   );
 };
 
-export default OptimizedImage;
+export default React.memo(OptimizedImage);

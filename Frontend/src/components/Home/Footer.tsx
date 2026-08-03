@@ -1,36 +1,11 @@
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import React, { useRef, useMemo } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import bgFallback from "../../assets/hero.png";
-import { urlFor } from "../../sanity/client";
+// import bgFallback from "../../assets/hero.png";
+// import { urlFor } from "../../sanity/client";
 import { useLanguage } from "../../context/LanguageContext";
+import backgroundImageUrl from "../../assets/Footer_bg_img.png"
 
-const footerRise = {
-  hidden: { opacity: 0, y: 60 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
-};
-
-const footerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.75, delayChildren: 0.2 },
-  },
-};
-
-const footerColumn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { staggerChildren: 0.25 },
-  },
-};
-
-const footerItem = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
 
 export interface FooterLink {
   label: any; // localeString object { ru: string, uz: string, eng: string }
@@ -57,69 +32,118 @@ interface FooterProps {
   termsOfUseLink?: string;
 }
 
-/**
- * Footer component – fully driven by data coming from Sanity.
- * Any field that is missing is simply omitted, preserving a graceful UI.
- */
+const DEFAULT_NAV_LINKS: FooterLink[] = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Products", href: "/products" },
+  { label: "Contact", href: "/contact" },
+];
+
+const DEFAULT_SOCIAL_LINKS: FooterLink[] = [
+  { label: "Instagram", href: "https://instagram.com", external: true },
+  { label: "Telegram", href: "https://telegram.org", external: true },
+  { label: "Facebook", href: "https://facebook.com", external: true },
+];
+
 const Footer: React.FC<FooterProps> = ({
-  backgroundImage,
+  // backgroundImage,
   backgroundImageAlt = "",
-  heading,
-  ctaText,
-  ctaLink,
-  navLabel,
-  navLinks = [],
-  socialLabel,
-  socialLinks = [],
-  contactLabel,
-  phone,
-  email,
-  address,
-  copyrightText,
-  privacyPolicyLink,
-  termsOfUseLink,
+  heading = "Let's work together",
+  ctaText = "Contact us",
+  ctaLink = "contact",
+  navLabel = "Navigation",
+  navLinks = DEFAULT_NAV_LINKS,
+  socialLabel = "Social",
+  socialLinks = DEFAULT_SOCIAL_LINKS,
+  contactLabel = "Contact",
+  phone = "+998 90 123 45 67",
+  email = "info@ekeler.uz",
+  address = "Tashkent, Uzbekistan",
+  copyrightText = "© 2026 Ekeler. All rights reserved.",
+  privacyPolicyLink = "#",
+  termsOfUseLink = "#",
 }) => {
   const { t } = useLanguage();
-  const backgroundImageUrl = backgroundImage ? urlFor(backgroundImage).url() : bgFallback;
+  const reduced = useReducedMotion();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+
+  const headingText = useMemo(() => t(heading), [t, heading]);
+  const ctaLabel = useMemo(() => (ctaText ? t(ctaText) : null), [t, ctaText]);
+  const navLabelText = useMemo(() => (navLabel ? t(navLabel) : null), [t, navLabel]);
+  const socialLabelText = useMemo(() => (socialLabel ? t(socialLabel) : null), [t, socialLabel]);
+  const contactLabelText = useMemo(() => (contactLabel ? t(contactLabel) : null), [t, contactLabel]);
+  const addressText = useMemo(() => (address ? t(address) : null), [t, address]);
+  const copyrightTextValue = useMemo(() => (copyrightText ? t(copyrightText) : null), [t, copyrightText]);
+  const privacyText = useMemo(() => t({ ru: 'Политика конфиденциальности', uz: 'Maxfiylik siyosati', eng: 'Privacy policy' }), [t]);
+  const termsText = useMemo(() => t({ ru: 'Условия использования', uz: 'Foydalanish shartlari', eng: 'Terms of use' }), [t]);
+
+  const { riseVariants, containerVariants, columnVariants, itemVariants } = useMemo(() => ({
+    riseVariants: {
+      hidden: { opacity: reduced ? 1 : 0, y: reduced ? 0 : 60 },
+      visible: { opacity: 1, y: 0, transition: { duration: reduced ? 0.01 : 0.7 } },
+    },
+    containerVariants: {
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: { staggerChildren: reduced ? 0 : 0.75, delayChildren: reduced ? 0 : 0.2 },
+      },
+    },
+    columnVariants: {
+      hidden: { opacity: 0, y: reduced ? 0 : 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { staggerChildren: reduced ? 0 : 0.25 },
+      },
+    },
+    itemVariants: {
+      hidden: { opacity: 0, y: reduced ? 0 : 20 },
+      visible: { opacity: 1, y: 0, transition: { duration: reduced ? 0.01 : 0.5 } },
+    },
+  }), [reduced]);
 
   return (
     <motion.footer
       ref={ref}
       className="relative w-full"
-      variants={footerRise}
+      variants={riseVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
     >
       {/* Background image */}
-      <div className="relative h-[100vh] w-full overflow-hidden">
+      {/* Responsive: fiksatsiyalangan 100vh o'rniga min-h — mobilda kontent kesilmaydi */}
+      <div className="relative min-h-[100vh] w-full overflow-hidden">
         <img
           src={backgroundImageUrl}
           alt={backgroundImageAlt}
-          className="absolute inset-0 object-cover w-full h-full"
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+          className="object-cover absolute inset-0 w-full h-full"
         />
 
         {/* White card */}
         <div className="relative p-4 pt-6 md:p-8">
           <motion.div
-            className="mx-auto max-w-7xl rounded-[28px] bg-white px-6 py-10 shadow-[0_10px_40px_rgba(0,0,0,0.12)] md:px-14 md:py-12"
-            variants={footerContainer}
+            className="mx-auto max-w-7xl rounded-[20px] bg-white px-5 py-8 shadow-[0_10px_40px_rgba(0,0,0,0.12)] sm:px-6 sm:py-10 md:rounded-[28px] md:px-14 md:py-12"
+            variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
           >
-            <div className="grid grid-cols-1 gap-12 md:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 md:gap-12 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
               {/* Heading + CTA */}
               {heading && (
-                <motion.div variants={footerColumn}>
-                  <motion.h2 variants={footerItem} className="text-[28px] leading-[36px] text-[#1B1D20] max-w-[320px]">{t(heading)}</motion.h2>
+                <motion.div variants={columnVariants}>
+                  <motion.h2 variants={itemVariants} className="max-w-[320px] break-words text-[22px] leading-[30px] text-[#1B1D20] sm:text-[28px] sm:leading-[36px]">{headingText}</motion.h2>
                   {ctaText && ctaLink && (
                     <motion.a
-                      variants={footerItem}
+                      variants={itemVariants}
                       href={ctaLink}
                       className="inline-flex items-center gap-1 mt-8 text-[15px] text-[#1B1D20] border-b border-[#1B1D20] pb-1 hover:text-[#E88029] hover:border-[#E88029] transition"
                     >
-                      {t(ctaText)}
+                      {ctaLabel}
                       <ArrowUpRight size={16} className="text-[#E88029]" />
                     </motion.a>
                   )}
@@ -128,17 +152,18 @@ const Footer: React.FC<FooterProps> = ({
 
               {/* Nav links */}
               {(navLinks || []).length > 0 && (
-                <motion.div variants={footerColumn}>
-                  {navLabel && <motion.span variants={footerItem} className="text-[13px] text-stone-400 block mb-5">{t(navLabel)}</motion.span>}
+                <motion.div variants={columnVariants}>
+                  {navLabelText && <motion.span variants={itemVariants} className="text-[13px] text-stone-400 block mb-5">{navLabelText}</motion.span>}
                   <ul className="space-y-4">
                     {(navLinks || []).map((link) => (
                       <li key={link.label?.ru || link.href}>
                         <motion.a
-                          variants={footerItem}
+                          variants={itemVariants}
                           href={link.href}
-                          className="inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029] transition"
+                          className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029] transition"
                         >
                           {t(link.label)}
+                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
                           {link.external && <ArrowUpRight size={14} className="text-[#E88029]" />}
                         </motion.a>
                       </li>
@@ -149,17 +174,18 @@ const Footer: React.FC<FooterProps> = ({
 
               {/* Social links */}
               {(socialLinks || []).length > 0 && (
-                <motion.div variants={footerColumn}>
-                  {socialLabel && <motion.span variants={footerItem} className="text-[13px] text-stone-400 block mb-5">{t(socialLabel)}</motion.span>}
+                <motion.div variants={columnVariants}>
+                  {socialLabelText && <motion.span variants={itemVariants} className="text-[13px] text-stone-400 block mb-5">{socialLabelText}</motion.span>}
                   <ul className="space-y-4">
                     {(socialLinks || []).map((link) => (
                       <li key={link.label?.ru || link.href}>
                         <motion.a
-                          variants={footerItem}
+                          variants={itemVariants}
                           href={link.href}
-                          className="text-[16px] text-[#1B1D20] hover:text-[#E88029] transition"
+                          className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029] transition"
                         >
                           {t(link.label)}
+                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
                         </motion.a>
                       </li>
                     ))}
@@ -169,29 +195,34 @@ const Footer: React.FC<FooterProps> = ({
 
               {/* Contact info */}
               {(phone || email || address) && (
-                <motion.div variants={footerColumn}>
-                  {contactLabel && <motion.span variants={footerItem} className="text-[13px] text-stone-400 block mb-5">{t(contactLabel)}</motion.span>}
+                <motion.div variants={columnVariants}>
+                  {contactLabelText && <motion.span variants={itemVariants} className="text-[13px] text-stone-400 block mb-5">{contactLabelText}</motion.span>}
                   <ul className="space-y-4">
                     {phone && (
-                      <li className="flex items-center gap-3">
-                        <span className="flex items-center justify-center border rounded-full w-9 h-9 border-stone-200 shrink-0">📞</span>
-                        <motion.a variants={footerItem} href={`tel:${phone.replace(/\s/g, "")}`} className="text-[16px] text-[#1B1D20] hover:text-[#E88029] transition">
+                      <li className="flex gap-3 items-center">
+                        <span className="flex justify-center items-center w-9 h-9 rounded-full border border-stone-200 shrink-0">📞</span>
+                        <motion.a variants={itemVariants} href={`tel:${phone.replace(/\s/g, "")}`} className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029] transition">
                           {phone}
+                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
                         </motion.a>
                       </li>
                     )}
                     {email && (
-                      <li className="flex items-center gap-3">
-                        <span className="flex items-center justify-center border rounded-full w-9 h-9 border-stone-200 shrink-0">📧</span>
-                        <motion.a variants={footerItem} href={`mailto:${email}`} className="text-[16px] text-[#1B1D20] hover:text-[#E88029] transition">
+                      <li className="flex gap-3 items-center">
+                        <span className="flex justify-center items-center w-9 h-9 rounded-full border border-stone-200 shrink-0">📧</span>
+                        <motion.a variants={itemVariants} href={`mailto:${email}`} className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029] transition">
                           {email}
+                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
                         </motion.a>
                       </li>
                     )}
                     {address && (
-                      <li className="flex items-start gap-3">
-                        <span className="flex items-center justify-center border rounded-full w-9 h-9 border-stone-200 shrink-0">📍</span>
-                        <motion.span variants={footerItem} className="text-[16px] text-[#1B1D20] max-w-[220px]">{t(address)}</motion.span>
+                      <li className="flex gap-3 items-start">
+                        <span className="flex justify-center items-center w-9 h-9 rounded-full border border-stone-200 shrink-0">📍</span>
+                        <motion.span variants={itemVariants} className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] max-w-[220px]">
+                          {addressText}
+                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" />
+                        </motion.span>
                       </li>
                     )}
                   </ul>
@@ -200,19 +231,19 @@ const Footer: React.FC<FooterProps> = ({
             </div>
 
             {/* Divider */}
-            <motion.hr variants={footerItem} className="my-10 border-stone-100" />
+            <motion.hr variants={itemVariants} className="my-8 border-stone-100 sm:my-10" />
 
             {/* Bottom bar */}
-            <motion.div variants={footerColumn} className="flex flex-col items-center justify-between gap-4 text-[14px] text-stone-400 md:flex-row">
-              {copyrightText && <motion.span variants={footerItem}>{t(copyrightText)}</motion.span>}
+            <motion.div variants={columnVariants} className="flex flex-col items-center justify-between gap-4 text-center text-[13px] text-stone-400 sm:text-[14px] md:flex-row md:text-left">
+              {copyrightTextValue && <motion.span variants={itemVariants}>{copyrightTextValue}</motion.span>}
               {privacyPolicyLink && (
-                <motion.a variants={footerItem} href={privacyPolicyLink} className="underline underline-offset-2 hover:text-[#1B1D20] transition">
-                  {t({ ru: 'Политика конфиденциальности', uz: 'Maxfiylik siyosati', eng: 'Privacy policy' })}
+                <motion.a variants={itemVariants} href={privacyPolicyLink} className="underline underline-offset-2 hover:text-[#1B1D20] transition">
+                  {privacyText}
                 </motion.a>
               )}
               {termsOfUseLink && (
-                <motion.a variants={footerItem} href={termsOfUseLink} className="underline underline-offset-2 hover:text-[#1B1D20] transition">
-                  {t({ ru: 'Условия использования', uz: 'Foydalanish shartlari', eng: 'Terms of use' })}
+                <motion.a variants={itemVariants} href={termsOfUseLink} className="underline underline-offset-2 hover:text-[#1B1D20] transition">
+                  {termsText}
                 </motion.a>
               )}
             </motion.div>
@@ -223,4 +254,4 @@ const Footer: React.FC<FooterProps> = ({
   );
 };
 
-export default Footer;
+export default React.memo(Footer);
