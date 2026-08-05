@@ -63,18 +63,64 @@ const INITIAL_VALUES: FormValues = {
 const ContactFormBase: React.FC = () => {
   const { language } = useLanguage();
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
   }, []);
 
-  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(values);
-    alert(LABELS.success[language]);
-    setValues(INITIAL_VALUES);
+    setIsSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch('https://api.ekeler.uz/api/v1/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: values.firstName,
+          surname: values.lastName,
+          phone: values.phone,
+          product_name: values.product,
+          description: values.comment,
+        }),
+      });
+      if (res.ok) {
+        const telegramBotToken = (import.meta as any).env?.VITE_TELEGRAM_BOT_TOKEN;
+        const telegramChatId = (import.meta as any).env?.VITE_TELEGRAM_CHAT_ID || '-5497877953';
+        if (!telegramBotToken) {
+          setError('Telegram bot token yoq (VITE_TELEGRAM_BOT_TOKEN)');
+          return;
+        }
+        const date = new Date().toLocaleString('uz-UZ');
+        const telegramText = `<b>📝 Yangi murojaat</b>\n\n<b>Ism:</b> ${values.firstName}\n<b>Familiya:</b> ${values.lastName}\n<b>Telefon:</b> ${values.phone}\n<b>Mahsulot:</b> ${values.product}\n<b>Izoh:</b> ${values.comment || '—'}\n\n<b>📅 Sana:</b> ${date}`;
+        const tgRes = await fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: telegramChatId,
+            text: telegramText,
+            parse_mode: 'HTML',
+          }),
+        });
+        if (!tgRes.ok) {
+          setError('Telegramga yuborishda xato');
+          return;
+        }
+        alert(LABELS.success[language]);
+        setValues(INITIAL_VALUES);
+      } else {
+        const data = await res.json().catch(() => ({} as { detail?: { msg: string }[] }));
+        const message = data.detail?.map((d) => d.msg).join('\n') || `Xato: ${res.status}`;
+        setError(message);
+      }
+    } catch (err) {
+      setError('Tarmoq xatosi');
+    } finally {
+      setIsSubmitting(false);
+    }
   }, [values, language]);
 
   // Responsive: inputlar mobilda ham qulay bosiladigan bo'lishi uchun min-h-[44px]
@@ -167,11 +213,16 @@ const ContactFormBase: React.FC = () => {
         />
       </div>
 
+      {error && (
+        <p className="text-sm text-red-600">{error}</p>
+      )}
+
       <button
         type="submit"
-        className="min-h-[44px] w-full rounded-full bg-[#1B1D20] px-8 py-3 text-sm font-medium text-white hover:bg-[#E88029] sm:w-fit"
+        disabled={isSubmitting}
+        className="min-h-[44px] w-full rounded-full bg-[#1B1D20] px-8 py-3 text-sm font-medium text-white hover:bg-[#E88029] disabled:opacity-60 sm:w-fit"
       >
-        {LABELS.send[language]}
+        {isSubmitting ? '...' : LABELS.send[language]}
       </button>
     </form>
   );

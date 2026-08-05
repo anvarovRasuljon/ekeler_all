@@ -11,7 +11,7 @@ import type { Language } from '../../context/LanguageContext'
 import { cn } from '../../lib/cn'
 
 const navLinkClass =
-  'block text-[#1B1D20] text-[14px] xl:text-[15px] font-normal hover:text-[#E88029] py-[10px] lg:py-[20px] px-0 lg:px-[10px] xl:px-[12px]'
+  'relative block text-[#1B1D20] text-[14px] xl:text-[15px] font-normal transition-colors duration-300 hover:text-[#E88029] py-[10px] lg:py-[20px] px-0 lg:px-[10px] xl:px-[12px] after:absolute after:bottom-[8px] after:left-1/2 after:h-[1.5px] after:w-0 after:-translate-x-1/2 after:bg-[#E88029] after:transition-all after:duration-300 hover:after:w-full'
 
 const mobileLinkClass =
   'flex min-h-[44px] w-full items-center text-[#1B1D20] text-[16px] font-normal hover:text-[#E88029]'

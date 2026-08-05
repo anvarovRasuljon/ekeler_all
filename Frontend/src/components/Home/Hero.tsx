@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Phone, Mail, ArrowUpRight } from 'lucide-react'
 import { useLanguage } from '../../context/LanguageContext'
 import OptimizedImage from '../Image'
@@ -22,6 +22,7 @@ const Hero: React.FC<HeroProps> = ({
   logoText = "Ekeler",
   backgroundImage,
 }) => {
+  const [imageLoaded, setImageLoaded] = useState(!backgroundImage)
   const { t } = useLanguage()
   const buttonHref = "/products"
   const phoneValue = useMemo(() => (phone ? t(phone) : undefined), [t, phone])
@@ -34,7 +35,13 @@ const Hero: React.FC<HeroProps> = ({
 
   return (
 
-    <div className="box-border overflow-hidden relative w-full h-screen">
+    <div
+      className="box-border overflow-hidden relative w-full h-screen transition-[clip-path,opacity] duration-[1200ms] ease-out"
+      style={{
+        clipPath: imageLoaded ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)',
+        opacity: imageLoaded ? 1 : 0,
+      }}
+    >
       {backgroundImage ? (
         <div
           className="absolute w-[calc(100%)] h-[calc(98.5%)] rounded-[8px]"
@@ -44,6 +51,7 @@ const Hero: React.FC<HeroProps> = ({
             alt="Hero background"
             width={1920}
             className="w-full h-full rounded-[8px]"
+            onLoad={() => setImageLoaded(true)}
           />
         </div>
       ) : (

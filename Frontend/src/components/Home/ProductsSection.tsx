@@ -1,9 +1,4 @@
-import React from "react";
-import prochni_1 from "../../assets/prochni_1.png";
-import prochni_2 from "../../assets/prochni_2.png";
-import prochni_3 from "../../assets/prochni_3.png";
-import prochni_4 from "../../assets/prochni_4.png";
-
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface Product {
   name: string;
@@ -16,28 +11,71 @@ interface ProductsSectionProps {
   products?: Product[];
 }
 
-const LOREM_20 =
-  "Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim.";
+const BASE_URL = "https://api.ekeler.uz";
+const PAGE_SIZE = 5;
 
-const DEFAULT_PRODUCTS: Product[] = [
-  { name: "Product One", description: LOREM_20, image: prochni_1, slug: "product-one" },
-  { name: "Product Two", description: LOREM_20, image: prochni_2, slug: "product-two" },
-  { name: "Product Three", description: LOREM_20, image: prochni_3, slug: "product-three" },
-  { name: "Product Four", description: LOREM_20, image: prochni_4, slug: "product-four" },
-];
+const mapProduct = (item: any): Product => ({
+  name: item.title,
+  description: item.short_description,
+  image: item.main_image ? `${BASE_URL}${item.main_image}` : undefined,
+  slug: String(item.id),
+});
 
-const ProductsSection: React.FC<ProductsSectionProps> = ({ products = DEFAULT_PRODUCTS }) => {
-  if (!products || products.length === 0) {
+const ProductsSection: React.FC<ProductsSectionProps> = ({ products }) => {
+  const [apiProducts, setApiProducts] = useState<Product[]>([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+
+  const fetchProducts = useCallback(async (targetPage: number) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${BASE_URL}/api/v1/products?page=${targetPage}&size=${PAGE_SIZE}`);
+      if (!res.ok) throw new Error("Fetch failed");
+      const data = await res.json();
+      const items = Array.isArray(data) ? data : data.content || data.data || [];
+      const mapped = items.map(mapProduct);
+      setApiProducts(prev => (targetPage === 0 ? mapped : [...prev, ...mapped]));
+      setHasMore(items.length === PAGE_SIZE);
+    } catch (err) {
+      console.error("ProductsSection fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (products) return;
+    fetchProducts(page);
+  }, [products, page, fetchProducts]);
+
+  useEffect(() => {
+    if (products || !hasMore || loading) return;
+    const node = loadMoreRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          setPage(p => p + 1);
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [products, hasMore, loading]);
+
+  const displayProducts = products || apiProducts;
+
+  if (!displayProducts || displayProducts.length === 0) {
     return null;
   }
 
-
   return (
-    <div
-      className="mb-12 w-full bg-white md:mb-20"
-    >
+    <div className="mb-12 w-full bg-white md:mb-20">
       <div>
-        {products.map((product, index) => (
+        {displayProducts.map((product, index) => (
           <a
             key={product.slug || index}
             href={product.slug ? `/products/${product.slug}` : "#"}
@@ -97,6 +135,7 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products = DEFAULT_PR
             </div>
           </a>
         ))}
+        {!products && <div ref={loadMoreRef} className="w-full h-8" />}
       </div>
     </div>
   );

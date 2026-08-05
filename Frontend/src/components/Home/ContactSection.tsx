@@ -22,19 +22,13 @@ interface ContactSectionProps {
   image?: any;
 }
 
-const LOREM_20 =
-  "Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim.";
-
+const LOREM_10 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor";
+const LOREm_15 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
 const ContactSection: React.FC<ContactSectionProps> = ({
-  eyebrow = "Contact",
-  shortDescription = "Get in touch with us",
-  miniDescription = LOREM_20,
-  twoColorMode = false,
-  description = LOREM_20,
+  eyebrow = "Biz haqimizda",
+  shortDescription = LOREM_10,
+  description = LOREm_15,
   longDescription,
-  descriptionPart1,
-  descriptionHighlight,
-  descriptionPart2,
   phone = "+998 90 123 45 67",
   email = "info@ekeler.uz",
   mapText = "Tashkent, Uzbekistan",
@@ -43,16 +37,21 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   const { t } = useLanguage();
   const eyebrowText = useMemo(() => (eyebrow ? t(eyebrow) : null), [t, eyebrow]);
   const shortText = useMemo(() => (shortDescription ? t(shortDescription) : null), [t, shortDescription]);
-  const miniText = useMemo(() => (miniDescription ? t(miniDescription) : null), [t, miniDescription]);
-  const part1Text = useMemo(() => (descriptionPart1 ? t(descriptionPart1) : null), [t, descriptionPart1]);
-  const highlightText = useMemo(() => (descriptionHighlight ? t(descriptionHighlight) : null), [t, descriptionHighlight]);
-  const part2Text = useMemo(() => (descriptionPart2 ? t(descriptionPart2) : null), [t, descriptionPart2]);
   const displayText = useMemo(() => (description || longDescription), [description, longDescription]);
   const mapTextValue = useMemo(() => (mapText ? t(mapText) : null), [t, mapText]);
 
-  const displayDescription = twoColorMode
-    ? (descriptionPart1 || descriptionHighlight || descriptionPart2 ? true : false)
-    : (description || longDescription);
+  const displayDescription = description || longDescription;
+
+  const shortHighlight = 'adipiscing elit, sed do eiusmod tempor';
+  const { shortBefore, shortAfter } = useMemo(() => {
+    if (!shortText) return { shortBefore: '', shortAfter: '' };
+    const index = String(shortText).indexOf(shortHighlight);
+    if (index === -1) return { shortBefore: String(shortText), shortAfter: '' };
+    return {
+      shortBefore: String(shortText).slice(0, index),
+      shortAfter: String(shortText).slice(index),
+    };
+  }, [shortText]);
 
   if (!shortDescription && !displayDescription && !phone && !email) {
     return null;
@@ -66,7 +65,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
     >
       {/* Main content */}
       {/* Responsive: mobilda 1 ustun + kichik padding, fiksatsiyalangan px kengliklar fluid qilindi */}
-      <div className="mx-auto grid grid-cols-1 gap-8 px-4 py-12 sm:px-6 md:grid-cols-2 md:gap-12 md:px-12 md:py-20">
+      <div className="grid grid-cols-1 gap-8 px-4 py-12 mx-auto sm:px-6 md:grid-cols-2 md:gap-12 md:px-12 md:py-20">
         {/* Left column - image */}
         {imageUrl && (
           <div
@@ -86,7 +85,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
         )}
 
         {/* Right column */}
-        <div className="flex h-full flex-col justify-between pb-6 md:pb-10">
+        <div className="flex flex-col justify-between pb-6 h-full md:pb-10">
           {/* Top block: eyebrow + title + mini description */}
           <div>
             {eyebrowText && (
@@ -97,61 +96,47 @@ const ContactSection: React.FC<ContactSectionProps> = ({
 
             {shortText && (
               <p className="w-full max-w-[400px] break-words font-manrope text-[26px] font-normal leading-[34px] text-black sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[48px]">
-                {shortText}
+                {shortBefore && <span className="text-black">{shortBefore}</span>}
+                {shortAfter && <span className="text-[#E88029]">{shortAfter}</span>}
               </p>
             )}
 
-            {miniText && (
-              <p className="mt-4 w-full max-w-[500px] break-words font-inter text-[15px] font-normal leading-relaxed text-[#1B1D20] md:text-[18px] md:leading-[28px]">
-                {miniText}
-              </p>
-            )}
           </div>
 
           {/* Bottom block: contact info + description */}
           <div className="mb-8">
-            {twoColorMode ? (
-              (descriptionPart1 || descriptionHighlight || descriptionPart2) && (
-                <p className="mb-8 w-full max-w-[500px] break-words font-inter text-[18px] font-normal leading-relaxed md:text-[24px] md:leading-[32px]">
-                  {part1Text && <span className="text-[#1B1D20]">{part1Text} </span>}
-                  {highlightText && <span className="text-[#E88029]">{highlightText} </span>}
-                  {part2Text && <span className="text-[#1B1D20]">{part2Text}</span>}
-                </p>
-              )
-            ) : (
-              displayDescription && (
-                <p className="mb-8 w-full max-w-[500px] break-words font-inter text-[18px] font-normal leading-relaxed text-[#1B1D20] md:text-[24px] md:leading-[32px]">
-                  {t(displayText)}
-                </p>
-              )
+            {displayDescription && (
+              <p className="mb-8 w-full max-w-[500px] break-words font-inter text-[24px] font-normal leading-[32px] text-[#1B1D20]">
+                {t(displayText)}
+              </p>
             )}
             <div className="mb-8 space-y-4">
-               <div className="flex flex-wrap items-center gap-6">
+               <div className="flex flex-wrap gap-6 items-center">
                 {phone && (
-                  <a href={`tel:${phone}`} className="flex gap-4 items-center min-h-[44px] cursor-pointer">
+                  <a href={`tel:${phone}`} className="flex gap-5 items-center min-h-[44px] cursor-pointer">
                     <div className="flex justify-center items-center w-10 h-10 shrink-0">
                       <img src={Call} alt="" />
                     </div>
-                    <span className="text-[15px] leading-[22px] font-normal text-[#1B1D20] font-inter">{phone}</span>
+                    <span className="font-inter align-middle text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">{phone}</span>
                   </a>
                 )}
 
                 {email && (
-                  <a href={`mailto:${email}`} className="flex gap-4 items-center min-h-[44px] cursor-pointer">
+                  <a href={`mailto:${email}`} className="flex gap-5 items-center min-h-[44px] cursor-pointer">
                     <div className="flex justify-center items-center w-10 h-10 shrink-0">
                       <img src={SmsIco} alt="" />
                     </div>
-                    <span className="text-[15px] leading-[22px] font-normal text-[#1B1D20] font-inter">{email}</span>
+                    <span className="font-inter align-middle text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">{email}</span>
                   </a>
                 )}
               </div>
             </div>
              {mapText && (
-                <a href={`https://maps.google.com/?q=${encodeURIComponent(mapText)}`} target="_blank" rel="noopener noreferrer" className="flex gap-4 items-start min-h-[44px] cursor-pointer">
+                <a href={`https://maps.google.com/?q=${encodeURIComponent(mapText)}`} target="_blank" rel="noopener noreferrer" className="flex gap-5 items-center min-h-[44px] cursor-pointer">
                   <div className="flex justify-center items-center w-10 h-10 shrink-0">
                     <img src={LocationIcon} alt="" />
                   </div>
-                  <span className="w-full max-w-[240px] break-words font-inter text-[15px] font-normal leading-[22px] text-[#1B1D20]">{mapTextValue}</span>
+                  <span className="w-full max-w-[240px] break-words font-inter align-middle text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">{mapTextValue}</span>
                 </a>
               )}
           </div>

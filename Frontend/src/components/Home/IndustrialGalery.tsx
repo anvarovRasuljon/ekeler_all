@@ -47,6 +47,8 @@ const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCar
         overflow-hidden rounded-2xl
         shadow-[0_1px_2px_rgba(0,0,0,0.08)]
         outline outline-1 outline-black/5
+        transition-shadow duration-500 ease-out
+        hover:shadow-[0_8px_24px_rgba(0,0,0,0.14)]
         sm:h-[360px] lg:h-[420px]
       `}
     >
@@ -60,6 +62,7 @@ const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCar
           fetchPriority="low"
           className={`
             absolute inset-0 h-full w-full object-cover
+            transition-all duration-500 ease-out
             group-hover:scale-[1.04] group-hover:brightness-75
           `}
         />
@@ -68,16 +71,16 @@ const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCar
       {/* Gradient scrim */}
       <div
         aria-hidden
-        className="absolute inset-0 bg-gradient-to-b opacity-0 from-black/55 via-black/5 to-black/70 group-hover:opacity-100"
+        className="absolute inset-0 bg-gradient-to-b opacity-0 from-black/55 via-black/5 to-black/70 transition-opacity duration-500 group-hover:opacity-100"
       />
 
       {/* Top content */}
       <div className="relative z-10 px-5 pt-5 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
-        <h3 className="break-words font-inter text-[22px] font-medium leading-[28px] text-white opacity-100 md:opacity-0 lg:text-[24px] lg:leading-[32px] group-hover:opacity-100">
+        <h3 className="break-words font-inter text-[22px] font-medium leading-[28px] text-white opacity-100 transition-opacity duration-500 md:opacity-0 lg:text-[24px] lg:leading-[32px] group-hover:opacity-100">
           {item.title}
         </h3>
         {item.tags.length > 0 && (
-          <div className="mt-[10px] flex flex-wrap items-center gap-x-2 font-inter text-[13px] font-normal leading-[22px] text-white/75 opacity-100 sm:text-[14px] md:opacity-0 group-hover:opacity-100">
+          <div className="mt-[10px] flex flex-wrap items-center gap-x-2 font-inter text-[13px] font-normal leading-[22px] text-white/75 opacity-100 transition-opacity duration-500 sm:text-[14px] md:opacity-0 group-hover:opacity-100">
             {item.tags.map((tag, i) => (
               <React.Fragment key={`${item.id}-tag-${i}`}>
                 {i > 0 && <span className="text-white/40">•</span>}
@@ -89,7 +92,7 @@ const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCar
       </div>
 
       {/* Bottom content */}
-      <div className="relative z-10 px-5 pb-5 opacity-100 sm:px-6 sm:pb-6 md:opacity-0 lg:px-8 lg:pb-8 group-hover:opacity-100">
+      <div className="relative z-10 px-5 pb-5 opacity-100 transition-opacity duration-500 sm:px-6 sm:pb-6 md:opacity-0 lg:px-8 lg:pb-8 group-hover:opacity-100">
         <p className="w-full max-w-[500px] break-words font-inter text-[15px] font-normal leading-relaxed text-white/90 lg:text-[16px] lg:leading-[25px]">
           {item.description}
         </p>
@@ -113,7 +116,7 @@ function IndustrialGalleryGrid({ items = DEFAULT_GALLERY, className = "" }: Indu
       className={`bg-[#FBF7F0] ${className} pb-10`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <div className="mx-auto mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 md:mb-20">
+            <div className="mx-auto mb-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-2 md:mb-20">
         {items.map((item) => (
           <GalleryCard key={item.id} item={item} />
         ))}

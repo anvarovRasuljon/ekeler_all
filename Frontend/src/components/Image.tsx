@@ -8,6 +8,7 @@ interface OptimizedImageProps {
   height?: number;
   className?: string;
   fallback?: string;
+  onLoad?: () => void;
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -17,11 +18,15 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   height,
   className = '',
   fallback,
+  onLoad,
 }) => {
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
 
-  const onLoad = useCallback(() => setLoaded(true), []);
+  const handleLoad = useCallback(() => {
+    setLoaded(true);
+    onLoad?.();
+  }, [onLoad]);
   const onError = useCallback(() => {
     setError(true);
     setLoaded(true);
@@ -71,7 +76,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         className={`w-full h-full object-cover   ${loaded ? 'opacity-100' : 'opacity-0'}`}
         loading="eager"
         decoding="async"
-        onLoad={onLoad}
+        onLoad={handleLoad}
         onError={onError}
       />
       {error && fallback && (
