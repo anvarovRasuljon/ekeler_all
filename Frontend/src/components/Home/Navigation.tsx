@@ -11,10 +11,10 @@ import type { Language } from '../../context/LanguageContext'
 import { cn } from '../../lib/cn'
 
 const navLinkClass =
-  'block text-[#1B1D20] text-[14px] xl:text-[15px] font-normal hover:text-[#E88029] transition-colors duration-300 py-[10px] lg:py-[20px] px-0 lg:px-[10px] xl:px-[12px]'
+  'block text-[#1B1D20] text-[14px] xl:text-[15px] font-normal hover:text-[#E88029] py-[10px] lg:py-[20px] px-0 lg:px-[10px] xl:px-[12px]'
 
 const mobileLinkClass =
-  'flex min-h-[44px] w-full items-center text-[#1B1D20] text-[16px] font-normal hover:text-[#E88029] transition-colors duration-300'
+  'flex min-h-[44px] w-full items-center text-[#1B1D20] text-[16px] font-normal hover:text-[#E88029]'
 
 const labels = {
   ru: {
@@ -110,7 +110,7 @@ const Navigation: React.FC = () => {
   const close = () => setIsOpen(false)
 
   const burgerLine =
-    'absolute left-0 block h-[2px] w-full rounded-full bg-[#1B1D20] transition-all duration-300 ease-in-out'
+    'absolute left-0 block h-[2px] w-full rounded-full bg-[#1B1D20]'
 
   return (
     <nav className="sticky top-0 left-0 z-50 w-full bg-white">
@@ -185,7 +185,7 @@ const Navigation: React.FC = () => {
         aria-hidden={!isOpen}
         onClick={close}
         className={cn(
-          'fixed inset-0 z-40 transition-opacity duration-300 top-[65px] bg-black/40 lg:hidden',
+          'fixed inset-0 z-40 top-[65px] bg-black/40 lg:hidden',
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
       />
@@ -195,7 +195,7 @@ const Navigation: React.FC = () => {
         id="mobile-nav-panel"
         ref={panelRef}
         className={cn(
-          'fixed right-0 top-[65px] z-50 h-[calc(100dvh-65px)] w-[82%] max-w-[360px] overflow-y-auto border-l border-neutral-200 bg-white px-6 py-8 transition-transform duration-300 ease-in-out lg:hidden',
+          'fixed right-0 top-[65px] z-50 h-[calc(100dvh-65px)] w-[82%] max-w-[360px] overflow-y-auto border-l border-neutral-200 bg-white px-6 py-8 lg:hidden',
           isOpen ? 'translate-x-0' : 'translate-x-full',
         )}
       >
@@ -234,4 +234,4 @@ const Navigation: React.FC = () => {
   )
 }
 
-export default Navigation
+export default React.memo(Navigation)

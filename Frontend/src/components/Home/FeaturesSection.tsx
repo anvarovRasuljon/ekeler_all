@@ -1,5 +1,4 @@
-import React, { useRef, useMemo } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import React, { useMemo } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import  leftImageUrl  from "../../assets/home_features_img.png";
 import  rightImageUrl  from "../../assets/home_feature_secont_img.png";
@@ -20,30 +19,22 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
   description = LOREM_20,
 }) => {
   const { t } = useLanguage();
-  const reduced = useReducedMotion();
   const titleText = useMemo(() => (title ? t(title) : null), [t, title]);
   const descriptionText = useMemo(() => (description ? t(description) : null), [t, description]);
   if (!title || !description) {
     return null;
   }
 
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
-
   return (
-    <motion.div
-      ref={ref}
-      // Responsive: mobilda balandlik kontentga qarab, lg dan boshlab fiksatsiya
-      className="w-full bg-white lg:h-[380px]"
-      initial={{ opacity: 0, y: reduced ? 0 : 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: reduced ? 0 : 40 }}
-      transition={{ duration: reduced ? 0.01 : 0.6 }}
+    <div
+      // Responsive: mobilda balandlik kontentga qarab, lg dan boshlab minimum balandlik
+      className="w-full bg-white lg:min-h-[380px]"
     >
       {/* Main content */}
       <div className="mx-auto flex h-full flex-col items-center gap-8 px-4 py-12 sm:px-6 md:flex-row md:items-stretch md:px-12 md:py-0">
         <div className="flex w-full max-w-[264px] flex-shrink-0 flex-col justify-between md:h-full md:max-w-none md:w-[264px]">
           {leftImageUrl && (
-            <motion.img
+            <img
               src={leftImageUrl}
               alt=""
               width={264}
@@ -51,10 +42,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className="h-[125px] w-full max-w-full rounded-b-lg object-cover md:w-[264px] will-change-transform"
-              initial={{ opacity: 0, x: reduced ? 0 : -40 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reduced ? 0 : -40 }}
-              transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.2 }}
+              className="h-[125px] w-full max-w-full rounded-b-lg object-cover md:w-[264px]"
             />
           )}
         </div>
@@ -62,29 +50,23 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
         {/* 2nd column - centered x and y */}
         <div className="flex flex-1 justify-center items-center">
           <div className="text-center">
-            <motion.h2
+            <h2
               className="mb-6 inline-block rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500"
-              initial={{ opacity: 0, y: reduced ? 0 : 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: reduced ? 0 : 20 }}
-              transition={{ duration: reduced ? 0.01 : 0.5, delay: reduced ? 0 : 0.1 }}
             >
               {titleText}
-            </motion.h2>
-            <motion.p
+            </h2>
+            <p
               className="w-full max-w-[600px] break-words font-manrope text-[26px] font-normal leading-[34px] text-black sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[48px]"
-              initial={{ opacity: 0, y: reduced ? 0 : 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: reduced ? 0 : 30 }}
-              transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.2 }}
             >
               {descriptionText}
-            </motion.p>
+            </p>
           </div>
         </div>
 
         {/* 3rd column - image at right side, centered */}
         <div className="flex w-full flex-shrink-0 items-center justify-center md:w-auto">
           {rightImageUrl && (
-            <motion.img
+            <img
               src={rightImageUrl}
               alt="Feature right"
               width={264}
@@ -92,15 +74,12 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className="h-[180px] w-full max-w-[264px] rounded-2xl object-cover md:h-[208px] md:w-[264px] will-change-transform"
-              initial={{ opacity: 0, x: reduced ? 0 : 40 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: reduced ? 0 : 40 }}
-              transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.3 }}
+              className="h-[180px] w-full max-w-[264px] rounded-2xl object-cover md:h-[208px] md:w-[264px]"
             />
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

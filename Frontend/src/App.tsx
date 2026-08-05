@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-import { motion } from "framer-motion";
 import Navigation from "./components/Home/Navigation";
 import AboutUs from "./components/Home/AboutUs";
 import Statsection from "./components/Home/Statsection";
@@ -39,105 +38,28 @@ function App() {
             path="/"
             element={
               <>
-                <div className="p-1 min-h-screen sm:p-2">
-                  {/* <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  > */}
+                <div className="p-2 w-full min-h-screen">
                     <Hero backgroundImage={homeHeroBg} />
-                  {/* </motion.div> */}
 
-                  {/* <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7, delay: 0.1 }}
-                  > */}
                     <Navigation />
-                  {/* </motion.div> */}
 
-                  {/* <motion.div
-                    initial={{ opacity: 0, x: -60 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  > */}
                     <AboutUs />
-                  {/* </motion.div> */}
 
-                  {/* <motion.div
-                    initial={{ opacity: 0, x: 60 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  > */}
                     <Statsection />
-                  {/* </motion.div> */}
 
-                  {/* <motion.div
-                    initial={{ opacity: 0, y: 60 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  > */}
                     <HomeContactSection />
-                  {/* </motion.div> */}
 
-                  {/* <motion.div
-                    initial={{ opacity: 0, y: -40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  > */}
                     <FeaturesSection />
-                  {/* </motion.div> */}
 
-                  {/* <motion.div
-                    initial={{ opacity: 0, scale: 0.92 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  > */}
                     <ProductsSection />
-                  {/* </motion.div> */}
 
-                  {/* <motion.div
-                    initial={{ opacity: 0, y: 60 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  > */}
                     <CtaSection />
-                  {/* </motion.div> */}
 
-                  {/* <motion.div
-                    initial={{ opacity: 0, y: 80 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  > */}
                     <IndustrialGalleryGrid />
-                  {/* </motion.div> */}
 
-                  {/* <motion.div
-                    initial={{ opacity: 0, y: 60 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  > */}
                     <MonialsSection />
-                  {/* </motion.div> */}
 
-                  {/* <motion.div
-                    initial={{ opacity: 0, y: 60 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  > */}
                     <InpusSection />
-                  {/* </motion.div> */}
                 </div>
                 <Footer />
               </>
@@ -149,7 +71,7 @@ function App() {
             path="/about"
             element={
               <>
-                <div className="p-1 min-h-screen sm:p-2">
+                <div className="px-2 w-full min-h-screen">
                   <Navigation />
                   <AboutPage />
                <MonialsSection />
@@ -165,7 +87,7 @@ function App() {
             path="/products"
             element={
               <>
-                <div className="p-1 min-h-screen sm:p-2">
+                <div className="px-2 w-full min-h-screen">
                   <ProductHero />
                   <Navigation />
                   <CatalogCtaSection />
@@ -183,7 +105,7 @@ function App() {
             path="/products/:slug"
             element={
               <>
-                <div className="p-1 min-h-screen sm:p-2">
+                <div className="px-2 w-full min-h-screen">
                   <Navigation />
                   <ProductDetail />
                   <ProductCatalog/>
@@ -200,26 +122,11 @@ function App() {
             path="/blog"
             element={
               <>
-                <div className="p-1 min-h-screen sm:p-2">
+                <div className="px-2 w-full min-h-screen">
                   <BlogHero/>
                   <Navigation />
-  <motion.div
-                    initial={{ opacity: 0, y: 60 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  >
-                    <CtaSection />
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 80 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7 }}
-                  >
-                    <IndustrialGalleryGrid />
-                  </motion.div>
+                  <CtaSection />
+                  <IndustrialGalleryGrid />
                 </div>
                 <FooterSecond />
               </>
@@ -231,7 +138,7 @@ function App() {
             path="/contact"
             element={
               <>
-                <div className="p-1 min-h-screen sm:p-2">
+                <div className="px-2 w-full min-h-screen">
                   <Navigation />
                   <ContactPage />
                   <ContactInfo/>
@@ -246,11 +153,11 @@ function App() {
             path="*"
             element={
               <>
-               <div>
-  <Navigation />
-  <NotFoundPage />
-</div>
-<FooterSecond />
+                <div className="px-2 w-full min-h-screen">
+                  <Navigation />
+                  <NotFoundPage />
+                </div>
+                <FooterSecond />
               </>
             }
           />

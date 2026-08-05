@@ -1,5 +1,4 @@
-import React, { useMemo, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import React, { useMemo } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import SmsIco from "../../assets/sms.svg"
 import Call from "../../assets/call.svg"
@@ -42,8 +41,6 @@ const ContactSection: React.FC<ContactSectionProps> = ({
 }) => {
 
   const { t } = useLanguage();
-  const reduced = useReducedMotion();
-  const ref = useRef(null);
   const eyebrowText = useMemo(() => (eyebrow ? t(eyebrow) : null), [t, eyebrow]);
   const shortText = useMemo(() => (shortDescription ? t(shortDescription) : null), [t, shortDescription]);
   const miniText = useMemo(() => (miniDescription ? t(miniDescription) : null), [t, miniDescription]);
@@ -63,25 +60,16 @@ const ContactSection: React.FC<ContactSectionProps> = ({
 
 
   return (
-    <motion.div
-      ref={ref}
+    <div
       id="contact"
       className="w-full bg-white"
-      initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: reduced ? 0.01 : 0.6 }}
     >
       {/* Main content */}
       {/* Responsive: mobilda 1 ustun + kichik padding, fiksatsiyalangan px kengliklar fluid qilindi */}
       <div className="mx-auto grid grid-cols-1 gap-8 px-4 py-12 sm:px-6 md:grid-cols-2 md:gap-12 md:px-12 md:py-20">
         {/* Left column - image */}
         {imageUrl && (
-          <motion.div
-            initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.2 }}
+          <div
             className="overflow-hidden rounded-xl md:rounded-2xl"
           >
             <img
@@ -92,9 +80,9 @@ const ContactSection: React.FC<ContactSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className="h-auto max-h-[380px] w-full object-cover md:max-h-none md:h-full will-change-transform"
+              className="h-auto max-h-[380px] w-full object-cover md:max-h-none md:h-full"
             />
-          </motion.div>
+          </div>
         )}
 
         {/* Right column */}
@@ -138,38 +126,38 @@ const ContactSection: React.FC<ContactSectionProps> = ({
               )
             )}
             <div className="mb-8 space-y-4">
-               <div className="flex flex-wrap items-center gap-[20px]">
+               <div className="flex flex-wrap items-center gap-6">
                 {phone && (
-                  <a href={`tel:${phone}`} className="flex gap-3 items-center cursor-pointer">
-                    <div className="flex justify-center items-center w-10 h-10">
+                  <a href={`tel:${phone}`} className="flex gap-4 items-center min-h-[44px] cursor-pointer">
+                    <div className="flex justify-center items-center w-10 h-10 shrink-0">
                       <img src={Call} alt="" />
                     </div>
-                    <span className="text-[14px] leading-[22px] font-normal text-[#1B1D20] font-inter">{phone}</span>
+                    <span className="text-[15px] leading-[22px] font-normal text-[#1B1D20] font-inter">{phone}</span>
                   </a>
                 )}
- 
+
                 {email && (
-                  <a href={`mailto:${email}`} className="flex gap-3 items-center cursor-pointer">
-                    <div className="flex justify-center items-center w-10 h-10">
+                  <a href={`mailto:${email}`} className="flex gap-4 items-center min-h-[44px] cursor-pointer">
+                    <div className="flex justify-center items-center w-10 h-10 shrink-0">
                       <img src={SmsIco} alt="" />
                     </div>
-                    <span className="text-[14px] leading-[22px] font-normal text-[#1B1D20] font-inter">{email}</span>
+                    <span className="text-[15px] leading-[22px] font-normal text-[#1B1D20] font-inter">{email}</span>
                   </a>
                 )}
               </div>
             </div>
              {mapText && (
-                <a href={`https://maps.google.com/?q=${encodeURIComponent(mapText)}`} target="_blank" rel="noopener noreferrer" className="flex gap-3 items-center cursor-pointer">
-                  <div className="flex justify-center items-center w-10 h-10">
+                <a href={`https://maps.google.com/?q=${encodeURIComponent(mapText)}`} target="_blank" rel="noopener noreferrer" className="flex gap-4 items-start min-h-[44px] cursor-pointer">
+                  <div className="flex justify-center items-center w-10 h-10 shrink-0">
                     <img src={LocationIcon} alt="" />
                   </div>
-                  <span className="w-full max-w-[200px] break-words font-inter text-[14px] font-normal leading-[22px] text-[#1B1D20]">{mapTextValue}</span>
+                  <span className="w-full max-w-[240px] break-words font-inter text-[15px] font-normal leading-[22px] text-[#1B1D20]">{mapTextValue}</span>
                 </a>
               )}
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

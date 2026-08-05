@@ -41,7 +41,7 @@ export const ContactInfo: React.FC = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-[30px] lg:flex-row">
+        <div className="flex flex-col gap-8 lg:flex-row">
           {/* CHAP — kontakt ma'lumotlari */}
           <div className="flex flex-col w-full min-w-0 lg:w-1/2">
             <AboutCompanyContentBlock data={DEFAULT_CONTENT_DATA} minHeight={MAP_HEIGHT} descriptionClassName={DESCRIPTION_CLASS} />

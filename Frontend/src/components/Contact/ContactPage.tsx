@@ -48,7 +48,7 @@ export const ContactPage: React.FC = () => {
         </div>
 
         {/* 50% / 50%, o'rtada 30px */}
-        <div className="flex flex-col gap-[30px] lg:flex-row">
+        <div className="flex flex-col gap-8 lg:flex-row">
           {/* CHAP — asosiy rasm */}
           <div className="hidden w-1/2 shrink-0 lg:block">
             <div

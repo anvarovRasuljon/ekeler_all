@@ -23,7 +23,7 @@ const Product: React.FC<ProductProps> = ({
   const imageUrl = image ? urlFor(image).url() : null
 
   return (
-    <div className="overflow-hidden transition-shadow bg-white rounded-lg shadow-md hover:shadow-lg">
+    <div className="overflow-hidden  bg-white rounded-lg shadow-md hover:shadow-lg">
       {imageUrl && (
         <img 
           src={imageUrl} 

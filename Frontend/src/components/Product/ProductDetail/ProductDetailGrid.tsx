@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { getImageUrl } from "../../../sanity/client";
 
@@ -8,7 +7,6 @@ interface ProductDetailGridProps {
 }
 
 const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
-  const reduced = useReducedMotion();
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   if (!images || images.length === 0) return null;
@@ -38,25 +36,20 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
     <section className="mx-auto w-full max-w-[1500px] px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
       <div className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {images.map((image, index) => (
-          <motion.div
+          <div
             key={index}
             className="group relative h-[260px] w-full max-w-[450px] cursor-pointer overflow-hidden rounded-xl sm:h-[340px] sm:rounded-2xl lg:h-[420px]"
             onClick={() => setSelectedIndex(index)}
-            initial={reduced ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            whileHover={reduced ? undefined : { scale: 1.03 }}
-            transition={{ duration: reduced ? 0.01 : 0.5, delay: index * 0.1 }}
           >
             <img
               src={getImageUrl(image, { width: 600 }) || ""}
               alt={image.alt || ""}
-              className="object-cover absolute inset-0 w-full h-full transition-all duration-500 ease-out"
+              className="object-cover absolute inset-0 w-full h-full   "
               loading="lazy"
               decoding="async"
             />
-            <div className="absolute inset-0 transition-all duration-500 bg-black/0 group-hover:bg-black/40" />
-          </motion.div>
+            <div className="absolute inset-0   bg-black/0 group-hover:bg-black/40" />
+          </div>
         ))}
       </div>
 

@@ -79,7 +79,7 @@ const ContactFormBase: React.FC = () => {
 
   // Responsive: inputlar mobilda ham qulay bosiladigan bo'lishi uchun min-h-[44px]
   const inputClassName = useMemo(
-    () => "w-full min-h-[44px] rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-[#1B1D20] outline-none transition focus:border-[#E88029] placeholder:text-neutral-400",
+    () => "w-full min-h-[44px] rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-[#1B1D20] outline-none focus:border-[#E88029] placeholder:text-neutral-400",
     []
   );
 
@@ -169,7 +169,7 @@ const ContactFormBase: React.FC = () => {
 
       <button
         type="submit"
-        className="min-h-[44px] w-full rounded-full bg-[#1B1D20] px-8 py-3 text-sm font-medium text-white transition hover:bg-[#E88029] sm:w-fit"
+        className="min-h-[44px] w-full rounded-full bg-[#1B1D20] px-8 py-3 text-sm font-medium text-white hover:bg-[#E88029] sm:w-fit"
       >
         {LABELS.send[language]}
       </button>

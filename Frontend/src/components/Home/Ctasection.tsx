@@ -1,6 +1,5 @@
-import React, { useRef, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "../../context/LanguageContext";
 import  leftImage  from "../../assets/redyImg_left.png";
 import  rightImage  from "../../assets/redyimg_right.png";
@@ -29,12 +28,9 @@ const CtaSection: React.FC<CtaSectionProps> = ({
   // rightImage,
 }) => {
   const { t } = useLanguage();
-  const reduced = useReducedMotion();
   const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : null), [t, badgeText]);
   const headingText = useMemo(() => (headingPart1 ? t(headingPart1) : null), [t, headingPart1]);
   const buttonLabel = useMemo(() => (buttonText ? t(buttonText) : null), [t, buttonText]);
-
-  const ref = useRef(null);
 
   // If essential content is missing, do not render the section
   // if (!headingPart1 && !headingHighlight && !description) {
@@ -42,13 +38,8 @@ const CtaSection: React.FC<CtaSectionProps> = ({
   // }
 
   return (
-    <motion.section
-      ref={ref}
+    <section
       className="relative w-full overflow-hidden bg-[#FBF3EA] pb-16 pt-20 sm:pb-20 sm:pt-24 md:pb-28 md:pt-32"
-      initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: reduced ? 0.01 : 0.7 }}
     >
       {/* Responsive: mobilda kichikroq padding, dekorativ rasmlar ham kichrayadi */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -61,7 +52,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
           loading="lazy"
           decoding="async"
           fetchPriority="low"
-          className="absolute left-3 top-30 h-[110px] w-[110px] -translate-y-1/3 rounded-2xl object-cover shadow-sm sm:left-6 sm:h-[190px] sm:w-[190px] md:left-16 md:h-[260px] md:w-[260px] will-change-transform"
+          className="absolute left-3 top-30 h-[110px] w-[110px] -translate-y-1/3 rounded-2xl object-cover shadow-sm sm:left-6 sm:h-[190px] sm:w-[190px] md:left-16 md:h-[260px] md:w-[260px]"
         />
       )}
       {rightImage && (
@@ -95,20 +86,20 @@ const CtaSection: React.FC<CtaSectionProps> = ({
 
            <Link
           to={buttonLink}
-          className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] transition mt-[28px] cursor-pointer"
+          className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] mt-[28px] cursor-pointer"
         >
           <span className="inline-flex gap-6 items-center">
             {buttonLabel}
-            <ArrowUpRight size={18} className="text-[#E88029] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight size={18} className="text-[#E88029] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
           <div className="relative mt-[8px] h-[1px] w-full bg-neutral-300 overflow-hidden">
-            <div className="absolute left-0 top-0 h-full w-full origin-left scale-x-0 bg-[#1B1D20] transition-transform duration-500 ease-out group-hover:scale-x-100" />
+            <div className="absolute left-0 top-0 h-full w-full origin-left scale-x-0 bg-[#1B1D20] group-hover:scale-x-100" />
           </div>
         </Link>
       </div>
       </div>
 
-    </motion.section>
+    </section>
   );
 };
 

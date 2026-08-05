@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
 import { useLanguage } from '../../context/LanguageContext';
 import { getImageUrl, hasSanityImage } from '../../sanity/client';
 
@@ -44,7 +43,6 @@ function AboutCompanyFeature({
   data: AboutCompanyFeatureData | null;
 }) {
   const { t } = useLanguage();
-  const reduced = useReducedMotion();
 
   if (!data) return null;
 
@@ -54,11 +52,7 @@ function AboutCompanyFeature({
   return (
     <div className="flex flex-col gap-6 md:gap-8">
       {showImage && (
-        <motion.div
-          initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: reduced ? 0.01 : 0.6 }}
+        <div
           className="w-full max-w-[650px] h-[280px] md:h-[360px] rounded-lg overflow-hidden"
         >
           <SanityImage
@@ -68,15 +62,11 @@ function AboutCompanyFeature({
             width={650}
             height={360}
           />
-        </motion.div>
+        </div>
       )}
 
       {/* Title + Description — yonma-yon */}
-      <motion.div
-        initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: reduced ? 0.01 : 0.5, delay: reduced ? 0 : 0.15 }}
+      <div
         className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between"
       >
         {data.title && (
@@ -86,11 +76,11 @@ function AboutCompanyFeature({
         )}
 
         {data.description && (
-          <p className="font-['Inter'] text-[14px]  leading-[1.7] text-[#1B1D20] max-w-[490px] whitespace-pre-line">
+          <p className="font-['Inter'] text-sm leading-relaxed text-[#1B1D20] max-w-[490px] sm:text-base whitespace-pre-line">
             {t(data.description)}
           </p>
         )}
-      </motion.div>
+      </div>
     </div>
   );
 }

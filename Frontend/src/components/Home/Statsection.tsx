@@ -1,5 +1,4 @@
-import React, { useMemo, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import React, { useMemo } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import imageUrl  from "../../assets/home_stat_img.png";
 
@@ -42,20 +41,13 @@ const StatsSection: React.FC<StatsSectionProps> = ({
   }
 
   const { t } = useLanguage();
-  const reduced = useReducedMotion();
-  const ref = useRef(null);
   const eyebrowText = useMemo(() => (eyebrow ? t(eyebrow) : null), [t, eyebrow]);
   const descriptionText = useMemo(() => (descriptionPart1 ? t(descriptionPart1) : null), [t, descriptionPart1]);
   const miniText = useMemo(() => (miniDescription ? t(miniDescription) : null), [t, miniDescription]);
 
   return (
-    <motion.div
-      ref={ref}
+    <div
       className="w-full bg-white"
-      initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: reduced ? 0.01 : 0.6 }}
     >
       {/* Main content */}
       {/* Responsive: mobilda 1 ustun + kichik padding, md dan boshlab 2 ustun */}
@@ -102,11 +94,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({
         </div>
         {/* Right column - image */}
         {imageUrl && (
-          <motion.div
-            initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: reduced ? 0.01 : 0.6, delay: reduced ? 0 : 0.2 }}
+          <div
             className="overflow-hidden rounded-xl md:rounded-2xl"
           >
             <img
@@ -117,12 +105,12 @@ const StatsSection: React.FC<StatsSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className="h-auto max-h-[420px] w-full object-cover grayscale md:max-h-none md:h-full will-change-transform"
+              className="h-auto max-h-[420px] w-full object-cover grayscale md:max-h-none md:h-full"
             />
-          </motion.div>
+          </div>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -1,11 +1,9 @@
 import React, { useMemo } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import productHeroBg from "../../assets/BlogHero_bg.png";
 import { useLanguage } from "../../context/LanguageContext";
 
 const BlogHero: React.FC = () => {
   const { t } = useLanguage();
-  const reduced = useReducedMotion();
 
   const logoText = {
     uz: "Tarmoqlar",
@@ -33,15 +31,8 @@ const BlogHero: React.FC = () => {
 
       {/* Animated Marquee */}
       <div className="overflow-hidden absolute inset-x-0 bottom-6 pointer-events-none select-none">
-        <motion.div
-          initial={reduced ? { x: "-50%" } : { x: "0%" }}
-          animate={reduced ? { x: "-50%" } : { x: "-50%" }}
-          transition={{
-            duration: reduced ? 0.01 : 30,
-            repeat: reduced ? 0 : Infinity,
-            ease: "linear",
-          }}
-          className="flex whitespace-nowrap will-change-transform"
+        <div
+          className="flex whitespace-nowrap"
         >
           {[...Array(2)].map((_, index) => (
             <div
@@ -50,18 +41,18 @@ const BlogHero: React.FC = () => {
             >
               {[...Array(8)].map((_, i) => (
                 <React.Fragment key={i}>
-                  <span className="mx-8 text-[7vw] font-extralight leading-none text-white" style={{ willChange: 'transform' }}>
+                  <span className="mx-8 text-[7vw] font-extralight leading-none text-white">
                     —
                   </span>
 
-                  <span className="text-[8vw] lg:text-[9vw] font-extralight leading-[0.8] tracking-[-0.05em] text-white" style={{ willChange: 'transform' }}>
+                  <span className="text-[8vw] lg:text-[9vw] font-extralight leading-[0.8] tracking-[-0.05em] text-white">
                     {logo}
                   </span>
                 </React.Fragment>
               ))}
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

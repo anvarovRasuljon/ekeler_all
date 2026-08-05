@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
-import { getImageUrl, hasSanityImage } from '../../sanity/client';
+import { getImageUrl } from '../../sanity/client';
 import AboutCompanyContentBlock from './AboutCompanyContentBlock';
 import type { AboutCompanyContentData } from './AboutCompanyContentBlock';
 import AboutCompanyBlock from './AboutCompanyBlock';
@@ -16,9 +15,6 @@ import block350_1 from '../../assets/Industry_3.png';
 import block350_2 from '../../assets/Industry_4.png';
 import aboutFeatureImg from '../../assets/home_about_second_img.png';
 
-const NAV_HEIGHT_PX = 65;
-const IMG_GAP = 30;
-
 const DEFAULT_IMAGE_DATA: AboutCompanyImageData = {
   image: aboutMainImg,
 };
@@ -31,7 +27,8 @@ const DEFAULT_CONTENT_DATA: AboutCompanyContentData = {
   email: 'info@ekeler.uz',
   location: { ru: 'Ташкент, Узбекистан', uz: 'Toshkent, O\'zbekiston', eng: 'Tashkent, Uzbekistan' },
 };
-
+const NAV_HEIGHT_PX = 65;
+const IMG_GAP = 30;
 const DEFAULT_BLOCK_DATA: AboutCompanyBlockData = {
   title1: { ru: 'Миссия', uz: 'Missiya', eng: 'Mission' },
   description1: { ru: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor.', uz: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor.', eng: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor.' },
@@ -96,10 +93,10 @@ function AboutPage({
   blockData?: AboutCompanyBlockData | null;
   featureData?: AboutCompanyFeatureData | null;
 }) {
-  const reduced = useReducedMotion();
-  const showMainImage = hasSanityImage(imageData?.image);
+  const showMainImage = !!imageData?.image;
   const mainImageAlt = (imageData?.image as { alt?: string })?.alt;
-
+const stickyTop = NAV_HEIGHT_PX + IMG_GAP;
+  const stickyHeight = `calc(100vh - ${NAV_HEIGHT_PX + IMG_GAP * 2}px)`;
   const renderMainPortrait = (className: string) =>
     showMainImage ? (
       <SanityImage
@@ -120,23 +117,14 @@ function AboutPage({
     );
   }
 
-  const stickyTop = NAV_HEIGHT_PX + IMG_GAP;
-  const stickyHeight = `calc(100vh - ${NAV_HEIGHT_PX + IMG_GAP * 2}px)`;
-
   return (
     <div className="w-full bg-white text-[#1B1D20]">
       <div className="px-4 pt-6 pb-16 w-full md:px-6 lg:px-8">
         {/* Mobil rasm */}
         {showMainImage && (
-          <motion.div
-            initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: reduced ? 0.01 : 0.6 }}
-            className="lg:hidden w-full rounded-lg overflow-hidden mb-8 h-[50vh] max-h-[420px]"
-          >
+          <div className="lg:hidden w-full rounded-lg overflow-hidden mb-8 h-[50vh] max-h-[420px]">
             {renderMainPortrait('w-full h-full object-cover')}
-          </motion.div>
+          </div>
         )}
 
         {/* 50% / 50%, o'rtada 30px */}
@@ -151,11 +139,7 @@ function AboutPage({
           {/* O'NG — ekran yarmi, full width sticky */}
           {showMainImage && (
             <div className="hidden w-1/2 lg:block shrink-0">
-              <motion.div
-                initial={{ opacity: reduced ? 1 : 0, scale: reduced ? 1 : 0.96 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: reduced ? 0.01 : 0.7 }}
+              <div
                 className="overflow-hidden sticky w-full rounded-lg"
                 style={{
                   top: stickyTop,
@@ -164,7 +148,7 @@ function AboutPage({
                 }}
               >
                 {renderMainPortrait('w-full h-full object-cover block')}
-              </motion.div>
+              </div>
             </div>
           )}
         </div>

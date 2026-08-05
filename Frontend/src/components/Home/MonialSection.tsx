@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo, useCallback } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import backgroundImageUrl from "../../assets/Comment_bg.png"
 import avatar_1 from "../../assets/avatar_1.png"
 import avatar_2 from "../../assets/avatar_2.png"
@@ -44,25 +43,19 @@ function MonialsSection({
   className = "",
 }: MonialsSectionProps) {
   const perPage = 2;
-  const reduced = useReducedMotion();
-  const ref = useRef(null);
   const [page, setPage] = useState(0);
-  const [direction, setDirection] = useState(1);
 
   useEffect(() => {
     setPage(0);
-    setDirection(1);
   }, [testimonials]);
 
   const pageCount = useMemo(() => Math.max(1, Math.ceil(testimonials.length / perPage)), [testimonials.length]);
   const visible = useMemo(() => testimonials.slice(page * perPage, page * perPage + perPage), [testimonials, page, perPage]);
 
   const goPrev = useCallback(() => {
-    setDirection(-1);
     setPage((p) => (p - 1 + pageCount) % pageCount);
   }, [pageCount]);
   const goNext = useCallback(() => {
-    setDirection(1);
     setPage((p) => (p + 1) % pageCount);
   }, [pageCount]);
 
@@ -71,13 +64,8 @@ function MonialsSection({
   }
 
   return (
-    <motion.section
-      ref={ref}
-      className={`relative my-3 ${className}`}
-      initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: reduced ? 0.01 : 0.7 }}
+    <section
+      className={`relative my-8 sm:my-12 lg:my-16 ${className}`}
     >
       {/* Background image — full screen height, relative so the card can be absolutely positioned inside it */}
       {/* Responsive: mobilda rasm pastroq balandlikda, karta esa oqim ichida (absolute emas) */}
@@ -104,26 +92,19 @@ function MonialsSection({
                 onClick={goPrev}
                 aria-label="Oldingi"
                 disabled={testimonials.length <= perPage}
-                className="absolute left-[-2.5rem] top-1/2 hidden -translate-y-1/2 items-center justify-center text-stone-500 transition hover:text-stone-900 disabled:opacity-30 md:flex"
+                className="absolute left-[-2.5rem] top-1/2 hidden -translate-y-1/2 items-center justify-center text-stone-500 hover:text-stone-900 disabled:opacity-30 md:flex"
               >
                 <ArrowIcon direction="left" />
               </button>
 
-              <AnimatePresence mode="wait" initial={false} custom={direction}>
-                <motion.div
+                <div
                   key={page}
-                  custom={direction}
-                  initial={{ x: reduced ? 0 : (direction > 0 ? 60 : -60), opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: reduced ? 0 : (direction > 0 ? -60 : 60), opacity: 0 }}
-                  transition={{ duration: reduced ? 0.01 : 0.35, ease: "easeInOut" }}
-                  className="grid grid-cols-1 col-span-full gap-10 md:grid-cols-2 md:gap-16 will-change-transform"
+                  className="grid grid-cols-1 col-span-full gap-10 md:grid-cols-2 md:gap-16"
                 >
                   {visible.map((t) => (
-                    <TestimonialCard key={t.id} testimonial={t} />
+                    <TestimonialCard testimonial={t} key={t.id} />
                   ))}
-                </motion.div>
-              </AnimatePresence>
+                </div>
 
               {/* Next arrow */}
               <button
@@ -131,7 +112,7 @@ function MonialsSection({
                 onClick={goNext}
                 aria-label="Keyingi"
                 disabled={testimonials.length <= perPage}
-                className="absolute right-[-2.5rem] top-1/2 hidden -translate-y-1/2 items-center justify-center text-stone-500 transition hover:text-stone-900 disabled:opacity-30 md:flex"
+                className="absolute right-[-2.5rem] top-1/2 hidden -translate-y-1/2 items-center justify-center text-stone-500 hover:text-stone-900 disabled:opacity-30 md:flex"
               >
                 <ArrowIcon direction="right" />
               </button>
@@ -144,7 +125,7 @@ function MonialsSection({
                 onClick={goPrev}
                 aria-label="Oldingi"
                 disabled={testimonials.length <= perPage}
-                className="transition text-stone-500 hover:text-stone-900 disabled:opacity-30"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-stone-500 hover:text-stone-900 hover:bg-stone-100 disabled:opacity-30"
               >
                 <ArrowIcon direction="left" />
               </button>
@@ -153,14 +134,14 @@ function MonialsSection({
                 onClick={goNext}
                 aria-label="Keyingi"
                 disabled={testimonials.length <= perPage}
-                className="transition text-stone-500 hover:text-stone-900 disabled:opacity-30"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-stone-500 hover:text-stone-900 hover:bg-stone-100 disabled:opacity-30"
               >
                 <ArrowIcon direction="right" />
               </button>
             </div>
           </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 

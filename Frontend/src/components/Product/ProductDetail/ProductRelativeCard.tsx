@@ -34,21 +34,20 @@ export const DEFAULT_PRODUCTS: Product[] = [
 
 const ProductCard: React.FC<Product> = ({ title, subtitle, image }) => {
   return (
-    // Responsive: mobilda balandlik, padding va radius kichrayadi
-    <div className="group flex h-[360px] w-full cursor-pointer flex-col items-center justify-center rounded-[16px] border border-[#F1F1F1] bg-[#ffffff] p-5 transition-all duration-300 ease-[ease] hover:-translate-y-[6px] hover:border-gray-200 hover:shadow-xl sm:h-[420px] sm:p-6 lg:h-[480px] lg:rounded-[20px] lg:p-[32px]">
+    // Responsive: mobilda balandlik, padding va radius kichraydi
+    <div className="group flex h-[360px] w-full cursor-pointer flex-col items-center justify-center rounded-2xl border border-[#F1F1F1] bg-white p-5   hover:-translate-y-1.5 hover:border-gray-200 hover:shadow-xl sm:h-[420px] sm:p-6 lg:h-[480px] lg:p-8">
       <img
         src={image}
         alt={title}
         loading="lazy"
         decoding="async"
         fetchPriority="low"
-        className="mb-6 aspect-square h-[150px] w-full max-w-[220px] object-contain sm:h-[180px] lg:mb-[32px] lg:h-[220px]"
-        style={{ willChange: 'transform' }}
+        className="mb-6 aspect-square h-[150px] w-full max-w-[220px] object-contain sm:h-[180px] lg:mb-8 lg:h-[220px]"
       />
-      <h3 className="mb-3 break-words text-center text-[22px] font-semibold leading-[1.2] text-[#111827] sm:text-[28px] lg:mb-[12px] lg:text-[34px]">
+      <h3 className="mb-3 break-words text-center text-[22px] font-semibold leading-tight text-[#111827] sm:text-[28px] lg:mb-4 lg:text-[34px]">
         {title}
       </h3>
-      <p className="break-words text-center text-[16px] font-normal text-[#6B7280] sm:text-[18px] lg:text-[20px]">
+      <p className="break-words text-center text-base font-normal text-[#6B7280] sm:text-lg lg:text-xl">
         {subtitle}
       </p>
     </div>
@@ -65,7 +64,7 @@ export const ProductRelativeCard: React.FC<ProductRelativeCardProps> = ({
   const cardList = React.useMemo(() => products, [products]);
   return (
     <section className="mx-auto w-full max-w-[1500px] px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-[32px]">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
         {cardList.map((product) => (
           <ProductCard key={product.id} {...product} />
         ))}
