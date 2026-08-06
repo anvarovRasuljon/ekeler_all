@@ -132,7 +132,7 @@ const ContactFormBase: React.FC = () => {
         setValues(INITIAL_VALUES);
       } else {
         const data = await res.json().catch(() => ({} as { detail?: { msg: string }[] }));
-        const message = data.detail?.map((d) => d.msg).join('\n') || `Xato: ${res.status}`;
+        const message = data.detail?.map((d: { msg: string }) => d.msg).join('\n') || `Xato: ${res.status}`;
         setError(message);
       }
     } catch (err) {
