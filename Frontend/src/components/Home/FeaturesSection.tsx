@@ -65,7 +65,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
       <div className="grid grid-cols-1 gap-8 px-4 py-12 mx-auto h-full sm:px-6 md:grid-cols-2 md:gap-12 md:px-12 md:py-0">
         <div className="md:col-start-1 md:row-start-1 place-self-start flex w-full max-w-[264px] flex-shrink-0 flex-col justify-between md:max-w-none md:w-[264px]">
           {leftImageUrl && (
-            <div className="h-[155px] w-full max-w-full overflow-hidden rounded-b-lg md:w-[264px]">
+            <div className="h-[clamp(120px,8rem+2vw,155px)] w-full max-w-full overflow-hidden rounded-b-lg md:w-[264px]">
               <img
                 src={leftImageUrl}
                 alt=""
@@ -91,7 +91,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
               {titleText}
             </h2>
             <p
-              className="w-full break-words font-manrope text-[26px] font-normal leading-[34px] text-black sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[48px]"
+              className="w-full break-words font-manrope text-[clamp(24px,1.5rem+0.8vw,40px)] font-normal leading-[clamp(30px,2rem+1vw,48px)] text-black"
             >
               {descBefore && <span className="text-black">{descBefore}</span>}
               {descAfter && <span className="text-[#E88029]">{descAfter}</span>}
@@ -102,7 +102,7 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
         {/* 3rd column - image at right side, centered */}
         <div className="flex flex-shrink-0 justify-center items-center place-self-center w-full md:col-start-2 md:row-start-2 md:w-auto">
           {rightImageUrl && (
-            <div className="h-[180px] w-full max-w-[264px] overflow-hidden rounded-2xl md:h-[208px] md:w-[264px]">
+            <div className="h-[clamp(140px,9rem+2vw,208px)] w-full max-w-[264px] overflow-hidden rounded-2xl md:w-[264px]">
               <img
                 src={rightImageUrl}
                 alt="Feature right"

@@ -29,6 +29,7 @@ const Hero: React.FC<HeroProps> = ({
   const emailValue = useMemo(() => (email ? t(email) : undefined), [t, email])
   const logo = useMemo(() => (logoText ? t(logoText) : ''), [t, logoText])
 
+
   if (!title) {
     return null;
   }
@@ -36,7 +37,7 @@ const Hero: React.FC<HeroProps> = ({
   return (
 
     <div
-      className="box-border overflow-hidden relative w-full h-screen transition-[clip-path,opacity] duration-[1200ms] ease-out"
+      className="box-border overflow-hidden relative w-full h-[calc(100dvh-65px)] lg:h-[100dvh] transition-[clip-path,opacity] duration-[1200ms] ease-out"
       style={{
         clipPath: imageLoaded ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)',
         opacity: imageLoaded ? 1 : 0,
@@ -44,7 +45,7 @@ const Hero: React.FC<HeroProps> = ({
     >
       {backgroundImage ? (
         <div
-          className="absolute w-[calc(100%)] h-[calc(98.5%)] rounded-[8px]"
+          className="absolute w-full h-full rounded-[8px]"
         >
           <OptimizedImage
             src={backgroundImage}
@@ -61,7 +62,7 @@ const Hero: React.FC<HeroProps> = ({
       {/* Dark overlay for text contrast */}
 
       {/* Title + CTA — sits ON TOP of the image, top-left */}
-      <div className="absolute left-4 top-[12%] z-10 w-[calc(100%-2rem)] max-w-[500px] sm:left-[4%] sm:top-[6%]">
+      <div className="absolute left-4 top-[4%] z-10 w-[calc(100%-2rem)] max-w-[500px] sm:left-[4%] sm:top-[6%] lg:max-w-[600px]">
         <h1 className="w-full break-words font-inter text-[#FFFFFF]">
           <FoldText
             text={String(t(title) || '')}
@@ -74,14 +75,14 @@ const Hero: React.FC<HeroProps> = ({
             perspective={500}
             creaseShading={0.55}
             color="#FFFFFF"
-            fontSize="46px"
+            fontSize="clamp(24px,1rem+3vw,46px)"
             fontWeight={400}
-            style={{ lineHeight: '50px', letterSpacing: '-0.02em' }}
+            style={{ lineHeight: 'clamp(32px,1rem+2.5vw,50px)', letterSpacing: '-0.02em' }}
           />
         </h1>
 
-        <a href={buttonHref} className="group relative mt-6 inline-flex h-auto min-h-[44px] w-fit max-w-[560px] cursor-pointer flex-col items-start sm:mt-8">
-          <span className="flex min-h-[44px] items-center gap-[20px] text-[15px] text-[#FFFFFF] lg:text-[1.05vw]">
+        <a href={buttonHref} className="group relative mt-[clamp(16px,1rem+1vw,32px)] inline-flex h-auto min-h-[44px] w-fit max-w-[560px] cursor-pointer flex-col items-start">
+          <span className="flex min-h-[44px] items-center gap-[20px] text-[clamp(14px,0.85rem+0.2vw,17px)] text-[#FFFFFF]">
             {t(buttonText)}
             <ArrowUpRight
               size={16}
@@ -102,7 +103,7 @@ const Hero: React.FC<HeroProps> = ({
         <Phone size={16} className="text-[#FFFFFF]" strokeWidth={2} />
       </div>
 
-      <p className="whitespace-nowrap text-[16px] font-normal leading-none text-[#FFFFFF] sm:text-[18px]">
+      <p className="whitespace-nowrap text-[clamp(14px,0.85rem+0.2vw,18px)] font-normal leading-none text-[#FFFFFF]">
         {phoneValue}
       </p>
     </a>
@@ -114,7 +115,7 @@ const Hero: React.FC<HeroProps> = ({
         <Mail size={16} className="text-[#FFFFFF]" strokeWidth={2} />
       </div>
 
-      <p className="whitespace-nowrap text-[16px] font-normal leading-none text-[#FFFFFF] sm:text-[18px]">
+      <p className="whitespace-nowrap text-[clamp(14px,0.85rem+0.2vw,18px)] font-normal leading-none text-[#FFFFFF]">
         {emailValue}
       </p>
     </a>
@@ -122,14 +123,14 @@ const Hero: React.FC<HeroProps> = ({
 </div>
 
       {/* Giant decorative wordmark, bleeding off both edges near the bottom */}
-      <div className="absolute left-1/2 -translate-x-1/2 bottom-[15%] h-[280px] w-[200%] pointer-events-none select-none z-0 overflow-hidden">
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-0 h-[clamp(80px,5rem+3vw,170px)] w-[200%] pointer-events-none select-none z-0 overflow-hidden">
         <TextLoop
           text={String(logo || 'Ekeler')}
           path="M -320 480 L 1520 480"
           speed={35}
           direction="reverse"
           separator="-"
-          fontSize={90}
+          fontSize={170}
           fontWeight={400}
           letterSpacing={2.5}
           uppercase={false}

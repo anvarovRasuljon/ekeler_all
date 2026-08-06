@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import type { Language } from "../../context/LanguageContext";
 
@@ -65,6 +65,24 @@ const ContactFormBase: React.FC = () => {
   const [values, setValues] = useState<FormValues>(INITIAL_VALUES);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const zohoFormRef = useRef<HTMLFormElement | null>(null);
+
+  const submitToZoho = useCallback(() => {
+    const form = zohoFormRef.current;
+    if (!form) return;
+    const setField = (name: string, value: string) => {
+      const el = form.elements.namedItem(name) as HTMLInputElement | null;
+      if (el) el.value = value;
+    };
+    setField('Last Name', values.firstName);
+    setField('First Name', values.lastName);
+    setField('Company', values.product || 'Ekeler.uz');
+    setField('Mobile', values.phone);
+    setField('Address - City', '');
+    setField('Description', `Mahsulot: ${values.product || '—'}\nIzoh: ${values.comment || '—'}`);
+    setField('returnURL', 'null');
+    form.submit();
+  }, [values]);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -109,6 +127,7 @@ const ContactFormBase: React.FC = () => {
           setError('Telegramga yuborishda xato');
           return;
         }
+        submitToZoho();
         alert(LABELS.success[language]);
         setValues(INITIAL_VALUES);
       } else {
@@ -132,6 +151,7 @@ const ContactFormBase: React.FC = () => {
   const labelClassName = useMemo(() => "text-sm font-medium text-[#1B1D20]", []);
 
   return (
+    <>
     <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
         <div className="flex flex-col gap-2">
@@ -225,6 +245,39 @@ const ContactFormBase: React.FC = () => {
         {isSubmitting ? '...' : LABELS.send[language]}
       </button>
     </form>
+
+    <iframe
+      name="zoho-crm-iframe"
+      width="0"
+      height="0"
+      style={{ position: 'absolute', left: '-9999px', border: 'none' }}
+      title="Zoho CRM lead form"
+    />
+    <form
+      ref={zohoFormRef}
+      id="webform7525508000000615582"
+      name="WebToLeads7525508000000615582"
+      action="https://crm.zoho.com/crm/WebToLeadForm"
+      method="POST"
+      acceptCharset="UTF-8"
+      encType="application/x-www-form-urlencoded"
+      target="zoho-crm-iframe"
+      style={{ position: 'absolute', left: '-9999px' }}
+    >
+      <input type="text" style={{ display: 'none' }} name="xnQsjsdp" defaultValue="9d4653d945f3e586d4bd213eb4202e688b82133502e3cb797a2cb80228b094f0" />
+      <input type="hidden" name="zc_gad" defaultValue="" />
+      <input type="text" style={{ display: 'none' }} name="xmIwtLD" defaultValue="0bd64cc408f97bda8a0c98d10ca650a1b4e52e4ed1c04edf5b2689c5297751c43659a7f1cb72269ae780ec955c86fa44" />
+      <input type="text" style={{ display: 'none' }} name="actionType" defaultValue="TGVhZHM=" />
+      <input type="text" style={{ display: 'none' }} name="returnURL" defaultValue="" />
+      <input type="text" style={{ display: 'none' }} name="aG9uZXlwb3Q" defaultValue="" />
+      <input type="hidden" name="Last Name" defaultValue="" />
+      <input type="hidden" name="First Name" defaultValue="" />
+      <input type="hidden" name="Company" defaultValue="" />
+      <input type="hidden" name="Mobile" defaultValue="" />
+      <input type="hidden" name="Address - City" defaultValue="" />
+      <input type="hidden" name="Description" defaultValue="" />
+    </form>
+  </>
   );
 };
 

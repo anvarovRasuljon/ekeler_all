@@ -95,7 +95,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
             )}
 
             {shortText && (
-              <p className="w-full max-w-[400px] break-words font-manrope text-[26px] font-normal leading-[34px] text-black sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[48px]">
+              <p className="w-full max-w-[400px] break-words font-manrope text-[clamp(24px,1.5rem+0.8vw,40px)] font-normal leading-[clamp(30px,2rem+1vw,48px)] text-black">
                 {shortBefore && <span className="text-black">{shortBefore}</span>}
                 {shortAfter && <span className="text-[#E88029]">{shortAfter}</span>}
               </p>
@@ -106,7 +106,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           {/* Bottom block: contact info + description */}
           <div className="mb-8">
             {displayDescription && (
-              <p className="mb-8 w-full max-w-[500px] break-words font-inter text-[24px] font-normal leading-[32px] text-[#1B1D20]">
+              <p className="mb-8 w-full max-w-[500px] break-words font-inter text-[clamp(18px,1.1rem+0.3vw,24px)] font-normal leading-[clamp(26px,1.5rem+0.4vw,32px)] text-[#1B1D20]">
                 {t(displayText)}
               </p>
             )}
@@ -117,7 +117,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                     <div className="flex justify-center items-center w-10 h-10 shrink-0">
                       <img src={Call} alt="" />
                     </div>
-                    <span className="font-inter align-middle text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">{phone}</span>
+                    <span className="font-inter align-middle text-[clamp(13px,0.8rem+0.1vw,14px)] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">{phone}</span>
                   </a>
                 )}
 
@@ -126,7 +126,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                     <div className="flex justify-center items-center w-10 h-10 shrink-0">
                       <img src={SmsIco} alt="" />
                     </div>
-                    <span className="font-inter align-middle text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">{email}</span>
+                    <span className="font-inter align-middle text-[clamp(13px,0.8rem+0.1vw,14px)] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">{email}</span>
                   </a>
                 )}
               </div>
@@ -136,7 +136,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                   <div className="flex justify-center items-center w-10 h-10 shrink-0">
                     <img src={LocationIcon} alt="" />
                   </div>
-                  <span className="w-full max-w-[240px] break-words font-inter align-middle text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">{mapTextValue}</span>
+                  <span className="w-full max-w-[240px] break-words font-inter align-middle text-[clamp(13px,0.8rem+0.1vw,14px)] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">{mapTextValue}</span>
                 </a>
               )}
           </div>

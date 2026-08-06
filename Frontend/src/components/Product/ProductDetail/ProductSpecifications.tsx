@@ -2,93 +2,44 @@ import React, { useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Plus, Minus } from "lucide-react";
-import { useLanguage } from "../../../context/LanguageContext";
-import { getImageUrl } from "../../../sanity/client";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
-interface LocaleString {
-  eng?: string;
-  ru?: string;
-  uz?: string;
-  [key: string]: string | undefined;
-}
-
 export interface ProductDetailData {
-  title: LocaleString;
-  shortDescription?: LocaleString;
-  sizes?: string[];
-  material?: LocaleString;
-  productCode?: string;
-  specifications?: Array<{ label: LocaleString; value: LocaleString }>;
-  image?: any;
-  images?: any[];
+  title: string;
+  shortDescription?: string;
+  description?: string;
+  image?: string;
+  images?: string[];
+  customFields?: Array<{ label: string; value: string }>;
 }
 
 interface ProductSpecificationsProps {
   data: ProductDetailData;
 }
 
-interface SpecItem {
-  label: LocaleString | string;
-  value: LocaleString | string;
-}
-
 const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) => {
-  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(true);
 
   const images = data.images || [];
 
-  const specs: SpecItem[] = useMemo(() => {
-    if (data.specifications && data.specifications.length > 0) {
-      return data.specifications.map((s) => ({ label: s.label, value: s.value }));
-    }
-
-    const base: SpecItem[] = [];
-    if (data.sizes && data.sizes.length > 0) {
-      base.push(...data.sizes.map((s) => ({ label: "Razmer", value: s })));
-    }
-    if (data.material) {
-      base.push({ label: "Material", value: t(data.material) });
-    }
-    if (data.productCode) {
-      base.push({ label: "Tovar kodi", value: data.productCode });
-    }
-    if (data.shortDescription) {
-      base.push({ label: "Tavsif", value: t(data.shortDescription) });
-    }
-
-    const placeholders: SpecItem[] = Array.from({ length: 12 }).map((_, i) => ({
-      label: `LOREM IMPUS ${i + 1}`,
-      value: `Lorem ${i + 1}`,
-    }));
-
-    return base.length > 0 ? [...base, ...placeholders].slice(0, 12) : placeholders;
-  }, [data, t]);
+  const specs = useMemo(() => {
+    return data.customFields || [];
+  }, [data]);
 
   if (!data.title) return null;
 
   return (
-    <section
-      className="w-full bg-[#3F5D53] text-white"
-    >
-      {/* Responsive: mobilda kichik padding, spec grid 1 ustun bo'ladi */}
+    <section className="w-full bg-[#3F5D53] text-white">
       <div className="mx-auto grid max-w-[1500px] grid-cols-1 items-start gap-8 px-4 py-12 sm:px-6 sm:py-16 md:px-12 md:py-20 lg:grid-cols-2 lg:gap-12">
         {/* LEFT: Accordion specs */}
-        <div
-          className="flex flex-col"
-        >
-          <span
-            className="self-start px-4 py-1.5 mb-6 text-xs font-medium tracking-wide text-white/80 uppercase border rounded-full border-white/40"
-          >
+        <div className="flex flex-col">
+          <span className="self-start px-4 py-1.5 mb-6 text-xs font-medium tracking-wide text-white/80 uppercase border rounded-full border-white/40">
             Asosiy malumot
           </span>
 
-          <h2
-            className="mb-6 break-words text-2xl font-medium sm:text-3xl md:text-4xl lg:text-5xl"
-          >
+          <h2 className="mb-6 break-words text-[clamp(22px,1.5rem+0.5vw,48px)] font-medium">
             Texnik parametrlar
           </h2>
 
@@ -97,52 +48,50 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
           <div className="overflow-hidden rounded-2xl border border-white/20">
             <button
               type="button"
-              onClick={() => setIsOpen((v) => !v)}
+              onClick={() => setIsOpen(v => !v)}
               aria-expanded={isOpen}
-              className="flex min-h-[44px] w-full items-center justify-between gap-4 px-4 py-4 text-left  hover:bg-white/5 sm:px-6 sm:py-5"
+              className="flex min-h-[44px] w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors duration-300 hover:bg-white/5 sm:px-6 sm:py-5"
             >
-              <span className="break-words text-lg font-medium sm:text-xl md:text-2xl">umumiy malumot</span>
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/40">
+              <span className="break-words text-[clamp(16px,1rem+0.2vw,24px)] font-medium">umumiy malumot</span>
+              <span className="flex justify-center items-center w-10 h-10 rounded-full border transition-transform duration-300 shrink-0 border-white/40">
                 {isOpen ? <Minus size={20} /> : <Plus size={20} />}
               </span>
             </button>
 
-            {isOpen && (
-              <div
-                className="overflow-hidden"
-              >
-                <div className="grid grid-cols-1 gap-x-6 gap-y-5 px-4 pb-6 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-6 sm:px-6 sm:pb-8">
-                  {specs.map((spec, i) => (
-                    <div
-                      key={i}
-                      className="flex flex-col"
-                    >
-                      <span className="text-xs tracking-wider uppercase text-white/50">
-                        {t(spec.label)}
-                      </span>
-                      <span className="break-words text-base font-normal text-white sm:text-lg">
-                        {t(spec.value)}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+            {/* Smooth accordion with max-height transition */}
+            <div
+              className="transition-all duration-500 ease-in-out"
+              style={{
+                maxHeight: isOpen ? "1000px" : "0px",
+                opacity: isOpen ? 1 : 0,
+                overflow: "hidden",
+              }}
+            >
+              <div className="grid grid-cols-1 gap-y-5 gap-x-6 px-4 pb-6 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-6 sm:px-6 sm:pb-8">
+                {specs.map((spec, i) => (
+                  <div key={i} className="flex flex-col">
+                    <span className="text-xs tracking-wider uppercase text-white/50">
+                      {spec.label}
+                    </span>
+                    <span className="break-words text-[clamp(14px,0.85rem+0.1vw,18px)] font-normal text-white">
+                      {spec.value}
+                    </span>
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
           </div>
         </div>
 
-        {/* RIGHT: Swiper gallery */}
+        {/* RIGHT: Swiper gallery — main image + other images */}
         {images.length > 0 && (
-          <div
-            className="rounded-2xl bg-[#C9B79C] p-4 sm:p-6 md:rounded-3xl md:p-8"
-          >
-            <div className="rounded-xl bg-white p-3 sm:p-4 md:rounded-2xl md:p-6">
+          <div className="rounded-2xl bg-[#C9B79C] p-1 sm:p-2 md:rounded-2xl md:p-4">
               <div className="w-full aspect-[4/3]">
                 <Swiper
                   modules={[Pagination]}
                   pagination={{ clickable: true }}
                   loop={images.length > 1}
-                  speed={0}
+                  speed={400}
                   grabCursor={true}
                   simulateTouch={true}
                   allowTouchMove={true}
@@ -156,9 +105,9 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
                   {images.map((img, idx) => (
                     <SwiperSlide key={idx}>
                       <img
-                        src={getImageUrl(img, { width: 900 }) || ""}
-                        alt={img.alt || t(data.title)}
-                        className="object-contain p-4 w-full h-full md:p-8"
+                        src={img}
+                        alt={`${data.title} — ${idx + 1}`}
+                        className="object-cover w-full h-full"
                         loading="lazy"
                         decoding="async"
                         fetchPriority="low"
@@ -167,7 +116,6 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
                   ))}
                 </Swiper>
               </div>
-            </div>
           </div>
         )}
       </div>

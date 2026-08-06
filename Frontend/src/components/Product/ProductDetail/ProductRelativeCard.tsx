@@ -1,71 +1,78 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-import product1 from "../../../assets/productPage_first_img.png";
-import product2 from "../../../assets/prochni_2.png";
-import product3 from "../../../assets/prochni_3.png";
+const BASE_URL = "https://api.ekeler.uz";
 
-export interface Product {
+interface ApiProduct {
   id: number;
   title: string;
-  subtitle: string;
-  image: string;
+  short_description: string;
+  main_image: string;
 }
 
-export const DEFAULT_PRODUCTS: Product[] = [
-  {
-    id: 1,
-    title: "Lorem Impus",
-    subtitle: "impus",
-    image: product1,
-  },
-  {
-    id: 2,
-    title: "Lorem Impus 2",
-    subtitle: "dolor",
-    image: product2,
-  },
-  {
-    id: 3,
-    title: "Lorem Impus 3",
-    subtitle: "sit amet",
-    image: product3,
-  },
-];
+function buildImageUrl(path: string): string {
+  if (!path) return "";
+  return path.startsWith("http") ? path : `${BASE_URL}${path}`;
+}
 
-const ProductCard: React.FC<Product> = ({ title, subtitle, image }) => {
+const ProductCard: React.FC<ApiProduct> = ({ id, title, short_description, main_image }) => {
   return (
-    // Responsive: mobilda balandlik, padding va radius kichraydi
-    <div className="group flex h-[360px] w-full cursor-pointer flex-col items-center justify-center rounded-2xl border border-[#F1F1F1] bg-white p-5   hover:-translate-y-1.5 hover:border-gray-200 hover:shadow-xl sm:h-[420px] sm:p-6 lg:h-[480px] lg:p-8">
+    <Link
+      to={`/products/${id}`}
+      className="group flex h-[clamp(300px,20rem+4vw,480px)] w-full cursor-pointer flex-col items-center justify-center rounded-2xl border border-[#F1F1F1] bg-white p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-gray-200 hover:shadow-xl sm:p-6 lg:p-8"
+    >
       <img
-        src={image}
+        src={buildImageUrl(main_image)}
         alt={title}
         loading="lazy"
         decoding="async"
         fetchPriority="low"
-        className="mb-6 aspect-square h-[150px] w-full max-w-[220px] object-contain sm:h-[180px] lg:mb-8 lg:h-[220px]"
+        className="mb-6 h-[clamp(120px,8rem+2vw,220px)] w-full max-w-[220px] object-contain sm:h-[clamp(140px,9rem+2vw,180px)] lg:mb-8"
       />
-      <h3 className="mb-3 break-words text-center text-[22px] font-semibold leading-tight text-[#111827] sm:text-[28px] lg:mb-4 lg:text-[34px]">
+      <h3 className="mb-3 break-words text-center text-[clamp(18px,1.1rem+0.3vw,34px)] font-semibold leading-tight text-[#111827]">
         {title}
       </h3>
-      <p className="break-words text-center text-base font-normal text-[#6B7280] sm:text-lg lg:text-xl">
-        {subtitle}
+      <p className="break-words text-center text-[clamp(14px,0.85rem+0.1vw,20px)] font-normal text-[#6B7280]">
+        {short_description}
       </p>
-    </div>
+    </Link>
   );
 };
 
-interface ProductRelativeCardProps {
-  products?: Product[];
-}
+const ProductRelativeCard: React.FC = () => {
+  const [products, setProducts] = useState<ApiProduct[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export const ProductRelativeCard: React.FC<ProductRelativeCardProps> = ({
-  products = DEFAULT_PRODUCTS,
-}) => {
-  const cardList = React.useMemo(() => products, [products]);
+  useEffect(() => {
+    fetch(`${BASE_URL}/api/v1/products?page=0&size=3`)
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then(data => {
+        const items: ApiProduct[] = Array.isArray(data) ? data : data.content || data.data || [];
+        setProducts(items.slice(0, 3));
+      })
+      .catch(err => console.error("ProductRelativeCard fetch error:", err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="mx-auto w-full max-w-[1500px] px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
+        <div className="flex justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-300 border-t-[#E88029]" />
+        </div>
+      </section>
+    );
+  }
+
+  if (products.length === 0) return null;
+
   return (
     <section className="mx-auto w-full max-w-[1500px] px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
-        {cardList.map((product) => (
+        {products.map(product => (
           <ProductCard key={product.id} {...product} />
         ))}
       </div>
@@ -74,5 +81,6 @@ export const ProductRelativeCard: React.FC<ProductRelativeCardProps> = ({
 };
 
 export const ProductRelativeGrid = ProductRelativeCard;
+export { ProductRelativeCard };
 
 export default React.memo(ProductRelativeCard);

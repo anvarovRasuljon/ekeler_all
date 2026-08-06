@@ -63,7 +63,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({
     >
       {/* Main content */}
       {/* Responsive: mobilda 1 ustun + kichik padding, md dan boshlab 2 ustun */}
-      <div className="grid grid-cols-1 gap-8 items-center mx-auto sm:px-6 md:grid-cols-2 md:gap-12 md:px-12 md:pb-20 md:pt-0">
+      <div className="grid grid-cols-1 gap-8 items-center mx-auto px-4 py-12 sm:px-6 md:grid-cols-2 md:gap-12 md:px-12 md:pb-20 md:pt-0">
         {" "}
         {/* Left column */}
         <div className="flex flex-col">
@@ -75,14 +75,14 @@ const StatsSection: React.FC<StatsSectionProps> = ({
           )}
 
           {/* Paragraph — bitta yoki uchta rangli qismdan iborat bo'lishi mumkin */}
-            <p className="mb-8 w-full max-w-[600px] break-words text-[26px] leading-[34px] sm:text-[32px] sm:leading-[42px] md:mb-12 lg:text-[40px] lg:leading-[48px]">
+            <p className="mb-8 w-full max-w-[600px] break-words text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,48px)] md:mb-12">
               {descBefore && <span className="text-[#1B1D20]">{descBefore}</span>}
               {descAfter && <span className="text-[#E88029]">{descAfter}</span>}
             </p>
 
           {/* Mini description */}
           {miniText && (
-            <p className="mb-8 w-full max-w-[400px] break-words text-[15px] leading-relaxed font-normal text-[#1B1D20] md:mb-10 md:text-[16px] md:leading-[24px]">
+            <p className="mb-8 w-full max-w-[400px] break-words text-[clamp(14px,0.85rem+0.1vw,16px)] leading-relaxed font-normal text-[#1B1D20] md:mb-10 md:leading-[24px]">
               {miniText}
             </p>
           )}
@@ -96,10 +96,10 @@ const StatsSection: React.FC<StatsSectionProps> = ({
                   "border-t border-dotted border-neutral-300 py-6 pr-0 sm:py-7",
                   i % 2 === 0 ? "sm:pr-8" : "sm:pl-8 sm:border-l",
                 ].join(" ")}>
-                <div className="mb-3 text-3xl font-normal text-[#E88029] sm:mb-4 sm:text-4xl md:text-[2.5rem]">{t(stat.value)}</div>
-                <div className="mb-1 text-[15px] font-semibold text-neutral-800">{t(stat.title)}</div>
+                <div className="mb-3 text-[clamp(1.75rem,1.5rem+0.5vw,2.5rem)] font-normal text-[#E88029] sm:mb-4">{t(stat.value)}</div>
+                <div className="mb-1 text-[clamp(14px,0.85rem+0.1vw,16px)] font-semibold text-neutral-800">{t(stat.title)}</div>
                 {stat.description && (
-                  <p className="w-full max-w-[170px] break-words text-[14px] leading-snug text-neutral-500">{t(stat.description)}</p>
+                  <p className="w-full max-w-[170px] break-words text-[clamp(13px,0.8rem+0.1vw,14px)] leading-snug text-neutral-500">{t(stat.description)}</p>
                 )}
               </div>
             ))}

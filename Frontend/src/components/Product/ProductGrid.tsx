@@ -1,117 +1,138 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useLanguage } from "../../context/LanguageContext";
-import prochni_1 from "../../assets/productPage_first_img.png";
-import prochni_2 from "../../assets/prochni_2.png";
-import prochni_3 from "../../assets/prochni_3.png";
-import prochni_4 from "../../assets/prochni_4.png";
 
-interface LocaleString {
-  eng?: string;
-  ru?: string;
-  uz?: string;
-  [key: string]: string | undefined;
+const BASE_URL = "https://api.ekeler.uz";
+const PAGE_SIZE = 9;
+
+interface ApiProduct {
+  id: number;
+  title: string;
+  short_description: string;
+  description: string;
+  main_image: string;
+  custom_fields: string;
 }
-
-export interface ProductCardData {
-  id: string;
-  title: LocaleString;
-  tags: LocaleString[];
-  imageUrl: string;
-  imageAlt?: string;
-  detailSlug?: string;
-}
-
-const DEFAULT_ITEMS: ProductCardData[] = [
-  {
-    id: "1",
-    title: { ru: "Продукт 1", uz: "Mahsulot 1", eng: "Product 1" },
-    tags: [{ ru: "Тег", uz: "Teg", eng: "Tag" }],
-    imageUrl: prochni_1,
-    imageAlt: "Product 1",
-    detailSlug: "product-1",
-  },
-  {
-    id: "2",
-    title: { ru: "Продукт 2", uz: "Mahsulot 2", eng: "Product 2" },
-    tags: [{ ru: "Тег 2", uz: "Teg 2", eng: "Tag 2" }],
-    imageUrl: prochni_2,
-    imageAlt: "Product 2",
-    detailSlug: "product-2",
-  },
-  {
-    id: "3",
-    title: { ru: "Продукт 3", uz: "Mahsulot 3", eng: "Product 3" },
-    tags: [{ ru: "Тег 3", uz: "Teg 3", eng: "Tag 3" }],
-    imageUrl: prochni_3,
-    imageAlt: "Product 3",
-    detailSlug: "product-3",
-  },
-  {
-    id: "4",
-    title: { ru: "Продукт 4", uz: "Mahsulot 4", eng: "Product 4" },
-    tags: [{ ru: "Тег 4", uz: "Teg 4", eng: "Tag 4" }],
-    imageUrl: prochni_4,
-    imageAlt: "Product 4",
-    detailSlug: "product-4",
-  },
-];
 
 const ProductGrid: React.FC = () => {
-  const { t } = useLanguage();
-  const items = useMemo(() => DEFAULT_ITEMS, []);
+  const [products, setProducts] = useState<ApiProduct[]>([]);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
-  try {
-    // Responsive: 1 -> 2 -> 3 ustun, kartalar balandligi ekranga moslashadi
+  const fetchProducts = useCallback(async (targetPage: number) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${BASE_URL}/api/v1/products?page=${targetPage}&size=${PAGE_SIZE}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const items: ApiProduct[] = Array.isArray(data) ? data : data.content || data.data || [];
+      setProducts(prev => targetPage === 0 ? items : [...prev, ...items]);
+      setHasMore(items.length === PAGE_SIZE);
+    } catch (err) {
+      console.error("ProductGrid fetch error:", err);
+      setError(String(err));
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProducts(page);
+  }, [page, fetchProducts]);
+
+  useEffect(() => {
+    if (!hasMore || loading) return;
+    const node = loadMoreRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          setPage(p => p + 1);
+        }
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore, loading]);
+
+  if (error && products.length === 0) {
     return (
-      <section className="mx-auto w-full max-w-[1500px] overflow-hidden px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
-        <div className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-          {items.map((item) => {
-            const card = (
-              <div
-                className="group relative flex h-[280px] w-full max-w-[450px] cursor-pointer items-center justify-center overflow-hidden rounded-xl sm:h-[340px] sm:rounded-2xl lg:h-[420px]"
-              >
+      <section className="mx-auto w-full max-w-[1500px] px-4 py-16 sm:px-6">
+        <p className="text-center text-red-500">Mahsulotlarni yuklab bo'lmadi: {error}</p>
+      </section>
+    );
+  }
+
+  if (products.length === 0 && !loading) {
+    return (
+      <section className="mx-auto w-full max-w-[1500px] px-4 py-16 sm:px-6">
+        <p className="text-center text-neutral-400">Mahsulotlar topilmadi.</p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="mx-auto w-full max-w-[1500px] px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        {products.map((product) => {
+          const imageUrl = product.main_image
+            ? product.main_image.startsWith("http")
+              ? product.main_image
+              : `${BASE_URL}${product.main_image}`
+            : "";
+
+          return (
+            <Link
+              key={product.id}
+              to={`/products/${product.id}`}
+              className="group relative block w-full overflow-hidden rounded-xl border border-neutral-200 transition-all duration-300 hover:border-neutral-300 hover:shadow-lg sm:rounded-2xl"
+            >
+              {/* Image — full card width & height */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <img
-                  src={item.imageUrl}
-                  alt={item.imageAlt || t(item.title) || ""}
-                  className="object-contain w-full h-full    group-hover:scale-105"
+                  src={imageUrl}
+                  alt={product.title || ""}
+                  className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                   decoding="async"
                   fetchPriority="low"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t to-transparent opacity-0   from-black/70 via-black/20 group-hover:opacity-100" />
-                <div className="absolute bottom-4 left-4 right-4 flex translate-y-0 flex-col gap-2 opacity-100    sm:bottom-6 sm:left-6 sm:right-6 md:translate-y-2 md:opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
-                  <h3 className="break-words text-lg font-semibold text-white drop-shadow-md sm:text-xl lg:text-2xl">
-                    {t(item.title)}
-                  </h3>
-                  {item.tags && item.tags.length > 0 && (
-                    <p className="break-words text-xs leading-5 text-white/85 drop-shadow-md sm:text-sm sm:leading-6">
-                      {item.tags.map((tag) => t(tag)).join(" • ")}
-                    </p>
-                  )}
-                </div>
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
-            );
 
-            return item.detailSlug ? (
-              <Link to={`/products/${item.detailSlug}`} key={item.id} className="w-full max-w-[450px]">
-                {card}
-              </Link>
-            ) : (
-              <div key={item.id} className="w-full max-w-[450px]">{card}</div>
-            );
-          })}
+              {/* Hover content: title + short_description */}
+              <div className="absolute bottom-0 left-0 right-0 flex translate-y-4 flex-col gap-1 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:p-5">
+                <h3 className="break-words text-[clamp(16px,1rem+0.2vw,20px)] font-semibold leading-tight text-white drop-shadow-md">
+                  {product.title}
+                </h3>
+                {product.short_description && (
+                  <p className="break-words text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-snug text-white/85 drop-shadow-md line-clamp-2">
+                    {product.short_description}
+                  </p>
+                )}
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Infinite scroll sentinel */}
+      {hasMore && (
+        <div ref={loadMoreRef} className="h-10 w-full" />
+      )}
+
+      {loading && (
+        <div className="mt-6 flex justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-300 border-t-[#E88029]" />
         </div>
-      </section>
-    );
-  } catch (e: any) {
-    console.error("[DEBUG] ProductGrid render error:", e);
-    return (
-      <section className="mx-auto w-full max-w-[1500px] overflow-hidden px-4 py-10 sm:px-6 lg:py-16">
-        <p className="text-center text-red-500">ProductGrid xatosi: {String(e)}</p>
-      </section>
-    );
-  }
+      )}
+    </section>
+  );
 };
 
 export default React.memo(ProductGrid);

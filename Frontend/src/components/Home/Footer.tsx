@@ -95,16 +95,16 @@ const Footer: React.FC<FooterProps> = ({
         <div className="relative p-4 pt-6 md:p-8">
           <div
             className="mx-auto max-w-7xl rounded-[20px] bg-white px-5 py-8 shadow-[0_10px_40px_rgba(0,0,0,0.12)] sm:px-6 sm:py-10 md:rounded-[28px] md:px-14 md:py-12"
-                      >
+          >
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 md:gap-12 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
               {/* Heading + CTA */}
               {heading && (
                 <div>
-                  <h2 className="max-w-[320px] break-words text-[22px] leading-[30px] text-[#1B1D20] sm:text-[28px] sm:leading-[36px]">{headingText}</h2>
+                  <h2 className="max-w-[320px] break-words text-[clamp(20px,1.25rem+0.5vw,28px)] leading-[clamp(28px,1.75rem+0.5vw,36px)] text-[#1B1D20]">{headingText}</h2>
                   {ctaText && ctaLink && (
                     <a
-                                           href={ctaLink}
-                      className="inline-flex items-center gap-1 mt-8 text-[15px] text-[#1B1D20] border-b border-[#1B1D20] pb-1 hover:text-[#E88029] hover:border-[#E88029]"
+                      href={ctaLink}
+                      className="inline-flex items-center gap-1 mt-8 text-[clamp(14px,0.85rem+0.1vw,15px)] text-[#1B1D20] border-b border-[#1B1D20] pb-1 hover:text-[#E88029] hover:border-[#E88029]"
                     >
                       {ctaLabel}
                       <ArrowUpRight size={16} className="text-[#E88029]" />
@@ -116,13 +116,13 @@ const Footer: React.FC<FooterProps> = ({
               {/* Nav links */}
               {(navLinks || []).length > 0 && (
                 <div>
-                  {navLabelText && <span className="text-[13px] text-stone-400 block mb-5">{navLabelText}</span>}
+                  {navLabelText && <span className="text-[clamp(12px,0.75rem+0.1vw,13px)] text-stone-400 block mb-5">{navLabelText}</span>}
                   <ul className="space-y-4">
                     {(navLinks || []).map((link) => (
                       <li key={link.label?.ru || link.href}>
                         <a
                                                    href={link.href}
-                          className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029]"
+                          className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] hover:text-[#E88029]"
                         >
                           {t(link.label)}
                           <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
@@ -137,13 +137,13 @@ const Footer: React.FC<FooterProps> = ({
               {/* Social links */}
               {(socialLinks || []).length > 0 && (
                 <div>
-                  {socialLabelText && <span className="text-[13px] text-stone-400 block mb-5">{socialLabelText}</span>}
+                  {socialLabelText && <span className="text-[clamp(12px,0.75rem+0.1vw,13px)] text-stone-400 block mb-5">{socialLabelText}</span>}
                   <ul className="space-y-4">
                     {(socialLinks || []).map((link) => (
                       <li key={link.label?.ru || link.href}>
                         <a
                                                    href={link.href}
-                          className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029]"
+                          className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] hover:text-[#E88029]"
                         >
                           {t(link.label)}
                           <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
@@ -157,12 +157,12 @@ const Footer: React.FC<FooterProps> = ({
               {/* Contact info */}
               {(phone || email || address) && (
                 <div>
-                  {contactLabelText && <span className="text-[13px] text-stone-400 block mb-5">{contactLabelText}</span>}
+                  {contactLabelText && <span className="text-[clamp(12px,0.75rem+0.1vw,13px)] text-stone-400 block mb-5">{contactLabelText}</span>}
                   <ul className="space-y-4">
                     {phone && (
                       <li className="flex gap-4 items-center">
                         <span className="flex justify-center items-center w-10 h-10 rounded-full border border-stone-200 shrink-0 text-base">📞</span>
-                        <a href={`tel:${phone.replace(/\s/g, "")}`} className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029]">
+                        <a href={`tel:${phone.replace(/\s/g, "")}`} className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] hover:text-[#E88029]">
                           {phone}
                           <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
                         </a>
@@ -171,7 +171,7 @@ const Footer: React.FC<FooterProps> = ({
                     {email && (
                       <li className="flex gap-4 items-center">
                         <span className="flex justify-center items-center w-10 h-10 rounded-full border border-stone-200 shrink-0 text-base">📧</span>
-                        <a href={`mailto:${email}`} className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029]">
+                        <a href={`mailto:${email}`} className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] hover:text-[#E88029]">
                           {email}
                           <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
                         </a>
@@ -180,7 +180,7 @@ const Footer: React.FC<FooterProps> = ({
                     {address && (
                       <li className="flex gap-4 items-start">
                         <span className="flex justify-center items-center w-10 h-10 rounded-full border border-stone-200 shrink-0 text-base">📍</span>
-                        <span className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] max-w-[220px]">
+                        <span className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] max-w-[220px]">
                           {addressText}
                           <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
                         </span>
@@ -195,7 +195,7 @@ const Footer: React.FC<FooterProps> = ({
             <hr className="my-8 border-stone-100 sm:my-10" />
 
             {/* Bottom bar */}
-            <div className="flex flex-col items-center justify-between gap-4 text-center text-[13px] text-stone-400 sm:text-[14px] md:flex-row md:text-left">
+            <div className="flex flex-col items-center justify-between gap-4 text-center text-[clamp(12px,0.75rem+0.1vw,14px)] text-stone-400 md:flex-row md:text-left">
               {copyrightTextValue && <span>{copyrightTextValue}</span>}
               {privacyPolicyLink && (
                 <a href={privacyPolicyLink} className="underline underline-offset-2 hover:text-[#1B1D20]">

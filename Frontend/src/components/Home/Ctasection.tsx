@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import  leftImage  from "../../assets/redyImg_left.png";
@@ -28,6 +28,25 @@ const CtaSection: React.FC<CtaSectionProps> = ({
   // rightImage,
 }) => {
   const { t } = useLanguage();
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : null), [t, badgeText]);
   const headingText = useMemo(() => (headingPart1 ? t(headingPart1) : null), [t, headingPart1]);
   const buttonLabel = useMemo(() => (buttonText ? t(buttonText) : null), [t, buttonText]);
@@ -39,10 +58,11 @@ const CtaSection: React.FC<CtaSectionProps> = ({
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#FBF3EA] pb-16 pt-20 sm:pb-20 sm:pt-24 md:pb-28 md:pt-32"
+      ref={sectionRef}
+      className="relative w-full overflow-hidden bg-[#FBF3EA] pb-[clamp(48px,3rem+2vw,112px)] pt-[clamp(48px,3rem+2vw,128px)]"
     >
       {/* Responsive: mobilda kichikroq padding, dekorativ rasmlar ham kichrayadi */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="px-4 mx-auto max-w-7xl sm:px-6">
            {leftImage && (
         <img
           src={leftImage}
@@ -52,12 +72,12 @@ const CtaSection: React.FC<CtaSectionProps> = ({
           loading="lazy"
           decoding="async"
           fetchPriority="low"
-          className="absolute left-3 top-30 h-[110px] w-[110px] -translate-y-1/3 rounded-2xl object-cover shadow-sm sm:left-6 sm:h-[190px] sm:w-[190px] md:left-16 md:h-[260px] md:w-[260px]"
+          className="absolute left-3 top-30 h-[clamp(80px,5rem+2vw,110px)] w-[clamp(80px,5rem+2vw,110px)] -translate-y-1/3 rounded-2xl object-cover shadow-sm sm:left-6 sm:h-[clamp(140px,9rem+3vw,190px)] sm:w-[clamp(140px,9rem+3vw,190px)] md:left-16 md:h-[clamp(180px,11rem+3vw,260px)] md:w-[clamp(180px,11rem+3vw,260px)]"
         />
       )}
       {rightImage && (
         <div
-          className="absolute right-3 top-[-265px] h-[200px] w-[140px] overflow-hidden rounded-[8px] shadow-sm sm:right-6 sm:h-[350px] sm:w-[250px] md:right-16"
+          className="absolute right-3 top-[-200px] h-[clamp(140px,9rem+3vw,200px)] w-[clamp(100px,6rem+2vw,140px)] overflow-hidden rounded-[8px] shadow-sm sm:right-6 sm:h-[clamp(250px,16rem+4vw,350px)] sm:w-[clamp(180px,11rem+3vw,250px)] md:right-16"
         >
           <img
             src={rightImage}
@@ -67,19 +87,21 @@ const CtaSection: React.FC<CtaSectionProps> = ({
             loading="lazy"
             decoding="async"
             fetchPriority="low"
-            className="object-cover w-full h-full"
+            className={`h-full w-full object-cover transition-transform duration-1000 ease-out ${
+              inView ? 'translate-y-0' : '-translate-y-full'
+            }`}
           />
         </div>
       )}
 
-      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-2 text-center sm:px-6">
+      <div className="flex relative z-10 flex-col items-center px-2 mx-auto max-w-3xl text-center sm:px-6">
         {badgeTextValue && (
           <span className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
             {badgeTextValue}
           </span>
         )}
 
-        <h1 className="break-words font-inter text-[24px] font-normal leading-tight text-[#1B1D20] sm:text-[32px] md:text-[40px] lg:text-[48px]">
+        <h1 className="break-words font-inter text-[clamp(22px,1.4rem+1vw,48px)] font-normal leading-tight text-[#1B1D20]">
           {headingText}
 
         </h1>

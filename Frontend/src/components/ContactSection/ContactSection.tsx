@@ -20,12 +20,12 @@ const ContactSection: React.FC = () => {
           <h2 className="break-words text-[28px] font-light leading-tight text-white sm:text-[42px] lg:text-[72px]">
             {TITLE_TEXT}
           </h2>
-          <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-white/80 sm:text-base">
+          <p className="mt-4 text-sm leading-relaxed whitespace-pre-line text-white/80 sm:text-base">
             {SUBTITLE_TEXT}
           </p>
         </header>
 
-        <div className="mt-10 grid grid-cols-1 justify-center gap-5 sm:gap-8 md:mt-16 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 justify-center mt-10 sm:gap-8 md:mt-16 lg:grid-cols-2">
           {CONTACT_ITEMS.map((item) => (
             <ContactCard key={item.id} {...item} />
           ))}

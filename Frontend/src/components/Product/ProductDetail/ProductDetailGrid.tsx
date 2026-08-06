@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { getImageUrl } from "../../../sanity/client";
 
 interface ProductDetailGridProps {
-  images: any[];
+  images: string[];
 }
 
 const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
@@ -42,8 +41,8 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
             onClick={() => setSelectedIndex(index)}
           >
             <img
-              src={getImageUrl(image, { width: 600 }) || ""}
-              alt={image.alt || ""}
+              src={image}
+              alt={`Gallery image ${index + 1}`}
               className="object-cover absolute inset-0 w-full h-full   "
               loading="lazy"
               decoding="async"
@@ -75,8 +74,8 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
           </button>
 
           <img
-            src={getImageUrl(selectedImage, { width: 1200 }) || ""}
-            alt={selectedImage.alt || ""}
+            src={selectedImage}
+            alt={`Gallery image ${(selectedIndex ?? 0) + 1}`}
             className="max-h-[80%] max-w-[80%] rounded-xl object-contain sm:max-h-[90%] sm:max-w-[90%] sm:rounded-2xl"
             loading="eager"
             decoding="async"
