@@ -79,8 +79,7 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products }) => {
           <a
             key={product.slug || index}
             href={product.slug ? `/products/${product.slug}` : "#"}
-            // Responsive: mobilda vertikal stack va kichikroq padding
-            className="flex relative flex-col gap-5 justify-between items-start px-4 py-6 border-b border-dashed group border-neutral-200 last:border-b-0 sm:px-6 sm:py-8 md:flex-row md:items-center md:gap-10 md:px-8 md:py-10 min-h-[44px]"
+            className="flex relative flex-col gap-5 justify-between items-start border-b border-dashed group border-neutral-200 last:border-b-0 sm:px-6 sm:py-8 md:flex-row md:items-center md:gap-10 md:px-8 md:py-10 min-h-[44px]"
           >
             {/* Hover line */}
             <div className="absolute bottom-0 left-0 h-[1px] w-full bg-neutral-200 overflow-hidden">
@@ -98,7 +97,7 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products }) => {
                   loading="lazy"
                   decoding="async"
                   fetchPriority="low"
-                  className="h-[clamp(120px,8rem+2vw,150px)] w-full flex-shrink-0 rounded-2xl object-cover md:w-[200px]"
+                  className="h-[200px] w-full flex-shrink-0 rounded-2xl object-cover md:w-[200px]"
                 />
               )}
 
@@ -111,7 +110,7 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products }) => {
             <div className="flex gap-6 justify-between items-center w-full md:w-auto">
               {product.description && (
                 <p
-                  className="w-full break-words font-inter text-[clamp(13px,0.8rem+0.1vw,16px)] font-normal leading-relaxed text-neutral-500 md:w-[450px] md:leading-[20px]"
+                  className="mb-5 w-full break-words font-inter text-[clamp(13px,0.8rem+0.1vw,16px)] font-normal leading-relaxed text-neutral-500 md:mb-0 md:w-[450px] md:leading-[20px]"
                 >
                   {product.description}
                 </p>

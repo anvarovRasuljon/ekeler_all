@@ -1,38 +1,31 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import inpus_left_img from "../../assets/home_features_img.png";
+import inpus_right_img from "../../assets/home_feature_secont_img.png";
 import { useLanguage } from "../../context/LanguageContext";
-import  leftImageUrl  from "../../assets/home_features_img.png";
-import  rightImageUrl  from "../../assets/home_feature_secont_img.png";
 
-
-interface FeaturesSectionProps {
-  title?: any;
+interface InpusSectionProps {
+  twoColorMode?: boolean;
+  badgeText?: any;
   description?: any;
-  leftImage?: any;
-  rightImage?: any;
+  descriptionPart1?: any;
+  descriptionHighlight?: any;
+  descriptionPart2?: any;
+  buttonText?: any;
+  topImage?: any;
+  bottomImage?: any;
 }
 
-const LOREM_20 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+const LOREM_20 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.";
 
-const FeaturesSection: React.FC<FeaturesSectionProps> = ({
-  title = "Features",
+const FeaturesSection: React.FC<InpusSectionProps> = ({
+  badgeText = "Features",
   description = LOREM_20,
 }) => {
   const { t } = useLanguage();
-  const titleText = useMemo(() => (title ? t(title) : null), [t, title]);
+  const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : 'ABOUT US'), [t, badgeText]);
   const descriptionText = useMemo(() => (description ? t(description) : null), [t, description]);
 
-  const highlightPart = 'adipiscing elit, sed do eiusmod tempor';
-  const { descBefore, descAfter } = useMemo(() => {
-    if (!descriptionText) return { descBefore: '', descAfter: '' };
-    const index = String(descriptionText).indexOf(highlightPart);
-    if (index === -1) return { descBefore: String(descriptionText), descAfter: '' };
-    return {
-      descBefore: String(descriptionText).slice(0, index),
-      descAfter: String(descriptionText).slice(index),
-    };
-  }, [descriptionText]);
-
-  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
@@ -51,73 +44,92 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({
     return () => observer.disconnect();
   }, []);
 
-  if (!title || !description) {
-    return null;
-  }
-
   return (
-    <div
-      ref={sectionRef}
-      // Responsive: mobilda balandlik kontentga qarab, lg dan boshlab minimum balandlik
-      className="w-full bg-white lg:min-h-[480px]"
-    >
-      {/* Main content */}
-      <div className="grid grid-cols-1 gap-8 px-4 py-12 mx-auto h-full sm:px-6 md:grid-cols-2 md:gap-12 md:px-12 md:py-0">
-        <div className="md:col-start-1 md:row-start-1 place-self-start flex w-full max-w-[264px] flex-shrink-0 flex-col justify-between md:max-w-none md:w-[264px]">
-          {leftImageUrl && (
-            <div className="h-[clamp(120px,8rem+2vw,155px)] w-full max-w-full overflow-hidden rounded-b-lg md:w-[264px]">
-              <img
-                src={leftImageUrl}
-                alt=""
-                width={264}
-                height={125}
-                loading="lazy"
-                decoding="async"
-                fetchPriority="low"
-                className={`h-full w-full object-cover transition-transform duration-1000 ease-out ${
-                  inView ? 'translate-y-0' : '-translate-y-full'
-              }`}
-              />
-            </div>
-          )}
-        </div>
-
-        {/* 2nd column - centered x and y */}
-        <div className="flex justify-center items-center place-self-center w-full md:col-start-1 md:row-start-2">
-          <div className="w-full max-w-[600px] text-center">
-            <h2
-              className="mb-6 inline-block rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500"
-            >
-              {titleText}
-            </h2>
-            <p
-              className="w-full break-words font-manrope text-[clamp(24px,1.5rem+0.8vw,40px)] font-normal leading-[clamp(30px,2rem+1vw,48px)] text-black"
-            >
-              {descBefore && <span className="text-black">{descBefore}</span>}
-              {descAfter && <span className="text-[#E88029]">{descAfter}</span>}
-            </p>
-          </div>
-        </div>
-
-        {/* 3rd column - image at right side, centered */}
-        <div className="flex flex-shrink-0 justify-center items-center place-self-center w-full md:col-start-2 md:row-start-2 md:w-auto">
-          {rightImageUrl && (
-            <div className="h-[clamp(140px,9rem+2vw,208px)] w-full max-w-[264px] overflow-hidden rounded-2xl md:w-[264px]">
-              <img
-                src={rightImageUrl}
-                alt="Feature right"
-                width={264}
-                height={208}
-                loading="lazy"
-                decoding="async"
-                fetchPriority="low"
-                className="object-cover w-full h-full"
-              />
-            </div>
-          )}
-        </div>
+    <section
+  ref={sectionRef}
+  className="relative flex w-full items-center justify-between overflow-hidden bg-white pt-[clamp(32px,2rem+1vw,60px)] md:pt-0 lg:min-h-[600px]"
+>
+      {/* Left image — desktop/tablet (o‘zgartirilmagan) */}
+      <div
+        className={`absolute left-2 hidden overflow-hidden shadow-sm sm:block sm:left-6 md:left-16 h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)] transition-all duration-[3000ms] ease-out ${
+          inView ? 'top-1/2 -translate-y-1/2' : 'top-0 -translate-y-full'
+        }`}
+      >
+        <img
+          src={inpus_left_img}
+          alt=""
+          width={250}
+          height={260}
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+          className="object-cover w-full h-full rounded-[8px]"
+        />
       </div>
-    </div>
+
+      {/* Center content */}
+      <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center px-0 text-center sm:px-6 lg:px-[32px]">
+
+        {/* ===== MOBILE ONLY — rasmlar title dan yuqorida (screenshot dagi kabi) ===== */}
+       {/* ===== MOBILE ONLY — rasmlar title dan yuqorida ===== */}
+<div className="flex relative gap-3 mb-8 w-full sm:hidden">
+  {/* Left image — joyida turadi, tepadan pastga kesilib ochiladi */}
+  <div className="relative h-[120px] w-1/2 overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
+    <img
+      src={inpus_left_img}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      fetchPriority="low"
+      className={`h-full w-full object-cover transition-[clip-path] duration-1000 ease-out ${
+        inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(100%_0_0_0)]'
+      }`}
+    />
+  </div>
+
+  {/* Right image — joyida turadi, pastdan tepaga kesilib ochiladi */}
+  <div className="relative h-[120px] w-1/2 overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
+    <img
+      src={inpus_right_img}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      fetchPriority="low"
+      className={`h-full w-full object-cover transition-[clip-path] duration-1000 ease-out ${
+        inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(0_0_100%_0)]'
+      }`}
+    />
+  </div>
+</div>
+
+        {/* Badge + Title (hamma ekranlar uchun) */}
+        <span className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
+          {badgeTextValue}
+        </span>
+
+        <h2 className="mb-8 w-full max-w-[610px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20]">
+          {descriptionText}
+        </h2>
+      </div>
+
+      {/* Right image — desktop/tablet (o‘zgartirilmagan) */}
+      <div
+        className="absolute right-2 bottom-[-30px] hidden overflow-hidden shadow-sm sm:block sm:right-6 sm:bottom-[-40px] md:right-16 md:bottom-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
+      >
+        <img
+          src={inpus_right_img}
+          alt=""
+          width={250}
+          height={250}
+          loading="lazy"
+          decoding="async"
+          fetchPriority="low"
+          className={`object-cover w-full h-full rounded-[8px] transition-transform duration-[3000ms] ease-out ${
+            inView ? 'translate-y-0' : 'translate-y-full'
+          }`}
+        />
+      </div>
+    </section>
   );
 };
 

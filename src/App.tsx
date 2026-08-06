@@ -77,7 +77,7 @@
 //             path="/about"
 //             element={
 //               <>
-//                 <div className="px-2 w-full min-h-screen">
+//                 <div className="p-2 w-full min-h-screen">
 //                   <Navigation />
 //                   <AboutPage />
 //                <MonialsSection />
@@ -184,7 +184,7 @@ import InpusSection from "./components/Home/ScameTypes";
 import Footer from "./components/Home/Footer";
 import ProductsSection from "./components/Home/ProductsSection";
 import CtaSection from "./components/Home/Ctasection";
-import IndustrialGalleryGrid from "./components/Home/IndustrialGalery";
+import GalleryCard from "./components/Home/IndustrialGalery";
 import MonialsSection from "./components/Home/MonialSection";
 import "./App.css";
 import homeHeroBg from "./assets/Home_hero_bg.png";
@@ -249,7 +249,7 @@ function App() {
 
                     <CtaSection />
 
-                    <IndustrialGalleryGrid />
+                    <GalleryCard />
 
                     <MonialsSection />
 
@@ -265,7 +265,7 @@ function App() {
             path="/about"
             element={
               <>
-                <div className="px-2 w-full min-h-screen">
+                <div className="p-2 w-full min-h-screen">
                   <Navigation />
                   <AboutPage />
                <MonialsSection />
@@ -281,7 +281,7 @@ function App() {
             path="/products"
             element={
               <>
-                <div className="px-2 w-full min-h-screen">
+                <div className="p-2 w-full min-h-screen">
                   <ProductHero />
                   <Navigation />
                   <CatalogCtaSection />
@@ -299,7 +299,7 @@ function App() {
             path="/products/:slug"
             element={
               <>
-                <div className="px-2 w-full min-h-screen">
+                <div className="p-2 w-full min-h-screen">
                   <Navigation />
                   <ProductDetail />
                   <ProductCatalog/>
@@ -316,11 +316,11 @@ function App() {
             path="/blog"
             element={
               <>
-                <div className="px-2 w-full min-h-screen">
+                <div className="p-2 w-full min-h-screen">
                   <BlogHero/>
                   <Navigation />
                   <CtaSection />
-                  <IndustrialGalleryGrid />
+                  <GalleryCard />
                 </div>
                 <FooterSecond />
               </>
@@ -332,7 +332,7 @@ function App() {
             path="/contact"
             element={
               <>
-                <div className="px-2 w-full min-h-screen">
+                <div className="p-2 w-full min-h-screen">
                   <Navigation />
                   <ContactPage />
                   <ContactInfo/>
@@ -347,7 +347,7 @@ function App() {
             path="*"
             element={
               <>
-                <div className="px-2 w-full min-h-screen">
+                <div className="p-2 w-full min-h-screen">
                   <Navigation />
                   <NotFoundPage />
                 </div>

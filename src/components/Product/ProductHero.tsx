@@ -33,7 +33,7 @@ const ProductHero: React.FC = () => {
         <div className="absolute left-1/2 -translate-x-1/2 bottom-[0%] w-[200%] flex justify-center pointer-events-none select-none z-0 overflow-hidden">
           <p
             /* Responsive: mobilda matn biroz kattaroq vw bilan balanslanadi */
-            className="whitespace-nowrap text-[18vw] font-normal leading-normal tracking-tight text-[#FFFFFF]/95 sm:text-[14vw]"
+            className="whitespace-nowrap text-[18vw] font-normal leading-normal tracking-tight text-[#FFFFFF]/95 sm:text-[16vw]"
           >
             {logo} — {logo} — {logo} — {logo} — {logo}
           </p>
