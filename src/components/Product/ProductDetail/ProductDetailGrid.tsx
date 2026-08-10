@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ProductDetailGridProps {
@@ -6,55 +6,120 @@ interface ProductDetailGridProps {
 }
 
 const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [modalIndex, setModalIndex] = useState<number | null>(null);
 
   if (!images || images.length === 0) return null;
 
-  const handleNext = (e: React.MouseEvent) => {
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const closeModal = () => setModalIndex(null);
+
+  const [displayIndex, setDisplayIndex] = useState<number | null>(null);
+  const [isFading, setIsFading] = useState(false);
+
+  useEffect(() => {
+    if (modalIndex === null) {
+      setDisplayIndex(null);
+      setIsFading(false);
+      return;
+    }
+    if (displayIndex === null) {
+      setDisplayIndex(modalIndex);
+      return;
+    }
+    if (modalIndex !== displayIndex) {
+      setIsFading(true);
+      const t = setTimeout(() => {
+        setDisplayIndex(modalIndex);
+        setIsFading(false);
+      }, 300);
+      return () => clearTimeout(t);
+    }
+  }, [modalIndex, displayIndex]);
+
+  const modalNext = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (selectedIndex === null) return;
-    setSelectedIndex((selectedIndex + 1) % images.length);
+    setModalIndex((prev) =>
+      prev !== null ? (prev + 1) % images.length : prev
+    );
   };
 
-  const handlePrev = (e: React.MouseEvent) => {
+  const modalPrev = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (selectedIndex === null) return;
-    setSelectedIndex((selectedIndex - 1 + images.length) % images.length);
+    setModalIndex((prev) =>
+      prev !== null ? (prev - 1 + images.length) % images.length : prev
+    );
   };
 
-  const closeModal = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    setSelectedIndex(null);
+  const trackWidth = 60 * images.length;
+  const slideWidth = 100 / images.length;
+  const trackTransform = `translateX(calc(100% / (3 * ${images.length}) - ${activeIndex} * (100% / ${images.length})))`;
+
+  const handleSlideClick = (index: number) => {
+    if (index === activeIndex) {
+      setModalIndex(index);
+    } else {
+      setActiveIndex(index);
+    }
   };
 
-  const selectedImage =
-    selectedIndex !== null ? images[selectedIndex] : null;
-
-  // Responsive: 1 -> 2 -> 3 ustun, kartalar kengligi fluid
   return (
     <section className="mx-auto w-full max-w-[1500px] px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
-      <div className="grid grid-cols-1 justify-items-center gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className="group relative h-[260px] w-full max-w-[450px] cursor-pointer overflow-hidden rounded-xl sm:h-[340px] sm:rounded-2xl lg:h-[420px]"
-            onClick={() => setSelectedIndex(index)}
-          >
-            <img
-              src={image}
-              alt={`Gallery image ${index + 1}`}
-              className="object-cover absolute inset-0 w-full h-full   "
-              loading="lazy"
-              decoding="async"
-            />
-            <div className="absolute inset-0   bg-black/0 group-hover:bg-black/40" />
-          </div>
-        ))}
+      <div className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl">
+        <div
+          className="flex h-[260px] items-stretch transition-transform duration-300 ease-out sm:h-[340px] lg:h-[420px]"
+          style={{ width: `${trackWidth}%`, transform: trackTransform }}
+        >
+          {images.map((image, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => handleSlideClick(index)}
+              className="relative h-full shrink-0 cursor-pointer overflow-hidden"
+              style={{ width: `${slideWidth}%` }}
+              aria-label={`Gallery image ${index + 1}`}
+            >
+              <img
+                src={image}
+                alt={`Gallery image ${index + 1}`}
+                className={`h-full w-full object-cover transition-opacity duration-300 ${
+                  index === activeIndex ? 'opacity-100' : 'opacity-60'
+                }`}
+                loading={index === activeIndex ? "eager" : "lazy"}
+                decoding="async"
+              />
+            </button>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={handlePrev}
+          className="absolute left-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-neutral-900 shadow-md transition-colors hover:bg-white"
+          aria-label="Previous"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button
+          type="button"
+          onClick={handleNext}
+          className="absolute right-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-neutral-900 shadow-md transition-colors hover:bg-white"
+          aria-label="Next"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
       </div>
 
-      {selectedImage && (
+      {modalIndex !== null && (
         <div
-          className="flex fixed inset-0 z-50 justify-center items-center bg-black/90"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#00000099]"
           onClick={closeModal}
         >
           <button
@@ -67,16 +132,18 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
 
           <button
             className="absolute left-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center p-2 text-white hover:text-gray-300 sm:left-4"
-            onClick={handlePrev}
+            onClick={modalPrev}
             aria-label="Previous"
           >
             <ChevronLeft className="h-8 w-8 sm:h-12 sm:w-12" />
           </button>
 
           <img
-            src={selectedImage}
-            alt={`Gallery image ${(selectedIndex ?? 0) + 1}`}
-            className="max-h-[80%] max-w-[80%] rounded-xl object-contain sm:max-h-[90%] sm:max-w-[90%] sm:rounded-2xl"
+            src={displayIndex !== null ? images[displayIndex] : undefined}
+            alt={displayIndex !== null ? `Gallery image ${displayIndex + 1}` : ""}
+            className={`h-[70vh] max-h-[70vh] w-[70vh] max-w-[95vw] rounded-xl object-contain transition-opacity duration-300 sm:rounded-2xl ${
+              isFading ? 'opacity-0' : 'opacity-100'
+            }`}
             loading="eager"
             decoding="async"
             onClick={(e) => e.stopPropagation()}
@@ -84,7 +151,7 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
 
           <button
             className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center p-2 text-white hover:text-gray-300 sm:right-4"
-            onClick={handleNext}
+            onClick={modalNext}
             aria-label="Next"
           >
             <ChevronRight className="h-8 w-8 sm:h-12 sm:w-12" />
