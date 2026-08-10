@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zoho Web-to-Lead — standalone test</title>
+</head>
+<body>
+
+<!-- =====================================================================
+     REFERENCE / BASELINE fayl.
+     Bu Zoho generated HTML formaning standalone versiyasi.
+     Maqsad: React versiyasining POST payloadini SHU faylning payloadi
+     bilan 1:1 solishtirish.
+
+     Ochish:  http://localhost:5173/zoho-test.html
+     DevTools -> Console: payload logi chiqadi.
+     DevTools -> Network -> WebToLeadForm -> Payload: haqiqiy POST.
+     ===================================================================== -->
+
+<div id="crmWebToEntityForm" class="zcwf_lblLeft crmWebToEntityForm"
+     style="background-color: white; color: black; max-width: 600px; font-family: sans-serif;">
+
+  <form id="webform7525508000000615582"
+        action="https://crm.zoho.com/crm/WebToLeadForm"
+        name="WebToLeads7525508000000615582"
+        method="POST"
+        onsubmit="javascript:document.charset='UTF-8'; return checkMandatory7525508000000615582()"
+        accept-charset="UTF-8">
+
+    <!-- ===== Zoho hidden / system fieldlari ===== -->
+    <input type="text" style="display:none;" name="xnQsjsdp"
+           value="e5f76d507cd012720bed14eb494a3494904759a62892920e3297aadcbd7f7c41" />
+
+    <input type="hidden" name="zc_gad" id="zc_gad" value="" />
+
+    <input type="text" style="display:none;" name="xmIwtLD"
+           value="e4abec6bb62336ed4f5c4b280c39705efcbee82cf448bafff6db06dfac668f48a2892226edff566c51897f26319e16e1" />
+
+    <input type="text" style="display:none;" name="actionType" value="TGVhZHM=" />
+
+    <input type="text" style="display:none;" name="returnURL" value="null" />
+
+    <!-- ===== Ko'rinadigan maydonlar ===== -->
+    <div><label for="Last_Name">Фамилия<span style="color:red">*</span></label><br />
+      <input type="text" id="Last_Name" name="Last Name" maxlength="80" /></div>
+
+    <div><label for="First_Name">Имя<span style="color:red">*</span></label><br />
+      <input type="text" id="First_Name" name="First Name" maxlength="40" /></div>
+
+    <div><label for="Company">Компания</label><br />
+      <input type="text" id="Company" name="Company" maxlength="200" /></div>
+
+    <div><label for="Mobile">Моб. телефон<span style="color:red">*</span></label><br />
+      <input type="text" id="Mobile" name="Mobile" maxlength="30" /></div>
+
+    <div><label for="Address_-_City">Город</label><br />
+      <input type="text" id="Address_-_City" name="Address - City" maxlength="255" /></div>
+
+    <div><label for="Description">Описание</label><br />
+      <textarea id="Description" name="Description"></textarea></div>
+
+    <!-- honeypot -->
+    <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="" />
+
+    <div style="margin-top:12px">
+      <input type="submit" id="formsubmit" class="formsubmit zcwf_button" value="Отправить" />
+      <input type="reset" class="zcwf_button" name="reset" value="Сброс" />
+    </div>
+
+  </form>
+</div>
+
+<script>
+function checkMandatory7525508000000615582() {
+
+  /* DEBUG: haqiqiy POST payloadi */
+  var form = document.getElementById('webform7525508000000615582');
+  var fd = new FormData(form);
+  var payload = [];
+  fd.forEach(function (value, key) { payload.push({ key: key, value: value }); });
+  console.log('[standalone] POST payload:', payload);
+  console.log('[standalone] form attrs:', {
+    action: form.action,
+    method: form.method,
+    name: form.getAttribute('name'),
+    target: form.getAttribute('target'),
+    acceptCharset: form.getAttribute('accept-charset')
+  });
+
+  var mndFileds = new Array('First Name', 'Last Name', 'Mobile');
+  var fldLangVal = new Array('Фамилия', 'Имя', 'Моб. телефон');
+
+  for (i = 0; i < mndFileds.length; i++) {
+    var fieldObj = document.forms['WebToLeads7525508000000615582'][mndFileds[i]];
+    if (fieldObj) {
+      if (((fieldObj.value).replace(/^\s+|\s+$/g, '')).length == 0) {
+        alert(fldLangVal[i] + ' не может быть пустым.');
+        fieldObj.focus();
+        return false;
+      }
+    }
+  }
+
+  var urlparams = new URLSearchParams(window.location.search);
+  if (urlparams.has('service') && urlparams.get('service') === 'smarturl') {
+    var webform = document.getElementById('webform7525508000000615582');
+    var service = urlparams.get('service');
+    var smarturlfield = document.createElement('input');
+    smarturlfield.setAttribute('type', 'hidden');
+    smarturlfield.setAttribute('value', service);
+    smarturlfield.setAttribute('name', 'service');
+    webform.appendChild(smarturlfield);
+  }
+
+  document.querySelector('.crmWebToEntityForm .formsubmit')
+          .setAttribute('disabled', true);
+}
+</script>
+
+</body>
+</html>
