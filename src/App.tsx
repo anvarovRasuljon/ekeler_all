@@ -204,6 +204,8 @@ import { ProductRelativeCard } from "./components/Product/ProductDetail/ProductR
 import ServiceHero from "./components/Service/ServiceHero";
 import ContactInfo from "./components/Contact/ContactInfo";
 import NotFoundPage from "./components/NotFound/NotFoundPage";
+import PrivacyPolicyPage from "./components/Legal/PrivacyPolicyPage";
+import TermsOfUsePage from "./components/Legal/TermsOfUsePage";
 
 function App() {
   return (
@@ -347,6 +349,18 @@ function App() {
                 <FooterSecond />
               </>
             }
+          />
+
+          {/* PRIVACY POLICY */}
+          <Route
+            path="/privacy-policy"
+            element={<PrivacyPolicyPage />}
+          />
+
+          {/* TERMS OF USE */}
+          <Route
+            path="/terms-of-use"
+            element={<TermsOfUsePage />}
           />
 
           {/* 404 */}

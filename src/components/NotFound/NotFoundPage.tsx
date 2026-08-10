@@ -15,42 +15,50 @@ export const NotFoundPage: React.FC = () => {
   const { language } = useLanguage();
   const t = useMemo(() => LABELS[language], [language]);
 
+  const MarqueeCode = React.memo(function MarqueeCode() {
+    return (
+      <span className="shrink-0 whitespace-nowrap font-['Manrope'] text-[clamp(48px,15vw,212px)] font-normal leading-[1.08] tracking-[-0.04em] text-white/95 sm:whitespace-nowrap">
+        4
+        <img
+          src={subtract}
+          alt="0"
+          className="inline-block h-[0.7em] w-[0.7em] mx-1 align-middle"
+          loading="eager"
+          decoding="async"
+        />
+        4 — 4
+        <img
+          src={subtract}
+          alt="0"
+          className="inline-block h-[0.7em] w-[0.7em] mx-1 align-middle"
+          loading="eager"
+          decoding="async"
+        />
+        4 — 4
+        <img
+          src={subtract}
+          alt="0"
+          className="inline-block h-[0.7em] w-[0.7em] mx-1 align-middle"
+          loading="eager"
+          decoding="async"
+        />
+        4 —
+      </span>
+    );
+  });
+
   return (
     <main
-      className="relative flex h-[97vh] w-full items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat"
+      className="relative flex h-[calc(100dvh-65px)] w-full items-center justify-center overflow-hidden rounded-[8px] bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${commentBg})` }}
     >
       <div className="flex relative z-10 flex-col gap-6 items-center px-4 text-center text-white">
-        <h1
-          /* Responsive: clamp orqali 375px dan 1440px gacha muvozanatli o'lcham */
-          className="break-words text-center font-['Manrope'] text-[clamp(48px,15vw,212px)] font-normal leading-[1.08] tracking-[-0.04em] text-white sm:whitespace-nowrap"
-        >
-          4
-          <img
-            src={subtract}
-            alt="0"
-            className="inline-block h-[0.7em] w-[0.7em] align-middle"
-            loading="eager"
-            decoding="async"
-          />
-          4 — 4
-          <img
-            src={subtract}
-            alt="0"
-            className="inline-block h-[0.7em] w-[0.7em] align-middle"
-            loading="eager"
-            decoding="async"
-          />
-          4 — 4
-          <img
-            src={subtract}
-            alt="0"
-            className="inline-block h-[0.7em] w-[0.7em] align-middle"
-            loading="eager"
-            decoding="async"
-          />
-          4
-        </h1>
+        <div className="mb-4 w-full overflow-hidden">
+          <div className="flex w-max will-change-transform animate-marquee">
+            <MarqueeCode />
+            <MarqueeCode />
+          </div>
+        </div>
 
         <p
           className="font-['Manrope'] text-lg font-normal text-white/80"
@@ -69,6 +77,22 @@ export const NotFoundPage: React.FC = () => {
           />
         </a>
       </div>
+      <style>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-marquee {
+          will-change: transform;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          animation: marquee 40s linear infinite;
+        }
+      `}</style>
     </main>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
 // import bgFallback from "../../assets/hero.png";
 // import { urlFor } from "../../sanity/client";
 import { useLanguage } from "../../context/LanguageContext";
@@ -59,8 +59,8 @@ const Footer: React.FC<FooterProps> = ({
   email = "info@ekeler.uz",
   address = "Tashkent, Uzbekistan",
   copyrightText = "© 2026 Ekeler. All rights reserved.",
-  privacyPolicyLink = "#",
-  termsOfUseLink = "#",
+  privacyPolicyLink = "/privacy-policy",
+  termsOfUseLink = "/terms-of-use",
 }) => {
   const { t } = useLanguage();
 
@@ -104,10 +104,10 @@ const Footer: React.FC<FooterProps> = ({
                   {ctaText && ctaLink && (
                     <a
                       href={ctaLink}
-                      className="inline-flex items-center gap-1 mt-8 text-[clamp(14px,0.85rem+0.1vw,15px)] text-[#1B1D20] border-b border-[#1B1D20] pb-1 hover:text-[#E88029] hover:border-[#E88029]"
+                      className="group inline-flex items-center gap-1 mt-8 text-[clamp(14px,0.85rem+0.1vw,15px)] text-[#1B1D20] border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]"
                     >
                       {ctaLabel}
-                      <ArrowUpRight size={16} className="text-[#E88029]" />
+                      <ArrowUpRight size={16} className="text-current transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                     </a>
                   )}
                 </div>
@@ -116,17 +116,17 @@ const Footer: React.FC<FooterProps> = ({
               {/* Nav links */}
               {(navLinks || []).length > 0 && (
                 <div>
-                  {navLabelText && <span className="text-[clamp(12px,0.75rem+0.1vw,13px)] text-stone-400 block mb-5">{navLabelText}</span>}
+                  {navLabelText && <span className="font-manrope font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 block mb-5">{navLabelText}</span>}
                   <ul className="space-y-4">
                     {(navLinks || []).map((link) => (
                       <li key={link.label?.ru || link.href}>
                         <a
                                                    href={link.href}
-                          className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] hover:text-[#E88029]"
+                          className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {t(link.label)}
-                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
-                          {link.external && <ArrowUpRight size={14} className="text-[#E88029]" />}
+                          <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
+                          {link.external && <ArrowUpRight size={14} className="text-current transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />}
                         </a>
                       </li>
                     ))}
@@ -137,16 +137,16 @@ const Footer: React.FC<FooterProps> = ({
               {/* Social links */}
               {(socialLinks || []).length > 0 && (
                 <div>
-                  {socialLabelText && <span className="text-[clamp(12px,0.75rem+0.1vw,13px)] text-stone-400 block mb-5">{socialLabelText}</span>}
+                  {socialLabelText && <span className="font-manrope font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 block mb-5">{socialLabelText}</span>}
                   <ul className="space-y-4">
                     {(socialLinks || []).map((link) => (
                       <li key={link.label?.ru || link.href}>
                         <a
                                                    href={link.href}
-                          className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] hover:text-[#E88029]"
+                          className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {t(link.label)}
-                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
+                          <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </a>
                       </li>
                     ))}
@@ -157,32 +157,32 @@ const Footer: React.FC<FooterProps> = ({
               {/* Contact info */}
               {(phone || email || address) && (
                 <div>
-                  {contactLabelText && <span className="text-[clamp(12px,0.75rem+0.1vw,13px)] text-stone-400 block mb-5">{contactLabelText}</span>}
+                  {contactLabelText && <a href="/contact" className="font-manrope font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 inline-block mb-5 border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]">{contactLabelText}</a>}
                   <ul className="space-y-4">
                     {phone && (
-                      <li className="flex gap-4 items-center">
-                        <span className="flex justify-center items-center w-10 h-10 rounded-full border border-stone-200 shrink-0 text-base">📞</span>
-                        <a href={`tel:${phone.replace(/\s/g, "")}`} className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] hover:text-[#E88029]">
+                      <li className="flex gap-4 items-center group">
+                        <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0"><Phone size={14} /></span>
+                        <a href={`tel:${phone.replace(/\s/g, "")}`} className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]">
                           {phone}
-                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
+                          <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </a>
                       </li>
                     )}
                     {email && (
-                      <li className="flex gap-4 items-center">
-                        <span className="flex justify-center items-center w-10 h-10 rounded-full border border-stone-200 shrink-0 text-base">📧</span>
-                        <a href={`mailto:${email}`} className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] hover:text-[#E88029]">
+                      <li className="flex gap-4 items-center group">
+                        <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0"><Mail size={14} /></span>
+                        <a href={`mailto:${email}`} className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]">
                           {email}
-                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
+                          <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </a>
                       </li>
                     )}
                     {address && (
-                      <li className="flex gap-4 items-start">
-                        <span className="flex justify-center items-center w-10 h-10 rounded-full border border-stone-200 shrink-0 text-base">📍</span>
+                      <li className="group flex gap-4 items-center">
+                        <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0"><MapPin size={14} /></span>
                         <span className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] max-w-[220px]">
                           {addressText}
-                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
+                          <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </span>
                       </li>
                     )}
@@ -198,12 +198,12 @@ const Footer: React.FC<FooterProps> = ({
             <div className="flex flex-col items-center justify-between gap-4 text-center text-[clamp(12px,0.75rem+0.1vw,14px)] text-stone-400 md:flex-row md:text-left">
               {copyrightTextValue && <span>{copyrightTextValue}</span>}
               {privacyPolicyLink && (
-                <a href={privacyPolicyLink} className="underline underline-offset-2 hover:text-[#1B1D20]">
+                <a href={privacyPolicyLink} className="underline underline-offset-2 transition-colors duration-300 hover:text-[#1B1D20]">
                   {privacyText}
                 </a>
               )}
               {termsOfUseLink && (
-                <a href={termsOfUseLink} className="underline underline-offset-2 hover:text-[#1B1D20]">
+                <a href={termsOfUseLink} className="underline underline-offset-2 transition-colors duration-300 hover:text-[#1B1D20]">
                   {termsText}
                 </a>
               )}

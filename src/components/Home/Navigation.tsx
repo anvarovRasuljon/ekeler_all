@@ -259,21 +259,18 @@ const labels = {
   ru: {
     products: 'Продукция',
     about: 'О нас',
-    industries: 'Отрасли',
     contact: 'Контакты',
     service:"Услуги"
   },
   uz: {
     products: 'Mahsulotlar',
     about: 'Biz haqimizda',
-    industries: 'Sanoatlar',
     contact: 'Aloqa',
     service: 'Xizmatlar',
   },
   eng: {
     products: 'Products',
     about: 'About Us',
-    industries: 'Industries',
     contact: 'Contact',
     service:"Services"  },
 }
@@ -381,7 +378,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
   const close = () => setIsOpen(false)
 
   const burgerLine =
-    'absolute left-0 block h-[2px] w-full rounded-full bg-[#1B1D20]'
+    'absolute left-0 block h-[2px] w-full rounded-full bg-[#1B1D20] transition-all duration-300 ease-out'
 
   return (
     <>
@@ -425,11 +422,6 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
           {/* Desktop: o'ng ustun */}
           <ul className="hidden list-none items-center gap-[16px] p-0 m-0 lg:flex xl:gap-[32px] lg:justify-self-end">
             <li>
-              <a href="/industries" className={navLinkClass}>
-                {t.industries}
-              </a>
-            </li>
-            <li>
               <a href="/service" className={navLinkClass}>
                 {t.service}
               </a>
@@ -470,7 +462,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
           aria-hidden={!isOpen}
           onClick={close}
           className={cn(
-            'fixed inset-0 z-40 top-[65px] bg-black/40 lg:hidden',
+            'fixed inset-0 z-40 top-[65px] bg-black/40 transition-opacity duration-500 lg:hidden',
             isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none',
           )}
         />
@@ -480,7 +472,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
           id="mobile-nav-panel"
           ref={panelRef}
           className={cn(
-            'fixed right-0 top-[65px] z-50 h-[calc(100dvh-65px)] w-[82%] max-w-[360px] overflow-y-auto border-l border-neutral-200 bg-white px-6 py-8 lg:hidden',
+            'fixed right-0 top-[65px] z-50 h-[calc(100dvh-65px)] w-[82%] max-w-[360px] overflow-y-auto border-l border-neutral-200 bg-white px-6 py-8 transition-transform duration-500 ease-out lg:hidden',
             isOpen ? 'translate-x-0' : 'translate-x-full',
           )}
         >
@@ -494,11 +486,6 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
               <Link to="/about" onClick={close} className={mobileLinkClass}>
                 {t.about}
               </Link>
-            </li>
-            <li>
-              <a href="/industries" onClick={close} className={mobileLinkClass}>
-                {t.industries}
-              </a>
             </li>
             <li>
               <a href="/service" onClick={close} className={mobileLinkClass}>

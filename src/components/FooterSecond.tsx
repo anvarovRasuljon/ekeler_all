@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
 import backgroundImageUrl from "../assets/Footer_second.png";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -37,9 +37,9 @@ const FooterSecond: React.FC = () => {
   const phone = "+998 90 123 45 67";
   const email = "info@ekeler.uz";
   const address = "Tashkent, Uzbekistan";
-  const copyrightText = "© 2026 Ekeler. All rights reserved.";
-  const privacyPolicyLink = "#";
-  const termsOfUseLink = "#";
+  const copyrightText = " 2026 Ekeler. All rights reserved.";
+  const privacyPolicyLink = "/privacy-policy";
+  const termsOfUseLink = "/terms-of-use";
 
   return (
     <footer
@@ -67,10 +67,10 @@ const FooterSecond: React.FC = () => {
                   {ctaText && ctaLink && (
                     <a
                       href={ctaLink}
-                      className="mt-6 inline-flex min-h-[44px] items-center gap-1 border-b border-[#1B1D20] pb-1 text-[15px] text-[#1B1D20] hover:border-[#E88029] hover:text-[#E88029] sm:mt-8"
+                      className="group mt-6 inline-flex min-h-[44px] items-center gap-1 border-b border-[#ECECEC] pb-1 text-[15px] text-[#1B1D20] transition-colors duration-300 hover:border-[#E88029] hover:text-[#E88029] sm:mt-8"
                     >
                       {t(ctaText)}
-                      <ArrowUpRight size={16} className="text-[#E88029]" />
+                      <ArrowUpRight size={16} className="text-current transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                     </a>
                   )}
                 </div>
@@ -80,21 +80,19 @@ const FooterSecond: React.FC = () => {
               {safeNavLinks.length > 0 && (
                 <div>
                   {navLabel && (
-                    <span className="text-[13px] text-stone-400 block mb-5">
-                      {t(navLabel)}
-                    </span>
+                    <span className="font-manrope font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 block mb-5">{t(navLabel)}</span>
                   )}
                   <ul className="space-y-4">
                     {safeNavLinks.map((link: FooterLink, i: number) => (
                       <li key={link.href || String(i)}>
                         <a
                           href={link.href}
-                          className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029]"
+                          className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {link.label ? t(link.label) : null}
-                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
+                          <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                           {link.external && (
-                            <ArrowUpRight size={14} className="text-[#E88029]" />
+                            <ArrowUpRight size={14} className="text-current transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                           )}
                         </a>
                       </li>
@@ -107,19 +105,17 @@ const FooterSecond: React.FC = () => {
               {safeSocialLinks.length > 0 && (
                 <div>
                   {socialLabel && (
-                    <span className="text-[13px] text-stone-400 block mb-5">
-                      {t(socialLabel)}
-                    </span>
+                    <span className="font-manrope font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 block mb-5">{t(socialLabel)}</span>
                   )}
                   <ul className="space-y-4">
                     {safeSocialLinks.map((link: FooterLink, i: number) => (
                       <li key={link.href || String(i)}>
                         <a
                           href={link.href}
-                          className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029]"
+                          className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {link.label ? t(link.label) : null}
-                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
+                          <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </a>
                       </li>
                     ))}
@@ -131,47 +127,45 @@ const FooterSecond: React.FC = () => {
               {(phone || email || address) && (
                 <div>
                   {contactLabel && (
-                    <span className="text-[13px] text-stone-400 block mb-5">
-                      {t(contactLabel)}
-                    </span>
+                    <a href="/contact" className="font-manrope font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 inline-block mb-5 border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]">{t(contactLabel)}</a>
                   )}
                   <ul className="space-y-4">
                     {phone && (
-                      <li className="flex gap-3 items-center">
-                        <span className="flex justify-center items-center w-9 h-9 rounded-full border border-stone-200 shrink-0">
-                          📞
+                      <li className="group flex gap-3 items-center">
+                        <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0">
+                          <Phone size={14} />
                         </span>
                         <a
                           href={`tel:${phone.replace(/\s/g, "")}`}
-                          className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029]"
+                          className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {phone}
-                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
+                          <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </a>
                       </li>
                     )}
                     {email && (
-                      <li className="flex gap-3 items-center">
-                        <span className="flex justify-center items-center w-9 h-9 rounded-full border border-stone-200 shrink-0">
-                          📧
+                      <li className="group flex gap-3 items-center">
+                        <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0">
+                          <Mail size={14} />
                         </span>
                         <a
                           href={`mailto:${email}`}
-                          className="group inline-flex items-center gap-1 text-[16px] text-[#1B1D20] hover:text-[#E88029]"
+                          className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {email}
-                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
+                          <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </a>
                       </li>
                     )}
                     {address && (
-                      <li className="flex gap-3 items-start">
-                        <span className="flex justify-center items-center w-9 h-9 rounded-full border border-stone-200 shrink-0">
-                          📍
+                      <li className="group flex gap-3 items-center">
+                        <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0">
+                          <MapPin size={14} />
                         </span>
                         <span className="group inline-flex max-w-[220px] items-center gap-1 break-words text-[15px] text-[#1B1D20] sm:text-[16px]">
                           {t(address)}
-                          <ArrowUpRight size={14} className="text-[#E88029] opacity-0 -translate-y-1   group-hover:opacity-100 group-hover:translate-y-0" />
+                          <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </span>
                       </li>
                     )}
@@ -187,7 +181,7 @@ const FooterSecond: React.FC = () => {
               {privacyPolicyLink && (
                 <a
                   href={privacyPolicyLink}
-                  className="underline underline-offset-2 hover:text-[#1B1D20]"
+                  className="underline underline-offset-2 transition-colors duration-300 hover:text-[#1B1D20]"
                 >
                   {t({ ru: 'Политика конфиденциальности', uz: 'Maxfiylik siyosati', eng: 'Privacy policy' })}
                 </a>
@@ -195,7 +189,7 @@ const FooterSecond: React.FC = () => {
               {termsOfUseLink && (
                 <a
                   href={termsOfUseLink}
-                  className="underline underline-offset-2 hover:text-[#1B1D20]"
+                  className="underline underline-offset-2 transition-colors duration-300 hover:text-[#1B1D20]"
                 >
                   {t({ ru: 'Условия использования', uz: 'Foydalanish shartlari', eng: 'Terms of use' })}
                 </a>

@@ -230,11 +230,6 @@ export interface MonialsSectionProps {
   className?: string;
 }
 
-const TITLE_TEXT = "Mijozlarimiz fikri:";
-const SUBTITLE_TEXT = `Lorem Impus porum dor,
-forem dorem quick,
-lore puel duit`;
-
 const LOREM_20 =
   "Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim.";
 
@@ -253,8 +248,8 @@ function safeText(value: any): string {
 }
 
 const MonialsSection: React.FC<MonialsSectionProps> = ({
-  title = TITLE_TEXT,
-  subtitle = SUBTITLE_TEXT,
+  title = "",
+  subtitle = "",
   testimonials = DEFAULT_TESTIMONIALS,
   className = "",
 }) => {
@@ -306,18 +301,24 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
 
   return (
     <section
-      className={`overflow-hidden relative w-full h-auto bg-center bg-no-repeat bg-cover ${className}`}
+      className={`overflow-hidden relative w-full h-auto rounded-[8px] bg-center bg-no-repeat bg-cover ${className}`}
       style={{ backgroundImage: `url(${CommentBg})` }}
     >
       <div className="mx-auto max-w-[1200px] px-4 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-28 lg:px-0 lg:pt-32">
-        <header className="flex flex-col items-center text-center">
-          <h2 className="break-words text-[28px] font-light leading-tight text-white sm:text-[42px] lg:text-[72px]">
-            {title}
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed whitespace-pre-line text-white/80 sm:text-base">
-            {subtitle}
-          </p>
-        </header>
+        {(title || subtitle) && (
+          <header className="flex flex-col items-center text-center">
+            {title && (
+              <h2 className="break-words text-[28px] font-light leading-tight text-white sm:text-[42px] lg:text-[72px]">
+                {title}
+              </h2>
+            )}
+            {subtitle && (
+              <p className="mt-4 text-sm leading-relaxed whitespace-pre-line text-white/80 sm:text-base">
+                {subtitle}
+              </p>
+            )}
+          </header>
+        )}
 
         <div className="mt-10 md:mt-16">
           {/* Cards with animation */}
