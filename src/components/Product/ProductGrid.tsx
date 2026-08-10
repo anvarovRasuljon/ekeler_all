@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import FadeImage from "../ui/FadeImage";
 
 const BASE_URL = "https://api.ekeler.uz";
 const PAGE_SIZE = 9;
@@ -93,13 +94,12 @@ const ProductGrid: React.FC = () => {
             >
               {/* Image — full card width & height */}
               <div className="relative aspect-[4/3] w-full overflow-hidden">
-                <img
+                <FadeImage
                   src={imageUrl}
                   alt={product.title || ""}
-                  className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  className="h-full w-full"
+                  imgClassName="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
                 />
                 {/* Gradient overlay on hover */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

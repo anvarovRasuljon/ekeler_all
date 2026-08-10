@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import productHeroBg from "../../assets/BlogHero_bg.png";
 import { useLanguage } from "../../context/LanguageContext";
 
-const BlogHero: React.FC = () => {
+const ServiceHero: React.FC = () => {
   const { t } = useLanguage();
 
   const logoText = {
@@ -58,4 +58,4 @@ const BlogHero: React.FC = () => {
   );
 };
 
-export default React.memo(BlogHero);
+export default React.memo(ServiceHero);

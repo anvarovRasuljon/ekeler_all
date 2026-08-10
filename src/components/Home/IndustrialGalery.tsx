@@ -32,6 +32,7 @@ const DEFAULT_GALLERY: GalleryCardData[] = [
 ];
 
 const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCardData }) {
+  const [loaded, setLoaded] = React.useState(false);
   return (
     <div
       className={`
@@ -51,11 +52,18 @@ const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCar
           loading="lazy"
           decoding="async"
           fetchPriority="low"
+          onLoad={() => setLoaded(true)}
           className={`
             absolute inset-0 h-full w-full object-cover
-            transition-all duration-500 ease-out
+            transition-[filter,opacity,transform] duration-500 ease-out
             group-hover:scale-[1.04] group-hover:brightness-75
           `}
+          style={{
+            filter: loaded ? undefined : "blur(18px)",
+            opacity: loaded ? 1 : 0.6,
+            transform: loaded ? undefined : "scale(1.05)",
+            willChange: "filter, transform, opacity",
+          }}
         />
       )}
 
@@ -80,7 +88,7 @@ const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCar
         )}
       </div>
 
-      <div className="relative z-10 px-4 pb-4 opacity-100 transition-opacity duration-500 sm:px-6 sm:pb-6 md:opacity-0 lg:px-8 lg:pb-8 group-hover:opacity-100">
+      <div className="relative z-10 px-4 pb-4 opacity-100 transition-[opacity,transform] duration-500 sm:px-6 sm:pb-6 md:translate-y-5 md:opacity-0 lg:px-8 lg:pb-8 md:group-hover:translate-y-0 md:group-hover:opacity-100">
         <p className="w-full max-w-[500px] break-words font-inter text-[12px] font-normal leading-relaxed text-white/90 md:text-[clamp(14px,0.85rem+0.1vw,16px)] lg:leading-[25px]">
           {item.description}
         </p>

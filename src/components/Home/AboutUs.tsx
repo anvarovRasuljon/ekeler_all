@@ -33,15 +33,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
   const buttonLabel = useMemo(() => (buttonText ? t(buttonText) : null), [t, buttonText]);
 
   const highlightPart = 'ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.';
-  const { descBefore, descAfter } = useMemo(() => {
-    if (!descriptionPart1Text) return { descBefore: '', descAfter: '' };
-    const index = String(descriptionPart1Text).indexOf(highlightPart);
-    if (index === -1) return { descBefore: String(descriptionPart1Text), descAfter: '' };
-    return {
-      descBefore: String(descriptionPart1Text).slice(0, index),
-      descAfter: String(descriptionPart1Text).slice(index),
-    };
-  }, [descriptionPart1Text]);
+  const fullText = useMemo(() => String(descriptionPart1Text || ''), [descriptionPart1Text]);
 
   const sectionRef = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
@@ -61,6 +53,24 @@ const AboutUs: React.FC<InpusSectionProps> = ({
     observer.observe(node);
     return () => observer.disconnect();
   }, []);
+
+  // Matnni so'zlarga bo'lib, highlight qismini belgilaymiz
+  const highlightIndex = fullText.indexOf(highlightPart);
+  const beforeWords = useMemo(
+    () => (highlightIndex === -1 ? fullText.split(" ") : fullText.slice(0, highlightIndex).trim().split(" ")),
+    [fullText, highlightIndex]
+  );
+  const afterWords = useMemo(
+    () => (highlightIndex === -1 ? [] : fullText.slice(highlightIndex).trim().split(" ")),
+    [fullText, highlightIndex]
+  );
+  const allWords = useMemo(
+    () => [
+      ...beforeWords.map((w) => ({ text: w, colored: false })),
+      ...afterWords.map((w) => ({ text: w, colored: true })),
+    ],
+    [beforeWords, afterWords]
+  );
 
   return (
   <section
@@ -87,17 +97,40 @@ const AboutUs: React.FC<InpusSectionProps> = ({
 
       {/* Center text */}
       <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center px-0 text-center sm:px-6 lg:px-[32px]">
-        <span className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
+        <span
+          className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500 transition-all duration-700 ease-out"
+          style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : "translateY(14px)",
+          }}
+        >
           {badgeTextValue}
         </span>
 
         {/* font-normal (400) — kichik ekran uchun */}
         <h2 className="mb-8 w-full max-w-[610px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20]">
           {twoColorMode ? (
-            <>
-              {descBefore && <span className="text-[#1B1D20]">{descBefore}</span>}
-              {descAfter && <span className="text-[#E88029]">{descAfter}</span>}
-            </>
+            <span className="inline">
+              {allWords.map((w, i) => (
+                <span
+                  key={i}
+                  className="inline-block overflow-hidden align-bottom"
+                  style={{ marginRight: "0.28em" }}
+                >
+                  <span
+                    className={`inline-block will-change-transform ${w.colored ? "text-[#E88029]" : "text-[#1B1D20]"}`}
+                    style={{
+                      opacity: inView ? 1 : 0,
+                      filter: inView ? "blur(0px)" : "blur(6px)",
+                      transform: inView ? "translateY(0%)" : "translateY(115%)",
+                      transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, filter 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
+                    }}
+                  >
+                    {w.text}
+                  </span>
+                </span>
+              ))}
+            </span>
           ) : (
             <span className="text-[#1B1D20]">{descriptionText}</span>
           )}
@@ -105,7 +138,12 @@ const AboutUs: React.FC<InpusSectionProps> = ({
 
         <Link
           to="/about"
-          className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] mt-[28px] cursor-pointer"
+          className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] mt-[28px] cursor-pointer transition-all duration-700 ease-out"
+          style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : "translateY(14px)",
+            transitionDelay: `${allWords.length * 28 + 150}ms`,
+          }}
         >
           <span className="inline-flex gap-6 items-center">
             {buttonLabel}
@@ -116,8 +154,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
           </div>
         </Link>
 
-        {/* ===== MOBILE ONLY (sm:hidden) — Figma 2-rasmga 1:1 ===== */}
-       {/* ===== MOBILE ONLY (sm:hidden) ===== */}
+        {/* ===== MOBILE ONLY (sm:hidden) ===== */}
 <div className="relative mt-10 w-full sm:hidden">
   {/* Left image — o‘z joyidan paydo bo‘ladi */}
   <div

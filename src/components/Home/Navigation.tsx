@@ -261,21 +261,21 @@ const labels = {
     about: 'О нас',
     industries: 'Отрасли',
     contact: 'Контакты',
-    blog:"Блог"
+    service:"Услуги"
   },
   uz: {
     products: 'Mahsulotlar',
     about: 'Biz haqimizda',
     industries: 'Sanoatlar',
     contact: 'Aloqa',
-    blog: 'Blog',
+    service: 'Xizmatlar',
   },
   eng: {
     products: 'Products',
     about: 'About Us',
     industries: 'Industries',
     contact: 'Contact',
-    blog:"Blog"  },
+    service:"Services"  },
 }
 
 interface LanguageSelectProps {
@@ -303,12 +303,42 @@ const LanguageSelect: React.FC<LanguageSelectProps> = ({ language, onChange, cla
 
 const NAV_HEIGHT_PX = 65
 
-const Navigation: React.FC = () => {
+interface NavigationProps {
+  /** Mobilda nav `fixed` bo'lgani uchun oqimdan chiqadi va spacer kerak bo'ladi.
+   *  Agar spacer'ni chaqiruvchi o'zi joylashtirsa (masalan Home'da Hero'dan
+   *  OLDIN), buni `false` qilib bering. */
+  showSpacer?: boolean
+}
+
+const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
   const { language, setLanguage } = useLanguage()
   const t = labels[language]
   const [isOpen, setIsOpen] = useState(false)
   const panelRef = useRef<HTMLDivElement | null>(null)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
+
+  // Desktop: nav ekran tepasiga yetganda `fixed` bo'lib DOIM qotib turadi.
+  // `position: sticky` bu yerda yaramaydi — u ota element (div.p-2) tugagach,
+  // ya'ni Footer ko'ringanda yopishishdan chiqib ketadi.
+  const [pinned, setPinned] = useState(false)
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current
+    if (!sentinel) return
+
+    // Sentinel nav'ning oqimdagi asl joyi. U ekran tepasidan yuqoriga
+    // chiqib ketsa — nav'ni pin qilamiz.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setPinned(!entry.isIntersecting && entry.boundingClientRect.top <= 0)
+      },
+      { threshold: 0 },
+    )
+
+    observer.observe(sentinel)
+    return () => observer.disconnect()
+  }, [])
 
   // Responsive: menyu ochiq bo'lganda body scroll bloklanadi.
   useEffect(() => {
@@ -355,11 +385,18 @@ const Navigation: React.FC = () => {
 
   return (
     <>
-      {/* Nav endi position:fixed — sticky ota elementlardagi overflow tufayli
-          ishlamay qolishi mumkin edi, fixed esa buni chetlab o'tadi va nav
-          har doim ekran tepasida turadi. */}
+      {/* Sentinel — nav'ning oqimdagi asl o'rni (balandligi 0). */}
+      <div ref={sentinelRef} aria-hidden="true" />
+
+      {/* Mobil: doim `fixed` — DOM'da qayerda turishidan qat'i nazar ekran
+          tepasida turadi (Home'da nav Hero'dan KEYIN keladi, lekin mobilda tepada).
+          Desktop (lg+): boshida oqimda (`static`), tepaga yetgach `fixed` bo'lib
+          DOIM qotib turadi — Footer'da ham chiqib ketmaydi. */}
       <nav
-        className="fixed top-0 left-0 z-50 w-full bg-white"
+        className={cn(
+          'fixed top-0 left-0 z-50 w-full bg-white',
+          pinned ? 'lg:fixed' : 'lg:static',
+        )}
         style={{ height: NAV_HEIGHT_PX }}
       >
         <div className="box-border flex h-[65px] w-full items-center justify-between px-4 sm:px-6 lg:grid lg:grid-cols-3 lg:px-8 xl:px-[clamp(32px,2rem+1vw,48px)]">
@@ -393,8 +430,8 @@ const Navigation: React.FC = () => {
               </a>
             </li>
             <li>
-              <a href="/blog" className={navLinkClass}>
-                {t.blog}
+              <a href="/service" className={navLinkClass}>
+                {t.service}
               </a>
             </li>
             <li>
@@ -464,8 +501,8 @@ const Navigation: React.FC = () => {
               </a>
             </li>
             <li>
-              <a href="/blog" onClick={close} className={mobileLinkClass}>
-                {t.blog}
+              <a href="/service" onClick={close} className={mobileLinkClass}>
+                {t.service}
               </a>
             </li>
             <li>
@@ -480,9 +517,22 @@ const Navigation: React.FC = () => {
         </div>
       </nav>
 
-      {/* Spacer — nav endi fixed bo'lgani uchun oqimdan chiqdi,
-          shu joy sahifa kontenti nav ostida qolib ketmasligi uchun kerak. */}
-      <div style={{ height: NAV_HEIGHT_PX }} aria-hidden="true" />
+      {/* Mobil spacer — nav mobilda `fixed` bo'lib oqimdan chiqadi. */}
+      {showSpacer && (
+        <div
+          className="lg:hidden"
+          style={{ height: NAV_HEIGHT_PX }}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Desktop placeholder — nav pin bo'lganda oqimdan chiqadi, shu sabab
+          kontent 65px yuqoriga sakramasligi uchun o'sha joyni to'ldiramiz. */}
+      <div
+        className={cn('hidden', pinned && 'lg:block')}
+        style={{ height: NAV_HEIGHT_PX }}
+        aria-hidden="true"
+      />
     </>
   )
 }

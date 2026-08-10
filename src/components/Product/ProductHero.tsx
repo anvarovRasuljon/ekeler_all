@@ -9,15 +9,19 @@ const ProductHero: React.FC = () => {
   const bgImage = productHeroBg;
 
   const logo = useMemo(() => t(logoText), [t, logoText]);
+  const marqueeSegment = useMemo(() => {
+    if (!logo) return '';
+    return Array(8).fill(logo).join(' — ') + ' —\u00A0';
+  }, [logo]);
 
   return (
-    <div className="box-border overflow-hidden relative w-full h-screen">
+    <div className="box-border overflow-hidden relative w-full h-[calc((100dvh-81px)/2)] lg:h-[calc(100dvh-16px)] transition-[clip-path,opacity] duration-[1200ms] ease-out">
       {/* Background image */}
       {bgImage ? (
         <img
           src={bgImage}
           alt="Product"
-          className="absolute w-[calc(100%)] h-[calc(98.5%)] object-cover rounded-[8px]"
+          className="absolute w-full h-full object-cover rounded-[8px]"
           loading="eager"
           decoding="async"
         />
@@ -25,20 +29,36 @@ const ProductHero: React.FC = () => {
         <div className="absolute inset-[15px] bg-neutral-200 rounded-[8px]" />
       )}
 
-      {/* Overlay */}
-      <div className="absolute inset-0" />
-
-      {/* Bottom animated text */}
-      {logo && (
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-[0%] w-[200%] flex justify-center pointer-events-none select-none z-0 overflow-hidden">
-          <p
-            /* Responsive: mobilda matn biroz kattaroq vw bilan balanslanadi */
-            className="whitespace-nowrap text-[18vw] font-normal leading-normal tracking-tight text-[#FFFFFF]/95 sm:text-[16vw]"
-          >
-            {logo} — {logo} — {logo} — {logo} — {logo}
-          </p>
+      {/* Bottom infinite marquee text */}
+      {marqueeSegment && (
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none select-none z-0">
+          <div className="flex w-max will-change-transform animate-marquee">
+            <p className="shrink-0 whitespace-nowrap text-[18vw] font-normal leading-normal tracking-tight text-[#FFFFFF]/95 sm:text-[14vw]">
+              {marqueeSegment}
+            </p>
+            <p className="shrink-0 whitespace-nowrap text-[18vw] font-normal leading-normal tracking-tight text-[#FFFFFF]/95 sm:text-[14vw]">
+              {marqueeSegment}
+            </p>
+          </div>
         </div>
       )}
+
+      <style>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-marquee {
+          will-change: transform;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          animation: marquee 40s linear infinite;
+        }
+      `}</style>
     </div>
   );
 };

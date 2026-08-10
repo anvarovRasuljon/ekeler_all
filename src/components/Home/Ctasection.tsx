@@ -16,12 +16,17 @@ const CtaSection: React.FC<CtaSectionProps> = ({
   badgeText = "Ready",
   headingPart1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.",
   buttonText = "Bizning mahsulotlar",
-  buttonLink = "/blog",
+  buttonLink = "/service",
 }) => {
   const { t } = useLanguage();
   const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : null), [t, badgeText]);
   const headingText = useMemo(() => (headingPart1 ? t(headingPart1) : null), [t, headingPart1]);
   const buttonLabel = useMemo(() => (buttonText ? t(buttonText) : null), [t, buttonText]);
+
+  const words = useMemo(() => {
+    if (!headingText) return [];
+    return String(headingText).trim().split(/\s+/).filter(Boolean);
+  }, [headingText]);
 
   const sectionRef = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
@@ -62,6 +67,13 @@ const CtaSection: React.FC<CtaSectionProps> = ({
           decoding="async"
           fetchPriority="low"
           className="object-cover w-full h-full rounded-[8px]"
+          style={{
+            filter: inView ? "blur(0px)" : "blur(18px)",
+            opacity: inView ? 1 : 0.6,
+            transform: inView ? "scale(1)" : "scale(1.05)",
+            transition: "filter 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
+            willChange: "filter, transform, opacity",
+          }}
         />
       </div>
 
@@ -78,9 +90,15 @@ const CtaSection: React.FC<CtaSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className={`h-full w-full object-cover transition-[clip-path] duration-1000 ease-out ${
+              className={`h-full w-full object-cover transition-[clip-path,filter,opacity,transform] duration-1000 ease-out ${
                 inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(100%_0_0_0)]'
               }`}
+              style={{
+                filter: inView ? "blur(0px)" : "blur(18px)",
+                opacity: inView ? 1 : 0.6,
+                transform: inView ? "scale(1)" : "scale(1.05)",
+                willChange: "filter, transform, opacity",
+              }}
             />
           </div>
 
@@ -92,9 +110,15 @@ const CtaSection: React.FC<CtaSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className={`h-full w-full object-cover transition-[clip-path] duration-1000 ease-out ${
+              className={`h-full w-full object-cover transition-[clip-path,filter,opacity,transform] duration-1000 ease-out ${
                 inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(0_0_100%_0)]'
               }`}
+              style={{
+                filter: inView ? "blur(0px)" : "blur(18px)",
+                opacity: inView ? 1 : 0.6,
+                transform: inView ? "scale(1)" : "scale(1.05)",
+                willChange: "filter, transform, opacity",
+              }}
             />
           </div>
         </div>
@@ -107,7 +131,21 @@ const CtaSection: React.FC<CtaSectionProps> = ({
         )}
 
         <h2 className="mb-8 w-full max-w-[610px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20]">
-          {headingText}
+          {words.map((w, i) => (
+            <span key={i} className="inline-block overflow-hidden align-bottom" style={{ marginRight: "0.28em" }}>
+              <span
+                className="inline-block will-change-transform"
+                style={{
+                  opacity: inView ? 1 : 0,
+                  filter: inView ? "blur(0px)" : "blur(6px)",
+                  transform: inView ? "translateY(0%)" : "translateY(115%)",
+                  transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, filter 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
+                }}
+              >
+                {w}
+              </span>
+            </span>
+          ))}
         </h2>
 
         {buttonLabel && (
@@ -138,9 +176,14 @@ const CtaSection: React.FC<CtaSectionProps> = ({
           loading="lazy"
           decoding="async"
           fetchPriority="low"
-          className={`object-cover w-full h-full rounded-[8px] transition-transform duration-[3000ms] ease-out ${
-            inView ? 'translate-y-0' : '-translate-y-full'
-          }`}
+          className="object-cover w-full h-full rounded-[8px]"
+          style={{
+            filter: inView ? "blur(0px)" : "blur(18px)",
+            opacity: inView ? 1 : 0.6,
+            transform: inView ? "translateY(0) scale(1)" : "translateY(-100%) scale(1.05)",
+            transition: "filter 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 3000ms cubic-bezier(0,0,0.2,1)",
+            willChange: "filter, transform, opacity",
+          }}
         />
       </div>
     </section>

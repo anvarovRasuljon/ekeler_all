@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import FadeImage from "../../ui/FadeImage";
 
 const BASE_URL = "https://api.ekeler.uz";
 
@@ -21,13 +22,12 @@ const ProductCard: React.FC<ApiProduct> = ({ id, title, short_description, main_
       to={`/products/${id}`}
       className="group flex h-[clamp(300px,20rem+4vw,480px)] w-full cursor-pointer flex-col items-center justify-center rounded-2xl border border-[#F1F1F1] bg-white p-5 transition-all duration-300 hover:-translate-y-1.5 hover:border-gray-200 hover:shadow-xl sm:p-6 lg:p-8"
     >
-      <img
+      <FadeImage
         src={buildImageUrl(main_image)}
         alt={title}
         loading="lazy"
-        decoding="async"
-        fetchPriority="low"
-        className="mb-6 h-[clamp(120px,8rem+2vw,220px)] w-full max-w-[220px] object-contain sm:h-[clamp(140px,9rem+2vw,180px)] lg:mb-8"
+        className="mb-6 h-[clamp(120px,8rem+2vw,220px)] w-full max-w-[220px] sm:h-[clamp(140px,9rem+2vw,180px)] lg:mb-8"
+        imgClassName="h-full w-full object-contain"
       />
       <h3 className="mb-3 break-words text-center text-[clamp(18px,1.1rem+0.3vw,34px)] font-semibold leading-tight text-[#111827]">
         {title}

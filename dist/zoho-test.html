@@ -2,121 +2,239 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Zoho Web-to-Lead — standalone test</title>
+<title>Zoho Web-to-Lead — standalone baseline</title>
 </head>
 <body>
 
 <!-- =====================================================================
-     REFERENCE / BASELINE fayl.
-     Bu Zoho generated HTML formaning standalone versiyasi.
-     Maqsad: React versiyasining POST payloadini SHU faylning payloadi
-     bilan 1:1 solishtirish.
+     BASELINE. Zoho generated HTML'ning AYNAN nusxasi.
+     Faqat DEBUG loglar qo'shildi, bironta field/qiymat o'zgartirilmadi.
 
      Ochish:  http://localhost:5173/zoho-test.html
-     DevTools -> Console: payload logi chiqadi.
-     DevTools -> Network -> WebToLeadForm -> Payload: haqiqiy POST.
+     Console'da [HTML][etap] loglari chiqadi.
+     React versiyasi loglari bilan solishtiring.
      ===================================================================== -->
 
-<div id="crmWebToEntityForm" class="zcwf_lblLeft crmWebToEntityForm"
-     style="background-color: white; color: black; max-width: 600px; font-family: sans-serif;">
+<div id = 'crmWebToEntityForm' class = 'zcwf_lblLeft crmWebToEntityForm' style = 'background-color: white;color: black;max-width: 600px;'>
+	<meta name = 'viewport' content = 'width=device-width, initial-scale=1.0'>
+	<META HTTP-EQUIV = 'content-type' CONTENT = 'text/html;charset=UTF-8'>
+	<form id = 'webform7525508000000615582' action = 'https://crm.zoho.com/crm/WebToLeadForm' name = WebToLeads7525508000000615582 method = 'POST' onSubmit = 'javascript:document.charset="UTF-8"; return checkMandatory7525508000000615582()' accept-charset = 'UTF-8'>
+		<input type = 'text' style = 'display:none;' name = 'xnQsjsdp' value = 'e5f76d507cd012720bed14eb494a3494904759a62892920e3297aadcbd7f7c41'>
+		<input type = 'hidden' name = 'zc_gad' id = 'zc_gad' value = ''>
+		<input type = 'text' style = 'display:none;' name = 'xmIwtLD' value = 'e4abec6bb62336ed4f5c4b280c39705efcbee82cf448bafff6db06dfac668f48a2892226edff566c51897f26319e16e1'>
+		<input type = 'text' style = 'display:none;' name = 'actionType' value = 'TGVhZHM='>
+		<input type = 'text' style = 'display:none;' name = 'returnURL' value = 'null'>
+		<!-- Do not remove this code. -->
+		<style>
+			html,body{ margin: 0px; }
+			.formsubmit.zcwf_button{
+				color: white !important;
+				background: transparent linear-gradient(0deg, #0279FF 0%, #00A3F3 100%);
+			}
+			#crmWebToEntityForm.zcwf_lblLeft{
+				width: 100%; padding: 25px; margin: 0 auto; box-sizing: border-box;
+			}
+			#crmWebToEntityForm.zcwf_lblLeft *{ box-sizing: border-box; }
+			#crmWebToEntityForm{ text-align: left; }
+			#crmWebToEntityForm *{ direction: ltr; }
+			.zcwf_lblLeft .zcwf_title{
+				word-wrap: break-word; padding: 0px 6px 10px; font-weight: bold }
+			.zcwf_lblLeft .zcwf_col_fld input[ type  = text], input[ type  = password], .zcwf_lblLeft .zcwf_col_fld textarea{
+				width: 60%; border: 1px solid  #c0c6cc !important; resize: vertical;
+				border-radius: 2px; float: left;
+			}
+			.zcwf_lblLeft .zcwf_col_lab{
+				width: 30%; word-break: break-word; padding: 0px 6px 0px;
+				margin-right: 10px; margin-top: 5px; float: left; min-height: 1px;
+			}
+			.zcwf_lblLeft .zcwf_col_fld{
+				float: left; width: 68%; padding: 0px 6px 0px; position: relative; margin-top: 5px;
+			}
+			.zcwf_lblLeft .wfrm_fld_dpNn{ display: none; }
+			.zcwf_lblLeft .zcwf_row:after, .zcwf_lblLeft .zcwf_col_fld:after{
+				content: ''; display: table; clear: both;
+			}
+			.zcwf_lblLeft .zcwf_col_help{
+				float: left; margin-left: 7px; font-size: 12px; max-width: 35%; word-break: break-word;
+			}
+			.zcwf_lblLeft .zcwf_row{ margin: 15px 0px; }
+			.zcwf_lblLeft .formsubmit{
+				margin-right: 5px; cursor: pointer; color:  #313949; font-size: 12px;
+			}
+			.zcwf_lblLeft .zcwf_button{
+				font-size: 12px; color:  #313949; border: 1px solid  #c0c6cc;
+				padding: 3px 9px; border-radius: 4px; cursor: pointer; max-width: 120px;
+				overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+			}
+			@media all and  (max-width: 600px){
+				.zcwf_lblLeft .zcwf_col_lab, .zcwf_lblLeft .zcwf_col_fld{
+					width: auto; float: none !important;
+				}
+				.zcwf_lblLeft .zcwf_col_help{ width: 40%; }
+			}
+		</style>
+		<div class = 'zcwf_title' style = 'max-width: 600px;color: black; font-family:Arial;'>Website from</div>
+		<div class = 'zcwf_row'>
+			<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+				<label for = 'Last_Name'>Имя<span style = 'color:red;'>*</span></label>
+			</div>
+			<div class = 'zcwf_col_fld'>
+				<input type = 'text' id = 'Last_Name' aria-required = 'true' aria-label = 'Last Name' name = 'Last Name' aria-valuemax = '80' maxlength = '80'>
+				<div class = 'zcwf_col_help'></div>
+			</div>
+		</div>
+		<div class = 'zcwf_row'>
+			<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+				<label for = 'First_Name'>Фамилия<span style = 'color:red;'>*</span></label>
+			</div>
+			<div class = 'zcwf_col_fld'>
+				<input type = 'text' id = 'First_Name' aria-required = 'true' aria-label = 'First Name' name = 'First Name' aria-valuemax = '40' maxlength = '40'>
+				<div class = 'zcwf_col_help'></div>
+			</div>
+		</div>
+		<div class = 'zcwf_row'>
+			<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+				<label for = 'Company'>Компания</label>
+			</div>
+			<div class = 'zcwf_col_fld'>
+				<input type = 'text' id = 'Company' aria-required = 'false' aria-label = 'Company' name = 'Company' aria-valuemax = '200' maxlength = '200'>
+				<div class = 'zcwf_col_help'></div>
+			</div>
+		</div>
+		<div class = 'zcwf_row'>
+			<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+				<label for = 'Mobile'>Моб. телефон<span style = 'color:red;'>*</span></label>
+			</div>
+			<div class = 'zcwf_col_fld'>
+				<input type = 'text' id = 'Mobile' aria-required = 'true' aria-label = 'Mobile' name = 'Mobile' aria-valuemax = '30' maxlength = '30'>
+				<div class = 'zcwf_col_help'></div>
+			</div>
+		</div>
+		<div class = 'zcwf_row'>
+			<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+				<label for = 'Address_-_City'>Адрес - город</label>
+			</div>
+			<div class = 'zcwf_col_fld'>
+				<input type = 'text' id = 'Address_-_City' aria-required = 'false' aria-label = 'Address - City' name = 'Address - City' aria-valuemax = '255' maxlength = '255'>
+				<div class = 'zcwf_col_help'></div>
+			</div>
+		</div>
+		<div class = 'zcwf_row'>
+			<div class = 'zcwf_col_lab' style = 'font-size:12px; font-family: Arial;'>
+				<label for = 'Description'>Описание</label>
+			</div>
+			<div class = 'zcwf_col_fld'>
+				<textarea style = 'font-family: Arial, sans-serif;' aria-multiline = 'true' id = 'Description' aria-required = 'false' aria-label = 'Description' name = 'Description'></textarea>
+				<div class = 'zcwf_col_help'></div>
+			</div>
+		</div>
+		<input type = 'text' type = 'hidden' style = 'display: none;' name = 'aG9uZXlwb3Q' value = ''/>
+		<div class = 'zcwf_row'>
+			<div class = 'zcwf_col_lab'></div>
+			<div class = 'zcwf_col_fld'>
+				<input type = 'submit' id = 'formsubmit' role = 'button' class = 'formsubmit zcwf_button' value = 'Отправить' aria-label = 'Отправить' title = 'Отправить'>
+				<input type = 'reset' class = 'zcwf_button' role = 'button' name = 'reset' value = 'Сброс' aria-label = 'Сброс' title = 'Сброс'>
+			</div>
+		</div>
+		<script>
+			var L = function (stage) {
+				var rest = Array.prototype.slice.call(arguments, 1);
+				console.log.apply(console, ['[HTML][' + stage + ']'].concat(rest));
+			};
+			L('0-mount', 'standalone sahifa yuklandi | origin:', window.location.origin);
 
-  <form id="webform7525508000000615582"
-        action="https://crm.zoho.com/crm/WebToLeadForm"
-        name="WebToLeads7525508000000615582"
-        method="POST"
-        onsubmit="javascript:document.charset='UTF-8'; return checkMandatory7525508000000615582()"
-        accept-charset="UTF-8">
+			function checkMandatory7525508000000615582(isAjax){
+				L('1-submit', 'submit event boshlandi');
+				L('2-charset', 'document.charset =', document.charset);
 
-    <!-- ===== Zoho hidden / system fieldlari ===== -->
-    <input type="text" style="display:none;" name="xnQsjsdp"
-           value="e5f76d507cd012720bed14eb494a3494904759a62892920e3297aadcbd7f7c41" />
+				var mndFileds = new Array('First Name', 'Last Name', 'Mobile');
+				var fldLangVal = new Array('Фамилия', 'Имя', 'Моб. телефон');
+				L('3-validate', 'mandatory tekshiruv boshlandi', mndFileds);
+				for (i = 0; i < mndFileds.length; i++ ) {
+					var fieldObj = document.forms['WebToLeads7525508000000615582'] [mndFileds[i]];
+					if (fieldObj) {
+						var trimmed = (fieldObj.value).replace(/^\s+|\s+$/g,'');
+						L('3-validate', '"' + mndFileds[i] + '" =', JSON.stringify(fieldObj.value), 'len=' + trimmed.length);
+						if(trimmed.length == 0) {
+							if (fieldObj.type == 'file') {
+								alert('Выберите файл для отправки.');
+								fieldObj.focus();
+								return false;
+							}
+							L('3-validate', "BO'SH -> POST bekor. alert:", fldLangVal[i]);
+							alert(fldLangVal[i] + ' не может быть пустым.');
+							fieldObj.focus();
+							return false;
+						} else if (fieldObj.nodeName == 'SELECT') {
+							if (fieldObj.options[fieldObj.selectedIndex].value == '-None-') {
+								alert(fldLangVal[i] + ' не может отсутствовать.');
+								fieldObj.focus();
+								return false;
+							}
+						} else if (fieldObj.type == 'checkbox') {
+							if (fieldObj.checked == false) {
+								alert('Please accept  ' + fldLangVal[i]);
+								fieldObj.focus();
+								return false;
+							}
+						}
+						try{
+							if (fieldObj.name == 'Last Name') {
+								name = fieldObj.value;
+							}
+						} catch (e){}
+					} else {
+						L('3-validate', '"' + mndFileds[i] + '" TOPILMADI');
+					}
+				}
+				L('3-validate', 'hammasi OK');
 
-    <input type="hidden" name="zc_gad" id="zc_gad" value="" />
+				var urlparams = new URLSearchParams(window.location.search);
+				if (urlparams.has ('service') && (urlparams.get ('service') === 'smarturl') ) {
+					var webform = document.getElementById('webform7525508000000615582');
+					var service = urlparams.get('service');
+					var smarturlfield = document.createElement('input');
+					smarturlfield.setAttribute('type', 'hidden');
+					smarturlfield.setAttribute('value', service);
+					smarturlfield.setAttribute('name', 'service');
+					webform.appendChild(smarturlfield);
+					L('4-smarturl', "hidden input qo'shildi:", service);
+				} else {
+					L('4-smarturl', '?service=smarturl yoq, skip');
+				}
 
-    <input type="text" style="display:none;" name="xmIwtLD"
-           value="e4abec6bb62336ed4f5c4b280c39705efcbee82cf448bafff6db06dfac668f48a2892226edff566c51897f26319e16e1" />
+				var form = document.getElementById('webform7525508000000615582');
+				var fd = new FormData(form);
+				var payload = [];
+				fd.forEach(function (value, key) { payload.push({ key: key, value: value }); });
+				L('5-payload', 'POST payload:', payload);
+				console.table(payload);
+				L('5-payload', 'form attrs:', {
+					action: form.action,
+					method: form.method,
+					name: form.getAttribute('name'),
+					target: form.getAttribute('target'),
+					acceptCharset: form.getAttribute('accept-charset'),
+					enctype: form.enctype
+				});
+				L('5-payload', 'page origin:', window.location.origin, '| href:', window.location.href);
 
-    <input type="text" style="display:none;" name="actionType" value="TGVhZHM=" />
-
-    <input type="text" style="display:none;" name="returnURL" value="null" />
-
-    <!-- ===== Ko'rinadigan maydonlar ===== -->
-    <div><label for="Last_Name">Фамилия<span style="color:red">*</span></label><br />
-      <input type="text" id="Last_Name" name="Last Name" maxlength="80" /></div>
-
-    <div><label for="First_Name">Имя<span style="color:red">*</span></label><br />
-      <input type="text" id="First_Name" name="First Name" maxlength="40" /></div>
-
-    <div><label for="Company">Компания</label><br />
-      <input type="text" id="Company" name="Company" maxlength="200" /></div>
-
-    <div><label for="Mobile">Моб. телефон<span style="color:red">*</span></label><br />
-      <input type="text" id="Mobile" name="Mobile" maxlength="30" /></div>
-
-    <div><label for="Address_-_City">Город</label><br />
-      <input type="text" id="Address_-_City" name="Address - City" maxlength="255" /></div>
-
-    <div><label for="Description">Описание</label><br />
-      <textarea id="Description" name="Description"></textarea></div>
-
-    <!-- honeypot -->
-    <input type="text" style="display:none;" name="aG9uZXlwb3Q" value="" />
-
-    <div style="margin-top:12px">
-      <input type="submit" id="formsubmit" class="formsubmit zcwf_button" value="Отправить" />
-      <input type="reset" class="zcwf_button" name="reset" value="Сброс" />
-    </div>
-
-  </form>
+				document.querySelector('.crmWebToEntityForm .formsubmit').setAttribute('disabled', true);
+				L('6-disable', 'formsubmit disabled qilindi');
+				L('7-post', 'return undefined -> brauzer native POST qiladi (sahifa Zoho javobiga o\'tadi)');
+			}
+			_wFa_ajax_will_be_replaced = false;
+			if (typeof _wfa_fstprtcken == 'undefined') {
+				_wfa_fstprtcken = {};
+			}
+			_wfa_fstprtcken[7525508000000615582] = true;
+			L('0-analytics', '_wfa_fstprtcken tayyor', _wfa_fstprtcken);
+		</script>
+		<!-- Do not remove this --- Analytics Tracking code starts -->
+		<script id = 'wf_anal' src = 'https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=c99497a5b8f139c13331bab7013da657eebce41aa450329c13ca4cea14dabb14edb6e7186ac13278f2510fd86401bc1egid2ef6c8b0b4d78bfd95b035e18475bed9e66b46053380aa8d6117699786c2bdd5gid827233aeb153a16d0dafecbb86a7efa23b5790a4ccf432ad2198ce22366a93b7gide92f3b320448f7ac77030996f1f8968c3a7479ec866f568377759e927558be38&tw=7729a16980ca0983d9c967630bf9d022aa65cf295ee46f2985dca79c1e29e253&version=v2'></script>
+		<!-- Do not remove this --- Analytics Tracking code ends. -->
+	</form>
 </div>
-
-<script>
-function checkMandatory7525508000000615582() {
-
-  /* DEBUG: haqiqiy POST payloadi */
-  var form = document.getElementById('webform7525508000000615582');
-  var fd = new FormData(form);
-  var payload = [];
-  fd.forEach(function (value, key) { payload.push({ key: key, value: value }); });
-  console.log('[standalone] POST payload:', payload);
-  console.log('[standalone] form attrs:', {
-    action: form.action,
-    method: form.method,
-    name: form.getAttribute('name'),
-    target: form.getAttribute('target'),
-    acceptCharset: form.getAttribute('accept-charset')
-  });
-
-  var mndFileds = new Array('First Name', 'Last Name', 'Mobile');
-  var fldLangVal = new Array('Фамилия', 'Имя', 'Моб. телефон');
-
-  for (i = 0; i < mndFileds.length; i++) {
-    var fieldObj = document.forms['WebToLeads7525508000000615582'][mndFileds[i]];
-    if (fieldObj) {
-      if (((fieldObj.value).replace(/^\s+|\s+$/g, '')).length == 0) {
-        alert(fldLangVal[i] + ' не может быть пустым.');
-        fieldObj.focus();
-        return false;
-      }
-    }
-  }
-
-  var urlparams = new URLSearchParams(window.location.search);
-  if (urlparams.has('service') && urlparams.get('service') === 'smarturl') {
-    var webform = document.getElementById('webform7525508000000615582');
-    var service = urlparams.get('service');
-    var smarturlfield = document.createElement('input');
-    smarturlfield.setAttribute('type', 'hidden');
-    smarturlfield.setAttribute('value', service);
-    smarturlfield.setAttribute('name', 'service');
-    webform.appendChild(smarturlfield);
-  }
-
-  document.querySelector('.crmWebToEntityForm .formsubmit')
-          .setAttribute('disabled', true);
-}
-</script>
 
 </body>
 </html>

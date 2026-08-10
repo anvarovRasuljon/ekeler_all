@@ -168,6 +168,10 @@ const Hero: React.FC<HeroProps> = ({
   const phoneValue = useMemo(() => (phone ? t(phone) : undefined), [t, phone])
   const emailValue = useMemo(() => (email ? t(email) : undefined), [t, email])
   const logo = useMemo(() => (logoText ? t(logoText) : ''), [t, logoText])
+  const marqueeSegment = useMemo(() => {
+    if (!logo) return '';
+    return Array(8).fill(logo).join(' — ') + ' —\u00A0';
+  }, [logo])
 
   if (!title) {
     return null
@@ -175,7 +179,7 @@ const Hero: React.FC<HeroProps> = ({
 
   return (
     <div
-      className="box-border overflow-hidden relative w-full h-[calc(100dvh-65px)] lg:h-[100dvh] transition-[clip-path,opacity] duration-[1200ms] ease-out"
+      className="box-border overflow-hidden relative w-full h-[calc(100dvh-81px)] lg:h-[calc(100dvh-16px)] transition-[clip-path,opacity] duration-[1200ms] ease-out"
       style={{
         clipPath: imageLoaded ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)',
         opacity: imageLoaded ? 1 : 0,
@@ -261,14 +265,14 @@ const Hero: React.FC<HeroProps> = ({
       </div>
 
       {/* Bottom infinite marquee text — right to left, seamless loop */}
-      {logo && (
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-[0%] w-[200%] flex justify-center pointer-events-none select-none z-0 overflow-hidden">
-          <div className="flex whitespace-nowrap animate-marquee">
-            <p className="text-[18vw] font-normal leading-normal tracking-tight text-[#FFFFFF]/95 sm:text-[14vw]">
-              {logo} — {logo} — {logo} — {logo} — {logo} —&nbsp;
+      {marqueeSegment && (
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none select-none z-0">
+          <div className="flex w-max will-change-transform animate-marquee">
+            <p className="shrink-0 whitespace-nowrap text-[18vw] font-normal leading-normal tracking-tight text-[#FFFFFF]/95 sm:text-[14vw]">
+              {marqueeSegment}
             </p>
-            <p className="text-[18vw] font-normal leading-normal tracking-tight text-[#FFFFFF]/95 sm:text-[14vw]">
-              {logo} — {logo} — {logo} — {logo} — {logo} —&nbsp;
+            <p className="shrink-0 whitespace-nowrap text-[18vw] font-normal leading-normal tracking-tight text-[#FFFFFF]/95 sm:text-[14vw]">
+              {marqueeSegment}
             </p>
           </div>
         </div>
@@ -284,7 +288,10 @@ const Hero: React.FC<HeroProps> = ({
           }
         }
         .animate-marquee {
-          animation: marquee 25s linear infinite;
+          will-change: transform;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          animation: marquee 40s linear infinite;
         }
       `}</style>
     </div>

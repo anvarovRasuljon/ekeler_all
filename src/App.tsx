@@ -201,7 +201,7 @@ import ProductGrid from "./components/Product/ProductGrid";
 import ProductDetail from "./components/Product/ProductDetail/ProductDetail";
 import ProductCatalog from "./components/Product/ProductDetail/ProductCatalog";
 import { ProductRelativeCard } from "./components/Product/ProductDetail/ProductRelativeCard";
-import BlogHero from "./components/Blog/BlogHero";
+import ServiceHero from "./components/Service/ServiceHero";
 import ContactInfo from "./components/Contact/ContactInfo";
 import NotFoundPage from "./components/NotFound/NotFoundPage";
 
@@ -227,14 +227,16 @@ function App() {
             element={
               <>
                 <div className="p-2 w-full min-h-screen">
-                    <div className="flex flex-col">
-                      <div className="order-1 lg:order-2">
-                        <Navigation />
-                      </div>
-                      <div className="order-2 lg:order-1">
-                        <Hero backgroundImage={homeHeroBg} />
-                      </div>
-                    </div>
+                    {/* Mobil spacer: nav mobilda `fixed` bo'lgani uchun Hero
+                        uning ostiga kirib ketmasligi kerak. Desktopda nav
+                        Hero'dan KEYIN sticky turadi, shuning uchun spacer yo'q. */}
+                    <div className="h-[65px] lg:hidden" aria-hidden="true" />
+
+                    <Hero backgroundImage={homeHeroBg} />
+
+                    {/* Nav DOM'da Hero'dan keyin: desktopda Hero tagida ko'rinadi,
+                        mobilda `fixed` bo'lib ekran tepasida turadi. */}
+                    <Navigation showSpacer={false} />
 
                     <AboutUs />
                      {/* <InpusSection /> */}
@@ -282,8 +284,13 @@ function App() {
             element={
               <>
                 <div className="p-2 w-full min-h-screen">
+                  {/* Mobil spacer: nav mobilda `fixed` bo'lgani uchun ProductHero
+                      uning ostiga kirib ketmasligi kerak. */}
+                  <div className="h-[65px] lg:hidden" aria-hidden="true" />
+
                   <ProductHero />
-                  <Navigation />
+
+                  <Navigation showSpacer={false} />
                   <CatalogCtaSection />
                   <ProductGrid />
                   <MonialsSection />
@@ -311,13 +318,13 @@ function App() {
             }
           />
 
-          {/* BLOG */}
+          {/* SERVICE */}
           <Route
-            path="/blog"
+            path="/service"
             element={
               <>
                 <div className="p-2 w-full min-h-screen">
-                  <BlogHero/>
+                  <ServiceHero/>
                   <Navigation />
                   <CtaSection />
                   <GalleryCard />

@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
+import FadeImage from "../../ui/FadeImage";
 import ProductSpecifications, { type ProductDetailData } from "./ProductSpecifications";
 import ProductDetailGrid from "./ProductDetailGrid";
 
@@ -129,12 +130,12 @@ const ProductDetail: React.FC = () => {
           {/* RIGHT: main image */}
           <div className="flex justify-center items-center">
             {product.main_image && (
-              <img
+              <FadeImage
                 src={buildImageUrl(product.main_image)}
                 alt={product.title}
                 loading="eager"
-                decoding="async"
-                className="h-auto max-h-[320px] w-full max-w-full rounded-xl object-cover sm:max-h-[440px] lg:max-h-[600px]"
+                className="w-full max-w-full"
+                imgClassName="h-auto max-h-[320px] w-full max-w-full rounded-xl object-cover sm:max-h-[440px] lg:max-h-[600px]"
               />
             )}
           </div>
