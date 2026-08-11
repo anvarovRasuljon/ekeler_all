@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import inpus_left_img from "../../assets/redyImg_left.png";
+import inpus_left_img from "../../assets/home_features_img.png";
 import inpus_right_img from "../../assets/redyimg_right.png";
 import { useLanguage } from "../../context/LanguageContext";
 import { translations } from "../../locales/translations";
@@ -61,18 +61,18 @@ const CtaSection: React.FC<CtaSectionProps> = ({
   return (
    <section
   ref={sectionRef}
-  className="relative flex w-full items-center justify-between overflow-hidden bg-white pb-[clamp(48px,3rem+2vw,80px)] md:pb-0 lg:min-h-[600px]"
+  className="relative flex w-full items-center justify-between overflow-hidden bg-[#FFF7F0] pb-[clamp(48px,3rem+2vw,80px)] md:pb-0 lg:min-h-[600px]"
 >
       {/* Left image — desktop/tablet (comment dagi uslub) */}
       <div
-        className={`absolute left-2 top-1/2 hidden -translate-y-1/2 overflow-hidden shadow-sm sm:block sm:left-6 md:left-16 h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)] transition-all duration-[3000ms] ease-out ${
+        className={`absolute left-2 top-1/2 hidden -translate-y-1/2 overflow-hidden shadow-sm sm:block sm:left-6 md:left-16 h-[clamp(160px,10rem+2vw,250px)] w-[270px] transition-all duration-[3000ms] ease-out ${
           inView ? 'opacity-100' : 'opacity-0'
         }`}
       >
         <img
           src={inpus_left_img}
           alt=""
-          width={250}
+          width={300}
           height={260}
           loading="lazy"
           decoding="async"
@@ -177,12 +177,12 @@ const CtaSection: React.FC<CtaSectionProps> = ({
 
       {/* Right image — desktop/tablet (TOP da, comment dagi kabi) */}
       <div
-        className="absolute right-2 top-[-30px] hidden overflow-hidden shadow-sm sm:block sm:right-6 sm:top-[-40px] md:right-16 md:top-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
+        className="absolute right-2 top-[-30px] hidden overflow-hidden shadow-sm sm:block sm:right-6 sm:top-[-40px] md:right-16 md:top-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[270px]"
       >
         <img
           src={inpus_right_img}
           alt=""
-          width={250}
+          width={300}
           height={250}
           loading="lazy"
           decoding="async"
