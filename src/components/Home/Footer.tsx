@@ -95,7 +95,7 @@ const Footer: React.FC<FooterProps> = ({
         {/* White card */}
         <div className="relative p-4 pt-6 md:p-8">
           <div
-            className="mx-auto max-w-7xl rounded-[20px] bg-white px-5 py-8 shadow-[0_10px_40px_rgba(0,0,0,0.12)] sm:px-6 sm:py-10 md:rounded-[28px] md:px-14 md:py-12"
+            className="mx-[15px] rounded-[8px] bg-white px-5 py-8 shadow-[0_10px_40px_rgba(0,0,0,0.12)] sm:px-6 sm:py-10 md:rounded-[8px] md:px-14 md:py-12"
           >
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 md:gap-12 lg:grid-cols-[1.4fr_0.8fr_0.8fr_1fr]">
               {/* Heading + CTA */}
@@ -117,13 +117,13 @@ const Footer: React.FC<FooterProps> = ({
               {/* Nav links */}
               {(navLinks || []).length > 0 && (
                 <div>
-                  {navLabelText && <span className="font-manrope font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 block mb-5">{navLabelText}</span>}
+                  {navLabelText && <span className="font-inter font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 block mb-5">{navLabelText}</span>}
                   <ul className="space-y-4">
                     {(navLinks || []).map((link) => (
                       <li key={link.label?.ru || link.href}>
                         <a
                                                    href={link.href}
-                          className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
+                          className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {t(link.label)}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
@@ -138,13 +138,13 @@ const Footer: React.FC<FooterProps> = ({
               {/* Social links */}
               {(socialLinks || []).length > 0 && (
                 <div>
-                  {socialLabelText && <span className="font-manrope font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 block mb-5">{socialLabelText}</span>}
+                  {socialLabelText && <span className="font-inter font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 block mb-5">{socialLabelText}</span>}
                   <ul className="space-y-4">
                     {(socialLinks || []).map((link) => (
                       <li key={link.label?.ru || link.href}>
                         <a
                                                    href={link.href}
-                          className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
+                          className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {t(link.label)}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
@@ -158,12 +158,12 @@ const Footer: React.FC<FooterProps> = ({
               {/* Contact info */}
               {(phone || email || address) && (
                 <div>
-                  {contactLabelText && <a href="/contact" className="font-manrope font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 inline-block mb-5 border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]">{contactLabelText}</a>}
+                  {contactLabelText && <a href="/contact" className="font-inter font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 inline-block mb-5 border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]">{contactLabelText}</a>}
                   <ul className="space-y-4">
                     {phone && (
                       <li className="flex gap-4 items-center group">
                         <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0"><Phone size={14} /></span>
-                        <a href={`tel:${phone.replace(/\s/g, "")}`} className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]">
+                        <a href={`tel:${phone.replace(/\s/g, "")}`} className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]">
                           {phone}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </a>
@@ -172,14 +172,14 @@ const Footer: React.FC<FooterProps> = ({
                     {email && (
                       <li className="flex gap-4 items-center group">
                         <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0"><Mail size={14} /></span>
-                        <a href={`mailto:${email}`} className="group font-manrope font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]">
+                        <a href={`mailto:${email}`} className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]">
                           {email}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </a>
                       </li>
                     )}
                     {address && (
-                      <li className="group flex gap-4 items-center">
+                      <li className="flex gap-4 items-center group">
                         <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0"><MapPin size={14} /></span>
                         <span className="group inline-flex items-center gap-1 text-[clamp(14px,0.85rem+0.1vw,16px)] text-[#1B1D20] max-w-[220px]">
                           {addressText}

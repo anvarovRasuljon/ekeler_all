@@ -202,6 +202,7 @@ import ProductDetail from "./components/Product/ProductDetail/ProductDetail";
 import ProductCatalog from "./components/Product/ProductDetail/ProductCatalog";
 import { ProductRelativeCard } from "./components/Product/ProductDetail/ProductRelativeCard";
 import ServiceHero from "./components/Service/ServiceHero";
+import ServiceCtaSection from "./components/Service/ServiceCtaSection";
 import ContactInfo from "./components/Contact/ContactInfo";
 import NotFoundPage from "./components/NotFound/NotFoundPage";
 import PrivacyPolicyPage from "./components/Legal/PrivacyPolicyPage";
@@ -230,14 +231,12 @@ function App() {
               <>
                 <div className="p-2 w-full min-h-screen">
                     {/* Mobil spacer: nav mobilda `fixed` bo'lgani uchun Hero
-                        uning ostiga kirib ketmasligi kerak. Desktopda nav
-                        Hero'dan KEYIN sticky turadi, shuning uchun spacer yo'q. */}
+                        uning ostiga kirib ketmasligi kerak. */}
                     <div className="h-[65px] lg:hidden" aria-hidden="true" />
 
                     <Hero backgroundImage={homeHeroBg} />
 
-                    {/* Nav DOM'da Hero'dan keyin: desktopda Hero tagida ko'rinadi,
-                        mobilda `fixed` bo'lib ekran tepasida turadi. */}
+                    {/* Nav DOM'da Hero'dan keyin: desktopda nav hero tagida ko'rinadi. */}
                     <Navigation showSpacer={false} />
 
                     <AboutUs />
@@ -250,11 +249,14 @@ function App() {
                     <FeaturesSection />
 
                     <ProductsSection />
-
-                    <CtaSection />
+ </div>
+ <div className="px-6 w-full min-h-screen bg-[#FFF7F0]">
+ <CtaSection />
 
                     <GalleryCard />
-
+  
+ </div>
+<div className="p-2 w-full min-h-screen">
                     <MonialsSection />
 
                     <InpusSection />
@@ -325,7 +327,7 @@ function App() {
             path="/service"
             element={
               <>
-                <div className="p-2 w-full min-h-screen">
+                <div className="px-2 pt-2 w-full">
                   {/* Mobil spacer: nav mobilda `fixed` bo'lgani uchun ServiceHero
                       uning ostiga kirib ketmasligi kerak. */}
                   <div className="h-[65px] lg:hidden" aria-hidden="true" />
@@ -333,7 +335,10 @@ function App() {
                   <ServiceHero/>
 
                   <Navigation showSpacer={false} />
-                  <CtaSection />
+                    </div>
+                    
+                      <div className="px-6 w-full min-h-screen bg-[#FFF7F0]">
+                  <ServiceCtaSection />
                   <GalleryCard />
                 </div>
                 <FooterSecond />

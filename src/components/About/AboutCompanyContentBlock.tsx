@@ -108,7 +108,7 @@ function HighlightedDescription({
 function AboutCompanyContentBlock({
   data,
   minHeight = 670,
-  descriptionClassName = "font-['Manrope'] font-normal text-[26px] leading-[34px] mb-[30px] sm:text-[20px] sm:leading-[20px] lg:text-[40px] lg:leading-[48px] text-[#1B1D20] max-w-[450px] whitespace-pre-line break-words",
+  descriptionClassName = "font-['Inter'] font-normal text-[26px] leading-[34px] mb-[30px] sm:text-[20px] sm:leading-[20px] lg:text-[40px] lg:leading-[48px] text-[#1B1D20] max-w-[450px] whitespace-pre-line break-words",
 }: {
   data: AboutCompanyContentData | null;
   minHeight?: number;
@@ -197,7 +197,7 @@ function AboutCompanyContentBlock({
 
         {(data.phone || data.email) && (
           <div
-            className="flex flex-wrap items-center gap-4 md:gap-8 font-['Manrope'] font-normal text-[14px] leading-[18px] text-[#1B1D20]"
+            className="flex flex-wrap items-center gap-4 md:gap-8 font-['Inter'] font-normal text-[14px] leading-[18px] text-[#1B1D20]"
           >
             {data.phone && (
               <a
@@ -223,7 +223,7 @@ function AboutCompanyContentBlock({
 
         {data.location && (
           <div
-            className="flex items-start gap-2 max-w-[250px] font-['Manrope'] font-normal text-[14px] leading-[18px] text-[#1B1D20] mt-1"
+            className="flex items-start gap-2 max-w-[250px] font-['Inter'] font-normal text-[14px] leading-[18px] text-[#1B1D20] mt-1"
           >
             <MapPin size={14} strokeWidth={1.5} className="mt-0.5 shrink-0" />
             <span className="whitespace-pre-line">

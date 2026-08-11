@@ -38,7 +38,7 @@ const Hero: React.FC<HeroProps> = ({
 
   return (
     <div
-      className="box-border overflow-hidden relative w-full h-[calc(100dvh-81px)] lg:h-[calc(100dvh-16px)] transition-[clip-path,opacity] duration-[1200ms] ease-out"
+      className="box-border overflow-hidden relative w-full h-[calc(100dvh-73px)] transition-[clip-path,opacity] duration-[2000ms] ease-out"
       style={{
         clipPath: imageLoaded ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)',
         opacity: imageLoaded ? 1 : 0,
@@ -53,6 +53,7 @@ const Hero: React.FC<HeroProps> = ({
             className="w-full h-full rounded-[8px]"
             onLoad={() => setImageLoaded(true)}
           />
+          <div className="absolute inset-0 z-[1] rounded-[8px] bg-[#0000002E]" />
         </div>
       ) : (
         <div className="absolute inset-[15px]" />
@@ -75,15 +76,15 @@ const Hero: React.FC<HeroProps> = ({
           href={buttonHref}
           className="group relative mt-[clamp(16px,1rem+1vw,32px)] inline-flex h-auto min-h-[44px] w-fit max-w-[560px] cursor-pointer flex-col items-start"
         >
-          <span className="flex min-h-[44px] items-center gap-[20px] text-[clamp(14px,0.85rem+0.2vw,17px)] text-[#FFFFFF]">
+          <span className="flex min-h-[44px] items-center gap-[20px] font-['Inter'] text-[clamp(14px,0.85rem+0.2vw,17px)] text-[#FFFFFF]">
             {t(buttonText)}
             <ArrowUpRight
               size={16}
-              className="text-[#E88029] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              className="text-[#E88029] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:rotate-45"
             />
           </span>
-          <div className="relative mt-[8px] h-[1px] w-full bg-[#9CA3AF] overflow-hidden">
-            <div className="absolute left-0 top-0 h-full w-full origin-left scale-x-0 bg-[#FFFFFF] group-hover:scale-x-100" />
+          <div className="relative mt-[8px] h-[1px] w-full bg-[#ECECEC] overflow-hidden">
+            <div className="absolute left-0 top-0 h-full w-full origin-left scale-x-0 bg-[#FFFFFF] transition-transform duration-300 group-hover:scale-x-100" />
           </div>
         </a>
       </div>
@@ -91,31 +92,35 @@ const Hero: React.FC<HeroProps> = ({
       {/* Contact info — top-right, on top of image */}
       <div className="absolute bottom-[16%] left-4 z-20 flex flex-col gap-[12px] sm:bottom-auto sm:left-auto sm:right-[4%] sm:top-[6%]">
         {phoneValue && (
-          <a href={`tel:${phoneValue}`} className="flex items-center gap-[14px] cursor-pointer">
+          <a href={`tel:${phoneValue}`} className="group relative flex items-center gap-[14px] pb-2 cursor-pointer">
             <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border-[1.25px] border-[#FFFFFF] bg-white/10 backdrop-blur-[12px] sm:h-[44px] sm:w-[44px]">
               <Phone size={16} className="text-[#FFFFFF]" strokeWidth={2} />
             </div>
-            <p className="whitespace-nowrap text-[clamp(14px,0.85rem+0.2vw,18px)] font-normal leading-none text-[#FFFFFF]">
+            <p className="whitespace-nowrap text-[clamp(14px,0.85rem+0.2vw,18px)] font-['Inter'] font-normal leading-none text-[#FFFFFF]">
               {phoneValue}
             </p>
+            <span className="absolute bottom-0 left-0 h-[1px] w-full bg-[#ECECEC]" />
+            <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-white transition-all duration-300 group-hover:w-full" />
           </a>
         )}
 
         {emailValue && (
-          <a href={`mailto:${emailValue}`} className="flex items-center gap-[14px] cursor-pointer">
+          <a href={`mailto:${emailValue}`} className="group relative flex items-center gap-[14px] pb-2 cursor-pointer">
             <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border-[1.25px] border-[#FFFFFF] bg-white/10 backdrop-blur-[12px] sm:h-[44px] sm:w-[44px]">
               <Mail size={16} className="text-[#FFFFFF]" strokeWidth={2} />
             </div>
-            <p className="whitespace-nowrap text-[clamp(14px,0.85rem+0.2vw,18px)] font-normal leading-none text-[#FFFFFF]">
+            <p className="whitespace-nowrap text-[clamp(14px,0.85rem+0.2vw,18px)] font-['Inter'] font-normal leading-none text-[#FFFFFF]">
               {emailValue}
             </p>
+            <span className="absolute bottom-0 left-0 h-[1px] w-full bg-[#ECECEC]" />
+            <span className="absolute bottom-0 left-0 h-[1px] w-0 bg-white transition-all duration-300 group-hover:w-full" />
           </a>
         )}
       </div>
 
       {/* Bottom infinite marquee text — right to left, seamless loop */}
       {marqueeSegment && (
-        <div className="overflow-hidden absolute bottom-0 left-0 z-0 w-full pointer-events-none select-none">
+        <div className="overflow-hidden absolute bottom-0 left-0 z-[2] w-full pointer-events-none select-none">
           <div className="flex w-max will-change-transform animate-marquee">
             <p className="shrink-0 whitespace-nowrap text-[18vw] font-normal leading-normal tracking-tight text-[#FFFFFF]/95 sm:text-[14vw]">
               {marqueeSegment}
@@ -140,7 +145,7 @@ const Hero: React.FC<HeroProps> = ({
           will-change: transform;
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-          animation: marquee 40s linear infinite;
+          animation: marquee 80s linear infinite;
         }
       `}</style>
     </div>

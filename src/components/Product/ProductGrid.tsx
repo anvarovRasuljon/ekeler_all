@@ -77,7 +77,7 @@ const ProductGrid: React.FC = () => {
   }
 
   return (
-    <section className="mx-auto w-full max-w-[1500px] px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
+    <section className="mx-auto w-full max-w-[1500px] px-4 pt-10 pb-10 sm:px-6 sm:pb-16 lg:pb-16 lg:pt-0">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {products.map((product) => {
           const imageUrl = product.main_image
@@ -90,23 +90,23 @@ const ProductGrid: React.FC = () => {
             <Link
               key={product.id}
               to={`/products/${product.id}`}
-              className="group relative block w-full overflow-hidden rounded-xl border border-neutral-200 transition-all duration-300 hover:border-neutral-300 hover:shadow-lg sm:rounded-2xl"
+              className="block overflow-hidden relative w-full rounded-xl border transition-all duration-300 group border-neutral-200 hover:border-neutral-300 hover:shadow-lg sm:rounded-2xl"
             >
               {/* Image — full card width & height */}
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <FadeImage
                   src={imageUrl}
                   alt={product.title || ""}
-                  className="h-full w-full"
+                  className="w-full h-full"
                   imgClassName="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
                 {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-t to-transparent opacity-0 transition-opacity duration-300 from-black/80 via-black/30 group-hover:opacity-100" />
               </div>
 
               {/* Hover content: title + short_description */}
-              <div className="absolute bottom-0 left-0 right-0 flex translate-y-4 flex-col gap-1 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 sm:p-5">
+              <div className="flex absolute right-0 bottom-0 left-0 flex-col gap-1 p-4 opacity-0 transition-all duration-300 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 sm:p-5">
                 <h3 className="break-words text-[clamp(16px,1rem+0.2vw,20px)] font-semibold leading-tight text-white drop-shadow-md">
                   {product.title}
                 </h3>
@@ -123,11 +123,11 @@ const ProductGrid: React.FC = () => {
 
       {/* Infinite scroll sentinel */}
       {hasMore && (
-        <div ref={loadMoreRef} className="h-10 w-full" />
+        <div ref={loadMoreRef} className="w-full h-10" />
       )}
 
       {loading && (
-        <div className="mt-6 flex justify-center">
+        <div className="flex justify-center mt-6">
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-neutral-300 border-t-[#E88029]" />
         </div>
       )}

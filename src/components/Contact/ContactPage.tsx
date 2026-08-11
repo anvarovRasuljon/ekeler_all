@@ -132,7 +132,7 @@ export const ContactPage: React.FC = () => {
                 />
               </div>
 
-              <h2 className="max-w-[600px] whitespace-pre-line break-words font-['Manrope'] text-[26px] font-normal leading-[34px] text-[#1B1D20] sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[48px] xl:max-w-[700px]">
+              <h2 className="max-w-[600px] whitespace-pre-line break-words font-['Inter'] text-[26px] font-normal leading-[34px] text-[#1B1D20] sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[48px] xl:max-w-[700px]">
                 {t.title}
               </h2>
             </div>

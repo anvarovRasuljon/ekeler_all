@@ -147,7 +147,7 @@ export default function SectionBlock({
     <div className="flex flex-col md:flex-row gap-4 md:gap-12 w-full max-w-[900px]">
       <div className="md:w-[150px] shrink-0">
         {label && (
-          <h3 className="font-['Manrope'] font-normal text-[10px] leading-[18px] tracking-[0.08em] uppercase text-[#1B1D20]">
+          <h3 className="font-['Inter'] font-normal text-[10px] leading-[18px] tracking-[0.08em] uppercase text-[#1B1D20]">
             {t(label)}
           </h3>
         )}

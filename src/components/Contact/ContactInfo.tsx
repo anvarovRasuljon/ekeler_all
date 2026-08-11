@@ -7,7 +7,7 @@ const NAV_HEIGHT_PX = 65;
 const IMG_GAP = 30;
 const MAP_HEIGHT = 380;
 // Responsive: mobilda kichikroq, sm+ da original o'lcham
-const DESCRIPTION_CLASS = "font-['Manrope'] font-normal text-[22px] leading-[30px] sm:text-[28px] sm:leading-[36px] text-[#1B1D20] max-w-[450px] whitespace-pre-line break-words";
+const DESCRIPTION_CLASS = "font-['Inter'] font-normal text-[22px] leading-[30px] sm:text-[28px] sm:leading-[36px] text-[#1B1D20] max-w-[450px] whitespace-pre-line break-words";
 
 const DEFAULT_CONTENT_DATA: AboutCompanyContentData = {
   title: { ru: "КОНТАКТЫ", uz: "KONTAKTLAR", eng: "CONTACTS" },

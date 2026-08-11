@@ -4,7 +4,7 @@
 
 @layer base {
   * {
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
   /* Responsive: root darajada gorizontal scrollni butunlay yo'q qilamiz */
@@ -16,7 +16,7 @@
   }
 
   body {
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
   /* Responsive: media elementlar hech qachon konteynerdan chiqib ketmasin */

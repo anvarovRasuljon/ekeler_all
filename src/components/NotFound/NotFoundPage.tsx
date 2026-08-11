@@ -17,7 +17,7 @@ export const NotFoundPage: React.FC = () => {
 
   const MarqueeCode = React.memo(function MarqueeCode() {
     return (
-      <span className="shrink-0 whitespace-nowrap font-['Manrope'] text-[clamp(48px,15vw,212px)] font-normal leading-[1.08] tracking-[-0.04em] text-white/95 sm:whitespace-nowrap">
+      <span className="shrink-0 whitespace-nowrap font-['Inter'] text-[clamp(48px,15vw,212px)] font-normal leading-[1.08] tracking-[-0.04em] text-white/95 sm:whitespace-nowrap">
         4
         <img
           src={subtract}
@@ -61,14 +61,14 @@ export const NotFoundPage: React.FC = () => {
         </div>
 
         <p
-          className="font-['Manrope'] text-lg font-normal text-white/80"
+          className="font-['Inter'] text-lg font-normal text-white/80"
         >
           {t.subtitle}
         </p>
 
         <a
           href="/"
-          className="group inline-flex items-center gap-2 border-b border-white pb-1 font-['Manrope'] text-base font-medium text-white hover:text-white/80"
+          className="group inline-flex items-center gap-2 border-b border-white pb-1 font-['Inter'] text-base font-medium text-white hover:text-white/80"
         >
           {t.link}
           <ArrowUpRight

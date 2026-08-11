@@ -69,7 +69,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
 
   return (
     <div ref={sectionReveal.ref} id="contact" className="w-full bg-white">
-  <div className="grid grid-cols-1 gap-8 mx-auto md:grid-cols-2 md:gap-12">
+  <div className="grid grid-cols-1 gap-8 px-4 mx-auto md:grid-cols-2 md:gap-12 md:px-6 lg:px-8">
     {/* Left column - image */}
         {imageUrl && (
           <div
@@ -106,7 +106,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
             {shortText && (
               <p
                 style={revealStyle(sectionReveal.visible, 120)}
-                className="w-full max-w-[400px] break-words font-manrope font-normal text-[28px] leading-[36px] text-black md:text-[clamp(24px,1.5rem+0.8vw,40px)] md:leading-[clamp(30px,2rem+1vw,48px)]"
+                className="w-full max-w-[400px] break-words font-inter font-normal text-[28px] leading-[36px] text-black md:text-[clamp(24px,1.5rem+0.8vw,40px)] md:leading-[clamp(30px,2rem+1vw,48px)]"
               >
                 {shortBefore && <span className="text-black">{shortBefore}</span>}
                 {shortAfter && <span className="text-[#E88029]">{shortAfter}</span>}
@@ -130,7 +130,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
               <div className="flex flex-wrap gap-6 items-center">
                 {phone && (
                   <a href={`tel:${phone}`} style={revealStyle(sectionReveal.visible, 320)} className="flex items-center gap-4 min-h-[44px] cursor-pointer">
-                    <div className="flex justify-center items-center w-10 h-10 shrink-0">
+                    <div className="flex justify-center items-center w-10 h-10 shrink-0 rounded-full border border-[#ECECEC]">
                       <AnimatedImage src={Call} alt="" />
                     </div>
                     <span className="font-inter text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">
@@ -141,7 +141,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
 
                 {email && (
                   <a href={`mailto:${email}`} style={revealStyle(sectionReveal.visible, 400)} className="flex items-center gap-4 min-h-[44px] cursor-pointer">
-                    <div className="flex justify-center items-center w-10 h-10 shrink-0">
+                    <div className="flex justify-center items-center w-10 h-10 shrink-0 rounded-full border border-[#ECECEC]">
                       <AnimatedImage src={SmsIco} alt="" />
                     </div>
                     <span className="font-inter text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">
@@ -160,7 +160,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                 style={revealStyle(sectionReveal.visible, 480)}
                 className="flex items-center gap-4 min-h-[44px] cursor-pointer"
               >
-                <div className="flex justify-center items-center w-10 h-10 shrink-0">
+                <div className="flex justify-center items-center w-10 h-10 shrink-0 rounded-full border border-[#ECECEC]">
                   <AnimatedImage src={LocationIcon} alt="" />
                 </div>
                 <span className="w-full max-w-[240px] break-words font-inter text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">

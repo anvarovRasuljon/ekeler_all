@@ -89,7 +89,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
       </div>
 
       {/* Center content */}
-      <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center px-0 text-center sm:px-6 lg:px-[32px]">
+      <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center px-0 text-center">
 
         {/* ===== MOBILE ONLY — Features dagi kabi (o‘zgartirilmagan) ===== */}
         <div className="flex relative gap-1 justify-around mb-8 w-full sm:hidden">

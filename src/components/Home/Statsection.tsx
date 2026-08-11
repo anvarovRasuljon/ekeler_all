@@ -78,7 +78,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({
     >
       {/* Main content */}
       {/* Responsive: mobilda 1 ustun + kichik padding, md dan boshlab 2 ustun */}
-<div className="grid grid-cols-1 gap-8 items-center py-12 mx-auto md:grid-cols-2 md:gap-12 md:pb-20 md:pt-0">        {" "}
+<div className="grid grid-cols-1 gap-8 items-center px-4 py-12 mx-auto md:grid-cols-2 md:gap-12 md:px-6 md:pb-20 md:pt-20 lg:px-8">        {" "}
         {/* Left column */}
         <div className="flex flex-col">
           {/* Eyebrow badge */}
