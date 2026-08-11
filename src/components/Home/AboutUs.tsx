@@ -2,8 +2,8 @@ import AnimatedImage from './AnimatedImage';
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import inpus_left_img from "../../assets/Inpus_left_img.png";
-import inpus_right_img from "../../assets/Inpus_right_img.png";
+import inpus_right_img from "../../assets/Industry_1.png";
+import inpus_left_img from "../../assets/inpus_left.png";
 import { useLanguage } from "../../context/LanguageContext";
 import { translations } from "../../locales/translations";
 
@@ -80,12 +80,12 @@ const AboutUs: React.FC<InpusSectionProps> = ({
 >
       {/* Left image — desktop/tablet (o‘zgartirilmagan) */}
       <div
-        className="absolute left-2 top-[-30px] hidden overflow-hidden shadow-sm sm:block sm:left-6 sm:top-[-30px] md:left-16 md:top-[-30px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
+        className="absolute left-2 top-[-30px] hidden overflow-hidden shadow-sm sm:block sm:left-6 sm:top-[-30px] md:left-16 md:top-[-30px] h-[clamp(160px,10rem+2vw,250px)] w-[270px]"
       >
         <AnimatedImage
           src={inpus_left_img}
           alt=""
-          width={250}
+          width={300}
           height={260}
           loading="lazy"
           decoding="async"
@@ -159,7 +159,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
 <div className="relative mt-10 w-full sm:hidden">
   {/* Left image — o‘z joyidan paydo bo‘ladi */}
   <div
-    className={`relative z-10 h-[150px] w-[150px] overflow-hidden rounded-[12px] shadow-sm transition-all duration-1000 ease-out ${
+    className={`relative z-10 h-[150px] w-[180px] overflow-hidden rounded-[12px] shadow-sm transition-all duration-1000 ease-out ${
       inView ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-4'
     }`}
   >
@@ -175,7 +175,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
 
   {/* Right image — pastdan tepaga chiqadi, bottom radius yo‘q */}
   <div
-    className={`absolute bottom-[-16px] right-0 z-0 h-[110px] w-[150px] overflow-hidden rounded-t-[12px] rounded-b-none shadow-sm transition-all duration-1000 ease-out ${
+    className={`absolute bottom-[-16px] right-0 z-0 h-[125px] w-[200px] overflow-hidden rounded-t-[12px] rounded-b-none shadow-sm transition-all duration-1000 ease-out ${
       inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
     }`}
   >
