@@ -92,9 +92,9 @@ const CtaSection: React.FC<CtaSectionProps> = ({
       <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center px-0 text-center sm:px-6 lg:px-[32px]">
 
         {/* ===== MOBILE ONLY — Features dagi kabi (o‘zgartirilmagan) ===== */}
-        <div className="flex relative gap-3 mb-8 w-full sm:hidden">
+        <div className="flex relative gap-1 justify-around mb-8 w-full sm:hidden">
           {/* Left image — joyida turadi, tepadan pastga kesilib ochiladi */}
-          <div className="relative h-[120px] w-1/2 overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
+          <div className="relative h-[120px] w-[180px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
             <img
               src={inpus_left_img}
               alt=""
@@ -114,7 +114,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
           </div>
 
           {/* Right image — joyida turadi, pastdan tepaga kesilib ochiladi */}
-          <div className="relative h-[120px] w-1/2 overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
+          <div className="relative h-[120px] w-[180px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
             <img
               src={inpus_right_img}
               alt=""

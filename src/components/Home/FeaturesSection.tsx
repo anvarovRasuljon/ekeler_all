@@ -91,49 +91,48 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
       {/* Center content */}
       <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center px-0 text-center sm:px-6 lg:px-[32px]">
 
-        {/* ===== MOBILE ONLY — rasmlar title dan yuqorida (screenshot dagi kabi) ===== */}
-       {/* ===== MOBILE ONLY — rasmlar title dan yuqorida ===== */}
-<div className="flex relative gap-3 mb-8 w-full sm:hidden">
-  {/* Left image — joyida turadi, tepadan pastga kesilib ochiladi */}
-  <div className="relative h-[120px] w-1/2 overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
-    <AnimatedImage
-      src={inpus_left_img}
-      alt=""
-      loading="lazy"
-      decoding="async"
-      fetchPriority="low"
-      className={`h-full w-full object-cover transition-[clip-path,filter,opacity,transform] duration-1000 ease-out ${
-        inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(100%_0_0_0)]'
-      }`}
-      style={{
-        filter: inView ? "blur(0px)" : "blur(18px)",
-        opacity: inView ? 1 : 0.6,
-        transform: inView ? "scale(1)" : "scale(1.05)",
-        willChange: "filter, transform, opacity",
-      }}
-    />
-  </div>
+        {/* ===== MOBILE ONLY — rasmlar title dan yuqorida ===== */}
+        <div className="flex relative gap-1 mb-8 w-full justify-around sm:hidden">
+          {/* Left image — joyida turadi, tepadan pastga kesilib ochiladi */}
+          <div className="relative h-[120px] w-[180px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
+            <AnimatedImage
+              src={inpus_left_img}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              fetchPriority="low"
+              className={`h-full w-full object-cover transition-[clip-path,filter,opacity,transform] duration-1000 ease-out ${
+                inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(100%_0_0_0)]'
+              }`}
+              style={{
+                filter: inView ? "blur(0px)" : "blur(18px)",
+                opacity: inView ? 1 : 0.6,
+                transform: inView ? "scale(1)" : "scale(1.05)",
+                willChange: "filter, transform, opacity",
+              }}
+            />
+          </div>
 
-  {/* Right image — joyida turadi, pastdan tepaga kesilib ochiladi */}
-  <div className="relative h-[120px] w-1/2 overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
-    <AnimatedImage
-      src={inpus_right_img}
-      alt=""
-      loading="lazy"
-      decoding="async"
-      fetchPriority="low"
-      className={`h-full w-full object-cover transition-[clip-path,filter,opacity,transform] duration-1000 ease-out ${
-        inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(0_0_100%_0)]'
-      }`}
-      style={{
-        filter: inView ? "blur(0px)" : "blur(18px)",
-        opacity: inView ? 1 : 0.6,
-        transform: inView ? "scale(1)" : "scale(1.05)",
-        willChange: "filter, transform, opacity",
-      }}
-    />
-  </div>
-</div>
+          {/* Right image — joyida turadi, pastdan tepaga kesilib ochiladi */}
+          <div className="relative h-[120px] w-[180px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
+            <AnimatedImage
+              src={inpus_right_img}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              fetchPriority="low"
+              className={`h-full w-full object-cover transition-[clip-path,filter,opacity,transform] duration-1000 ease-out ${
+                inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(0_0_100%_0)]'
+              }`}
+              style={{
+                filter: inView ? "blur(0px)" : "blur(18px)",
+                opacity: inView ? 1 : 0.6,
+                transform: inView ? "scale(1)" : "scale(1.05)",
+                willChange: "filter, transform, opacity",
+              }}
+            />
+          </div>
+        </div>
 
         {/* Badge + Title (hamma ekranlar uchun) */}
         <span className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">

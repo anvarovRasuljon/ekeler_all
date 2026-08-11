@@ -70,12 +70,12 @@ const InpusSection: React.FC<InpusSectionProps> = ({
 >
       {/* Left image — faqat desktop/tablet */}
       <div
-        className="absolute left-2 top-[-50px] hidden overflow-hidden rounded-[8px] shadow-sm sm:block sm:left-6 sm:top-[-60px] md:left-16 md:top-[-70px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
+        className="absolute left-2 top-[-50px] hidden overflow-hidden rounded-[8px] shadow-sm sm:block sm:left-6 sm:top-[-60px] md:left-16 md:top-[-70px] h-[clamp(220px,10rem+2vw,250px)] w-[270px]"
       >
         <AnimatedImage
           src={inpus_left_img}
           alt=""
-          width={250}
+          width={300}
           height={260}
           loading="lazy"
           decoding="async"
@@ -120,13 +120,14 @@ const InpusSection: React.FC<InpusSectionProps> = ({
         <div className="relative mt-10 h-[180px] w-full sm:hidden">
           {/* Left image */}
           <div
-            className={`absolute left-0 top-0 z-10 h-[150px] w-[150px] overflow-hidden rounded-[12px] shadow-sm transition-all duration-1000 ease-out ${
+            className={`absolute left-0 top-0 z-10 h-[150px] w-[180px] overflow-hidden rounded-[12px] shadow-sm transition-all duration-1000 ease-out ${
               inView ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-4'
             }`}
           >
             <AnimatedImage
               src={inpus_left_img}
               alt=""
+              width={200}
               loading="lazy"
               decoding="async"
               fetchPriority="low"
@@ -136,7 +137,7 @@ const InpusSection: React.FC<InpusSectionProps> = ({
 
           {/* Right image — bottom radius yo‘q */}
           <div
-            className={`absolute bottom-0 right-0 z-0 h-[120px] w-[140px] overflow-hidden rounded-t-[12px] rounded-b-none shadow-sm transition-all duration-1000 ease-out ${
+            className={`absolute bottom-0 right-0 z-0 h-[120px] w-[180px] overflow-hidden rounded-t-[12px] rounded-b-none shadow-sm transition-all duration-1000 ease-out ${
               inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
             }`}
           >
@@ -154,13 +155,13 @@ const InpusSection: React.FC<InpusSectionProps> = ({
 
       {/* Right image — faqat desktop/tablet */}
       <div
-        className="absolute right-2 bottom-[-50px] hidden overflow-hidden rounded-[8px] shadow-sm sm:block sm:right-6 sm:bottom-[-60px] md:right-16 md:bottom-[-70px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
+        className="absolute right-2 bottom-[-50px] hidden overflow-hidden rounded-[8px] shadow-sm sm:block sm:right-6 sm:bottom-[-60px] md:right-16 md:bottom-[-70px] h-[clamp(230px,10rem+2vw,250px)] w-[270px]"
       >
         <AnimatedImage
           src={inpus_right_img}
           alt=""
-          width={250}
-          height={250}
+          width={300}
+          height={260}
           loading="lazy"
           decoding="async"
           fetchPriority="low"
