@@ -139,26 +139,6 @@ function SanityImage({
   );
 }
 
-/**
- * useStickyColumn — CSS `position: sticky`ga BOG'LIQ EMAS.
- * -----------------------------------------------------------------------
- * Sabab: `position: sticky` har doim "eng yaqin scroll container" ota
- * elementga bog'liq ishlaydi — agar biror ajdodda (App.tsx, Navigation,
- * yoki boshqa joyda) `overflow` (hidden/auto/scroll/clip) yoki shunga
- * o'xshash xossa bo'lsa, sticky umuman ishlamay qoladi va buni topish
- * qiyin bo'lishi mumkin.
- *
- * Bu hook o'rniga scroll holatini o'zi window.scroll orqali kuzatadi va
- * kerakli paytda elementga to'g'ridan-to'g'ri `position: fixed` beradi.
- * `position: fixed` faqat `transform`/`filter`/`perspective`/`contain`
- * xossali ajdodlarga bog'liq bo'ladi (bular odatda kamdan-kam uchraydi),
- * `overflow`ga esa umuman bog'liq emas — shuning uchun ancha ishonchli.
- *
- * Uch holat:
- *  1) Hali yetib kelmagan  -> oddiy oqimda, lekin balandligi belgilangan
- *  2) O'rtada               -> position: fixed (ekranga "yopishadi")
- *  3) Ustun tugadi           -> position: absolute, ustun tagida to'xtaydi
- */
 function useStickyColumn(topOffset: number, bottomGap: number) {
   const containerRef = useRef<HTMLDivElement>(null); // ikki ustunni o'rab turgan qator
   const columnRef = useRef<HTMLDivElement>(null); // o'ng ustun (joy va kenglikni belgilaydi)
@@ -268,40 +248,6 @@ function AboutPage({
     );
   }
 
-  // return (
-  //   <div className="w-full bg-white text-[#1B1D20]">
-  //     <div className="px-4 pt-6 pb-16 w-full md:px-6 lg:px-8">
-  //       {/* Mobil rasm */}
-  //       {showMainImage && (
-  //         <div className="lg:hidden w-full rounded-lg overflow-hidden mb-8 h-[50vh] max-h-[420px]">
-  //           {renderMainPortrait('w-full h-full object-cover')}
-  //         </div>
-  //       )}
-
-  //       {/* 50% / 50%, o'rtada 30px */}
-  //       <div ref={containerRef} className="flex relative flex-col gap-[30px] lg:flex-row">
-  //         {/* CHAP — ekran yarmi */}
-  //         <div className="flex flex-col gap-16 w-full min-w-0 lg:w-1/2 md:gap-20">
-  //           <AboutCompanyContentBlock data={contentData} />
-  //           <AboutCompanyBlock data={blockData} />
-  //           <AboutCompanyFeature data={featureData} />
-  //         </div>
-
-  //         {/* O'NG — ekran yarmi, JS-based sticky rasm */}
-  //         {showMainImage && (
-  //           <div ref={columnRef} className="hidden relative w-1/2 lg:block shrink-0">
-  //             <div
-  //               className="overflow-hidden rounded-lg"
-  //               style={stickyStyle}
-  //             >
-  //               {renderMainPortrait('w-full h-full object-cover block')}
-  //             </div>
-  //           </div>
-  //         )}
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
 return (
     <div className="w-full bg-white text-[#1B1D20]">
       <div className="pb-16 w-full md:px-6 lg:px-8">

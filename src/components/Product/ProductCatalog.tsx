@@ -1,28 +1,37 @@
 import ProductImage from './ProductImage';
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
 import inpus_left_img from "../../assets/redyImg_left.png";
 import inpus_right_img from "../../assets/redyimg_right.png";
 import { useLanguage } from "../../context/LanguageContext";
+import { translations } from "../../locales/translations";
 
 interface CtaSectionProps {
   badgeText?: any;
   headingPart1?: any;
+  headingHighlight?: any;
   buttonText?: any;
   buttonLink?: any;
 }
 
 const CatalogCtaSection: React.FC<CtaSectionProps> = ({
-  badgeText = "Products",
-  headingPart1 = "Lorem ipsum dolor sit amet consectetur ahimenaeos - donec. Lorem ipsum dolor",
-  buttonText = "Bizning mahsulotlar",
-  buttonLink = "/service",
+  badgeText = translations.home.productCatalog.badgeText,
+  headingPart1 = translations.home.productCatalog.headingPart1,
+  headingHighlight = translations.home.productCatalog.headingHighlight,
 }) => {
   const { t } = useLanguage();
   const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : null), [t, badgeText]);
   const headingText = useMemo(() => (headingPart1 ? t(headingPart1) : null), [t, headingPart1]);
-  const buttonLabel = useMemo(() => (buttonText ? t(buttonText) : null), [t, buttonText]);
+  const highlightText = useMemo(() => (headingHighlight ? String(t(headingHighlight) || '') : ''), [t, headingHighlight]);
+
+  const { descBefore, descAfter } = useMemo(() => {
+    if (!headingText) return { descBefore: '', descAfter: '' };
+    const index = highlightText ? String(headingText).indexOf(highlightText) : -1;
+    if (index === -1) return { descBefore: String(headingText), descAfter: '' };
+    return {
+      descBefore: String(headingText).slice(0, index),
+      descAfter: String(headingText).slice(index),
+    };
+  }, [headingText, highlightText]);
 
   const sectionRef = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
@@ -46,7 +55,7 @@ const CatalogCtaSection: React.FC<CtaSectionProps> = ({
   return (
    <section
   ref={sectionRef}
-  className="relative flex w-full items-center justify-between overflow-hidden bg-white pb-[clamp(48px,3rem+2vw,80px)] md:pb-0 lg:min-h-[600px] mt-6"
+  className="relative flex w-full items-center justify-between overflow-hidden bg-white lg:min-h-[600px] mt-3"
 >
       {/* Left image — desktop/tablet (comment dagi uslub) */}
       <div
@@ -107,24 +116,11 @@ const CatalogCtaSection: React.FC<CtaSectionProps> = ({
           </span>
         )}
 
-        <h2 className="mb-8 w-full max-w-[610px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20]">
-          {headingText}
+        <h2 className=" w-full max-w-[610px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20]">
+          {descBefore && <span className="text-[#1B1D20]">{descBefore}</span>}
+          {descAfter && <span className="text-[#E88029]">{descAfter}</span>}
         </h2>
 
-        {buttonLabel && (
-          <Link
-            to={buttonLink}
-            className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] mt-[28px] cursor-pointer"
-          >
-            <span className="inline-flex gap-6 items-center">
-              {buttonLabel}
-              <ArrowUpRight size={18} className="text-[#E88029] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </span>
-            <div className="relative mt-[8px] h-[1px] w-full bg-neutral-300 overflow-hidden">
-              <div className="absolute left-0 top-0 h-full w-full origin-left scale-x-0 bg-[#1B1D20] group-hover:scale-x-100" />
-            </div>
-          </Link>
-        )}
       </div>
 
       {/* Right image — desktop/tablet (TOP da, comment dagi kabi) */}

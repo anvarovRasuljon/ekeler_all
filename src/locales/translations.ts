@@ -218,5 +218,22 @@ export const translations = {
         },
       ],
     },
+    productCatalog: {
+      badgeText: {
+        uz: "Bizning mahsulotlar",
+        ru: "Наша продукция",
+        eng: "Our products",
+      },
+      headingPart1: {
+        uz: "Qadoqlash, mebel va tashish uchun mo'ljallangan barcha mahsulot turlari bilan tanishing.",
+        ru: "Для упаковки, мебели и перевозки — познакомьтесь со всеми видами продукции.",
+        eng: "Designed for packaging, furniture, and shipping — explore all product types.",
+      },
+      headingHighlight: {
+        uz: "barcha mahsulot turlari bilan tanishing",
+        ru: "познакомьтесь со всеми видами продукции",
+        eng: "explore all product types",
+      },
+    },
   },
 } as const;
