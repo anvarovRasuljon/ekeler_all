@@ -1,3 +1,4 @@
+import AnimatedImage from './AnimatedImage';
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import inpus_left_img from "../../assets/home_features_img.png";
 import inpus_right_img from "../../assets/home_feature_secont_img.png";
@@ -60,7 +61,7 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
           inView ? 'top-1/2 -translate-y-1/2' : 'top-0 -translate-y-full'
         }`}
       >
-        <img
+        <AnimatedImage
           src={inpus_left_img}
           alt=""
           width={250}
@@ -87,7 +88,7 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
 <div className="flex relative gap-3 mb-8 w-full sm:hidden">
   {/* Left image — joyida turadi, tepadan pastga kesilib ochiladi */}
   <div className="relative h-[120px] w-1/2 overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
-    <img
+    <AnimatedImage
       src={inpus_left_img}
       alt=""
       loading="lazy"
@@ -107,7 +108,7 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
 
   {/* Right image — joyida turadi, pastdan tepaga kesilib ochiladi */}
   <div className="relative h-[120px] w-1/2 overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
-    <img
+    <AnimatedImage
       src={inpus_right_img}
       alt=""
       loading="lazy"
@@ -154,7 +155,7 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
       <div
         className="absolute right-2 bottom-[-30px] hidden overflow-hidden shadow-sm sm:block sm:right-6 sm:bottom-[-40px] md:right-16 md:bottom-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
       >
-        <img
+        <AnimatedImage
           src={inpus_right_img}
           alt=""
           width={250}

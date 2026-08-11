@@ -1,3 +1,4 @@
+import AnimatedImage from './AnimatedImage';
 import React from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import industry_1 from "../../assets/Industry_1.png";
@@ -46,7 +47,7 @@ const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCar
       `}
     >
       {item.imageUrl && (
-        <img
+        <AnimatedImage
           src={item.imageUrl}
           alt={item.imageAlt ?? item.title}
           loading="lazy"

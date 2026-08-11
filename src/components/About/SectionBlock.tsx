@@ -1,6 +1,58 @@
+import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { getImageUrl, hasSanityImage } from '../../sanity/client';
 import { Quote } from 'lucide-react';
+
+function BlurredImg({
+  src,
+  alt,
+  className,
+  reveal = 'top-bottom',
+}: {
+  src: string;
+  alt: string;
+  className: string;
+  reveal?: 'top-bottom' | 'bottom-top' | 'left-right' | 'right-left' | 'scale';
+}) {
+  const [loaded, setLoaded] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = divRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const initialClip =
+    reveal === 'bottom-top' ? 'inset(100% 0 0 0)' :
+    reveal === 'left-right' ? 'inset(0 100% 0 0)' :
+    reveal === 'right-left' ? 'inset(0 0 0 100%)' :
+    reveal === 'scale' ? 'inset(0 0 0 0)' :
+    'inset(0 0 100% 0)';
+
+  return (
+    <div ref={divRef} className="w-full h-full">
+      <img
+        src={src}
+        alt={alt}
+        className={`${className} transition-all duration-700 ${loaded ? 'blur-0 scale-100' : 'blur-[15px] scale-95'}`}
+        style={{ opacity: loaded ? 1 : 0.6, clipPath: visible ? 'inset(0 0 0 0)' : initialClip }}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  );
+}
 
 interface SectionBlockProps {
   label?: Record<string, string>;
@@ -42,10 +94,11 @@ export default function SectionBlock({
               isReversed ? 'sm:w-[252px] h-[202px]' : 'sm:w-[378px] h-[302px]'
             }`}
           >
-            <img
+            <BlurredImg
               src={url1}
               alt={(img1 as { alt?: string })?.alt || 'Section image 1'}
               className="w-full h-full object-cover"
+              reveal="top-bottom"
             />
           </div>
         )}
@@ -55,9 +108,10 @@ export default function SectionBlock({
               isReversed ? 'sm:w-[378px] h-[302px]' : 'sm:w-[252px] h-[202px]'
             }`}
           >
-            <img
+            <BlurredImg
               src={url2}
               alt={(img2 as { alt?: string })?.alt || 'Section image 2'}
+              reveal="bottom-top"
               className="w-full h-full object-cover"
             />
           </div>
@@ -73,9 +127,10 @@ export default function SectionBlock({
 
     return (
       <div className="w-full max-w-[640px] h-[240px] md:h-[320px] rounded-lg overflow-hidden mx-auto md:mx-0">
-        <img
+        <BlurredImg
           src={url}
           alt={(img as { alt?: string })?.alt || 'Section image'}
+          reveal="left-right"
           className="w-full h-full object-cover"
         />
       </div>

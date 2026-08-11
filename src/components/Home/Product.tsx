@@ -1,3 +1,4 @@
+import AnimatedImage from './AnimatedImage';
 import React from 'react'
 import { urlFor } from '../../sanity/client'
 
@@ -25,7 +26,7 @@ const Product: React.FC<ProductProps> = ({
   return (
     <div className="overflow-hidden  bg-white rounded-lg shadow-md hover:shadow-lg">
       {imageUrl && (
-        <img 
+        <AnimatedImage 
           src={imageUrl} 
           alt={name} 
           className="object-cover w-full h-48"

@@ -1,3 +1,4 @@
+import AnimatedImage from './AnimatedImage';
 import React, { useMemo } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import SmsIco from "../../assets/sms.svg";
@@ -75,7 +76,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
             style={revealStyle(sectionReveal.visible, 0)}
             className="overflow-hidden rounded-xl md:rounded-2xl"
           >
-            <img
+            <AnimatedImage
               src={imageUrl}
               alt="Contact section"
               width={600}
@@ -130,7 +131,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                 {phone && (
                   <a href={`tel:${phone}`} style={revealStyle(sectionReveal.visible, 320)} className="flex items-center gap-4 min-h-[44px] cursor-pointer">
                     <div className="flex justify-center items-center w-10 h-10 shrink-0">
-                      <img src={Call} alt="" />
+                      <AnimatedImage src={Call} alt="" />
                     </div>
                     <span className="font-inter text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">
                       {phone}
@@ -141,7 +142,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                 {email && (
                   <a href={`mailto:${email}`} style={revealStyle(sectionReveal.visible, 400)} className="flex items-center gap-4 min-h-[44px] cursor-pointer">
                     <div className="flex justify-center items-center w-10 h-10 shrink-0">
-                      <img src={SmsIco} alt="" />
+                      <AnimatedImage src={SmsIco} alt="" />
                     </div>
                     <span className="font-inter text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">
                       {email}
@@ -160,7 +161,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                 className="flex items-center gap-4 min-h-[44px] cursor-pointer"
               >
                 <div className="flex justify-center items-center w-10 h-10 shrink-0">
-                  <img src={LocationIcon} alt="" />
+                  <AnimatedImage src={LocationIcon} alt="" />
                 </div>
                 <span className="w-full max-w-[240px] break-words font-inter text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20]">
                   {mapTextValue}

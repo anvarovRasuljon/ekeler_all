@@ -326,8 +326,13 @@ function App() {
             element={
               <>
                 <div className="p-2 w-full min-h-screen">
+                  {/* Mobil spacer: nav mobilda `fixed` bo'lgani uchun ServiceHero
+                      uning ostiga kirib ketmasligi kerak. */}
+                  <div className="h-[65px] lg:hidden" aria-hidden="true" />
+
                   <ServiceHero/>
-                  <Navigation />
+
+                  <Navigation showSpacer={false} />
                   <CtaSection />
                   <GalleryCard />
                 </div>

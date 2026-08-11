@@ -1,3 +1,4 @@
+import AnimatedImage from './AnimatedImage';
 // // import React, { useEffect, useMemo, useRef, useState } from "react";
 // // import { ArrowUpRight } from "lucide-react";
 // // import { Link } from "react-router-dom";
@@ -59,7 +60,7 @@
 // //         <div
 // //         className="absolute left-2 top-0 h-[180px] w-[250px] overflow-hidden rounded-[8px] shadow-sm sm:left-6 sm:h-[160px] sm:w-[160px] md:left-16 md:h-[250px] md:w-[270px]"
 // //       >
-// //         <img
+// //         <AnimatedImage
 // //           src={inpus_left_img}
 // //           alt=""
 // //           width={250}
@@ -121,7 +122,7 @@
 // //      <div
 // //         className="absolute right-2 bottom-0 h-[180px] w-[250px] overflow-hidden rounded-[8px] shadow-sm sm:right-6 sm:h-[160px] sm:w-[160px] md:right-16 md:h-[250px] md:w-[270px]"
 // //       >
-// //         <img
+// //         <AnimatedImage
 // //           src={inpus_right_img}
 // //           alt=""
 // //           width={250}
@@ -216,7 +217,7 @@
 //       <div
 //         className="absolute left-2 top-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)] overflow-hidden rounded-[8px] shadow-sm sm:left-6 sm:top-[-60px] md:left-16 md:top-[-70px]"
 //       >
-//         <img
+//         <AnimatedImage
 //           src={inpus_left_img}
 //           alt=""
 //           width={250}
@@ -273,7 +274,7 @@
 //       <div
 //         className="absolute right-2 bottom-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)] overflow-hidden rounded-[8px] shadow-sm sm:right-6 sm:bottom-[-60px] md:right-16 md:bottom-[-70px]"
 //       >
-//         <img
+//         <AnimatedImage
 //           src={inpus_right_img}
 //           alt=""
 //           width={250}
@@ -368,7 +369,7 @@ const InpusSection: React.FC<InpusSectionProps> = ({
       <div
         className="absolute left-2 top-[-50px] hidden overflow-hidden rounded-[8px] shadow-sm sm:block sm:left-6 sm:top-[-60px] md:left-16 md:top-[-70px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
       >
-        <img
+        <AnimatedImage
           src={inpus_left_img}
           alt=""
           width={250}
@@ -420,7 +421,7 @@ const InpusSection: React.FC<InpusSectionProps> = ({
               inView ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-4'
             }`}
           >
-            <img
+            <AnimatedImage
               src={inpus_left_img}
               alt=""
               loading="lazy"
@@ -436,7 +437,7 @@ const InpusSection: React.FC<InpusSectionProps> = ({
               inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
             }`}
           >
-            <img
+            <AnimatedImage
               src={inpus_right_img}
               alt=""
               loading="lazy"
@@ -452,7 +453,7 @@ const InpusSection: React.FC<InpusSectionProps> = ({
       <div
         className="absolute right-2 bottom-[-50px] hidden overflow-hidden rounded-[8px] shadow-sm sm:block sm:right-6 sm:bottom-[-60px] md:right-16 md:bottom-[-70px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
       >
-        <img
+        <AnimatedImage
           src={inpus_right_img}
           alt=""
           width={250}

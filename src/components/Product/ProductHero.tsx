@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import ProductImage from './ProductImage';
+import React, { useMemo, useState } from 'react';
 import productHeroBg from '../../assets/product_hero.png';
 import { useLanguage } from '../../context/LanguageContext';
 
@@ -9,21 +10,29 @@ const ProductHero: React.FC = () => {
   const bgImage = productHeroBg;
 
   const logo = useMemo(() => t(logoText), [t, logoText]);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const marqueeSegment = useMemo(() => {
     if (!logo) return '';
     return Array(8).fill(logo).join(' — ') + ' —\u00A0';
   }, [logo]);
 
   return (
-    <div className="box-border overflow-hidden relative w-full h-[calc((100dvh-81px)/2)] lg:h-[calc(100dvh-16px)] transition-[clip-path,opacity] duration-[1200ms] ease-out">
+    <div
+      className="box-border overflow-hidden relative w-full h-[calc((100dvh-81px)/2)] lg:h-[calc(100dvh-16px)] transition-[clip-path,opacity] duration-[1200ms] ease-out"
+      style={{
+        clipPath: imageLoaded ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)',
+        opacity: imageLoaded ? 1 : 0,
+      }}
+    >
       {/* Background image */}
       {bgImage ? (
-        <img
+        <ProductImage
           src={bgImage}
           alt="Product"
           className="absolute w-full h-full object-cover rounded-[8px]"
           loading="eager"
           decoding="async"
+          onLoad={() => setImageLoaded(true)}
         />
       ) : (
         <div className="absolute inset-[15px] bg-neutral-200 rounded-[8px]" />

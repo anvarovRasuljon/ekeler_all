@@ -1,3 +1,4 @@
+import AnimatedImage from './AnimatedImage';
 // import React, { useCallback, useEffect, useMemo, useState } from "react";
 // import CommentBg from "../../assets/Comment_bg.png";
 // import avatar_1 from "../../assets/avatar_1.png";
@@ -8,7 +9,7 @@
 //  * -----------------------------------------------------------------------
 //  * ContactSection bilan bir xil joylashuv patterni:
 //  * - fon rasm to'g'ridan-to'g'ri section'ning CSS background'i (bg-cover/bg-center),
-//  *   alohida <img> va absolute overlap YO'Q — shuning uchun kontent hech qachon
+//  *   alohida <AnimatedImage> va absolute overlap YO'Q — shuning uchun kontent hech qachon
 //  *   pastga siljib ketmaydi.
 //  * - Header (title + subtitle) xuddi ContactSection'dagidek.
 //  * - Grid: mobil = 1 ustun (1 comment), lg (1024px) dan boshlab = 2 ustun (2 comment) —
@@ -158,7 +159,7 @@
 
 //       <div className="flex gap-3 items-center mt-6">
 //         {testimonial.avatarUrl && (
-//           <img
+//           <AnimatedImage
 //             src={testimonial.avatarUrl}
 //             alt={safeText(testimonial.name)}
 //             width={55}
@@ -376,7 +377,7 @@ const TestimonialCard = React.memo(function TestimonialCard({
 
       <div className="flex gap-3 items-center mt-6">
         {testimonial.avatarUrl && (
-          <img
+          <AnimatedImage
             src={testimonial.avatarUrl}
             alt={safeText(testimonial.name)}
             width={55}

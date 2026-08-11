@@ -1,3 +1,4 @@
+import AnimatedImage from './AnimatedImage';
 import React, { useMemo } from "react";
 import { ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
 // import bgFallback from "../../assets/hero.png";
@@ -82,7 +83,7 @@ const Footer: React.FC<FooterProps> = ({
       {/* Background image */}
       {/* Responsive: fiksatsiyalangan 100vh o'rniga min-h — mobilda kontent kesilmaydi */}
       <div className="relative min-h-[80vh] w-full overflow-hidden sm:min-h-[90vh] lg:min-h-[100vh]">
-        <img
+        <AnimatedImage
           src={backgroundImageUrl}
           alt={backgroundImageAlt}
           loading="lazy"

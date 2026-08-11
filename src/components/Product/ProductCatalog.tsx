@@ -1,3 +1,4 @@
+import ProductImage from './ProductImage';
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
@@ -53,7 +54,7 @@ const CatalogCtaSection: React.FC<CtaSectionProps> = ({
           inView ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <img
+        <ProductImage
           src={inpus_left_img}
           alt=""
           width={250}
@@ -72,7 +73,7 @@ const CatalogCtaSection: React.FC<CtaSectionProps> = ({
         <div className="flex relative gap-3 mb-8 w-full sm:hidden">
           {/* Left image — joyida turadi, tepadan pastga kesilib ochiladi */}
           <div className="relative h-[120px] w-1/2 overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
-            <img
+            <ProductImage
               src={inpus_left_img}
               alt=""
               loading="lazy"
@@ -86,7 +87,7 @@ const CatalogCtaSection: React.FC<CtaSectionProps> = ({
 
           {/* Right image — joyida turadi, pastdan tepaga kesilib ochiladi */}
           <div className="relative h-[120px] w-1/2 overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
-            <img
+            <ProductImage
               src={inpus_right_img}
               alt=""
               loading="lazy"
@@ -130,7 +131,7 @@ const CatalogCtaSection: React.FC<CtaSectionProps> = ({
       <div
         className="absolute right-2 top-[-30px] hidden overflow-hidden shadow-sm sm:block sm:right-6 sm:top-[-40px] md:right-16 md:top-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
       >
-        <img
+        <ProductImage
           src={inpus_right_img}
           alt=""
           width={250}

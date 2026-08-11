@@ -1,3 +1,4 @@
+import ProductImage from './ProductImage';
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
 import aboutLeft from "../../assets/prochni_3.png";
@@ -31,7 +32,7 @@ const ProductAbout: React.FC = () => {
       {/* Left image */}
       <div className="flex w-full max-w-[264px] flex-shrink-0 flex-col justify-start lg:h-full lg:w-[264px] lg:max-w-none">
         {leftImageUrl && (
-          <img
+          <ProductImage
             src={leftImageUrl}
             alt=""
             className="h-[132px] w-full max-w-full rounded-b-lg object-cover lg:w-[264px]"
@@ -76,7 +77,7 @@ const ProductAbout: React.FC = () => {
       {/* Right image */}
       <div className="flex w-full max-w-[264px] flex-shrink-0 flex-col justify-end lg:h-full lg:w-[264px] lg:max-w-none">
         {rightImageUrl && (
-          <img
+          <ProductImage
             src={rightImageUrl}
             alt=""
             className="h-[132px] w-full max-w-full rounded-t-lg object-cover lg:w-[264px]"

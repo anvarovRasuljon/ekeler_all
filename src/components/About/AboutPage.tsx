@@ -7,7 +7,7 @@ import type { AboutCompanyBlockData } from './AboutCompanyBlock';
 import type { AboutCompanyFeatureData } from './AboutFeatures';
 import AboutCompanyFeature from './AboutFeatures';
 
-import aboutMainImg from '../../assets/home_about_first_img.png';
+import aboutMainImg from '../../assets/home_about_first_img.jpg';
 import aboutContentImg from '../../assets/home_features_img.png';
 import block370_1 from '../../assets/Industry_1.png';
 import block370_2 from '../../assets/Industry_2.png';
@@ -78,6 +78,7 @@ function SanityImage({
   width,
   height,
   priority = false,
+  reveal = 'top-bottom',
 }: {
   source: unknown;
   alt?: string;
@@ -85,20 +86,56 @@ function SanityImage({
   width: number;
   height: number;
   priority?: boolean;
+  reveal?: 'top-bottom' | 'bottom-top' | 'left-right' | 'right-left' | 'scale';
 }) {
+  const [loaded, setLoaded] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
   const url = getImageUrl(source, { width, height });
+
+  useEffect(() => {
+    const el = divRef.current;
+    if (!el) return;
+    if (priority) {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [priority]);
+
+  const initialClip =
+    reveal === 'bottom-top' ? 'inset(100% 0 0 0)' :
+    reveal === 'left-right' ? 'inset(0 100% 0 0)' :
+    reveal === 'right-left' ? 'inset(0 0 0 100%)' :
+    reveal === 'scale' ? 'inset(0 0 0 0)' :
+    'inset(0 0 100% 0)';
+
   if (!url) return null;
   return (
-    <img
-      src={url}
-      alt={alt || ''}
-      className={className}
-      width={width}
-      height={height}
-      loading={priority ? 'eager' : 'lazy'}
-      decoding="async"
-      fetchPriority={priority ? 'high' : 'low'}
-    />
+    <div ref={divRef} className="w-full h-full">
+      <img
+        src={url}
+        alt={alt || ''}
+        className={`${className} transition-all duration-700 ${loaded ? 'scale-100 blur-0' : 'scale-95 blur-[15px]'}`}
+        style={{ opacity: loaded ? 1 : 0.6, clipPath: visible ? 'inset(0 0 0 0)' : initialClip }}
+        width={width}
+        height={height}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchPriority={priority ? 'high' : 'low'}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
   );
 }
 
@@ -219,6 +256,7 @@ function AboutPage({
         width={900}
         height={1200}
         priority
+        reveal="top-bottom"
       />
     ) : null;
 
@@ -266,7 +304,7 @@ function AboutPage({
   // );
 return (
     <div className="w-full bg-white text-[#1B1D20]">
-      <div className="pb-16 w-full  md:px-6 lg:px-8">
+      <div className="pb-16 w-full md:px-6 lg:px-8">
         {/* 50% / 50%, o'rtada 30px */}
         <div ref={containerRef} className="flex relative flex-col gap-[30px] lg:flex-row">
           {/* CHAP — ekran yarmi */}

@@ -1,3 +1,4 @@
+import ProductImage from '../ProductImage';
 import React, { useMemo } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -43,7 +44,7 @@ const ProductCatalog: React.FC<InpusSectionProps> = ({
       <div
         className="absolute left-2 top-[-165px] h-[150px] w-[110px] overflow-hidden rounded-[8px] shadow-sm sm:left-6 sm:h-[260px] sm:w-[250px] md:left-16"
       >
-        <img
+        <ProductImage
           src={inpus_left_img}
           alt=""
           loading="lazy"
@@ -100,7 +101,7 @@ const ProductCatalog: React.FC<InpusSectionProps> = ({
       <div
         className="absolute right-2 bottom-[-165px] h-[150px] w-[110px] overflow-hidden rounded-[8px] shadow-sm sm:right-6 sm:h-[250px] sm:w-[250px] md:right-16"
       >
-        <img
+        <ProductImage
           src={inpus_right_img}
           alt=""
           loading="lazy"

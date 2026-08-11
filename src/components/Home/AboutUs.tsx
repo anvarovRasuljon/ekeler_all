@@ -1,3 +1,4 @@
+import AnimatedImage from './AnimatedImage';
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -81,7 +82,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
       <div
         className="absolute left-2 top-[-30px] hidden overflow-hidden shadow-sm sm:block sm:left-6 sm:top-[-30px] md:left-16 md:top-[-30px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
       >
-        <img
+        <AnimatedImage
           src={inpus_left_img}
           alt=""
           width={250}
@@ -162,7 +163,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
       inView ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-4'
     }`}
   >
-    <img
+    <AnimatedImage
       src={inpus_left_img}
       alt=""
       loading="lazy"
@@ -178,7 +179,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
       inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
     }`}
   >
-    <img
+    <AnimatedImage
       src={inpus_right_img}
       alt=""
       loading="lazy"
@@ -194,7 +195,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
       <div
         className="absolute right-2 bottom-[-30px] hidden overflow-hidden shadow-sm sm:block sm:right-6 sm:bottom-[-40px] md:right-16 md:bottom-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
       >
-        <img
+        <AnimatedImage
           src={inpus_right_img}
           alt=""
           width={250}

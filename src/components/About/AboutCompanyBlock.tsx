@@ -217,26 +217,65 @@ function SanityImage({
   className,
   width,
   height,
+  priority = false,
+  reveal = 'top-bottom',
 }: {
   source: unknown;
   alt?: string;
   className?: string;
   width: number;
   height: number;
+  priority?: boolean;
+  reveal?: 'top-bottom' | 'bottom-top' | 'left-right' | 'right-left' | 'scale';
 }) {
+  const [loaded, setLoaded] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+  const divRef = React.useRef<HTMLDivElement>(null);
   const url = getImageUrl(source, { width, height });
+
+  React.useEffect(() => {
+    const el = divRef.current;
+    if (!el) return;
+    if (priority) {
+      setVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [priority]);
+
+  const initialClip =
+    reveal === 'bottom-top' ? 'inset(100% 0 0 0)' :
+    reveal === 'left-right' ? 'inset(0 100% 0 0)' :
+    reveal === 'right-left' ? 'inset(0 0 0 100%)' :
+    reveal === 'scale' ? 'inset(0 0 0 0)' :
+    'inset(0 0 100% 0)';
+
   if (!url) return null;
   return (
-    <img
-      src={url}
-      alt={alt || ''}
-      className={className}
-      width={width}
-      height={height}
-      loading="lazy"
-      decoding="async"
-      fetchPriority="low"
-    />
+    <div ref={divRef} className="w-full h-full">
+      <img
+        src={url}
+        alt={alt || ''}
+        className={`${className} transition-all duration-700 ${loaded ? 'blur-0 scale-100' : 'blur-[15px] scale-95'}`}
+        style={{ opacity: loaded ? 1 : 0.6, clipPath: visible ? 'inset(0 0 0 0)' : initialClip }}
+        width={width}
+        height={height}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchPriority={priority ? 'high' : 'low'}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
   );
 }
 
@@ -297,6 +336,7 @@ function AboutCompanyBlock({
         className="object-cover w-full h-full"
         width={370}
         height={300}
+        reveal="top-bottom"
       />
     </div>
   )}
@@ -307,6 +347,7 @@ function AboutCompanyBlock({
         alt={(data.image370_2 as { alt?: string })?.alt}
         className="object-cover w-full h-full"
         width={250}
+        reveal="bottom-top"
         height={200}
       />
     </div>
@@ -342,6 +383,7 @@ function AboutCompanyBlock({
                 alt={(data.image350_1 as { alt?: string })?.alt}
                 className="object-cover w-full h-full"
                 width={250}
+                reveal="left-right"
                 height={200}
               />
             </div>
@@ -353,6 +395,7 @@ function AboutCompanyBlock({
               <SanityImage
                 source={data.image350_2}
                 alt={(data.image350_2 as { alt?: string })?.alt}
+                reveal="right-left"
                 className="object-cover w-full h-full"
                 width={370}
                 height={300}

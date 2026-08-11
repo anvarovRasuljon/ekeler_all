@@ -1,3 +1,4 @@
+import ProductImage from '../ProductImage';
 import React, { useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -104,7 +105,7 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
                 >
                   {images.map((img, idx) => (
                     <SwiperSlide key={idx}>
-                      <img
+                      <ProductImage
                         src={img}
                         alt={`${data.title} — ${idx + 1}`}
                         className="object-cover w-full h-full"

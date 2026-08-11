@@ -1,3 +1,4 @@
+import AnimatedImage from './AnimatedImage';
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface Product {
@@ -89,7 +90,7 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products }) => {
             {/* Left: image + title */}
             <div className="flex flex-col gap-6 items-start w-full md:w-auto md:flex-row md:items-center md:gap-10">
               {product.image && (
-                <img
+                <AnimatedImage
                   src={product.image}
                   alt={product.name}
                   width={200}

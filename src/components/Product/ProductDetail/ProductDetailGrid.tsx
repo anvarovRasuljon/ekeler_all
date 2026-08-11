@@ -1,3 +1,4 @@
+import ProductImage from '../ProductImage';
 import React, { useEffect, useState } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -86,7 +87,7 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
               style={{ width: `${slideWidth}%` }}
               aria-label={`Gallery image ${index + 1}`}
             >
-              <img
+              <ProductImage
                 src={image}
                 alt={`Gallery image ${index + 1}`}
                 className={`h-full w-full object-cover transition-opacity duration-300 ${
@@ -138,7 +139,7 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
             <ChevronLeft className="h-8 w-8 sm:h-12 sm:w-12" />
           </button>
 
-          <img
+          <ProductImage
             src={displayIndex !== null ? images[displayIndex] : undefined}
             alt={displayIndex !== null ? `Gallery image ${displayIndex + 1}` : ""}
             className={`h-[70vh] max-h-[70vh] w-[70vh] max-w-[95vw] rounded-xl object-contain transition-opacity duration-300 sm:rounded-2xl ${

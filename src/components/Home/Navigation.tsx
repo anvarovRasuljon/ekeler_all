@@ -1,3 +1,4 @@
+import AnimatedImage from './AnimatedImage';
 // // Responsive refactor: desktopda 3 ustunli grid saqlanadi, mobilda esa
 // // animatsiyali burger menyu (3 chiziq -> X), slide-in panel, scroll lock va
 // // tashqariga/linkka bosganda avtomatik yopilish qo'shildi. Hech qanday link
@@ -134,7 +135,7 @@
 
 //         {/* Logo — mobilda chapda, desktopda markazda */}
 //         <Link to="/" onClick={close} className="flex items-center lg:justify-self-center">
-//           <img src={logo} alt="Ekeler Logo" className="h-[clamp(28px,1.75rem+0.3vw,40px)] w-auto" />
+//           <AnimatedImage src={logo} alt="Ekeler Logo" className="h-[clamp(28px,1.75rem+0.3vw,40px)] w-auto" />
 //         </Link>
 
 //         {/* Desktop: o'ng ustun */}
@@ -416,7 +417,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
 
           {/* Logo — mobilda chapda, desktopda markazda */}
           <Link to="/" onClick={close} className="flex items-center lg:justify-self-center">
-            <img src={logo} alt="Ekeler Logo" className="h-[clamp(28px,1.75rem+0.3vw,40px)] w-auto" />
+            <AnimatedImage src={logo} alt="Ekeler Logo" className="h-[clamp(28px,1.75rem+0.3vw,40px)] w-auto" />
           </Link>
 
           {/* Desktop: o'ng ustun */}
