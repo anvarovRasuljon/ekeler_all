@@ -68,7 +68,7 @@ function SanityImage({
       <img
         src={url}
         alt={alt || ''}
-        className={`${className} transition-all duration-700 ${loaded ? 'blur-0 scale-100' : 'blur-[15px] scale-95'}`}
+        className={`${className} transition-all duration-700 ${loaded ? 'scale-100 blur-0' : 'scale-95 blur-[15px]'}`}
         style={{ opacity: loaded ? 1 : 0.6, clipPath: visible ? 'inset(0 0 0 0)' : initialClip }}
         width={width}
         height={height}
@@ -109,10 +109,12 @@ function AboutCompanyContentBlock({
   data,
   minHeight = 670,
   descriptionClassName = "font-['Inter'] font-normal text-[26px] leading-[34px] mb-[30px] sm:text-[20px] sm:leading-[20px] lg:text-[40px] lg:leading-[48px] text-[#1B1D20] max-w-[450px] whitespace-pre-line break-words",
+  stacked = false,
 }: {
   data: AboutCompanyContentData | null;
   minHeight?: number;
   descriptionClassName?: string;
+  stacked?: boolean;
 }) {
   const { t } = useLanguage();
 
@@ -130,8 +132,8 @@ function AboutCompanyContentBlock({
   return (
     <div
       /* Responsive: minHeight faqat lg+ ekranlarda kerak, mobilda katta bo'sh joy qolmasin */
-      className="flex w-full flex-col justify-between gap-10 max-lg:!min-h-0 lg:gap-0"
-      style={{ minHeight }}
+      className={stacked ? "flex flex-col gap-6 w-full" : "flex w-full flex-col justify-between gap-10 max-lg:!min-h-0 lg:gap-0"}
+      style={stacked ? undefined : { minHeight }}
     >
       {/* TEPADA: Title + Image */}
       {/* <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">

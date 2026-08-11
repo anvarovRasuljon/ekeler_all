@@ -14,10 +14,10 @@ interface ServiceCtaSectionProps {
 }
 
 const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
-  badgeText = 'Bizning tarmoqlar',
-  headingPart1 = "Qadoqlashdan tortib avtomobil sanoatigacha — har bir soha uchun sota kartondan yaratilgan o'z yechimi bor",
-  headingHighlight = "har bir soha uchun sota kartondan yaratilgan o'z yechimi bor",
-  buttonText = 'Bizning mahsulotlar',
+  badgeText = { ru: 'Наши отрасли', uz: 'Bizning tarmoqlar', eng: 'Our industries' },
+  headingPart1 = { ru: 'От упаковки до автомобильной промышленности — для каждой отрасли есть свое решение из гофрокартона', uz: "Qadoqlashdan tortib avtomobil sanoatigacha — har bir soha uchun sota kartondan yaratilgan o'z yechimi bor", eng: 'From packaging to automotive — every industry has its own corrugated cardboard solution' },
+  headingHighlight = { ru: 'для каждой отрасли есть свое решение из гофрокартона', uz: "har bir soha uchun sota kartondan yaratilgan o'z yechimi bor", eng: 'every industry has its own corrugated cardboard solution' },
+  buttonText = { ru: 'Наша продукция', uz: 'Bizning mahsulotlar', eng: 'Our products' },
   buttonLink = "/products",
 }) => {
   const { t } = useLanguage();

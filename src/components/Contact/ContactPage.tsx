@@ -114,14 +114,14 @@ export const ContactPage: React.FC = () => {
         <div ref={containerRef} className="flex relative flex-col gap-8 lg:flex-row-reverse">
           <div className="flex flex-col gap-16 w-full min-w-0 lg:w-1/2 md:gap-20">
             <div className="flex flex-col gap-8">
-              <div className="flex flex-row gap-4 justify-between items-start">
+              <div className="flex flex-row gap-4 justify-between items-start mb-[10]">
                 <span className="w-fit shrink-0 rounded-full border border-neutral-300 px-4 py-1.5 font-['Inter'] text-xs font-medium tracking-wide text-neutral-500">
                   {t.eyebrow}
                 </span>
                 <img
                   src={contactMiniImage}
                   alt="Contact mini"
-                  className={`h-[110px] w-[170px] shrink-0 rounded-lg object-cover transition-all duration-700 ${
+                  className={`h-[110px] w-[180px] shrink-0 rounded-lg object-cover transition-all duration-700 sm:h-[200px] sm:w-[500px] ${
                     miniLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-[15px]'
                   }`}
                   style={{ clipPath: miniLoaded ? 'inset(0 0 0 0)' : 'inset(100% 0 0 0)' }}
@@ -132,7 +132,7 @@ export const ContactPage: React.FC = () => {
                 />
               </div>
 
-              <h2 className="max-w-[600px] whitespace-pre-line break-words font-['Inter'] text-[26px] font-normal leading-[34px] text-[#1B1D20] sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[48px] xl:max-w-[700px]">
+              <h2 className="max-w-[400px] mt-[94px] whitespace-pre-line break-words font-['Inter'] text-[26px] font-normal leading-[34px] text-[#1B1D20] sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[48px] xl:max-w-[600px]">
                 {t.title}
               </h2>
             </div>

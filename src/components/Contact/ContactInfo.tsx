@@ -3,9 +3,6 @@ import { Loader2 } from "lucide-react";
 import AboutCompanyContentBlock from "../About/AboutCompanyContentBlock";
 import type { AboutCompanyContentData } from "../About/AboutCompanyContentBlock";
 
-const NAV_HEIGHT_PX = 65;
-const IMG_GAP = 30;
-const MAP_HEIGHT = 380;
 // Responsive: mobilda kichikroq, sm+ da original o'lcham
 const DESCRIPTION_CLASS = "font-['Inter'] font-normal text-[22px] leading-[30px] sm:text-[28px] sm:leading-[36px] text-[#1B1D20] max-w-[450px] whitespace-pre-line break-words";
 
@@ -26,7 +23,6 @@ const DEFAULT_CONTENT_DATA: AboutCompanyContentData = {
 };
 
 export const ContactInfo: React.FC = () => {
-  const stickyTop = React.useMemo(() => NAV_HEIGHT_PX + IMG_GAP, []);
   const [mapLoaded, setMapLoaded] = React.useState(false);
 
   return (
@@ -34,7 +30,7 @@ export const ContactInfo: React.FC = () => {
       <div className="px-4 pt-6 pb-16 w-full md:px-6 lg:px-8">
         {/* Mobil xarita */}
         {/* Responsive: mobilda xarita foydalanish uchun yetarli balandlikda */}
-        <div className="relative mb-8 h-[240px] w-full overflow-hidden rounded-lg bg-neutral-100 sm:h-[300px] lg:hidden">
+        <div className="relative mx-auto mb-8 h-[170px] w-[280px] overflow-hidden rounded-lg bg-neutral-100 sm:h-[270px] sm:w-[430px] lg:hidden">
           {!mapLoaded && (
             <div className="flex absolute inset-0 z-10 justify-center items-center">
               <Loader2 className="w-8 h-8 animate-spin text-neutral-400" />
@@ -54,18 +50,13 @@ export const ContactInfo: React.FC = () => {
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* CHAP — kontakt ma'lumotlari */}
           <div className="flex flex-col w-full min-w-0 lg:w-1/2">
-            <AboutCompanyContentBlock data={DEFAULT_CONTENT_DATA} minHeight={MAP_HEIGHT} descriptionClassName={DESCRIPTION_CLASS} />
+            <AboutCompanyContentBlock data={DEFAULT_CONTENT_DATA} stacked descriptionClassName={DESCRIPTION_CLASS} />
           </div>
 
           {/* O'NG — xarita */}
-          <div className="hidden w-1/2 shrink-0 lg:block">
+          <div className="hidden w-1/2 shrink-0 lg:flex lg:flex-col lg:items-center lg:justify-end">
             <div
-              className="overflow-hidden relative sticky w-full rounded-lg bg-neutral-100"
-              style={{
-                top: stickyTop,
-                height: MAP_HEIGHT,
-                maxHeight: MAP_HEIGHT,
-              }}
+              className="overflow-hidden relative mx-auto h-[270px] w-[430px] rounded-lg bg-neutral-100"
             >
               {!mapLoaded && (
                 <div className="flex absolute inset-0 z-10 justify-center items-center">

@@ -49,8 +49,8 @@ let analyticsInjected = false;
 
 /* Tailwind — UI o'zgartirilmadi. */
 const INPUT_CLASS =
-  "w-full min-h-[44px] rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm text-[#1B1D20] outline-none transition-colors focus:border-[#E88029] placeholder:text-neutral-400";
-const LABEL_CLASS = "text-sm font-medium text-[#1B1D20]";
+  "w-full min-h-[44px] rounded-[8px] border border-[#ECECEC] bg-white px-4 py-3 font-['Inter'] text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20] align-middle outline-none transition-colors focus:border-[#E88029] placeholder:text-[#ECECEC]";
+const LABEL_CLASS = "font-['Inter'] text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20] align-middle";
 
 export const ZohoLeadForm: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
@@ -359,24 +359,15 @@ export const ZohoLeadForm: React.FC = () => {
           aria-hidden="true"
         />
 
-        <div className="flex flex-wrap gap-3 items-center">
+        <div className="mt-[30px] flex justify-center">
           <input
             type="submit"
             id="formsubmit"
             role="button"
-            className="formsubmit zcwf_button min-h-[44px] cursor-pointer rounded-full bg-[#1B1D20] px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-[#E88029] disabled:cursor-not-allowed disabled:opacity-60"
+            className="formsubmit cursor-pointer border-0 bg-transparent p-0 text-center align-middle font-['Inter'] text-[16px] font-normal leading-[24px] tracking-[-0.02em] text-[#E88029]"
             value="Отправить"
             aria-label="Отправить"
             title="Отправить"
-          />
-          <input
-            type="reset"
-            role="button"
-            name="reset"
-            className="zcwf_button min-h-[44px] cursor-pointer rounded-full border border-neutral-300 bg-white px-8 py-3 text-sm font-medium text-[#1B1D20] transition-colors hover:border-[#E88029]"
-            value="Сброс"
-            aria-label="Сброс"
-            title="Сброс"
           />
         </div>
       </form>
