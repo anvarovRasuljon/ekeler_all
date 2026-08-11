@@ -128,9 +128,9 @@ export const ContactPage: React.FC = () => {
                     miniLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-[15px]'
                   }`}
                   style={{ clipPath: miniLoaded ? 'inset(0 0 0 0)' : 'inset(100% 0 0 0)' }}
-                  loading="lazy"
+                  loading="eager"
                   decoding="async"
-                  fetchPriority="low"
+                  fetchPriority="high"
                   onLoad={() => setMiniLoaded(true)}
                 />
               </div>

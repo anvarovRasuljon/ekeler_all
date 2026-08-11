@@ -1,5 +1,5 @@
-import AnimatedImage from './AnimatedImage';
 import React from "react";
+import { gsap } from 'gsap';
 import { useLanguage } from "../../context/LanguageContext";
 import industry_1 from "../../assets/Industry_1.png";
 import industry_2 from "../../assets/Industry_2.png";
@@ -32,8 +32,84 @@ const DEFAULT_GALLERY: GalleryCardData[] = [
   { id: "5", title: "Industry Five", tags: ["Tag 9", "Tag 10"], description: LOREM_20, imageUrl: industry_5 },
 ];
 
-const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCardData }) {
+const REVEALS = [
+  { from: { y: 80, opacity: 0, filter: 'blur(20px)', scale: 1.05 } },
+  { from: { x: -80, opacity: 0, filter: 'blur(20px)', scale: 1.05 } },
+  { from: { x: 80, opacity: 0, filter: 'blur(20px)', scale: 1.05 } },
+  { from: { y: -80, opacity: 0, filter: 'blur(20px)', scale: 1.05 } },
+  { from: { scale: 1.2, opacity: 0, filter: 'blur(20px)', rotate: -3 } },
+];
+
+interface GalleryImageProps {
+  src: string;
+  alt: string;
+  reveal: number;
+  className?: string;
+}
+
+const GalleryImage = React.memo(function GalleryImage({ src, alt, reveal, className }: GalleryImageProps) {
   const [loaded, setLoaded] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+  const divRef = React.useRef<HTMLDivElement>(null);
+  const imgRef = React.useRef<HTMLImageElement>(null);
+
+  React.useEffect(() => {
+    const el = divRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const cfg = REVEALS[reveal % REVEALS.length];
+
+  React.useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
+    gsap.set(img, { ...cfg.from });
+  }, [cfg]);
+
+  React.useEffect(() => {
+    const img = imgRef.current;
+    if (!img || !visible || !loaded) return;
+    gsap.to(img, {
+      x: 0,
+      y: 0,
+      scale: 1,
+      rotate: 0,
+      opacity: 1,
+      filter: 'blur(0px)',
+      duration: 1.4,
+      ease: 'power3.out',
+    });
+  }, [visible, loaded]);
+
+  return (
+    <div ref={divRef} className="absolute inset-0 h-full w-full group-hover:scale-[1.04] transition-transform duration-500">
+      <img
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        fetchPriority="low"
+        onLoad={() => setLoaded(true)}
+        className={`h-full w-full object-cover ${className || ''}`}
+      />
+    </div>
+  );
+});
+
+const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCardData }) {
+  const reveal = (parseInt(item.id, 10) - 1) % REVEALS.length;
   return (
     <div
       className={`
@@ -47,24 +123,10 @@ const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCar
       `}
     >
       {item.imageUrl && (
-        <AnimatedImage
+        <GalleryImage
           src={item.imageUrl}
           alt={item.imageAlt ?? item.title}
-          loading="lazy"
-          decoding="async"
-          fetchPriority="low"
-          onLoad={() => setLoaded(true)}
-          className={`
-            absolute inset-0 h-full w-full object-cover
-            transition-[filter,opacity,transform] duration-500 ease-out
-            group-hover:scale-[1.04] group-hover:brightness-75
-          `}
-          style={{
-            filter: loaded ? undefined : "blur(18px)",
-            opacity: loaded ? 1 : 0.6,
-            transform: loaded ? undefined : "scale(1.05)",
-            willChange: "filter, transform, opacity",
-          }}
+          reveal={reveal}
         />
       )}
 
