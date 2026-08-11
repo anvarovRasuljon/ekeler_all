@@ -7,6 +7,7 @@ export interface AboutCompanyContentData {
   image?: unknown;
   title?: Record<string, string>;
   description?: Record<string, string>;
+  descriptionHighlight?: Record<string, string>;
   phone?: string;
   email?: string;
   location?: Record<string, string>;
@@ -77,6 +78,30 @@ function SanityImage({
         onLoad={() => setLoaded(true)}
       />
     </div>
+  );
+}
+
+function HighlightedDescription({
+  text,
+  highlight,
+  className,
+}: {
+  text: string;
+  highlight: string;
+  className: string;
+}) {
+  const index = highlight ? text.indexOf(highlight) : -1;
+  if (index === -1) {
+    return <p className={className}>{text}</p>;
+  }
+  const before = text.slice(0, index).trimEnd();
+  const after = text.slice(index);
+  return (
+    <p className={className}>
+      {before && <span className="text-[#1B1D20]">{before}</span>}
+      {before && ' '}
+      <span className="text-[#E88029]">{after}</span>
+    </p>
   );
 }
 
@@ -163,11 +188,11 @@ function AboutCompanyContentBlock({
       {/* PASTDA: Description → Tel/Email → Location */}
       <div className="flex flex-col gap-5 items-start md:gap-6 w-[300px] sm:w-[400px] ">
         {data.description && (
-          <p
+          <HighlightedDescription
+            text={t(data.description)}
+            highlight={data.descriptionHighlight ? t(data.descriptionHighlight) : ''}
             className={descriptionClassName}
-          >
-            {t(data.description)}
-          </p>
+          />
         )}
 
         {(data.phone || data.email) && (

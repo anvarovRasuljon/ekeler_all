@@ -202,6 +202,8 @@ import { getImageUrl, hasSanityImage } from '../../sanity/client';
 export interface AboutCompanyBlockData {
   title1?: Record<string, string>;
   description1?: Record<string, string>;
+  description1Highlight?: Record<string, string>;
+  description1_bottom?: Record<string, string>;
   title2?: Record<string, string>;
   description2?: Record<string, string>;
   bodyText?: Record<string, string>;
@@ -266,7 +268,7 @@ function SanityImage({
       <img
         src={url}
         alt={alt || ''}
-        className={`${className} transition-all duration-700 ${loaded ? 'blur-0 scale-100' : 'blur-[15px] scale-95'}`}
+        className={`${className} transition-all duration-700 ${loaded ? 'scale-100 blur-0' : 'scale-95 blur-[15px]'}`}
         style={{ opacity: loaded ? 1 : 0.6, clipPath: visible ? 'inset(0 0 0 0)' : initialClip }}
         width={width}
         height={height}
@@ -289,7 +291,7 @@ function AboutCompanyBlock({
   if (!data) return null;
 
   const textClass =
-    "font-['Inter'] font-normal text-[14px] leading-[22px] text-[#1B1D20]";
+    "font-['Inter'] font-normal text-[14px] leading-[22px] text-neutral-500";
 
   return (
     <div className="flex flex-col gap-12 md:gap-16">
@@ -362,10 +364,19 @@ function AboutCompanyBlock({
               {t(data.title1)}
             </h2>
           )}
-          {data.description1 && (
-            <p className={`text-left whitespace-pre-line ${textClass} max-w-[480px]`}>
-              {t(data.description1)}
-            </p>
+          {(data.description1 || data.description1_bottom) && (
+            <div className="flex flex-col w-full max-w-[480px]">
+              {data.description1 && (
+                <p className={`text-left whitespace-pre-line ${textClass} mb-[30px]`}>
+                  {t(data.description1)}
+                </p>
+              )}
+              {data.description1_bottom && (
+                <p className={`text-left whitespace-pre-line ${textClass}`}>
+                  {t(data.description1_bottom)}
+                </p>
+              )}
+            </div>
           )}
         </div>
       </div>

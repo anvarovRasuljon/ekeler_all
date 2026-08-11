@@ -12,16 +12,16 @@ const DESCRIPTION_CLASS = "font-['Manrope'] font-normal text-[22px] leading-[30p
 const DEFAULT_CONTENT_DATA: AboutCompanyContentData = {
   title: { ru: "КОНТАКТЫ", uz: "KONTAKTLAR", eng: "CONTACTS" },
   description: {
-    ru: "Ekeler — Lorem impus\nLorem ipsum dolor sit amet",
-    uz: "Ekeler — Lorem impus\nLorem ipsum dolor sit amet",
-    eng: "Ekeler — Lorem impus\nLorem ipsum dolor sit amet",
+    ru: "Свяжитесь с Ekeler. Используйте контакты ниже для вопросов, заказов или запроса образцов.",
+    uz: "Ekeler bilan bog'laning. Savol, buyurtma yoki namuna so'rash uchun quyidagi ma'lumotlardan foydalaning.",
+    eng: "Get in touch with Ekeler. Use the details below for questions, orders, or sample requests.",
   },
   phone: "+998 77 777-77-77",
   email: "info@ekeler.uz",
   location: {
-    ru: "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit",
-    uz: "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit",
-    eng: "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit",
+    ru: "Ташкент, Узбекистан",
+    uz: "Toshkent, O'zbekiston",
+    eng: "Tashkent, Uzbekistan",
   },
 };
 
@@ -36,8 +36,8 @@ export const ContactInfo: React.FC = () => {
         {/* Responsive: mobilda xarita foydalanish uchun yetarli balandlikda */}
         <div className="relative mb-8 h-[240px] w-full overflow-hidden rounded-lg bg-neutral-100 sm:h-[300px] lg:hidden">
           {!mapLoaded && (
-            <div className="absolute inset-0 z-10 flex items-center justify-center">
-              <Loader2 className="h-8 w-8 animate-spin text-neutral-400" />
+            <div className="flex absolute inset-0 z-10 justify-center items-center">
+              <Loader2 className="w-8 h-8 animate-spin text-neutral-400" />
             </div>
           )}
           <iframe
@@ -60,7 +60,7 @@ export const ContactInfo: React.FC = () => {
           {/* O'NG — xarita */}
           <div className="hidden w-1/2 shrink-0 lg:block">
             <div
-              className="relative overflow-hidden sticky w-full rounded-lg bg-neutral-100"
+              className="overflow-hidden relative sticky w-full rounded-lg bg-neutral-100"
               style={{
                 top: stickyTop,
                 height: MAP_HEIGHT,
@@ -68,8 +68,8 @@ export const ContactInfo: React.FC = () => {
               }}
             >
               {!mapLoaded && (
-                <div className="absolute inset-0 z-10 flex items-center justify-center">
-                  <Loader2 className="h-8 w-8 animate-spin text-neutral-400" />
+                <div className="flex absolute inset-0 z-10 justify-center items-center">
+                  <Loader2 className="w-8 h-8 animate-spin text-neutral-400" />
                 </div>
               )}
               <iframe

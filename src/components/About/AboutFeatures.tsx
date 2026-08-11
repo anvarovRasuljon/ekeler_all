@@ -6,6 +6,8 @@ export interface AboutCompanyFeatureData {
   image?: unknown;
   title?: Record<string, string>;
   description?: Record<string, string>;
+  description_bottom?: Record<string, string>;
+
 }
 
 function SanityImage({
@@ -63,7 +65,7 @@ function SanityImage({
       <img
         src={url}
         alt={alt || ''}
-        className={`${className} transition-all duration-700 ${loaded ? 'blur-0 scale-100' : 'blur-[15px] scale-95'}`}
+        className={`${className} transition-all duration-700 ${loaded ? 'scale-100 blur-0' : 'scale-95 blur-[15px]'}`}
         style={{ opacity: loaded ? 1 : 0.6, clipPath: visible ? 'inset(0 0 0 0)' : initialClip }}
         width={width}
         height={height}
@@ -115,10 +117,19 @@ function AboutCompanyFeature({
           </h2>
         )}
 
-        {data.description && (
-          <p className="font-['Inter'] text-sm leading-relaxed text-[#1B1D20] max-w-[490px] sm:text-base whitespace-pre-line">
-            {t(data.description)}
-          </p>
+        {(data.description || data.description_bottom) && (
+          <div className="flex flex-col max-w-[490px]">
+            {data.description && (
+              <p className="font-['Inter'] text-sm leading-relaxed text-[#1B1D20] sm:text-base whitespace-pre-line">
+                {t(data.description)}
+              </p>
+            )}
+            {data.description_bottom && (
+              <p className="font-['Inter'] text-sm leading-relaxed text-[#1B1D20] mt-6 sm:text-base whitespace-pre-line">
+                {t(data.description_bottom)}
+              </p>
+            )}
+          </div>
         )}
       </div>
     </div>

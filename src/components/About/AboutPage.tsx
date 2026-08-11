@@ -21,11 +21,16 @@ const DEFAULT_IMAGE_DATA: AboutCompanyImageData = {
 
 const DEFAULT_CONTENT_DATA: AboutCompanyContentData = {
   image: aboutContentImg,
-  title: { ru: 'О компании', uz: 'Kompaniya haqida', eng: 'About Company' },
+  title: { ru: 'О компании', uz: 'Biz Haqimizda', eng: 'About Us' },
   description: {
-    ru: 'Lorem ipsum dolor sit amet consectetur adipiscing elit.',
-    uz: 'Lorem ipsum dolor sit amet consectetur adipiscing elit.',
-    eng: 'Lorem ipsum dolor sit amet consectetur adipiscing elit.',
+    ru: `Мы — первая компания, начавшая производство гофрокартона в Узбекистане.`,
+    uz: `Biz - O'zbekistonda sota kartonni birinchi ishlab chiqargan kompaniyamiz.`,
+    eng: `We are the first company to produce corrugated cardboard in Uzbekistan.`,
+  },
+  descriptionHighlight: {
+    ru: `первая компания, начавшая производство гофрокартона в Узбекистане`,
+    uz: `birinchi ishlab chiqargan kompaniyamiz`,
+    eng: `the first company to produce corrugated cardboard in Uzbekistan`,
   },
   phone: '+998 90 123 45 67',
   email: 'info@ekeler.uz',
@@ -34,22 +39,32 @@ const DEFAULT_CONTENT_DATA: AboutCompanyContentData = {
 const NAV_HEIGHT_PX = 65;
 const IMG_GAP = 30;
 const DEFAULT_BLOCK_DATA: AboutCompanyBlockData = {
-  title1: { ru: 'Миссия', uz: 'Missiya', eng: 'Mission' },
+  title1: { ru: 'О компании', uz: 'Biz Haqimizda', eng: 'About Us' },
   description1: {
-    ru: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor.',
-    uz: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor.',
-    eng: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor.',
+    ru: `Ekeler — первая локальная компания по производству гофрокартона, основанная в 2020 году на рынке Узбекистана. До нас этот материал поставлялся только импортом, и клиенты сталкивались с таможенными задержками и дополнительными расходами. Мы запустили производство в Узбекистане, чтобы закрыть эту пустоту.`,
+    uz: `Ekeler — 2020-yilda tashkil topgan, O'zbekiston bozorida sota kartonni birinchi ishlab chiqargan kompaniyamiz. Bizgacha bu material faqat import orqali kelib, mijozlar bojxona kechikishlari va qo'shimcha xarajatlarga duch kelishardi. Biz shu bo'shliqni to'ldirish uchun ishlab chiqarishni O'zbekistonda yo'lga qo'ydik.`,
+    eng: `Ekeler is the first local company producing corrugated cardboard, founded in 2020 in the Uzbekistan market. Before us, this material was supplied only by import, and customers faced customs delays and extra costs. We launched production in Uzbekistan to fill this gap.`,
   },
-  title2: { ru: 'Видение', uz: 'Videniye', eng: 'Vision' },
+  description1Highlight: {
+    ru: `первая локальная компания по производству гофрокартона`,
+    uz: `birinchi ishlab chiqargan kompaniyamiz`,
+    eng: `the first local company producing corrugated cardboard`,
+  },
+  description1_bottom: {
+    ru: `Сегодня продукция Ekeler используется логистическими компаниями, производителями мебели и предприятиями различных отраслей для упаковки, транспортировки и защиты. Каждый заказ адаптируется под требования клиента и готовится в короткие сроки.`,
+    uz: `Bugungi kunda Ekeler mahsulotlari logistika kompaniyalari, mebel ishlab chiqaruvchilari va turli sohadagi korxonalar tomonidan qadoqlash, tashish va himoya maqsadlarida qo'llaniladi. Har bir buyurtma mijoz talabiga moslashtirilib, qisqa muddatda tayyorlanadi.`,
+    eng: `Today, Ekeler products are used by logistics companies, furniture manufacturers, and enterprises across various industries for packaging, shipping, and protection. Every order is tailored to the client\'s requirements and prepared within a short time.`,
+  },
+  title2: { ru: 'Наши ценности', uz: 'Qadriyatlarimiz', eng: 'Our Values' },
   description2: {
-    ru: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor.',
-    uz: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor.',
-    eng: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor.',
+    ru: `Наша работа основана на трёх вещах: локальность, качество и ответственность. Благодаря местному производству мы избавляем клиентов от импортных задержек и дополнительных расходов, готовим каждый продукт в соответствии с установленными стандартами и строго соблюдаем сроки доставки.`,
+    uz: `Bizning ishimiz uchta narsaga asoslanadi: mahalliylik, sifat va mas'uliyat. Mahalliy ishlab chiqarish orqali mijozlarimizni import bilan bog'liq kechikish va qo'shimcha xarajatlardan xalos qilamiz, har bir mahsulotni belgilangan standartlarga mos tayyorlaymiz va yetkazib berish muddatlariga qat'iy rioya qilamiz.`,
+    eng: `Our work is based on three things: local sourcing, quality, and responsibility. Through local production, we save customers from import-related delays and extra costs, prepare every product to meet established standards, and strictly adhere to delivery deadlines.`,
   },
   bodyText: {
-    ru: 'Lorem ipsum dolor sit amet consectetur.',
-    uz: 'Lorem ipsum dolor sit amet consectetur.',
-    eng: 'Lorem ipsum dolor sit amet consectetur.',
+    ru: `Наша цель — освободить промышленность Узбекистана от зависимости от импортных упаковочных материалов.`,
+    uz: `Maqsadimiz — O'zbekiston sanoatini import qadoqlash materiallariga bog'liqlikdan ozod qilish.`,
+    eng: `Our goal is to free Uzbekistan's industry from dependence on imported packaging materials.`,
   },
   image370_1: block370_1,
   image370_2: block370_2,
@@ -59,11 +74,16 @@ const DEFAULT_BLOCK_DATA: AboutCompanyBlockData = {
 
 const DEFAULT_FEATURE_DATA: AboutCompanyFeatureData = {
   image: aboutFeatureImg,
-  title: { ru: 'Наши ценности', uz: 'Bizning qadriyatlar', eng: 'Our Values' },
+  title: { ru: 'Технологии', uz: 'Texnologiyamiz', eng: 'Our Technology' },
   description: {
-    ru: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    uz: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    eng: 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    ru: `Производственный процесс осуществляется на полуавтоматическом оборудовании. Бумажное сырьё превращается в шестигранную ячеистую структуру на специальных станках, затем подгоняется под нужную толщину и размеры. На каждом этапе продукция проходит проверку на прочность и качество.`,
+    uz: `Ishlab chiqarish jarayonimiz yarim avtomatlashtirilgan uskunalarda amalga oshiriladi. Qog'oz xomashyosi maxsus jihozlarda olti qirrali uyachali tuzilmaga aylantiriladi, so'ngra kerakli qalinlik va o'lchamlarga moslab kesiladi. Har bir bosqichda mahsulot mustahkamlik va sifat bo'yicha tekshiruvdan o'tkaziladi.`,
+    eng: `Our production process is carried out on semi-automated equipment. The paper raw material is turned into a hexagonal honeycomb structure on special machines, then trimmed to the required thickness and dimensions. At every stage, the product is tested for strength and quality.`,
+  },
+  description_bottom: {
+    ru: `Стандартная продукция готовится за 2–3 дня, индивидуальные заказы — за 7 дней. Производственные мощности позволяют доставлять до 100 000 единиц в месяц.`,
+    uz: `Standart mahsulotlar 2–3 kun ichida, individual o'lchamdagi buyurtmalar esa 7 kun ichida tayyor bo'ladi. Ishlab chiqarish quvvatimiz oyiga 100 000 donagacha yetkazib berish imkonini beradi.`,
+    eng: `Standard products are ready in 2–3 days, custom-sized orders in 7 days. Our production capacity allows us to deliver up to 100,000 units per month.`,
   },
 };
 

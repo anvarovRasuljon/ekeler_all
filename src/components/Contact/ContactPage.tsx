@@ -10,21 +10,18 @@ import ZohoLeadForm from "./ZohoLeadForm";
 const NAV_HEIGHT_PX = 65;
 const IMG_GAP = 30;
 
-const CONTENT: Record<Language, { eyebrow: string; title: string; highlight: string }> = {
+const CONTENT: Record<Language, { eyebrow: string; title: string }> = {
   ru: {
     eyebrow: "КОНТАКТЫ",
-    title: "Lorem impus\nLorem ipsum dolor ",
-    highlight: "sit amet,\nconsectetur adipiscing elit",
+    title: "Подберём подходящий размер и цену для вашего проекта",
   },
   uz: {
     eyebrow: "ALOQA",
-    title: "Lorem impus\nLorem ipsum dolor ",
-    highlight: "sit amet,\nconsectetur adipiscing elit",
+    title: "Loyihangiz uchun mos o'lcham va narxni birga aniqlaymiz",
   },
   eng: {
     eyebrow: "CONTACT",
-    title: "Lorem impus\nLorem ipsum dolor ",
-    highlight: "sit amet,\nconsectetur adipiscing elit",
+    title: "We will determine the right size and price for your project together",
   },
 };
 
@@ -137,7 +134,6 @@ export const ContactPage: React.FC = () => {
 
               <h2 className="max-w-[600px] whitespace-pre-line break-words font-['Manrope'] text-[26px] font-normal leading-[34px] text-[#1B1D20] sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[48px] xl:max-w-[700px]">
                 {t.title}
-                <span className="text-[#E88029]">{t.highlight}</span>
               </h2>
             </div>
 
