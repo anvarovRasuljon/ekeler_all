@@ -4,29 +4,40 @@ import { ArrowUpRight } from "lucide-react";
 import inpus_left_img from "../../assets/redyImg_left.png";
 import inpus_right_img from "../../assets/redyimg_right.png";
 import { useLanguage } from "../../context/LanguageContext";
+import { translations } from "../../locales/translations";
 
 interface CtaSectionProps {
   badgeText?: any;
   headingPart1?: any;
+  headingHighlight?: any;
   buttonText?: any;
   buttonLink?: any;
 }
 
 const CtaSection: React.FC<CtaSectionProps> = ({
-  badgeText = "Ready",
-  headingPart1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.",
-  buttonText = "Bizning mahsulotlar",
-  buttonLink = "/service",
+  badgeText = translations.home.ctaSection.badgeText,
+  headingPart1 = translations.home.ctaSection.headingPart1,
+  headingHighlight = translations.home.ctaSection.headingHighlight,
+  buttonText = translations.home.ctaSection.buttonText,
+  buttonLink = "/contact",
 }) => {
   const { t } = useLanguage();
   const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : null), [t, badgeText]);
   const headingText = useMemo(() => (headingPart1 ? t(headingPart1) : null), [t, headingPart1]);
+  const highlightText = useMemo(() => (headingHighlight ? String(t(headingHighlight) || '') : ''), [t, headingHighlight]);
   const buttonLabel = useMemo(() => (buttonText ? t(buttonText) : null), [t, buttonText]);
 
-  const words = useMemo(() => {
-    if (!headingText) return [];
-    return String(headingText).trim().split(/\s+/).filter(Boolean);
-  }, [headingText]);
+  const allWords = useMemo(() => {
+    if (!headingText) return [] as { text: string; colored: boolean }[];
+    const text = String(headingText);
+    const idx = highlightText ? text.indexOf(highlightText) : -1;
+    if (idx === -1) {
+      return text.trim().split(/\s+/).filter(Boolean).map((w) => ({ text: w, colored: false }));
+    }
+    const before = text.slice(0, idx).trim().split(/\s+/).filter(Boolean).map((w) => ({ text: w, colored: false }));
+    const after = text.slice(idx).trim().split(/\s+/).filter(Boolean).map((w) => ({ text: w, colored: true }));
+    return [...before, ...after];
+  }, [headingText, highlightText]);
 
   const sectionRef = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
@@ -131,10 +142,10 @@ const CtaSection: React.FC<CtaSectionProps> = ({
         )}
 
         <h2 className="mb-8 w-full max-w-[610px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20]">
-          {words.map((w, i) => (
+          {allWords.map((w, i) => (
             <span key={i} className="inline-block overflow-hidden align-bottom" style={{ marginRight: "0.28em" }}>
               <span
-                className="inline-block will-change-transform"
+                className={`inline-block will-change-transform ${w.colored ? 'text-[#E88029]' : 'text-[#1B1D20]'}`}
                 style={{
                   opacity: inView ? 1 : 0,
                   filter: inView ? "blur(0px)" : "blur(6px)",
@@ -142,7 +153,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
                   transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, filter 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
                 }}
               >
-                {w}
+                {w.text}
               </span>
             </span>
           ))}

@@ -1,6 +1,7 @@
 import React from "react";
 import { gsap } from 'gsap';
 import { useLanguage } from "../../context/LanguageContext";
+import { translations } from "../../locales/translations";
 import industry_1 from "../../assets/Industry_1.png";
 import industry_2 from "../../assets/Industry_2.png";
 import industry_3 from "../../assets/Industry_3.png";
@@ -9,9 +10,8 @@ import industry_5 from "../../assets/Industry_5.png";
 
 export interface GalleryCardData {
   id: string;
-  title: string;
-  tags: string[];
-  description: string;
+  title: any;
+  description: any;
   imageUrl: string;
   imageAlt?: string;
 }
@@ -21,15 +21,13 @@ export interface IndustrialGalleryGridProps {
   className?: string;
 }
 
-const LOREM_20 =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor";
 
 const DEFAULT_GALLERY: GalleryCardData[] = [
-  { id: "1", title: "Industry One", tags: ["Tag 1", "Tag 2"], description: LOREM_20, imageUrl: industry_1 },
-  { id: "2", title: "Industry Two", tags: ["Tag 3", "Tag 4"], description: LOREM_20, imageUrl: industry_2 },
-  { id: "3", title: "Industry Three", tags: ["Tag 5", "Tag 6"], description: LOREM_20, imageUrl: industry_3 },
-  { id: "4", title: "Industry Four", tags: ["Tag 7", "Tag 8"], description: LOREM_20, imageUrl: industry_4 },
-  { id: "5", title: "Industry Five", tags: ["Tag 9", "Tag 10"], description: LOREM_20, imageUrl: industry_5 },
+  { id: "1", title: translations.home.industrialGallery.items[0].title, description: translations.home.industrialGallery.items[0].description, imageUrl: industry_1 },
+  { id: "2", title: translations.home.industrialGallery.items[1].title, description: translations.home.industrialGallery.items[1].description, imageUrl: industry_2 },
+  { id: "3", title: translations.home.industrialGallery.items[2].title, description: translations.home.industrialGallery.items[2].description, imageUrl: industry_3 },
+  { id: "4", title: translations.home.industrialGallery.items[3].title, description: translations.home.industrialGallery.items[3].description, imageUrl: industry_4 },
+  { id: "5", title: translations.home.industrialGallery.items[4].title, description: translations.home.industrialGallery.items[4].description, imageUrl: industry_5 },
 ];
 
 const REVEALS = [
@@ -109,6 +107,9 @@ const GalleryImage = React.memo(function GalleryImage({ src, alt, reveal, classN
 });
 
 const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCardData }) {
+  const { t } = useLanguage();
+  const titleText = t(item.title);
+  const descriptionText = t(item.description);
   const reveal = (parseInt(item.id, 10) - 1) % REVEALS.length;
   return (
     <div
@@ -125,7 +126,7 @@ const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCar
       {item.imageUrl && (
         <GalleryImage
           src={item.imageUrl}
-          alt={item.imageAlt ?? item.title}
+          alt={item.imageAlt ?? titleText}
           reveal={reveal}
         />
       )}
@@ -137,23 +138,13 @@ const GalleryCard = React.memo(function GalleryCard({ item }: { item: GalleryCar
 
       <div className="relative z-10 px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
         <h3 className="break-words font-inter text-[18px] font-medium leading-[24px] text-white opacity-100 transition-opacity duration-500 md:opacity-0 md:text-[clamp(18px,1.1rem+0.3vw,24px)] md:leading-[clamp(24px,1.5rem+0.3vw,32px)] group-hover:opacity-100">
-          {item.title}
+          {titleText}
         </h3>
-        {item.tags.length > 0 && (
-          <div className="mt-[10px] flex flex-wrap items-center gap-x-2 font-inter text-[12px] font-normal leading-[22px] text-white/75 opacity-100 transition-opacity duration-500 md:opacity-0 md:text-[clamp(12px,0.75rem+0.1vw,14px)] group-hover:opacity-100">
-            {item.tags.map((tag, i) => (
-              <React.Fragment key={`${item.id}-tag-${i}`}>
-                {i > 0 && <span className="text-white/40">•</span>}
-                <span>{tag}</span>
-              </React.Fragment>
-            ))}
-          </div>
-        )}
       </div>
 
       <div className="relative z-10 px-4 pb-4 opacity-100 transition-[opacity,transform] duration-500 sm:px-6 sm:pb-6 md:translate-y-5 md:opacity-0 lg:px-8 lg:pb-8 md:group-hover:translate-y-0 md:group-hover:opacity-100">
         <p className="w-full max-w-[500px] break-words font-inter text-[12px] font-normal leading-relaxed text-white/90 md:text-[clamp(14px,0.85rem+0.1vw,16px)] lg:leading-[25px]">
-          {item.description}
+          {descriptionText}
         </p>
       </div>
     </div>

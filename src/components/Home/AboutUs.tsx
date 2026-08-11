@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import inpus_left_img from "../../assets/Inpus_left_img.png";
 import inpus_right_img from "../../assets/Inpus_right_img.png";
 import { useLanguage } from "../../context/LanguageContext";
+import { translations } from "../../locales/translations";
 
 interface InpusSectionProps {
   twoColorMode?: boolean;
@@ -18,14 +19,13 @@ interface InpusSectionProps {
   bottomImage?: any;
 }
 
-const LOREM_20 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.";
-
 const AboutUs: React.FC<InpusSectionProps> = ({
   twoColorMode = true,
-  badgeText = "About us",
-  description = LOREM_20,
-  descriptionPart1 = LOREM_20,
-  buttonText = "About us",
+  badgeText = translations.home.aboutUs.badgeText,
+  description = translations.home.aboutUs.description,
+  descriptionPart1 = translations.home.aboutUs.description,
+  descriptionHighlight = translations.home.aboutUs.descriptionHighlight,
+  buttonText = translations.home.aboutUs.buttonText,
 }) => {
   const { t } = useLanguage();
   const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : 'ABOUT US'), [t, badgeText]);
@@ -33,7 +33,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
   const descriptionText = useMemo(() => (description ? t(description) : null), [t, description]);
   const buttonLabel = useMemo(() => (buttonText ? t(buttonText) : null), [t, buttonText]);
 
-  const highlightPart = 'ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.';
+  const highlightText = useMemo(() => String(t(descriptionHighlight) || ''), [t, descriptionHighlight]);
   const fullText = useMemo(() => String(descriptionPart1Text || ''), [descriptionPart1Text]);
 
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -56,7 +56,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
   }, []);
 
   // Matnni so'zlarga bo'lib, highlight qismini belgilaymiz
-  const highlightIndex = fullText.indexOf(highlightPart);
+  const highlightIndex = fullText.indexOf(highlightText);
   const beforeWords = useMemo(
     () => (highlightIndex === -1 ? fullText.split(" ") : fullText.slice(0, highlightIndex).trim().split(" ")),
     [fullText, highlightIndex]
@@ -109,7 +109,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
         </span>
 
         {/* font-normal (400) — kichik ekran uchun */}
-        <h2 className="mb-8 w-full max-w-[610px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20]">
+        <h2 className="mb-8 w-full max-w-[810px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20]">
           {twoColorMode ? (
             <span className="inline">
               {allWords.map((w, i) => (

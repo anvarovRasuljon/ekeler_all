@@ -1,6 +1,7 @@
 import AnimatedImage from './AnimatedImage';
 import React, { useMemo } from "react";
 import { useLanguage } from "../../context/LanguageContext";
+import { translations } from "../../locales/translations";
 import SmsIco from "../../assets/sms.svg";
 import Call from "../../assets/call.svg";
 import LocationIcon from "../../assets/location.svg";
@@ -15,6 +16,7 @@ interface ContactSectionProps {
   description?: any;
   longDescription?: any;
   descriptionPart1?: any;
+  shortDescriptionHighlight?: any;
   descriptionHighlight?: any;
   descriptionPart2?: any;
   phone?: any;
@@ -23,17 +25,15 @@ interface ContactSectionProps {
   image?: any;
 }
 
-const LOREM_10 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor";
-const LOREm_15 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam";
-
 const ContactSection: React.FC<ContactSectionProps> = ({
-  eyebrow = "Biz haqimizda",
-  shortDescription = LOREM_10,
-  description = LOREm_15,
+  eyebrow = translations.home.contactSection.eyebrow,
+  shortDescription = translations.home.contactSection.shortDescription,
+  shortDescriptionHighlight = translations.home.contactSection.shortDescriptionHighlight,
+  description = translations.home.contactSection.description,
   longDescription,
   phone = "+998 90 123 45 67",
   email = "info@ekeler.uz",
-  mapText = "Tashkent, Uzbekistan",
+  mapText = translations.home.contactSection.mapText,
 }) => {
   const { t } = useLanguage();
   const eyebrowText = useMemo(() => (eyebrow ? t(eyebrow) : null), [t, eyebrow]);
@@ -41,7 +41,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   const displayText = useMemo(() => (description || longDescription), [description, longDescription]);
   const mapTextValue = useMemo(() => (mapText ? t(mapText) : null), [t, mapText]);
 
-  const shortHighlight = "adipiscing elit, sed do eiusmod tempor";
+  const shortHighlight = useMemo(() => (shortDescriptionHighlight ? String(t(shortDescriptionHighlight) || '') : ''), [t, shortDescriptionHighlight]);
   const { shortBefore, shortAfter } = useMemo(() => {
     if (!shortText) return { shortBefore: "", shortAfter: "" };
     const index = String(shortText).indexOf(shortHighlight);
@@ -50,7 +50,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
       shortBefore: String(shortText).slice(0, index),
       shortAfter: String(shortText).slice(index),
     };
-  }, [shortText]);
+  }, [shortText, shortHighlight]);
 
   const sectionReveal = useRevealOnScroll<HTMLDivElement>();
 

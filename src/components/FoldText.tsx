@@ -107,6 +107,7 @@ const FOLD_TEXT_STYLES = `.fold-text {
   transform-style: preserve-3d;
   backface-visibility: hidden;
   will-change: transform, opacity;
+  word-break: break-all;
 }
 
 .fold-text-piece::after {
@@ -164,6 +165,7 @@ const FoldText = ({
 }: FoldTextProps) => {
   const rootRef = useRef<HTMLSpanElement | null>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const hasPlayedRef = useRef(false);
   const hingeConfig = HINGE_CONFIG[hinge] || HINGE_CONFIG.top;
   const safeCrease = clamp(creaseShading, 0, 1);
   const safePerspective = Math.max(120, perspective);
@@ -274,8 +276,9 @@ const FoldText = ({
       });
     } else if (trigger === 'loop') {
       play(true);
-    } else {
+    } else if (!hasPlayedRef.current) {
       play(false);
+      hasPlayedRef.current = true;
     }
 
     return () => {

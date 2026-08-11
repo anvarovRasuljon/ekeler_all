@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import inpus_left_img from "../../assets/home_features_img.png";
 import inpus_right_img from "../../assets/home_feature_secont_img.png";
 import { useLanguage } from "../../context/LanguageContext";
+import { translations } from "../../locales/translations";
 
 interface InpusSectionProps {
   twoColorMode?: boolean;
@@ -16,20 +17,27 @@ interface InpusSectionProps {
   bottomImage?: any;
 }
 
-const LOREM_20 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.";
-
 const FeaturesSection: React.FC<InpusSectionProps> = ({
-  badgeText = "Features",
-  description = LOREM_20,
+  badgeText = translations.home.featuresSection.badgeText,
+  description = translations.home.featuresSection.description,
+  descriptionHighlight = translations.home.featuresSection.descriptionHighlight,
 }) => {
   const { t } = useLanguage();
   const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : 'ABOUT US'), [t, badgeText]);
   const descriptionText = useMemo(() => (description ? t(description) : null), [t, description]);
+  const highlightText = useMemo(() => (descriptionHighlight ? String(t(descriptionHighlight) || '') : ''), [t, descriptionHighlight]);
 
-  const words = useMemo(() => {
-    if (!descriptionText) return [];
-    return String(descriptionText).trim().split(/\s+/).filter(Boolean);
-  }, [descriptionText]);
+  const allWords = useMemo(() => {
+    if (!descriptionText) return [] as { text: string; colored: boolean }[];
+    const text = String(descriptionText);
+    const idx = highlightText ? text.indexOf(highlightText) : -1;
+    if (idx === -1) {
+      return text.trim().split(/\s+/).filter(Boolean).map((w) => ({ text: w, colored: false }));
+    }
+    const before = text.slice(0, idx).trim().split(/\s+/).filter(Boolean).map((w) => ({ text: w, colored: false }));
+    const after = text.slice(idx).trim().split(/\s+/).filter(Boolean).map((w) => ({ text: w, colored: true }));
+    return [...before, ...after];
+  }, [descriptionText, highlightText]);
 
   const sectionRef = useRef<HTMLElement | null>(null);
   const [inView, setInView] = useState(false);
@@ -133,10 +141,10 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
         </span>
 
         <h2 className="mb-8 w-full max-w-[610px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20]">
-          {words.map((w, i) => (
+          {allWords.map((w, i) => (
             <span key={i} className="inline-block overflow-hidden align-bottom" style={{ marginRight: "0.28em" }}>
               <span
-                className="inline-block will-change-transform"
+                className={`inline-block will-change-transform ${w.colored ? 'text-[#E88029]' : 'text-[#1B1D20]'}`}
                 style={{
                   opacity: inView ? 1 : 0,
                   filter: inView ? "blur(0px)" : "blur(6px)",
@@ -144,7 +152,7 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
                   transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, filter 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
                 }}
               >
-                {w}
+                {w.text}
               </span>
             </span>
           ))}

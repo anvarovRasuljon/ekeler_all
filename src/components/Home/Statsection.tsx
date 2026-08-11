@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { useLanguage } from "../../context/LanguageContext";
+import { translations } from "../../locales/translations";
 import imageUrl from "../../assets/home_stat_img.png";
 import BlurImage from "../ui/BlurImage";
 import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
@@ -22,20 +23,18 @@ interface StatsSectionProps {
   image?: any;
 }
 
-const LOREM_20 = "Lorem Impus porum dor, forem dorem quick, lore puel duit Lorem Impus porum dor, forem dorem";
-const Lorem_15 = "Lorem Impus porum dor, forem dorem quick, lore puel duit "
-const Lorem_10 = "Lorem Impus porum dor, forem dorem quick"
 const DEFAULT_STATISTICS: StatItem[] = [
-  { value: "10+", title: "Years", description: Lorem_10 },
-  { value: "500+", title: "Projects", description: Lorem_10 },
-  { value: "50+", title: "Clients", description: Lorem_10 },
-  { value: "24/7", title: "Support", description: Lorem_10 },
+  { value: "5+", title: translations.home.statsSection.stats.experience.title, description: translations.home.statsSection.stats.experience.description },
+  { value: "100 000+", title: translations.home.statsSection.stats.capacity.title, description: translations.home.statsSection.stats.capacity.description },
+  { value: "2-3", title: translations.home.statsSection.stats.time.title, description: translations.home.statsSection.stats.time.description },
+  { value: "100%", title: translations.home.statsSection.stats.local.title, description: translations.home.statsSection.stats.local.description },
 ];
 
 const StatsSection: React.FC<StatsSectionProps> = ({
-  eyebrow = "Bizning statistika",
-  descriptionPart1 = LOREM_20,
-  miniDescription = Lorem_15,
+  eyebrow = translations.home.statsSection.eyebrow,
+  descriptionPart1 = translations.home.statsSection.description,
+  descriptionHighlight = translations.home.statsSection.descriptionHighlight,
+  miniDescription = translations.home.statsSection.miniDescription,
   statistics = DEFAULT_STATISTICS,
 }) => {
   // Agar ma'lumot bo'lmasa, component ko'rsatilmaydi
@@ -47,17 +46,16 @@ const StatsSection: React.FC<StatsSectionProps> = ({
   const eyebrowText = useMemo(() => (eyebrow ? t(eyebrow) : null), [t, eyebrow]);
   const descriptionText = useMemo(() => (descriptionPart1 ? t(descriptionPart1) : null), [t, descriptionPart1]);
   const miniText = useMemo(() => (miniDescription ? t(miniDescription) : null), [t, miniDescription]);
-
-  const highlightPart = 'lore puel duit Lorem Impus porum dor, forem dorem';
+  const highlightText = useMemo(() => (descriptionHighlight ? String(t(descriptionHighlight) || '') : ''), [t, descriptionHighlight]);
   const { descBefore, descAfter } = useMemo(() => {
     if (!descriptionText) return { descBefore: '', descAfter: '' };
-    const index = String(descriptionText).indexOf(highlightPart);
+    const index = String(descriptionText).indexOf(highlightText);
     if (index === -1) return { descBefore: String(descriptionText), descAfter: '' };
     return {
       descBefore: String(descriptionText).slice(0, index),
       descAfter: String(descriptionText).slice(index),
     };
-  }, [descriptionText]);
+  }, [descriptionText, highlightText]);
 
   // Har bir matn bloki uchun alohida reveal + stagger delay
   const eyebrowReveal = useRevealOnScroll<HTMLDivElement>();
