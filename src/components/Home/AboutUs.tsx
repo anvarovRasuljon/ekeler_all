@@ -193,12 +193,14 @@ const AboutUs: React.FC<InpusSectionProps> = ({
 
       {/* Right image — desktop/tablet (o‘zgartirilmagan) */}
       <div
-        className="absolute right-2 bottom-[-30px] hidden overflow-hidden shadow-sm sm:block sm:right-6 sm:bottom-[-40px] md:right-16 md:bottom-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
+        className="absolute right-2 bottom-[-30px] hidden overflow-hidden shadow-sm sm:block sm:right-6 sm:bottom-[-40px] md:right-16 md:bottom-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[270px]"
+                // className="absolute left-2 top-[-30px] hidden overflow-hidden shadow-sm sm:block sm:left-6 sm:top-[-30px] md:left-16 md:top-[-30px] h-[clamp(160px,10rem+2vw,250px)] w-[270px]"
+
       >
         <AnimatedImage
           src={inpus_right_img}
           alt=""
-          width={250}
+          width={300}
           height={250}
           loading="lazy"
           decoding="async"
