@@ -69,6 +69,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
 
   return (
     <div ref={sectionReveal.ref} id="contact" className="w-full bg-white">
+  <div className="border-t border-[#ECECEC] mb-20" />
   <div className="grid grid-cols-1 gap-8 px-4 mx-auto md:grid-cols-2 md:gap-12 md:px-6 lg:px-8">
     {/* Left column - image */}
         {imageUrl && (
@@ -171,6 +172,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
         </div>
       </div>
+  <div className="border-b border-[#ECECEC] mt-20" />
     </div>
   );
 };

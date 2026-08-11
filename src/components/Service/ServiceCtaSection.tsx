@@ -88,7 +88,7 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
       </div>
 
       {/* Center content */}
-      <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center px-0 text-center">
+      <div className="flex relative z-10 flex-col flex-1 items-center px-0 min-w-0 text-center">
 
         {/* ===== MOBILE ONLY ===== */}
         <div className="flex relative gap-1 justify-around mb-8 w-full sm:hidden">

@@ -61,7 +61,7 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
   return (
     <section
   ref={sectionRef}
-  className="relative flex w-full items-center justify-between overflow-hidden bg-white pt-[clamp(32px,2rem+1vw,60px)] md:pt-0 lg:min-h-[600px]"
+  className="relative flex w-full items-center justify-between overflow-hidden border-b border-[#ECECEC] bg-white pt-[clamp(32px,2rem+1vw,60px)] md:pt-0 lg:min-h-[600px]"
 >
       {/* Left image — desktop/tablet (o‘zgartirilmagan) */}
       <div
@@ -92,9 +92,9 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
       <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center px-0 text-center sm:px-6 lg:px-[32px]">
 
         {/* ===== MOBILE ONLY — rasmlar title dan yuqorida ===== */}
-        <div className="flex relative gap-1 mb-8 w-full justify-around sm:hidden">
+        <div className="flex relative gap-1 justify-around mb-8 w-full sm:hidden">
           {/* Left image — joyida turadi, tepadan pastga kesilib ochiladi */}
-          <div className="relative h-[120px] w-[180px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
+          <div className="relative h-[110px] w-[160px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
             <AnimatedImage
               src={inpus_left_img}
               alt=""
@@ -114,7 +114,7 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
           </div>
 
           {/* Right image — joyida turadi, pastdan tepaga kesilib ochiladi */}
-          <div className="relative h-[120px] w-[180px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
+          <div className="relative h-[110px] w-[160px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
             <AnimatedImage
               src={inpus_right_img}
               alt=""

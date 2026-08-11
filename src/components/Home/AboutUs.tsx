@@ -159,7 +159,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
 <div className="relative mt-10 w-full sm:hidden">
   {/* Left image — o‘z joyidan paydo bo‘ladi */}
   <div
-    className={`relative z-10 h-[150px] w-[180px] overflow-hidden rounded-[12px] shadow-sm transition-all duration-1000 ease-out ${
+    className={`relative z-10 h-[130px] w-[160px] overflow-hidden rounded-[12px] shadow-sm transition-all duration-1000 ease-out ${
       inView ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-90 translate-y-4'
     }`}
   >
@@ -175,7 +175,7 @@ const AboutUs: React.FC<InpusSectionProps> = ({
 
   {/* Right image — pastdan tepaga chiqadi, bottom radius yo‘q */}
   <div
-    className={`absolute bottom-[-16px] right-0 z-0 h-[125px] w-[200px] overflow-hidden rounded-t-[12px] rounded-b-none shadow-sm transition-all duration-1000 ease-out ${
+    className={`absolute bottom-[-16px] right-0 z-0 h-[110px] w-[180px] overflow-hidden rounded-t-[12px] rounded-b-none shadow-sm transition-all duration-1000 ease-out ${
       inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
     }`}
   >
