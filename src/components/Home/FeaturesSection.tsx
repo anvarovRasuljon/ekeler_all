@@ -65,14 +65,14 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
 >
       {/* Left image — desktop/tablet (o‘zgartirilmagan) */}
       <div
-        className={`absolute left-2 hidden overflow-hidden shadow-sm sm:block sm:left-6 md:left-16 h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)] transition-all duration-[3000ms] ease-out ${
+        className={`absolute left-2 hidden overflow-hidden shadow-sm sm:block sm:left-6 md:left-16 h-[clamp(160px,10rem+2vw,250px)] w-[270px] transition-all duration-[3000ms] ease-out ${
           inView ? 'top-1/2 -translate-y-1/2' : 'top-0 -translate-y-full'
         }`}
       >
         <AnimatedImage
           src={inpus_left_img}
           alt=""
-          width={250}
+          width={300}
           height={260}
           loading="lazy"
           decoding="async"
@@ -161,12 +161,12 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
 
       {/* Right image — desktop/tablet (o‘zgartirilmagan) */}
       <div
-        className="absolute right-2 bottom-[-30px] hidden overflow-hidden shadow-sm sm:block sm:right-6 sm:bottom-[-40px] md:right-16 md:bottom-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[clamp(160px,10rem+3vw,270px)]"
+        className="absolute right-2 bottom-[-30px] hidden overflow-hidden shadow-sm sm:block sm:right-6 sm:bottom-[-40px] md:right-16 md:bottom-[-50px] h-[clamp(160px,10rem+2vw,250px)] w-[270px]"
       >
         <AnimatedImage
           src={inpus_right_img}
           alt=""
-          width={250}
+          width={300}
           height={250}
           loading="lazy"
           decoding="async"
