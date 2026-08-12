@@ -249,14 +249,10 @@ function App() {
                     <FeaturesSection />
 
                     <ProductsSection />
- </div>
- <div className="px-6 w-full min-h-screen bg-[#FFF7F0]">
  <CtaSection />
 
                     <GalleryCard />
   
- </div>
-<div className="p-2 w-full min-h-screen">
                     <MonialsSection />
 
                     <InpusSection />

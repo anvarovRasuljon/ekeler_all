@@ -61,7 +61,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
   return (
    <section
   ref={sectionRef}
-  className="relative flex w-full items-center justify-between overflow-hidden bg-[#FFF7F0] pb-[clamp(48px,3rem+2vw,80px)] md:pb-0 lg:min-h-[600px]"
+  className="relative mx-auto flex w-full max-w-[1540px] items-center justify-between overflow-hidden bg-[#FFF7F0] pb-[clamp(48px,3rem+2vw,80px)] md:pb-0 lg:min-h-[600px]"
 >
       {/* Left image — desktop/tablet (comment dagi uslub) */}
       <div
@@ -89,7 +89,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
       </div>
 
       {/* Center content */}
-      <div className="relative z-10 flex min-w-0 flex-1 flex-col items-center px-0 text-center">
+      <div className="flex relative z-10 flex-col flex-1 items-center px-0 min-w-0 text-center">
 
         {/* ===== MOBILE ONLY — Features dagi kabi (o‘zgartirilmagan) ===== */}
         <div className="flex relative gap-1 justify-around mb-8 w-full sm:hidden">

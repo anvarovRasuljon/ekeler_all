@@ -66,7 +66,7 @@ const InpusSection: React.FC<InpusSectionProps> = ({
   return (
   <section
   ref={sectionRef}
-  className="relative flex w-full items-center justify-between overflow-hidden bg-white pt-[clamp(32px,2rem+1vw,60px)] md:pt-0 lg:min-h-[600px]"
+  className="relative mx-auto flex w-full max-w-[1540px] items-center justify-between overflow-hidden bg-white pt-[clamp(32px,2rem+1vw,60px)] md:pt-0 lg:min-h-[600px]"
 >
       {/* Left image — faqat desktop/tablet */}
       <div

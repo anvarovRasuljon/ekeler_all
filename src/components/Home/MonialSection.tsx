@@ -93,7 +93,7 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
 
   return (
     <section
-      className={`flex overflow-hidden relative flex-col w-full min-h-screen bg-center bg-no-repeat bg-cover rounded-[8px] ${className}`}
+      className={`flex overflow-hidden relative flex-col w-full bg-center bg-no-repeat bg-cover min-h-[85vh] max-h-[85vh] rounded-[8px] ${className}`}
       style={{ backgroundImage: `url(${CommentBg})` }}
     >
       <div className="mx-[25px] flex flex-col flex-1 px-0 pb-[30px] pt-20 sm:pt-28 lg:pt-32">

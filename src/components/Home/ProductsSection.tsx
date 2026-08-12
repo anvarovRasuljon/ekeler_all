@@ -197,7 +197,7 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products = DEFAULT_PR
   }
 
   return (
-    <div className="mb-12 w-full bg-white md:mb-20">
+    <div className="mx-auto mb-12 w-full max-w-[1540px] bg-white md:mb-20">
       <div>
         {displayProducts.map((product, index) => (
           <a
