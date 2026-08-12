@@ -162,8 +162,8 @@ function IndustrialGalleryGrid({ items = DEFAULT_GALLERY, className = "" }: Indu
   }
 
   return (
-    <div className={`mx-auto w-full max-w-[1540px] bg-[#FBF7F0] md:pt-16 ${className}`}>
-      <div className="p-0 w-full">
+    <div className={`w-full bg-[#FBF7F0] md:pt-16 ${className}`}>
+      <div className="p-0 w-full mx-auto max-w-[1540px]">
         {/* 
           Mobile: 1 column (sm:hidden default)
           Tablet + Desktop: 2 columns

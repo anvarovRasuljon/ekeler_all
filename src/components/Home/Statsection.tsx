@@ -78,7 +78,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({
     >
       {/* Main content */}
       {/* Responsive: mobilda 1 ustun + kichik padding, md dan boshlab 2 ustun */}
-<div className="grid grid-cols-1 gap-8 items-center px-4 py-12 mx-auto max-w-[1540px] md:grid-cols-2 md:gap-12 md:px-6 md:pb-20 md:pt-20 md:h-[70vh] md:max-h-[700px] lg:px-8">        {" "}
+<div className="grid grid-cols-1 gap-8 items-center px-4 py-12 mx-auto max-w-[1540px] md:grid-cols-2 md:gap-12 md:px-6 md:pb-20 md:pt-20 md:min-h-[80vh] md:max-h-[800px] lg:px-8">        {" "}
         {/* Left column */}
         <div className="flex flex-col">
           {/* Eyebrow badge */}
@@ -148,7 +148,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({
             alt="Stats section"
             width={600}
             height={400}
-            className="rounded-xl md:rounded-2xl h-auto w-full max-h-[700px] object-cover md:h-[70vh] md:max-h-[700px]"
+            className="rounded-xl md:rounded-2xl h-auto w-full max-h-[700px] object-cover md:h-[calc(80vh-80px)] md:max-h-[720px]"
           />
         )}
       </div>

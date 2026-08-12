@@ -61,8 +61,9 @@ const CtaSection: React.FC<CtaSectionProps> = ({
   return (
    <section
   ref={sectionRef}
-  className="relative mx-auto flex w-full max-w-[1540px] items-center justify-between overflow-hidden bg-[#FFF7F0] pb-[clamp(48px,3rem+2vw,80px)] md:pb-0 lg:min-h-[600px]"
+  className="relative flex w-full items-start justify-between overflow-hidden bg-[#FFF7F0] pb-[clamp(48px,3rem+2vw,80px)] md:pb-0 lg:min-h-[600px]"
 >
+    <div className="relative flex w-full max-w-[1540px] items-center mx-auto lg:min-h-[600px]">
       {/* Left image — desktop/tablet (comment dagi uslub) */}
       <div
         className={`absolute left-2 top-1/2 hidden -translate-y-1/2 overflow-hidden shadow-sm sm:block sm:left-6 md:left-16 h-[clamp(160px,10rem+2vw,250px)] w-[270px] transition-all duration-[3000ms] ease-out ${
@@ -197,6 +198,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
           }}
         />
       </div>
+    </div>
     </section>
   );
 };
