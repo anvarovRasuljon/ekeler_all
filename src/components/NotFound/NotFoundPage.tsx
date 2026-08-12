@@ -68,13 +68,28 @@ export const NotFoundPage: React.FC = () => {
 
         <a
           href="/"
-          className="group inline-flex items-center gap-2 border-b border-white pb-1 font-['Inter'] text-base font-medium text-white hover:text-white/80"
+          className="group inline-flex flex-col items-center text-white hover:text-white/80 cursor-pointer transition-all duration-700 ease-out"
         >
-          {t.link}
-          <ArrowUpRight
-            size={18}
-            className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-          />
+          <span className="inline-flex items-center gap-2">
+            <div className="contact-text-wrapper relative overflow-hidden h-[1.2em]">
+              <div className="contact-text-inner flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
+                <p className="whitespace-nowrap text-base font-['Inter'] font-normal leading-[1.2em] text-white">
+                  {t.link}
+                </p>
+                <p className="whitespace-nowrap text-base font-['Inter'] font-medium leading-[1.2em] text-white">
+                  {t.link}
+                </p>
+              </div>
+            </div>
+            <ArrowUpRight
+              size={18}
+              className="text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:rotate-45 group-hover:scale-110"
+            />
+          </span>
+          <div className="relative mt-[8px] h-[1.5px] w-full overflow-hidden">
+            <span className="absolute bottom-0 left-0 h-[1px] w-full bg-white/40 transition-colors duration-500 group-hover:bg-transparent" />
+            <span className="absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-0 bg-white transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-x-100" />
+          </div>
         </a>
       </div>
       <style>{`

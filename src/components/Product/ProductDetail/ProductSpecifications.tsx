@@ -22,12 +22,18 @@ interface ProductSpecificationsProps {
 
 const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) => {
   const [isOpen, setIsOpen] = useState(true);
+  const [descExpanded, setDescExpanded] = useState(false);
 
   const images = data.images || [];
 
   const specs = useMemo(() => {
     return data.customFields || [];
   }, [data]);
+
+  const descWords = useMemo(() => {
+    if (!data.description) return [];
+    return data.description.trim().split(/\s+/);
+  }, [data.description]);
 
   if (!data.title) return null;
 
@@ -51,11 +57,11 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
               type="button"
               onClick={() => setIsOpen(v => !v)}
               aria-expanded={isOpen}
-              className="flex min-h-[44px] w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors duration-300 hover:bg-white/5 sm:px-6 sm:py-5"
+              className="group flex min-h-[44px] w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors duration-300 hover:bg-white/5 sm:px-6 sm:py-5"
             >
               <span className="break-words text-[clamp(16px,1rem+0.2vw,24px)] font-medium">umumiy malumot</span>
-              <span className="flex justify-center items-center w-10 h-10 rounded-full border transition-transform duration-300 shrink-0 border-white/40">
-                {isOpen ? <Minus size={20} /> : <Plus size={20} />}
+              <span className="flex justify-center items-center w-10 h-10 rounded-full border transition-all duration-300 shrink-0 border-white/40 group-hover:border-white/60 group-hover:bg-white/20">
+                {isOpen ? <Minus size={20} className="transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" /> : <Plus size={20} className="transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />}
               </span>
             </button>
 
@@ -68,9 +74,38 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
                 overflow: "hidden",
               }}
             >
-              <div className="grid grid-cols-1 gap-y-5 gap-x-6 px-4 pb-6 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-6 sm:px-6 sm:pb-8">
+
+              {(data.shortDescription || data.description) && (
+                <div className="grid grid-cols-1 gap-y-5 px-4 pt-6 mb-6 sm:px-6">
+                  {data.shortDescription && (
+                    <p className="font-['Inter'] text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-white/80">
+                      {data.shortDescription}
+                    </p>
+                  )}
+                  {data.description && (
+                    <div className="max-h-[180px] overflow-y-auto">
+                      <p className="font-['Inter'] text-[16px] font-normal leading-[24px] tracking-[-0.02em] text-white">
+                        {descWords.length > 12 && !descExpanded
+                          ? descWords.slice(0, 12).join(' ')
+                          : data.description}
+                        {descWords.length > 12 && (
+                          <button
+                            type="button"
+                            onClick={() => setDescExpanded(v => !v)}
+                            className="ml-1 inline underline text-white/70 hover:text-white"
+                          >
+                            {descExpanded ? 'Yopish' : '...'}
+                          </button>
+                        )}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <div className="grid grid-rows-4 grid-flow-col auto-cols-min gap-x-8 gap-y-5 px-4 pb-6 sm:px-6 sm:pb-8">
                 {specs.map((spec, i) => (
-                  <div key={i} className="flex flex-col">
+                  <div key={i} className="flex min-w-[160px] flex-col">
                     <span className="text-xs tracking-wider uppercase text-white/50">
                       {spec.label}
                     </span>
@@ -120,6 +155,14 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
           </div>
         )}
       </div>
+      <style>{`
+        .swiper-pagination-bullet {
+          background: #d1d5db !important;
+        }
+        .swiper-pagination-bullet-active {
+          background: #9ca3af !important;
+        }
+      `}</style>
     </section>
   );
 };

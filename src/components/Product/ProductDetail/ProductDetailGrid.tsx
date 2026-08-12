@@ -7,7 +7,7 @@ interface ProductDetailGridProps {
 }
 
 const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(Math.min(1, Math.max(0, images.length - 1)));
   const [modalIndex, setModalIndex] = useState<number | null>(null);
 
   if (!images || images.length === 0) return null;
@@ -59,9 +59,7 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
     );
   };
 
-  const trackWidth = 60 * images.length;
-  const slideWidth = 100 / images.length;
-  const trackTransform = `translateX(calc(100% / (3 * ${images.length}) - ${activeIndex} * (100% / ${images.length})))`;
+  const trackTransform = `translateX(-${activeIndex * (1000 + 24)}px)`;
 
   const handleSlideClick = (index: number) => {
     if (index === activeIndex) {
@@ -72,26 +70,25 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
   };
 
   return (
-    <section className="mx-auto w-full max-w-[1500px] px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
-      <div className="relative w-full overflow-hidden rounded-xl sm:rounded-2xl">
+    <section className="overflow-visible mx-auto max-w-[2000px] py-10 w-full sm:py-12 lg:py-16">
+      <div className="relative mx-auto h-[650px] w-[1000px] overflow-visible">
         <div
-          className="flex h-[260px] items-stretch transition-transform duration-300 ease-out sm:h-[340px] lg:h-[420px]"
-          style={{ width: `${trackWidth}%`, transform: trackTransform }}
+          className="flex absolute top-0 left-0 gap-6 h-full transition-transform duration-300 ease-out w-fit"
+          style={{ transform: trackTransform }}
         >
           {images.map((image, index) => (
             <button
               key={index}
               type="button"
               onClick={() => handleSlideClick(index)}
-              className="relative h-full shrink-0 cursor-pointer overflow-hidden"
-              style={{ width: `${slideWidth}%` }}
+              className="relative h-full w-[1000px] shrink-0 cursor-pointer overflow-hidden"
               aria-label={`Gallery image ${index + 1}`}
             >
               <ProductImage
                 src={image}
                 alt={`Gallery image ${index + 1}`}
                 className={`h-full w-full object-cover transition-opacity duration-300 ${
-                  index === activeIndex ? 'opacity-100' : 'opacity-60'
+                  index === activeIndex ? 'opacity-100' : 'opacity-80'
                 }`}
                 loading={index === activeIndex ? "eager" : "lazy"}
                 decoding="async"
@@ -103,18 +100,18 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
         <button
           type="button"
           onClick={handlePrev}
-          className="absolute left-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-neutral-900 shadow-md transition-colors hover:bg-white"
+          className="flex absolute left-[-90px] top-1/2 z-10 justify-center items-center w-10 h-10 rounded-full shadow-md transition-colors -translate-y-1/2 bg-white/80 text-neutral-900 hover:bg-white"
           aria-label="Previous"
         >
-          <ChevronLeft className="h-6 w-6" />
+          <ChevronLeft className="w-6 h-6" />
         </button>
         <button
           type="button"
           onClick={handleNext}
-          className="absolute right-2 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-neutral-900 shadow-md transition-colors hover:bg-white"
+          className="flex absolute right-[-90px] top-1/2 z-10 justify-center items-center w-10 h-10 rounded-full shadow-md transition-colors -translate-y-1/2 bg-white/80 text-neutral-900 hover:bg-white"
           aria-label="Next"
         >
-          <ChevronRight className="h-6 w-6" />
+          <ChevronRight className="w-6 h-6" />
         </button>
       </div>
 
@@ -124,7 +121,7 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
           onClick={closeModal}
         >
           <button
-            className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center p-2 text-white hover:text-gray-300 sm:right-4 sm:top-4"
+            className="flex absolute top-3 right-3 justify-center items-center p-2 w-11 h-11 text-white hover:text-gray-300 sm:right-4 sm:top-4"
             onClick={closeModal}
             aria-label="Close"
           >
@@ -132,17 +129,17 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
           </button>
 
           <button
-            className="absolute left-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center p-2 text-white hover:text-gray-300 sm:left-4"
+            className="flex absolute left-1 top-1/2 justify-center items-center p-2 w-11 h-11 text-white -translate-y-1/2 hover:text-gray-300 sm:left-4"
             onClick={modalPrev}
             aria-label="Previous"
           >
-            <ChevronLeft className="h-8 w-8 sm:h-12 sm:w-12" />
+            <ChevronLeft className="w-8 h-8 sm:h-12 sm:w-12" />
           </button>
 
           <ProductImage
             src={displayIndex !== null ? images[displayIndex] : undefined}
             alt={displayIndex !== null ? `Gallery image ${displayIndex + 1}` : ""}
-            className={`h-[70vh] max-h-[70vh] w-[70vh] max-w-[95vw] rounded-xl object-contain transition-opacity duration-300 sm:rounded-2xl ${
+            className={`h-[800px] w-[1100px] max-h-[90vh] max-w-[95vw] rounded-xl object-contain transition-opacity duration-300 sm:rounded-2xl ${
               isFading ? 'opacity-0' : 'opacity-100'
             }`}
             loading="eager"
@@ -151,11 +148,11 @@ const ProductDetailGrid: React.FC<ProductDetailGridProps> = ({ images }) => {
           />
 
           <button
-            className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center p-2 text-white hover:text-gray-300 sm:right-4"
+            className="flex absolute right-1 top-1/2 justify-center items-center p-2 w-11 h-11 text-white -translate-y-1/2 hover:text-gray-300 sm:right-4"
             onClick={modalNext}
             aria-label="Next"
           >
-            <ChevronRight className="h-8 w-8 sm:h-12 sm:w-12" />
+            <ChevronRight className="w-8 h-8 sm:h-12 sm:w-12" />
           </button>
         </div>
       )}

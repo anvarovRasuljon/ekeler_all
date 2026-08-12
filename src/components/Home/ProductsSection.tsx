@@ -200,9 +200,8 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products = DEFAULT_PR
     <div className="mx-auto mb-12 w-full max-w-[1540px] bg-white md:mb-20">
       <div>
         {displayProducts.map((product, index) => (
-          <a
+          <div
             key={product.slug || index}
-            href={product.slug ? `/products/${product.slug}` : "#"}
             className="flex relative flex-col gap-5 justify-between items-start border-b group border-neutral-200 last:border-b-0 sm:px-6 sm:py-8 md:flex-row md:items-center md:gap-10 md:px-8 md:py-10 min-h-[44px]"
           >
             {/* Hover line */}
@@ -256,7 +255,7 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products = DEFAULT_PR
                 </svg>
               </div>
             </div>
-          </a>
+          </div>
         ))}
       </div>
     </div>

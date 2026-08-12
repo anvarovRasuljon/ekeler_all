@@ -161,14 +161,24 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
         {buttonLabel && (
           <Link
             to={buttonLink}
-            className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] mt-[28px] cursor-pointer"
+            className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] mt-[28px] cursor-pointer transition-all duration-700 ease-out"
           >
             <span className="inline-flex gap-6 items-center">
-              {buttonLabel}
-              <ArrowUpRight size={18} className="text-[#E88029] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <div className="contact-text-wrapper relative overflow-hidden h-[1.2em]">
+                <div className="contact-text-inner flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
+                  <p className="whitespace-nowrap text-[16px] font-['Inter'] font-normal leading-[1.2em] text-[#1B1D20]">
+                    {buttonLabel}
+                  </p>
+                  <p className="whitespace-nowrap text-[16px] font-['Inter'] font-medium leading-[1.2em] text-[#1B1D20]">
+                    {buttonLabel}
+                  </p>
+                </div>
+              </div>
+              <ArrowUpRight size={18} className="text-[#E88029] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:rotate-45 group-hover:scale-110" />
             </span>
-            <div className="relative mt-[8px] h-[1px] w-full bg-neutral-300 overflow-hidden">
-              <div className="absolute left-0 top-0 h-full w-full origin-left scale-x-0 bg-[#1B1D20] group-hover:scale-x-100" />
+            <div className="relative mt-[8px] h-[1.5px] w-full overflow-hidden">
+              <span className="absolute bottom-0 left-0 h-[1px] w-full bg-[#ECECEC]/40 transition-colors duration-500 group-hover:bg-transparent" />
+              <span className="absolute bottom-0 left-0 h-[1.5px] w-full origin-left scale-x-0 bg-[#1B1D20] transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:scale-x-100" />
             </div>
           </Link>
         )}

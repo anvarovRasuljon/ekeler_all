@@ -13,23 +13,36 @@ interface ApiProductDetail {
   description: string;
   main_image: string;
   images: string[];
-  custom_fields: string;
+  custom_fields: unknown;
   created_at: string;
   updated_at: string;
 }
 
-function parseCustomFields(raw: string): Record<string, string>[] {
+function parseCustomFields(raw: unknown): Record<string, string>[] {
   if (!raw) return [];
-  try {
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) return parsed;
-    if (typeof parsed === "object" && parsed !== null) {
-      return Object.entries(parsed).map(([key, value]) => ({ label: key, value: String(value) }));
-    }
-    return [];
-  } catch {
-    return [];
+  if (typeof raw === 'object' && raw !== null) {
+    if (Array.isArray(raw)) return raw as Record<string, string>[];
+    return Object.entries(raw).map(([key, value]) => ({ label: key.trim(), value: String(value) }));
   }
+  if (typeof raw !== 'string') return [];
+  let parsed: any;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    try {
+      const cleaned = raw
+        .replace(/,\s*([}\]])/g, '$1')
+        .replace(/([{,]\s*)([A-Za-z0-9_ ]+?)\s*:/g, '$1"$2":');
+      parsed = JSON.parse(cleaned);
+    } catch {
+      return [];
+    }
+  }
+  if (Array.isArray(parsed)) return parsed;
+  if (typeof parsed === "object" && parsed !== null) {
+    return Object.entries(parsed).map(([key, value]) => ({ label: key.trim(), value: String(value) }));
+  }
+  return [];
 }
 
 function buildImageUrl(path: string): string {
@@ -61,7 +74,7 @@ const ProductDetail: React.FC = () => {
   }, [slug]);
 
   const customFields = useMemo(() => parseCustomFields(product?.custom_fields || ""), [product]);
-  const heroFields = useMemo(() => customFields.slice(0, 4), [customFields]);
+  const heroFields = customFields;
 
   const data: ProductDetailData = useMemo(() => {
     if (!product) return {} as ProductDetailData;
@@ -112,13 +125,13 @@ const ProductDetail: React.FC = () => {
             )}
 
             {heroFields.length > 0 && (
-              <div className="grid grid-cols-2 gap-4 sm:gap-6">
+              <div className="grid grid-rows-4 grid-flow-col auto-cols-min gap-y-5 gap-x-12">
                 {heroFields.map((field, i) => (
-                  <div key={i} className="flex flex-col">
-                    <span className="text-xs tracking-wider uppercase text-neutral-400">
+                  <div key={i} className="flex min-w-[200px] flex-col">
+                    <span className="font-['Inter'] text-[14px] font-normal leading-[22px] tracking-[-0.02em] align-middle text-neutral-400">
                       {field.label || field.key || `Field ${i + 1}`}
                     </span>
-                    <span className="break-words text-[clamp(15px,0.9rem+0.1vw,18px)] font-medium text-neutral-800">
+                    <span className="break-words font-['Inter'] text-[16px] font-normal leading-[24px] tracking-[-0.02em] align-middle text-[#1B1D20]">
                       {field.value || "—"}
                     </span>
                   </div>
