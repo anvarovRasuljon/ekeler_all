@@ -25,7 +25,7 @@ const ProductCatalog: React.FC<InpusSectionProps> = ({
   badgeText = "INPUS",
   description = LOREM_20,
   descriptionPart1 = LOREM_20,
-  buttonText = "Our Services",
+  buttonText = "Our Service",
 }) => {
   const { t } = useLanguage();
 
