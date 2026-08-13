@@ -78,7 +78,7 @@ const ProductGrid: React.FC = () => {
 
   return (
     <section className="mx-auto w-full max-w-[1500px] px-4 pt-10 pb-10 sm:px-6 sm:pb-16 lg:pb-16 lg:pt-0">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-[10px]">
         {products.map((product) => {
           const imageUrl = product.main_image
             ? product.main_image.startsWith("http")
@@ -90,7 +90,7 @@ const ProductGrid: React.FC = () => {
             <Link
               key={product.id}
               to={`/products/${product.id}`}
-              className="block overflow-hidden relative w-full rounded-xl border transition-all duration-300 group border-neutral-200 hover:border-neutral-300 hover:shadow-lg sm:rounded-2xl"
+              className="block overflow-hidden relative w-full rounded-[8px] border transition-all duration-300 group border-neutral-200 hover:border-neutral-300 hover:shadow-lg"
             >
               {/* Image — full card width & height */}
               <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -102,16 +102,16 @@ const ProductGrid: React.FC = () => {
                   loading="lazy"
                 />
                 {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-t to-transparent opacity-0 transition-opacity duration-300 from-black/80 via-black/30 group-hover:opacity-100" />
+                <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#1B1D20]/80 via-[#1B1D20]/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
 
-              {/* Hover content: title + short_description */}
-              <div className="flex absolute right-0 bottom-0 left-0 flex-col gap-1 p-4 opacity-0 transition-all duration-300 translate-y-4 group-hover:translate-y-0 group-hover:opacity-100 sm:p-5">
+              {/* Content: title doim, description hoverda */}
+              <div className="absolute right-0 bottom-0 left-0 z-[2] flex flex-col gap-1 p-4 sm:p-5">
                 <h3 className="break-words text-[clamp(16px,1rem+0.2vw,20px)] font-semibold leading-tight text-white drop-shadow-md">
                   {product.title}
                 </h3>
                 {product.short_description && (
-                  <p className="break-words text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-snug text-white/85 drop-shadow-md line-clamp-2">
+                  <p className="break-words text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-snug text-white/85 drop-shadow-md line-clamp-2 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-[120px] group-hover:opacity-100">
                     {product.short_description}
                   </p>
                 )}

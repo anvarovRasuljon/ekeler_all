@@ -74,7 +74,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({
 
   return (
     <div
-      className="w-full mb-20 bg-white"
+      className="mb-20 w-full bg-white"
     >
       {/* Main content */}
       {/* Responsive: mobilda 1 ustun + kichik padding, md dan boshlab 2 ustun */}
@@ -122,8 +122,8 @@ const StatsSection: React.FC<StatsSectionProps> = ({
                 key={i}
                 style={revealStyle(statsReveal.visible, 320 + i * 90)}
                 className={[
-                  "border-t border-dotted border-neutral-300 py-6 pr-0 sm:py-7",
-                  i % 2 === 0 ? "sm:pr-8" : "sm:pl-8 sm:border-l",
+                  "py-6 pr-0 sm:py-7",
+                  i % 2 === 0 ? "sm:pr-8" : "sm:pl-8 ",
                 ].join(" ")}
               >
                 <div className="mb-3 text-[clamp(1.75rem,1.5rem+0.5vw,2.5rem)] font-normal text-[#E88029] sm:mb-4">

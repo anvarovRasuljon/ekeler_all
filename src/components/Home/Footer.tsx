@@ -82,7 +82,7 @@ const Footer: React.FC<FooterProps> = ({
     >
       {/* Background image */}
       {/* Responsive: fiksatsiyalangan 100vh o'rniga min-h — mobilda kontent kesilmaydi */}
-      <div className="relative min-h-[80vh] w-full overflow-hidden sm:min-h-[90vh] lg:min-h-[100vh]">
+      <div className="relative min-h-[calc(100dvh-65px)] w-full overflow-hidden">
         <AnimatedImage
           src={backgroundImageUrl}
           alt={backgroundImageAlt}

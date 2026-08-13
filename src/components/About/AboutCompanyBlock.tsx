@@ -331,7 +331,7 @@ function AboutCompanyBlock({
 
 <div className="flex flex-row gap-3 items-start pr-3 mb-4 sm:gap-4">
   {hasSanityImage(data.image370_1) && (
-    <div className="w-[58%] min-w-0 h-[220px] rounded-[8px] overflow-hidden shrink-0 sm:w-[380px] sm:h-[320px]">
+    <div className="flex-[1_1_45%] min-w-0 h-[220px] rounded-[8px] overflow-hidden sm:h-[320px]">
       <SanityImage
         source={data.image370_1}
         alt={(data.image370_1 as { alt?: string })?.alt}
@@ -343,7 +343,7 @@ function AboutCompanyBlock({
     </div>
   )}
   {hasSanityImage(data.image370_2) && (
-    <div className="w-[42%] min-w-0 h-[150px] rounded-[8px] overflow-hidden shrink-0 sm:w-[270px] sm:h-[200px]">
+    <div className="flex-[1_1_45%] min-w-0 h-[150px] rounded-[8px] overflow-hidden sm:h-[200px]">
       <SanityImage
         source={data.image370_2}
         alt={(data.image370_2 as { alt?: string })?.alt}
@@ -387,7 +387,7 @@ function AboutCompanyBlock({
         <div className="flex flex-row gap-3 items-end pr-3 mb-5 sm:gap-4">
           {hasSanityImage(data.image350_1) && (
             <div
-              className="w-[42%] h-[150px] rounded-[8px] overflow-hidden shrink-0 sm:w-[270px] sm:h-[200px]"
+              className="flex-[1_1_45%] h-[150px] rounded-[8px] overflow-hidden min-w-0 sm:h-[200px]"
             >
               <SanityImage
                 source={data.image350_1}
@@ -401,7 +401,7 @@ function AboutCompanyBlock({
           )}
           {hasSanityImage(data.image350_2) && (
             <div
-              className="w-[58%] h-[220px] rounded-[8px] overflow-hidden shrink-0 sm:w-[380px] sm:h-[300px]"
+              className="flex-[1_1_45%] h-[220px] rounded-[8px] overflow-hidden min-w-0 sm:h-[300px]"
             >
               <SanityImage
                 source={data.image350_2}

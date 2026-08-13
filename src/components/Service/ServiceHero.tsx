@@ -16,7 +16,7 @@ const ServiceHero: React.FC = () => {
 
   return (
     // Responsive: mobilda minimal balandlik va kichikroq radius
-    <section className="relative box-border h-[30vh] min-h-[160px] w-full overflow-hidden rounded-[8px] bg-neutral-100 sm:h-[30vh] sm:mb-0">
+    <section className="relative box-border h-[calc(100dvh-81px)] w-full overflow-hidden rounded-[8px]">
       {/* Background */}
       <img
         src={productHeroBg}
@@ -72,7 +72,7 @@ const ServiceHero: React.FC = () => {
           will-change: transform;
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-          animation: marquee 80s linear infinite;
+          animation: marquee 120s linear infinite;
         }
       `}</style>
     </section>

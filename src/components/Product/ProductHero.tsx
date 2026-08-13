@@ -6,7 +6,7 @@ import { useLanguage } from '../../context/LanguageContext';
 const ProductHero: React.FC = () => {
   const { t } = useLanguage();
 
-  const logoText: Record<string, string> | string = { ru: 'EKELER', uz: 'EKELER', eng: 'EKELER' };
+  const logoText: Record<string, string> | string = { ru: 'KATALOG', uz: 'KATALOG', eng: 'KATALOG' };
   const bgImage = productHeroBg;
 
   const logo = useMemo(() => t(logoText), [t, logoText]);
@@ -67,7 +67,7 @@ const ProductHero: React.FC = () => {
           will-change: transform;
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
-          animation: marquee 80s linear infinite;
+          animation: marquee 120s linear infinite;
         }
       `}</style>
     </div>

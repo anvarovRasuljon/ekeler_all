@@ -107,12 +107,12 @@ function HighlightedDescription({
 
 function AboutCompanyContentBlock({
   data,
-  minHeight = 670,
-  descriptionClassName = "font-['Inter'] font-normal text-[26px] leading-[34px] mb-[30px] sm:text-[20px] sm:leading-[20px] lg:text-[40px] lg:leading-[48px] text-[#1B1D20] max-w-[450px] whitespace-pre-line break-words",
+  minHeight = 'calc(100dvh - 100px)',
+  descriptionClassName = "font-['Inter'] font-normal text-[26px] leading-[34px] mb-[30px] sm:text-[20px] sm:leading-[20px] lg:text-[40px] lg:leading-[48px] text-[#1B1D20] max-w-[520px] whitespace-pre-line break-words",
   stacked = false,
 }: {
   data: AboutCompanyContentData | null;
-  minHeight?: number;
+  minHeight?: number | string;
   descriptionClassName?: string;
   stacked?: boolean;
 }) {
@@ -173,14 +173,14 @@ function AboutCompanyContentBlock({
 
         {showImage && (
           <div
-            className="w-[150px] h-[120px] rounded-lg overflow-hidden shrink-0 sm:w-[500px] sm:h-[300px]"
+            className="w-[500px] h-[300px] rounded-lg overflow-hidden shrink-0"
           >
             <SanityImage
               source={data.image}
               alt={imageAlt}
               className="object-cover w-full h-full"
               width={500}
-              height={200}
+              height={300}
               reveal="left-right"
             />
           </div>
@@ -188,7 +188,7 @@ function AboutCompanyContentBlock({
       </div>
 
       {/* PASTDA: Description → Tel/Email → Location */}
-      <div className="flex flex-col gap-5 items-start md:gap-6 w-[300px] sm:w-[400px] ">
+      <div className="flex flex-col gap-5 items-start md:gap-6 w-[360px] sm:w-[480px] ">
         {data.description && (
           <HighlightedDescription
             text={t(data.description)}

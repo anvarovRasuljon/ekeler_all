@@ -70,7 +70,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   return (
     <div ref={sectionReveal.ref} id="contact" className="w-full bg-white">
   <div className="border-t border-[#ECECEC] mb-20" />
-  <div className="grid grid-cols-1 gap-8 px-4 mx-auto max-w-[1540px] md:grid-cols-2 md:gap-12 md:px-6 md:min-h-[80vh] md:max-h-[800px] lg:px-8">
+  <div className="grid grid-cols-1 gap-8 px-4 mx-auto max-w-[1540px] md:grid-cols-2 md:gap-12 md:px-6 lg:px-8">
     {/* Left column - image */}
         {imageUrl && (
           <div
@@ -85,7 +85,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className="h-auto max-h-[700px] w-full rounded-xl object-cover md:h-[calc(80vh-48px)] md:max-h-[752px] md:rounded-2xl"
+              className="h-auto max-h-[700px] w-full rounded-xl object-cover md:max-h-[700px] md:rounded-2xl"
             />
           </div>
         )}

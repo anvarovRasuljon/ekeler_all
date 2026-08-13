@@ -46,7 +46,7 @@ const FooterSecond: React.FC = () => {
       className="relative w-full"
     >
       {/* Responsive: fiksatsiyalangan 100vh o'rniga min-h — mobilda kontent kesilmaydi */}
-      <div className="relative min-h-[100vh] w-full overflow-hidden">
+      <div className="relative min-h-[calc(100dvh-65px)] w-full overflow-hidden">
         <img
           src={backgroundImageUrl}
           alt={backgroundImageAlt}

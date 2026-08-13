@@ -18,7 +18,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (saved === 'ru' || saved === 'uz' || saved === 'eng') {
       return saved;
     }
-    return 'ru';
+    return 'uz';
   });
 
   const setLanguage = (lang: Language) => {
