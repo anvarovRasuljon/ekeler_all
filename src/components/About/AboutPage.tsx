@@ -276,7 +276,7 @@ return (
         {/* 50% / 50%, o'rtada 30px */}
         <div ref={containerRef} className="flex relative flex-col gap-[30px] lg:flex-row">
           {/* CHAP — ekran yarmi */}
-          <div className="flex flex-col gap-16 w-full min-w-0 lg:w-1/2 md:gap-20 pt-[95px]">
+          <div className="flex flex-col gap-16 w-full min-w-0 lg:w-1/2 md:gap-20 pt-[25px]">
             <AboutCompanyContentBlock data={contentData} />
             <AboutCompanyBlock data={blockData} />
 
