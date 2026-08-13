@@ -17,9 +17,9 @@ const DEFAULT_NAV_LINKS: FooterLink[] = [
 ];
 
 const DEFAULT_SOCIAL_LINKS: FooterLink[] = [
-  { label: "Instagram", href: "https://instagram.com", external: true },
-  { label: "Telegram", href: "https://telegram.org", external: true },
-  { label: "Facebook", href: "https://facebook.com", external: true },
+  { label: { ru: "Instagram", uz: "Instagram", eng: "Instagram" }, href: "https://instagram.com", external: true },
+  { label: { ru: "Telegram", uz: "Telegram", eng: "Telegram" }, href: "https://telegram.org", external: true },
+  { label: { ru: "Facebook", uz: "Facebook", eng: "Facebook" }, href: "https://facebook.com", external: true },
 ];
 
 const FooterSecond: React.FC = () => {

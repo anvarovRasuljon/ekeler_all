@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getImageUrl } from '../../sanity/client';
+import { useLanguage } from '../../context/LanguageContext';
 import AboutCompanyContentBlock from './AboutCompanyContentBlock';
 import type { AboutCompanyContentData } from './AboutCompanyContentBlock';
 import AboutCompanyBlock from './AboutCompanyBlock';
@@ -241,6 +242,7 @@ function AboutPage({
   blockData?: AboutCompanyBlockData | null;
   featureData?: AboutCompanyFeatureData | null;
 }) {
+  const { t } = useLanguage();
   const showMainImage = !!imageData?.image;
   const mainImageAlt = (imageData?.image as { alt?: string })?.alt;
   const stickyTop = NAV_HEIGHT_PX + IMG_GAP;
@@ -263,7 +265,7 @@ function AboutPage({
   if (!imageData && !contentData && !blockData && !featureData) {
     return (
       <div className="max-w-[1440px] mx-auto px-4 md:px-8 py-24 text-center text-neutral-500 font-['Inter']">
-        Kontent hali qo&apos;shilmagan. Adminkada «About Company» hujjatlarini yarating.
+        {t({ ru: 'Контент пока не добавлен. Создайте документы «About Company» в админке.', uz: 'Kontent hali qoʻshilmagan. Adminkada «About Company» hujjatlarini yarating.', eng: 'Content not added yet. Create «About Company» documents in the admin.' })}
       </div>
     );
   }
@@ -274,7 +276,7 @@ return (
         {/* 50% / 50%, o'rtada 30px */}
         <div ref={containerRef} className="flex relative flex-col gap-[30px] lg:flex-row">
           {/* CHAP — ekran yarmi */}
-          <div className="flex flex-col gap-16 w-full min-w-0 lg:w-1/2 md:gap-20">
+          <div className="flex flex-col gap-16 w-full min-w-0 lg:w-1/2 md:gap-20 pt-[95px]">
             <AboutCompanyContentBlock data={contentData} />
             <AboutCompanyBlock data={blockData} />
 

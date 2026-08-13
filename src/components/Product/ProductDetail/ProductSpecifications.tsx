@@ -3,6 +3,7 @@ import React, { useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Plus, Minus } from "lucide-react";
+import { useLanguage } from "../../../context/LanguageContext";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -21,6 +22,7 @@ interface ProductSpecificationsProps {
 }
 
 const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) => {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(true);
   const [descExpanded, setDescExpanded] = useState(false);
 
@@ -59,7 +61,7 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
               aria-expanded={isOpen}
               className="group flex min-h-[44px] w-full items-center justify-between gap-4 px-4 py-4 text-left transition-colors duration-300 hover:bg-white/5 sm:px-6 sm:py-5"
             >
-              <span className="break-words text-[clamp(16px,1rem+0.2vw,24px)] font-medium">umumiy malumot</span>
+              <span className="break-words text-[clamp(16px,1rem+0.2vw,24px)] font-medium">{t({ ru: 'Общая информация', uz: 'Umumiy maʼlumot', eng: 'General information' })}</span>
               <span className="flex justify-center items-center w-10 h-10 rounded-full border transition-all duration-300 shrink-0 border-white/40 group-hover:border-white/60 group-hover:bg-white/20">
                 {isOpen ? <Minus size={20} className="transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" /> : <Plus size={20} className="transition-transform duration-300 group-hover:rotate-90 group-hover:scale-110" />}
               </span>
@@ -94,7 +96,7 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
                             onClick={() => setDescExpanded(v => !v)}
                             className="ml-1 inline underline text-white/70 hover:text-white"
                           >
-                            {descExpanded ? 'Yopish' : '...'}
+                            {descExpanded ? t({ ru: 'Свернуть', uz: 'Yopish', eng: 'Collapse' }) : '...'}
                           </button>
                         )}
                       </p>

@@ -33,33 +33,33 @@ interface FooterProps {
 }
 
 const DEFAULT_NAV_LINKS: FooterLink[] = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Products", href: "/products" },
-  { label: "Contact", href: "/contact" },
+  { label: { ru: "Главная", uz: "Bosh sahifa", eng: "Home" }, href: "/" },
+  { label: { ru: "О нас", uz: "Biz haqimizda", eng: "About" }, href: "/about" },
+  { label: { ru: "Продукты", uz: "Mahsulotlar", eng: "Products" }, href: "/products" },
+  { label: { ru: "Контакты", uz: "Aloqa", eng: "Contact" }, href: "/contact" },
 ];
 
 const DEFAULT_SOCIAL_LINKS: FooterLink[] = [
-  { label: "Instagram", href: "https://instagram.com", external: true },
-  { label: "Telegram", href: "https://telegram.org", external: true },
-  { label: "Facebook", href: "https://facebook.com", external: true },
+  { label: { ru: "Instagram", uz: "Instagram", eng: "Instagram" }, href: "https://instagram.com", external: true },
+  { label: { ru: "Telegram", uz: "Telegram", eng: "Telegram" }, href: "https://telegram.org", external: true },
+  { label: { ru: "Facebook", uz: "Facebook", eng: "Facebook" }, href: "https://facebook.com", external: true },
 ];
 
 const Footer: React.FC<FooterProps> = ({
   // backgroundImage,
   backgroundImageAlt = "",
-  heading = "Let's work together",
-  ctaText = "Contact us",
+  heading = { ru: "Давайте работать вместе", uz: "Birga ishlaymiz", eng: "Let's work together" },
+  ctaText = { ru: "Свяжитесь с нами", uz: "Aloqa", eng: "Contact us" },
   ctaLink = "contact",
-  navLabel = "Navigation",
+  navLabel = { ru: "Навигация", uz: "Navigatsiya", eng: "Navigation" },
   navLinks = DEFAULT_NAV_LINKS,
-  socialLabel = "Social",
+  socialLabel = { ru: "Социальные сети", uz: "Ijtimoiy tarmoqlar", eng: "Social" },
   socialLinks = DEFAULT_SOCIAL_LINKS,
-  contactLabel = "Contact",
+  contactLabel = { ru: "Контакты", uz: "Aloqa", eng: "Contact" },
   phone = "+998 90 123 45 67",
   email = "info@ekeler.uz",
-  address = "Tashkent, Uzbekistan",
-  copyrightText = "© 2026 Ekeler. All rights reserved.",
+  address = { ru: "Ташкент, Узбекистан", uz: "Toshkent, O'zbekiston", eng: "Tashkent, Uzbekistan" },
+  copyrightText = { ru: "© 2026 Ekeler. Все права защищены.", uz: "© 2026 Ekeler. Barcha huquqlar himoyalangan.", eng: "© 2026 Ekeler. All rights reserved." },
   privacyPolicyLink = "/privacy-policy",
   termsOfUseLink = "/terms-of-use",
 }) => {

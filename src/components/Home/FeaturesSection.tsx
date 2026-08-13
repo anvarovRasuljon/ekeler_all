@@ -23,7 +23,8 @@ const FeaturesSection: React.FC<InpusSectionProps> = ({
   descriptionHighlight = translations.home.featuresSection.descriptionHighlight,
 }) => {
   const { t } = useLanguage();
-  const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : 'ABOUT US'), [t, badgeText]);
+  const fallbackBadge = { ru: 'О НАС', uz: 'BIZ HAQIMIZDA', eng: 'ABOUT US' };
+  const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : t(fallbackBadge)), [t, badgeText]);
   const descriptionText = useMemo(() => (description ? t(description) : null), [t, description]);
   const highlightText = useMemo(() => (descriptionHighlight ? String(t(descriptionHighlight) || '') : ''), [t, descriptionHighlight]);
 

@@ -7,8 +7,8 @@ const ServiceHero: React.FC = () => {
 
   const logoText = {
     uz: "Tarmoqlar",
-    ru: "Tarmoqlar",
-    eng: "Tarmoqlar",
+    ru: "Отрасли",
+    eng: "Industries",
   };
 
   const logo = useMemo(() => t(logoText), [t, logoText]);

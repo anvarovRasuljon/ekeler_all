@@ -121,7 +121,7 @@ function AboutCompanyContentBlock({
   if (!data) {
     return (
       <div className="text-neutral-500 font-['Inter'] text-sm">
-        Kontent hali qo&apos;shilmagan.
+        {t({ ru: 'Контент пока не добавлен.', uz: 'Kontent hali qoʻshilmagan.', eng: 'Content not added yet.' })}
       </div>
     );
   }

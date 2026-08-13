@@ -1,6 +1,7 @@
 import AnimatedImage from './AnimatedImage';
 import React from 'react'
 import { urlFor } from '../../sanity/client'
+import { useLanguage } from '../../context/LanguageContext'
 
 interface ProductProps {
   name: string
@@ -21,6 +22,7 @@ const Product: React.FC<ProductProps> = ({
   inStock = true,
   featured = false
 }) => {
+  const { t } = useLanguage()
   const imageUrl = image ? urlFor(image).url() : null
 
   return (
@@ -43,12 +45,14 @@ const Product: React.FC<ProductProps> = ({
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-purple-600">${price}</span>
           {!inStock && (
-            <span className="text-sm font-medium text-red-500">Out of Stock</span>
+            <span className="text-sm font-medium text-red-500">
+              {t({ ru: 'Нет в наличии', uz: 'Sotuvda yo‘q', eng: 'Out of Stock' })}
+            </span>
           )}
         </div>
         {featured && (
           <span className="inline-block px-2 py-1 mt-2 text-xs text-yellow-800 bg-yellow-100 rounded">
-            ⭐ Featured
+            ⭐ {t({ ru: 'Рекомендуем', uz: 'Tavsiya etilgan', eng: 'Featured' })}
           </span>
         )}
       </div>

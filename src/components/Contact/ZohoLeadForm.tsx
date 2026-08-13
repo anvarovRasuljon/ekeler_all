@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useLanguage } from "../../context/LanguageContext";
 
 /* ==================================================================
  * Zoho CRM Web-to-Lead — Zoho generated HTML'ning 1:1 JSX ko'chirmasi.
@@ -19,15 +20,15 @@ const ZOHO_FORM_NAME = "WebToLeads7525508000000615582";
 const ZOHO_WF_ID = 7525508000000615582;
 
 const ZOHO_XNQSJSDP =
-  "e5f76d507cd012720bed14eb494a3494904759a62892920e3297aadcbd7f7c41";
+  "0150acda6c327b749714cfeb9f1c78adec33c8b3496f636d6e6550ee0a37ee6e";
 const ZOHO_XMIWTLD =
-  "e4abec6bb62336ed4f5c4b280c39705efcbee82cf448bafff6db06dfac668f48a2892226edff566c51897f26319e16e1";
+  "8989c1eac67f637726ca120f25250c27ff684a6d5d8c4f93bf091711dcd843239c4ff937fffa8d8c6b0d1fd2d0bba8dc";
 const ZOHO_ACTION_TYPE = "TGVhZHM=";
 
 /* Zoho original: <script id='wf_anal' src='...'> — "Do not remove this" */
 const ZOHO_ANALYTICS_ID = "wf_anal";
 const ZOHO_ANALYTICS_SRC =
-  "https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=c99497a5b8f139c13331bab7013da657eebce41aa450329c13ca4cea14dabb14edb6e7186ac13278f2510fd86401bc1egid2ef6c8b0b4d78bfd95b035e18475bed9e66b46053380aa8d6117699786c2bdd5gid827233aeb153a16d0dafecbb86a7efa23b5790a4ccf432ad2198ce22366a93b7gide92f3b320448f7ac77030996f1f8968c3a7479ec866f568377759e927558be38&tw=7729a16980ca0983d9c967630bf9d022aa65cf295ee46f2985dca79c1e29e253&version=v2";
+  "https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=2e63e3edaaed15da7bae658bc570d92df51c987cbb6ea65e4c0a53e3c09aaa869b3bac55d68c38ad82ed97940c73ef7dgidbfe15d86b20534031204427e55107afdf4e5f27e1346ac11f6c67251f77b1410gidd6e5a73911d9a7e17572a01667c8c01ede87899bc2a3774baf9b8bc8d460a6c2gid02584ff5a4e6dc2eb23a5bf05e783a6b99bae64bf1a5768c170283863b7b797a&tw=16b832df8bf702ed04a76c6083d23b78dc695fa8eed070de00372429ee866d88";
 
 const HIDDEN_IFRAME_NAME = "zoho_hidden_iframe";
 
@@ -41,8 +42,11 @@ const L = (stage: string, ...rest: unknown[]) => {
 /* Zoho original checkMandatory7525508000000615582() dagi ikki massiv.
  * DIQQAT: Zoho kodida tartib mos kelmaydi ('First Name' -> 'Фамилия').
  * Ataylab Zoho kodidagidek qoldirildi. */
-const MND_FIELDS = ["First Name", "Last Name", "Mobile"] as const;
-const FLD_LANG_VAL = ["Фамилия", "Имя", "Моб. телефон"] as const;
+const MND_FIELDS = ["First Name", "Last Name"] as const;
+const FLD_LANG_VAL = [
+  { ru: "Фамилия", uz: "Familiya", eng: "Last name" },
+  { ru: "Имя", uz: "Ism", eng: "First name" },
+] as const;
 
 /* StrictMode'da effect 2 marta ishlaydi — modul darajasidagi guard. */
 let analyticsInjected = false;
@@ -53,6 +57,7 @@ const INPUT_CLASS =
 const LABEL_CLASS = "font-['Inter'] text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20] align-middle";
 
 export const ZohoLeadForm: React.FC = () => {
+  const { t } = useLanguage();
   const formRef = useRef<HTMLFormElement>(null);
   const postedRef = useRef(false);
 
@@ -122,7 +127,7 @@ export const ZohoLeadForm: React.FC = () => {
 
       if (trimmed.length === 0) {
         L("3-validate", `BO'SH -> POST bekor qilinadi. alert: ${FLD_LANG_VAL[i]}`);
-        alert(FLD_LANG_VAL[i] + " не может быть пустым.");
+        alert(t(FLD_LANG_VAL[i]) + t({ ru: ' не может быть пустым.', uz: ' bo‘sh bo‘lishi mumkin emas.', eng: ' cannot be empty.' }));
         fieldObj.focus();
         e.preventDefault();
         return;
@@ -260,7 +265,7 @@ export const ZohoLeadForm: React.FC = () => {
               id=First_Name / name="First Name" -> label "Фамилия" */}
         <div className="flex flex-col gap-2">
           <label htmlFor="Last_Name" className={LABEL_CLASS}>
-            Имя<span className="ml-1 text-red-600">*</span>
+            {t({ ru: 'Имя', uz: 'Ism', eng: 'First name' })}<span className="ml-1 text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -275,7 +280,7 @@ export const ZohoLeadForm: React.FC = () => {
 
         <div className="flex flex-col gap-2">
           <label htmlFor="First_Name" className={LABEL_CLASS}>
-            Фамилия<span className="ml-1 text-red-600">*</span>
+            {t({ ru: 'Фамилия', uz: 'Familiya', eng: 'Last name' })}<span className="ml-1 text-red-600">*</span>
           </label>
           <input
             type="text"
@@ -290,7 +295,7 @@ export const ZohoLeadForm: React.FC = () => {
 
         <div className="flex flex-col gap-2">
           <label htmlFor="Company" className={LABEL_CLASS}>
-            Компания
+            {t({ ru: 'Компания', uz: 'Kompaniya', eng: 'Company' })}
           </label>
           <input
             type="text"
@@ -304,38 +309,23 @@ export const ZohoLeadForm: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="Mobile" className={LABEL_CLASS}>
-            Моб. телефон<span className="ml-1 text-red-600">*</span>
+          <label htmlFor="Phone" className={LABEL_CLASS}>
+            {t({ ru: 'Телефон', uz: 'Telefon', eng: 'Phone' })}
           </label>
           <input
             type="text"
-            id="Mobile"
-            name="Mobile"
-            aria-required="true"
-            aria-label="Mobile"
+            id="Phone"
+            name="Phone"
+            aria-required="false"
+            aria-label="Phone"
             maxLength={30}
             className={INPUT_CLASS}
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="Address_-_City" className={LABEL_CLASS}>
-            Адрес - город
-          </label>
-          <input
-            type="text"
-            id="Address_-_City"
-            name="Address - City"
-            aria-required="false"
-            aria-label="Address - City"
-            maxLength={255}
-            className={INPUT_CLASS}
-          />
-        </div>
-
-        <div className="flex flex-col gap-2">
           <label htmlFor="Description" className={LABEL_CLASS}>
-            Описание
+            {t({ ru: 'Описание', uz: 'Tavsif', eng: 'Description' })}
           </label>
           <textarea
             id="Description"
@@ -365,7 +355,7 @@ export const ZohoLeadForm: React.FC = () => {
             id="formsubmit"
             role="button"
             className="formsubmit cursor-pointer border-0 bg-transparent p-0 text-center align-middle font-['Inter'] text-[16px] font-normal leading-[24px] tracking-[-0.02em] text-[#E88029]"
-            value="Отправить"
+            value={t({ ru: 'Отправить', uz: 'Yuborish', eng: 'Send' })}
             aria-label="Отправить"
             title="Отправить"
           />

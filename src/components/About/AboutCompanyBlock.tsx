@@ -294,7 +294,7 @@ function AboutCompanyBlock({
     "font-['Inter'] font-normal text-[14px] leading-[22px] text-neutral-500";
 
   return (
-    <div className="flex flex-col gap-12 md:gap-16">
+    <div className="flex flex-col gap-7 md:gap-16">
       
       {/* —— 1-blok: katta + kichik rasm → title + description —— */}
       <div className="flex flex-col justify-between gap-8 lg:min-h-[500px] lg:gap-0">
@@ -357,7 +357,7 @@ function AboutCompanyBlock({
 </div>
         {/* Title (start) + Description (space-between) */}
         <div
-          className="flex flex-col gap-4 justify-between items-start sm:flex-row"
+          className="flex flex-col gap-4 justify-between items-start mt-20 sm:flex-row"
         >
           {data.title1 && (
             <h2 className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 w-fit font-inter text-xs font-medium tracking-wide text-neutral-500" >
@@ -416,7 +416,7 @@ function AboutCompanyBlock({
         </div>
 
       <div
-        className="flex flex-col gap-4 justify-between items-start sm:flex-row"
+        className="flex flex-col gap-4 justify-between items-start mt-20 sm:flex-row"
       >
   {/* Chap: title */}
   {data.title2 && (

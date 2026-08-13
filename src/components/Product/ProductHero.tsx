@@ -6,7 +6,7 @@ import { useLanguage } from '../../context/LanguageContext';
 const ProductHero: React.FC = () => {
   const { t } = useLanguage();
 
-  const logoText: Record<string, string> | string = { ru: 'Katalog', uz: 'Katalog', eng: 'Katalog' };
+  const logoText: Record<string, string> | string = { ru: 'Каталог', uz: 'Katalog', eng: 'Catalog' };
   const bgImage = productHeroBg;
 
   const logo = useMemo(() => t(logoText), [t, logoText]);

@@ -28,7 +28,8 @@ const InpusSection: React.FC<InpusSectionProps> = ({
   buttonText = translations.home.inpusSection.buttonText,
 }) => {
   const { t } = useLanguage();
-  const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : 'ABOUT US'), [t, badgeText]);
+  const fallbackBadge = { ru: 'О НАС', uz: 'BIZ HAQIMIZDA', eng: 'ABOUT US' };
+  const badgeTextValue = useMemo(() => (badgeText ? t(badgeText) : t(fallbackBadge)), [t, badgeText]);
   const descriptionPart1Text = useMemo(() => (descriptionPart1 ? t(descriptionPart1) : null), [t, descriptionPart1]);
   const descriptionText = useMemo(() => (description ? t(description) : null), [t, description]);
   const buttonLabel = useMemo(() => (buttonText ? t(buttonText) : null), [t, buttonText]);

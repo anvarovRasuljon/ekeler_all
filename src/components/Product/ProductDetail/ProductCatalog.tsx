@@ -22,14 +22,15 @@ const LOREM_20 = "Lorem Impus porum dor, forem dorem quick, lore puel duit ";
 
 const ProductCatalog: React.FC<InpusSectionProps> = ({
   twoColorMode = true,
-  badgeText = "INPUS",
+  badgeText = { ru: 'КАТАЛОГ', uz: 'KATALOG', eng: 'CATALOG' },
   description = LOREM_20,
   descriptionPart1 = LOREM_20,
-  buttonText = "Our Service",
+  buttonText = { ru: 'Наши услуги', uz: 'Bizning xizmatlar', eng: 'Our Services' },
 }) => {
   const { t } = useLanguage();
+  const fallbackBadge = { ru: 'О НАС', uz: 'BIZ HAQIMIZDA', eng: 'ABOUT US' };
 
-  const badgeLabel = useMemo(() => t(badgeText), [t, badgeText]);
+  const badgeLabel = useMemo(() => (badgeText ? t(badgeText) : t(fallbackBadge)), [t, badgeText]);
   const buttonLabel = useMemo(() => t(buttonText), [t, buttonText]);
   const descriptionText = useMemo(() => description ? t(description) : "", [t, description]);
   const descriptionPartText = useMemo(() => descriptionPart1 ? t(descriptionPart1) : "", [t, descriptionPart1]);

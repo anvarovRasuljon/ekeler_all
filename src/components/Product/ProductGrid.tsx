@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import FadeImage from "../ui/FadeImage";
+import { useLanguage } from "../../context/LanguageContext";
 
 const BASE_URL = "https://api.ekeler.uz";
 const PAGE_SIZE = 9;
@@ -15,6 +16,7 @@ interface ApiProduct {
 }
 
 const ProductGrid: React.FC = () => {
+  const { t } = useLanguage()
   const [products, setProducts] = useState<ApiProduct[]>([]);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
@@ -63,7 +65,9 @@ const ProductGrid: React.FC = () => {
   if (error && products.length === 0) {
     return (
       <section className="mx-auto w-full max-w-[1500px] px-4 py-16 sm:px-6">
-        <p className="text-center text-red-500">Mahsulotlarni yuklab bo'lmadi: {error}</p>
+        <p className="text-center text-red-500">
+          {t({ ru: 'Не удалось загрузить продукты:', uz: 'Mahsulotlarni yuklab bo‘lmadi:', eng: 'Failed to load products:' })} {error}
+        </p>
       </section>
     );
   }
@@ -71,7 +75,9 @@ const ProductGrid: React.FC = () => {
   if (products.length === 0 && !loading) {
     return (
       <section className="mx-auto w-full max-w-[1500px] px-4 py-16 sm:px-6">
-        <p className="text-center text-neutral-400">Mahsulotlar topilmadi.</p>
+        <p className="text-center text-neutral-400">
+          {t({ ru: 'Продукты не найдены.', uz: 'Mahsulotlar topilmadi.', eng: 'No products found.' })}
+        </p>
       </section>
     );
   }
