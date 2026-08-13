@@ -61,7 +61,9 @@ export const ZohoLeadForm: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const postedRef = useRef(false);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const successMessage = { ru: 'Спасибо! Ваше сообщение отправлено.', uz: 'Rahmat! Xabaringiz yuborildi.', eng: 'Thank you! Your message has been sent.' };
+  const loadingText = { ru: 'Отправка...', uz: 'Yuborilmoqda...', eng: 'Sending...' };
 
   /* ---------- ETAP 0: mount + analytics ---------- */
   useEffect(() => {
@@ -90,15 +92,24 @@ export const ZohoLeadForm: React.FC = () => {
     L("0-analytics", "script DOM'ga qo'shildi", ZOHO_ANALYTICS_SRC.slice(0, 80) + "...");
   }, []);
 
+  /* Muvaffaqiyat xabari 4 soniyadan keyin yo'qoladi. */
+  useEffect(() => {
+    if (!submitted) return;
+    const id = setTimeout(() => setSubmitted(false), 4000);
+    return () => clearTimeout(id);
+  }, [submitted]);
+
   /* Zoho original:
    *   onSubmit='javascript:document.charset="UTF-8";
    *             return checkMandatory7525508000000615582()' */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     L("1-submit", "submit event boshlandi");
+    setLoading(true);
 
     const form = formRef.current;
     if (!form) {
       L("1-submit", "XATO: formRef bo'sh, bekor qilindi");
+      setLoading(false);
       e.preventDefault();
       return;
     }
@@ -131,6 +142,7 @@ export const ZohoLeadForm: React.FC = () => {
         L("3-validate", `BO'SH -> POST bekor qilinadi. alert: ${FLD_LANG_VAL[i]}`);
         alert(t(FLD_LANG_VAL[i]) + t({ ru: ' не может быть пустым.', uz: ' bo‘sh bo‘lishi mumkin emas.', eng: ' cannot be empty.' }));
         fieldObj.focus();
+        setLoading(false);
         e.preventDefault();
         return;
       }
@@ -170,16 +182,6 @@ export const ZohoLeadForm: React.FC = () => {
     });
     L("5-payload", "page origin:", window.location.origin, "| href:", window.location.href);
 
-    /* ---------- ETAP 6: submit tugmasini disable (Zoho aynan) ----------
-     * React state ORQALI EMAS -> submit paytida re-render bo'lmaydi. */
-    const submitBtn = form.querySelector<HTMLInputElement>(".formsubmit");
-    if (submitBtn) {
-      submitBtn.setAttribute("disabled", "true");
-      L("6-disable", "formsubmit disabled qilindi");
-    } else {
-      L("6-disable", ".formsubmit topilmadi");
-    }
-
     /* ---------- ETAP 7: native POST ---------- */
     postedRef.current = true;
     L("7-post", `e.preventDefault() CHAQIRILMADI -> brauzer native POST qiladi -> target="${HIDDEN_IFRAME_NAME}"`);
@@ -198,6 +200,7 @@ export const ZohoLeadForm: React.FC = () => {
       "8-iframe",
       "Javob mazmuni cross-origin, o'qib bo'lmaydi. Ko'rish uchun iframe style'ini ochiq qiling (kodda izoh bor)."
     );
+    setLoading(false);
     setSubmitted(true);
     formRef.current?.reset();
   };
@@ -364,10 +367,11 @@ export const ZohoLeadForm: React.FC = () => {
             type="submit"
             id="formsubmit"
             role="button"
-            className="formsubmit cursor-pointer border-0 bg-transparent p-0 text-center align-middle font-['Inter'] text-[16px] font-normal leading-[24px] tracking-[-0.02em] text-[#E88029]"
-            value={t({ ru: 'Отправить', uz: 'Yuborish', eng: 'Send' })}
-            aria-label="Отправить"
-            title="Отправить"
+            disabled={loading}
+            className="formsubmit w-full cursor-pointer rounded-full border-0 bg-[#E88029] px-6 py-[15px] text-center align-middle font-['Inter'] text-[16px] font-normal leading-[24px] tracking-[-0.02em] text-white transition-colors duration-300 ease-out outline-none hover:bg-white hover:text-[#E88029] disabled:cursor-not-allowed disabled:opacity-70"
+            value={loading ? t(loadingText) : t({ ru: 'Отправить', uz: 'Yuborish', eng: 'Send' })}
+            aria-label={loading ? t(loadingText) : t({ ru: 'Отправить', uz: 'Yuborish', eng: 'Send' })}
+            title={loading ? t(loadingText) : t({ ru: 'Отправить', uz: 'Yuborish', eng: 'Send' })}
           />
         </div>
       </form>

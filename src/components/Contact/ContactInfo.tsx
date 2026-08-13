@@ -49,7 +49,7 @@ export const ContactInfo: React.FC = () => {
 
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* CHAP — kontakt ma'lumotlari */}
-          <div className="flex flex-col w-full min-w-0 lg:w-1/2">
+          <div className="flex flex-col ml-10 w-full min-w-0 lg:w-1/2">
             <AboutCompanyContentBlock data={DEFAULT_CONTENT_DATA} stacked descriptionClassName={DESCRIPTION_CLASS} />
           </div>
 

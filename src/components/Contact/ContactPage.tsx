@@ -111,11 +111,11 @@ export const ContactPage: React.FC = () => {
     <div className="w-full bg-white text-[#1B1D20]">
       <div className="px-4 pt-6 pb-16 w-full md:px-6 lg:px-8">
         {/* O'NG — sarlavha + kichkina rasm + forma (mobilda birinchi) */}
-        <div ref={containerRef} className="flex relative flex-col gap-8 lg:flex-row-reverse">
-          <div className="flex flex-col gap-16 w-full min-w-0 lg:w-1/2 md:gap-20">
+        <div ref={containerRef} className="flex relative flex-col gap-12 md:gap-16 lg:gap-20 lg:flex-row-reverse">
+          <div className="flex flex-col gap-16 mt-5 w-full min-w-0 lg:w-1/2 md:gap-20">
             <div className="flex flex-col gap-8">
-              <div className="flex flex-row gap-4 justify-between items-start mb-[10]">
-                <span className="w-fit shrink-0 rounded-full border border-neutral-300 px-4 py-1.5 font-['Inter'] text-xs font-medium tracking-wide text-neutral-500">
+              <div className="flex flex-row gap-4 justify-between items-start mb-[10] mt-5px">
+                <span className="w-fit shrink-0 rounded-full border border-neutral-300 px-4 py-1.5 font-['Inter'] text-xs font-medium tracking-wide text-neutral-500 ml-[-35px]">
                   {t.eyebrow}
                 </span>
                 <img
