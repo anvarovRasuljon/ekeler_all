@@ -34,31 +34,32 @@ interface FooterProps {
 
 const DEFAULT_NAV_LINKS: FooterLink[] = [
   { label: { ru: "Главная", uz: "Bosh sahifa", eng: "Home" }, href: "/" },
-  { label: { ru: "О нас", uz: "Biz haqimizda", eng: "About" }, href: "/about" },
   { label: { ru: "Продукты", uz: "Mahsulotlar", eng: "Products" }, href: "/products" },
-  { label: { ru: "Контакты", uz: "Aloqa", eng: "Contact" }, href: "/contact" },
+  { label: { ru: "Отрасли", uz: "Tarmoqlar", eng: "Industries" }, href: "/services" },
+  { label: { ru: "Контакты", uz: "Kontaktlar", eng: "Contact" }, href: "/contact" },
+  { label: { ru: "О нас", uz: "Biz haqimizda", eng: "About" }, href: "/about" },
 ];
 
 const DEFAULT_SOCIAL_LINKS: FooterLink[] = [
   { label: { ru: "Instagram", uz: "Instagram", eng: "Instagram" }, href: "https://instagram.com", external: true },
-  { label: { ru: "Telegram", uz: "Telegram", eng: "Telegram" }, href: "https://telegram.org", external: true },
   { label: { ru: "Facebook", uz: "Facebook", eng: "Facebook" }, href: "https://facebook.com", external: true },
+  { label: { ru: "Twitter", uz: "Twitter", eng: "Twitter" }, href: "https://twitter.com", external: true },
 ];
 
 const Footer: React.FC<FooterProps> = ({
   // backgroundImage,
   backgroundImageAlt = "",
-  heading = { ru: "Давайте работать вместе", uz: "Birga ishlaymiz", eng: "Let's work together" },
-  ctaText = { ru: "Свяжитесь с нами", uz: "Aloqa", eng: "Contact us" },
-  ctaLink = "contact",
-  navLabel = { ru: "Навигация", uz: "Navigatsiya", eng: "Navigation" },
+  heading = { ru: "Гофрокартон, произведенный в Узбекистане", uz: "O'zbekistonda ishlab chiqarilgan sota karton", eng: "Corrugated cardboard made in Uzbekistan" },
+  ctaText = { ru: "Подробнее", uz: "Batafsil", eng: "More details" },
+  ctaLink = "/products",
+  navLabel = { ru: "Страницы", uz: "Sahifalar", eng: "Pages" },
   navLinks = DEFAULT_NAV_LINKS,
-  socialLabel = { ru: "Социальные сети", uz: "Ijtimoiy tarmoqlar", eng: "Social" },
+  socialLabel = { ru: "Социальные сети:", uz: "Ijtimoiy tarmoqlar:", eng: "Social networks:" },
   socialLinks = DEFAULT_SOCIAL_LINKS,
-  contactLabel = { ru: "Контакты", uz: "Aloqa", eng: "Contact" },
-  phone = "+998 90 123 45 67",
-  email = "info@ekeler.uz",
-  address = { ru: "Ташкент, Узбекистан", uz: "Toshkent, O'zbekiston", eng: "Tashkent, Uzbekistan" },
+  contactLabel = { ru: "Свяжитесь с нами", uz: "Aloqaga chiqish", eng: "Contact us" },
+  phone = "+998 77 777-77-77",
+  email = "info@vitech.uz",
+  address = { ru: "Lorem Impus porum dor, forem dorem quick, lore puel duit", uz: "Lorem Impus porum dor, forem dorem quick, lore puel duit", eng: "Lorem Impus porum dor, forem dorem quick, lore puel duit" },
   copyrightText = { ru: "© 2026 Ekeler. Все права защищены.", uz: "© 2026 Ekeler. Barcha huquqlar himoyalangan.", eng: "© 2026 Ekeler. All rights reserved." },
   privacyPolicyLink = "/privacy-policy",
   termsOfUseLink = "/terms-of-use",

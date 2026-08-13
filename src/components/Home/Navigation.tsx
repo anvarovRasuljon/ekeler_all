@@ -866,24 +866,89 @@ interface LanguageSelectProps {
   className?: string
 }
 
-const LanguageSelect: React.FC<LanguageSelectProps> = ({ language, onChange, className }) => (
-  <div className={cn('relative flex gap-2 items-center min-h-[44px]', className)}>
-    <Globe size={16} className="text-[#E88029] shrink-0" />
-    <div className="relative flex items-center min-w-[100px] rounded-full border border-[#ECECEC] bg-white transition-colors hover:border-[#E88029] focus-within:border-[#E88029]">
-      <select
-        value={language}
-        onChange={(e) => onChange(e.target.value as Language)}
+const LanguageSelect: React.FC<LanguageSelectProps> = ({ language, onChange, className }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEsc);
+    };
+  }, []);
+
+  const options: { value: Language; label: string }[] = [
+    { value: 'uz', label: 'UZ' },
+    { value: 'ru', label: 'RU' },
+    { value: 'eng', label: 'EN' },
+  ];
+
+  const selectedLabel = options.find((o) => o.value === language)?.label ?? language.toUpperCase();
+
+ return (
+  <div ref={containerRef} className={cn('relative flex min-h-[40px] items-center gap-1.5', className)}>
+    <Globe size={15} className="shrink-0 text-[#E88029]" />
+
+    <div className="relative">
+      <button
+        type="button"
+        onClick={() => setIsOpen((v) => !v)}
         aria-label="Language"
-        className="appearance-none w-full cursor-pointer bg-transparent py-1.5 pl-3 pr-10 text-[14px] font-normal text-[#1B1D20] outline-none"
+        aria-expanded={isOpen}
+        className="flex items-center gap-1 bg-transparent p-0 font-['Inter'] text-[13px] leading-5 text-[#1B1D20] outline-none"
       >
-        <option value="uz">UZ</option>
-        <option value="ru">RU</option>
-        <option value="eng">EN</option>
-      </select>
-      <ChevronDown size={14} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[#1B1D20]" />
+        {selectedLabel}
+        <ChevronDown
+          size={12}
+          className={cn(
+            'text-[#1B1D20] transition-transform duration-200',
+            isOpen && 'rotate-180'
+          )}
+        />
+      </button>
+
+      <div
+        className={cn(
+          'absolute right-0 top-full z-50 mt-1 w-[90px] overflow-hidden rounded-md border border-[#ECECEC] bg-white p-1 shadow-[0_6px_20px_rgba(0,0,0,0.1)] transition-all duration-200',
+          isOpen
+            ? 'visible translate-y-0 opacity-100'
+            : 'invisible -translate-y-1 opacity-0 pointer-events-none'
+        )}
+      >
+        <ul>
+          {options.map((opt) => (
+            <li key={opt.value}>
+              <button
+                type="button"
+                onClick={() => {
+                  onChange(opt.value);
+                  setIsOpen(false);
+                }}
+                className={cn(
+                  'w-full rounded px-2 py-1 text-center font-["Inter"] text-[12px] leading-5 text-[#1B1D20] hover:bg-[#E88029]/10 hover:text-[#E88029]',
+                  language === opt.value && 'text-[#E88029]'
+                )}
+              >
+                {opt.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   </div>
-)
+);
+};
 
 const NAV_HEIGHT_PX = 65
 
@@ -994,7 +1059,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
               </Link>
             </li>
             <li>
-              <LanguageSelect language={language} onChange={setLanguage} className="px-0 xl:px-[12px]" />
+              <LanguageSelect language={language} onChange={setLanguage}  />
             </li>
           </ul>
 

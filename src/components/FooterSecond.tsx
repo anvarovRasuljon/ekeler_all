@@ -12,14 +12,15 @@ export interface FooterLink {
 const DEFAULT_NAV_LINKS: FooterLink[] = [
   { label: { ru: "Главная", uz: "Bosh sahifa", eng: "Home" }, href: "/" },
   { label: { ru: "О нас", uz: "Biz haqimizda", eng: "About" }, href: "/about" },
+  { label: { ru: "Услуги", uz: "Xizmatlar", eng: "Services" }, href: "/services" },
   { label: { ru: "Продукты", uz: "Mahsulotlar", eng: "Products" }, href: "/products" },
-  { label: { ru: "Контакты", uz: "Aloqa", eng: "Contact" }, href: "/contact" },
+  { label: { ru: "Контакты", uz: "Kontaktlar", eng: "Contact" }, href: "/contact" },
 ];
 
 const DEFAULT_SOCIAL_LINKS: FooterLink[] = [
   { label: { ru: "Instagram", uz: "Instagram", eng: "Instagram" }, href: "https://instagram.com", external: true },
-  { label: { ru: "Telegram", uz: "Telegram", eng: "Telegram" }, href: "https://telegram.org", external: true },
   { label: { ru: "Facebook", uz: "Facebook", eng: "Facebook" }, href: "https://facebook.com", external: true },
+  { label: { ru: "Twitter", uz: "Twitter", eng: "Twitter" }, href: "https://twitter.com", external: true },
 ];
 
 const FooterSecond: React.FC = () => {
@@ -28,16 +29,16 @@ const FooterSecond: React.FC = () => {
   const safeSocialLinks: FooterLink[] = DEFAULT_SOCIAL_LINKS;
   const backgroundImageAlt = "";
 
-  const heading = { ru: "Давайте работать вместе", uz: "Birga ishlaymiz", eng: "Let's work together" };
-  const ctaText = { ru: "Свяжитесь с нами", uz: "Aloqa", eng: "Contact us" };
-  const ctaLink = "contact";
-  const navLabel = { ru: "Навигация", uz: "Navigatsiya", eng: "Navigation" };
-  const socialLabel = { ru: "Социальные сети", uz: "Ijtimoiy tarmoqlar", eng: "Social" };
-  const contactLabel = { ru: "Контакты", uz: "Aloqa", eng: "Contact" };
-  const phone = "+998 77 777-77-77";
-  const email = "info@ekeler.uz";
-  const address = { ru: "Ташкент, Узбекистан", uz: "Toshkent, O'zbekiston", eng: "Tashkent, Uzbekistan" };
-  const copyrightText = { ru: "© 2026 Ekeler. Все права защищены.", uz: "© 2026 Ekeler. Barcha huquqlar himoyalangan.", eng: " 2026 Ekeler. All rights reserved." };
+  const heading = { ru: "Готовы к комфортным решениям?", uz: "Qulay yechimlarga tayyormisiz?", eng: "Ready for comfortable solutions?" };
+  const ctaText = { ru: "Перейти в каталог", uz: "Katalogga o'tish", eng: "Go to catalog" };
+  const ctaLink = "/products";
+  const navLabel = { ru: "Компания", uz: "Kompaniya", eng: "Company" };
+  const socialLabel = { ru: "Социальные сети", uz: "Ijtimoiy tarmoqlar", eng: "Social networks" };
+  const contactLabel = { ru: "Связаться с нами", uz: "Aloqaga chiqish", eng: "Contact us" };
+  const phone = "+998 71 200-66-88";
+  const email = "info@vitech.uz";
+  const address = { ru: "Республика Узбекистан, г. Ташкент, ул. Юкори Чирчик, 1 А", uz: "O'zbekiston Respublikasi, Toshkent sh., Yuqori Chirchiq ko'ch., 1 A", eng: "Republic of Uzbekistan, Tashkent, Yukori Chirchik st., 1 A" };
+  const copyrightText = { ru: "© Все права защищены. 2025", uz: "© Barcha huquqlar himoyalangan. 2025", eng: "© All rights reserved. 2025" };
   const privacyPolicyLink = "/privacy-policy";
   const termsOfUseLink = "/terms-of-use";
 

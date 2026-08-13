@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 
 /* ==================================================================
@@ -60,6 +60,8 @@ export const ZohoLeadForm: React.FC = () => {
   const { t } = useLanguage();
   const formRef = useRef<HTMLFormElement>(null);
   const postedRef = useRef(false);
+  const [submitted, setSubmitted] = useState(false);
+  const successMessage = { ru: 'Спасибо! Ваше сообщение отправлено.', uz: 'Rahmat! Xabaringiz yuborildi.', eng: 'Thank you! Your message has been sent.' };
 
   /* ---------- ETAP 0: mount + analytics ---------- */
   useEffect(() => {
@@ -196,6 +198,8 @@ export const ZohoLeadForm: React.FC = () => {
       "8-iframe",
       "Javob mazmuni cross-origin, o'qib bo'lmaydi. Ko'rish uchun iframe style'ini ochiq qiling (kodda izoh bor)."
     );
+    setSubmitted(true);
+    formRef.current?.reset();
   };
 
   return (
@@ -220,6 +224,12 @@ export const ZohoLeadForm: React.FC = () => {
           left: "-9999px",
         }}
       />
+
+      {submitted && (
+        <div className="mb-6 rounded-[8px] bg-[#E88029]/10 px-4 py-3 text-center font-['Inter'] text-[14px] font-normal leading-[22px] text-[#E88029]">
+          {t(successMessage)}
+        </div>
+      )}
 
       <form
         ref={formRef}
