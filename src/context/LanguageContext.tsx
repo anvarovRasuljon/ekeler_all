@@ -12,7 +12,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Initialize from localStorage or default to 'ru'
+  // Initialize from localStorage or default to 'uz'
   const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem('app_language');
     if (saved === 'ru' || saved === 'uz' || saved === 'eng') {

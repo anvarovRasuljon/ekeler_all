@@ -1000,7 +1000,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
 
           {/* Logo */}
           <Link to="/" onClick={close} className="flex items-center lg:justify-self-center">
-            <AnimatedImage src={logo} alt="Ekeler Logo" className="h-[clamp(28px,1.75rem+0.3vw,40px)] w-auto" />
+            <AnimatedImage src={logo} alt="Ekeler Logo" className="h-[clamp(24px,1.5rem+0.3vw,34px)] w-auto" />
           </Link>
 
           {/* Desktop: o'ng ustun */}

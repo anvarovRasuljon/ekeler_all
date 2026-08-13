@@ -10,10 +10,10 @@ export interface FooterLink {
 }
 
 const DEFAULT_NAV_LINKS: FooterLink[] = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Products", href: "/products" },
-  { label: "Contact", href: "/contact" },
+  { label: { ru: "Главная", uz: "Bosh sahifa", eng: "Home" }, href: "/" },
+  { label: { ru: "О нас", uz: "Biz haqimizda", eng: "About" }, href: "/about" },
+  { label: { ru: "Продукты", uz: "Mahsulotlar", eng: "Products" }, href: "/products" },
+  { label: { ru: "Контакты", uz: "Aloqa", eng: "Contact" }, href: "/contact" },
 ];
 
 const DEFAULT_SOCIAL_LINKS: FooterLink[] = [
@@ -28,16 +28,16 @@ const FooterSecond: React.FC = () => {
   const safeSocialLinks: FooterLink[] = DEFAULT_SOCIAL_LINKS;
   const backgroundImageAlt = "";
 
-  const heading = "Let's work together";
-  const ctaText = "Contact us";
+  const heading = { ru: "Давайте работать вместе", uz: "Birga ishlaymiz", eng: "Let's work together" };
+  const ctaText = { ru: "Свяжитесь с нами", uz: "Aloqa", eng: "Contact us" };
   const ctaLink = "contact";
-  const navLabel = "Navigation";
-  const socialLabel = "Social";
-  const contactLabel = "Contact";
-  const phone = "+998 90 123 45 67";
+  const navLabel = { ru: "Навигация", uz: "Navigatsiya", eng: "Navigation" };
+  const socialLabel = { ru: "Социальные сети", uz: "Ijtimoiy tarmoqlar", eng: "Social" };
+  const contactLabel = { ru: "Контакты", uz: "Aloqa", eng: "Contact" };
+  const phone = "+998 77 777-77-77";
   const email = "info@ekeler.uz";
-  const address = "Tashkent, Uzbekistan";
-  const copyrightText = " 2026 Ekeler. All rights reserved.";
+  const address = { ru: "Ташкент, Узбекистан", uz: "Toshkent, O'zbekiston", eng: "Tashkent, Uzbekistan" };
+  const copyrightText = { ru: "© 2026 Ekeler. Все права защищены.", uz: "© 2026 Ekeler. Barcha huquqlar himoyalangan.", eng: " 2026 Ekeler. All rights reserved." };
   const privacyPolicyLink = "/privacy-policy";
   const termsOfUseLink = "/terms-of-use";
 
@@ -87,7 +87,7 @@ const FooterSecond: React.FC = () => {
                       <li key={link.href || String(i)}>
                         <a
                           href={link.href}
-                          className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
+                          className="group font-inter font-normal text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {link.label ? t(link.label) : null}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
@@ -112,7 +112,7 @@ const FooterSecond: React.FC = () => {
                       <li key={link.href || String(i)}>
                         <a
                           href={link.href}
-                          className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
+                          className="group font-inter font-normal text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {link.label ? t(link.label) : null}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
@@ -127,7 +127,7 @@ const FooterSecond: React.FC = () => {
               {(phone || email || address) && (
                 <div>
                   {contactLabel && (
-                    <a href="/contact" className="font-inter font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 inline-block mb-5 border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]">{t(contactLabel)}</a>
+                    <a href="/contact" className="font-inter font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-[#1B1D20] inline-block mb-5 border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]">{t(contactLabel)}</a>
                   )}
                   <ul className="space-y-4">
                     {phone && (
@@ -137,7 +137,7 @@ const FooterSecond: React.FC = () => {
                         </span>
                         <a
                           href={`tel:${phone.replace(/\s/g, "")}`}
-                          className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
+                          className="group font-inter font-normal text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {phone}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
@@ -151,7 +151,7 @@ const FooterSecond: React.FC = () => {
                         </span>
                         <a
                           href={`mailto:${email}`}
-                          className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
+                          className="group font-inter font-normal text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {email}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
@@ -181,7 +181,7 @@ const FooterSecond: React.FC = () => {
               {privacyPolicyLink && (
                 <a
                   href={privacyPolicyLink}
-                  className="underline underline-offset-2 transition-colors duration-300 hover:text-[#1B1D20]"
+                  className="underline underline-offset-2 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]"
                 >
                   {t({ ru: 'Политика конфиденциальности', uz: 'Maxfiylik siyosati', eng: 'Privacy policy' })}
                 </a>
@@ -189,7 +189,7 @@ const FooterSecond: React.FC = () => {
               {termsOfUseLink && (
                 <a
                   href={termsOfUseLink}
-                  className="underline underline-offset-2 transition-colors duration-300 hover:text-[#1B1D20]"
+                  className="underline underline-offset-2 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]"
                 >
                   {t({ ru: 'Условия использования', uz: 'Foydalanish shartlari', eng: 'Terms of use' })}
                 </a>

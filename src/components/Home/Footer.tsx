@@ -123,7 +123,7 @@ const Footer: React.FC<FooterProps> = ({
                       <li key={link.label?.ru || link.href}>
                         <a
                                                    href={link.href}
-                          className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
+                          className="group font-inter font-normal text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {t(link.label)}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
@@ -144,7 +144,7 @@ const Footer: React.FC<FooterProps> = ({
                       <li key={link.label?.ru || link.href}>
                         <a
                                                    href={link.href}
-                          className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]"
+                          className="group font-inter font-normal text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]"
                         >
                           {t(link.label)}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
@@ -158,12 +158,12 @@ const Footer: React.FC<FooterProps> = ({
               {/* Contact info */}
               {(phone || email || address) && (
                 <div>
-                  {contactLabelText && <a href="/contact" className="font-inter font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-stone-400 inline-block mb-5 border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]">{contactLabelText}</a>}
+                  {contactLabelText && <a href="/contact" className="font-inter font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-[#1B1D20] inline-block mb-5 border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]">{contactLabelText}</a>}
                   <ul className="space-y-4">
                     {phone && (
                       <li className="flex gap-4 items-center group">
                         <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0"><Phone size={14} /></span>
-                        <a href={`tel:${phone.replace(/\s/g, "")}`} className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]">
+                        <a href={`tel:${phone.replace(/\s/g, "")}`} className="group font-inter font-normal text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]">
                           {phone}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </a>
@@ -172,7 +172,7 @@ const Footer: React.FC<FooterProps> = ({
                     {email && (
                       <li className="flex gap-4 items-center group">
                         <span className="flex justify-center items-center w-10 h-10 p-[13px] rounded-full border border-[#ECECEC] text-orange transition-colors duration-300 group-hover:border-orange shrink-0"><Mail size={14} /></span>
-                        <a href={`mailto:${email}`} className="group font-inter font-normal sm:font-medium text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-stone-500 transition-colors duration-300 hover:text-[#E88029]">
+                        <a href={`mailto:${email}`} className="group font-inter font-normal text-[14px] leading-[24px] tracking-[-0.02em] sm:font-inter sm:text-[18px] sm:leading-[32px] align-middle inline-flex items-center gap-4 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]">
                           {email}
                           <ArrowUpRight size={14} className="text-current opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:rotate-45" />
                         </a>
@@ -199,12 +199,12 @@ const Footer: React.FC<FooterProps> = ({
             <div className="flex flex-col items-center justify-between gap-4 text-center text-[clamp(12px,0.75rem+0.1vw,14px)] text-stone-400 md:flex-row md:text-left">
               {copyrightTextValue && <span>{copyrightTextValue}</span>}
               {privacyPolicyLink && (
-                <a href={privacyPolicyLink} className="underline underline-offset-2 transition-colors duration-300 hover:text-[#1B1D20]">
+                <a href={privacyPolicyLink} className="underline underline-offset-2 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]">
                   {privacyText}
                 </a>
               )}
               {termsOfUseLink && (
-                <a href={termsOfUseLink} className="underline underline-offset-2 transition-colors duration-300 hover:text-[#1B1D20]">
+                <a href={termsOfUseLink} className="underline underline-offset-2 text-[#1B1D20] transition-colors duration-300 hover:text-[#E88029]">
                   {termsText}
                 </a>
               )}

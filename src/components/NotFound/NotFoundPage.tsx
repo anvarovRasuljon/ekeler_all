@@ -7,7 +7,7 @@ import type { Language } from "../../context/LanguageContext";
 
 const LABELS: Record<Language, { subtitle: string; link: string }> = {
   ru: { subtitle: "Страница не найдена", link: "На главную" },
-  uz: { subtitle: "Saxifa topilmadi", link: "Asosiy saxifaga o'tish" },
+  uz: { subtitle: "Sahifa topilmadi", link: "Asosiy sahifaga o'tish" },
   eng: { subtitle: "Page not found", link: "Back to home" },
 };
 
