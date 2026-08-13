@@ -26,6 +26,9 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
   const [isOpen, setIsOpen] = useState(true);
   const [descExpanded, setDescExpanded] = useState(false);
 
+  const badgeLabel = { ru: 'Основная информация', uz: 'Asosiy maʼlumot', eng: 'Key information' };
+  const headingLabel = { ru: 'Технические параметры', uz: 'Texnik parametrlar', eng: 'Specifications' };
+
   const images = data.images || [];
 
   const specs = useMemo(() => {
@@ -45,11 +48,11 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
         {/* LEFT: Accordion specs */}
         <div className="flex flex-col">
           <span className="self-start px-4 py-1.5 mb-6 text-xs font-medium tracking-wide text-white/80 uppercase border rounded-full border-white/40">
-            Asosiy malumot
+            {t(badgeLabel)}
           </span>
 
           <h2 className="mb-6 break-words text-[clamp(22px,1.5rem+0.5vw,48px)] font-medium">
-            Texnik parametrlar
+            {t(headingLabel)}
           </h2>
 
           <div className="mb-8 w-full border-t border-dashed border-white/30" />

@@ -10,6 +10,7 @@ const ServiceHero: React.FC = () => {
     ru: "Отрасли",
     eng: "Industries",
   };
+  const altText = { uz: "Xizmat fon rasmi", ru: "Фоновое изображение отраслей", eng: "Industries background" };
 
   const logo = useMemo(() => t(logoText), [t, logoText]);
   const [loaded, setLoaded] = useState(false);
@@ -20,7 +21,7 @@ const ServiceHero: React.FC = () => {
       {/* Background */}
       <img
         src={productHeroBg}
-        alt="Hero Background"
+        alt={t(altText)}
         className={`object-cover absolute inset-0 w-full h-full transition-all duration-700 ${
           loaded ? 'opacity-100 blur-0' : 'opacity-0 blur-[15px]'
         }`}

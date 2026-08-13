@@ -1,4 +1,3 @@
-import ProductImage from './ProductImage';
 import React, { useMemo, useState } from 'react';
 import productHeroBg from '../../assets/product_hero.png';
 import { useLanguage } from '../../context/LanguageContext';
@@ -6,7 +5,13 @@ import { useLanguage } from '../../context/LanguageContext';
 const ProductHero: React.FC = () => {
   const { t } = useLanguage();
 
-  const logoText: Record<string, string> | string = { ru: 'Каталог', uz: 'Katalog', eng: 'Catalog' };
+  const logoText = {
+    uz: "Katalog",
+    ru: "Каталог",
+    eng: "Catalog",
+  };
+  const altText = { uz: "Mahsulot fon rasmi", ru: "Фоновое изображение продукта", eng: "Product background" };
+
   const bgImage = productHeroBg;
 
   const logo = useMemo(() => t(logoText), [t, logoText]);
@@ -26,10 +31,10 @@ const ProductHero: React.FC = () => {
     >
       {/* Background image */}
       {bgImage ? (
-        <ProductImage
-          src={bgImage}
-          alt="Product"
-          className="absolute w-full h-full object-cover rounded-[8px]"
+        <img
+          src={productHeroBg}
+          alt={t(altText)}
+          className="object-cover absolute inset-0 w-full h-full transition-all duration-700 rounded-[8px]"
           loading="eager"
           decoding="async"
           onLoad={() => setImageLoaded(true)}

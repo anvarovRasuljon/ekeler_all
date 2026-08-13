@@ -18,7 +18,11 @@ interface InpusSectionProps {
   bottomImage?: any;
 }
 
-const LOREM_20 = "Lorem Impus porum dor, forem dorem quick, lore puel duit ";
+const LOREM_20 = {
+  ru: 'Каталог продукции Ekeler — современные решения из гофрокартона.',
+  uz: 'Ekeler mahsulotlari katalogi — zamonaviy sota karton yechimlari.',
+  eng: 'Ekeler product catalog — modern corrugated cardboard solutions.',
+};
 
 const ProductCatalog: React.FC<InpusSectionProps> = ({
   twoColorMode = true,
@@ -60,7 +64,7 @@ const ProductCatalog: React.FC<InpusSectionProps> = ({
         <span
           className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500"
         >
-          {badgeText ? badgeLabel : 'ABOUT US'}
+          {badgeLabel}
         </span>
 
         <h2 className="mb-8 w-full max-w-[610px] break-words text-[26px] leading-[34px] text-[#1B1D20] sm:text-[32px] sm:leading-[42px] lg:text-[40px] lg:leading-[50px]">
@@ -78,7 +82,7 @@ const ProductCatalog: React.FC<InpusSectionProps> = ({
             <span
               className="text-[#1B1D20]"
             >
-              {description ? descriptionText : ''}
+              {descriptionText}
             </span>
           )}
         </h2>

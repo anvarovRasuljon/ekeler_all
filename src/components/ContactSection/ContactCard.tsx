@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Phone, Mail, ArrowUpRight } from "lucide-react";
+import { useLanguage } from "../../context/LanguageContext";
 import type { ContactItem } from "./contact.data";
 
 const ICON_SIZE = 20;
@@ -11,6 +12,7 @@ const ContactCardBase: React.FC<ContactItem> = ({
   icon,
   href,
 }) => {
+  const { t } = useLanguage();
   const Icon = icon === "phone" ? Phone : Mail;
   const ref = useRef<HTMLDivElement | null>(null);
   const [inView, setInView] = useState(false);
@@ -39,7 +41,7 @@ const ContactCardBase: React.FC<ContactItem> = ({
       <div className="group relative h-auto min-h-[190px] w-full rounded-[16px] border border-white/15 bg-white p-5 pb-20 transition-all duration-500 hover:-translate-y-3 hover:scale-[1.01] hover:shadow-2xl sm:min-h-[220px] sm:p-6 lg:h-[248px] lg:rounded-[20px] lg:p-8 lg:pb-8">
         <a
           href={href}
-          aria-label={title}
+          aria-label={t(title)}
           className="flex h-full flex-col"
         >
           <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#1F1F1F]/20 bg-white transition-all duration-300 group-hover:scale-110 group-hover:border-[#E88029] group-hover:text-[#E88029]">
@@ -47,7 +49,7 @@ const ContactCardBase: React.FC<ContactItem> = ({
           </div>
 
           <h3 className="mt-5 break-words text-[20px] font-normal text-[#1F1F1F] transition-colors duration-300 group-hover:text-[#E88029] sm:mt-6 sm:text-[28px] lg:text-[36px]">
-            {title}
+            {t(title)}
           </h3>
           <p className="mt-2 break-words text-base text-[#444] sm:text-lg lg:text-[22px]">{value}</p>
 

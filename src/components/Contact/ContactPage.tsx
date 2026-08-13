@@ -10,18 +10,24 @@ import ZohoLeadForm from "./ZohoLeadForm";
 const NAV_HEIGHT_PX = 65;
 const IMG_GAP = 30;
 
-const CONTENT: Record<Language, { eyebrow: string; title: string }> = {
+const CONTENT: Record<Language, { eyebrow: string; title: string; miniAlt: string; mainAlt: string }> = {
   ru: {
     eyebrow: "КОНТАКТЫ",
     title: "Подберём подходящий размер и цену для вашего проекта",
+    miniAlt: "Контактное изображение",
+    mainAlt: "Контакт",
   },
   uz: {
     eyebrow: "ALOQA",
     title: "Loyihangiz uchun mos o'lcham va narxni birga aniqlaymiz",
+    miniAlt: "Aloqa rasmi",
+    mainAlt: "Aloqa",
   },
   eng: {
     eyebrow: "CONTACT",
     title: "We will determine the right size and price for your project together",
+    miniAlt: "Contact image",
+    mainAlt: "Contact",
   },
 };
 
@@ -120,7 +126,7 @@ export const ContactPage: React.FC = () => {
                 </span>
                 <img
                   src={contactMiniImage}
-                  alt="Contact mini"
+                  alt={t.miniAlt}
                   className={`h-[110px] w-[180px] shrink-0 rounded-lg object-cover transition-all duration-700 sm:h-[200px] sm:w-[500px] ${
                     miniLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-[15px]'
                   }`}
@@ -148,7 +154,7 @@ export const ContactPage: React.FC = () => {
             >
               <img
                 src={contactMainImage}
-                alt="Contact"
+                alt={t.mainAlt}
                 className={`block object-cover w-full h-full transition-all duration-700 ${
                   mainLoaded ? 'opacity-100 blur-0' : 'opacity-0 blur-[15px]'
                 }`}

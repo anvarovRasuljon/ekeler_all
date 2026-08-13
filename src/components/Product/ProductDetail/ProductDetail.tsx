@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import FadeImage from "../../ui/FadeImage";
 import ProductSpecifications, { type ProductDetailData } from "./ProductSpecifications";
 import ProductDetailGrid from "./ProductDetailGrid";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const BASE_URL = "https://api.ekeler.uz";
 
@@ -52,9 +53,14 @@ function buildImageUrl(path: string): string {
 
 const ProductDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { t } = useLanguage();
   const [product, setProduct] = useState<ApiProductDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const errorLabel = { ru: 'Ошибка:', uz: 'Xatolik:', eng: 'Error:' };
+  const notFoundLabel = { ru: 'Продукт не найден.', uz: 'Mahsulot topilmadi.', eng: 'Product not found.' };
+  const fieldLabel = { ru: 'Поле', uz: 'Maydon', eng: 'Field' };
 
   useEffect(() => {
     if (!slug) return;
@@ -102,7 +108,7 @@ const ProductDetail: React.FC = () => {
   if (error || !product) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
-        <p className="text-center text-red-500">{error ? `Xatolik: ${error}` : "Mahsulot topilmadi."}</p>
+        <p className="text-center text-red-500">{error ? `${t(errorLabel)} ${error}` : t(notFoundLabel)}</p>
       </div>
     );
   }
@@ -129,7 +135,7 @@ const ProductDetail: React.FC = () => {
                 {heroFields.map((field, i) => (
                   <div key={i} className="flex min-w-[200px] flex-col">
                     <span className="font-['Inter'] text-[14px] font-normal leading-[22px] tracking-[-0.02em] align-middle text-neutral-400">
-                      {field.label || field.key || `Field ${i + 1}`}
+                      {field.label || field.key || `${t(fieldLabel)} ${i + 1}`}
                     </span>
                     <span className="break-words font-['Inter'] text-[16px] font-normal leading-[24px] tracking-[-0.02em] align-middle text-[#1B1D20]">
                       {field.value || "—"}

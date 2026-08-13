@@ -309,7 +309,8 @@ function App() {
                 <div className="p-2 w-full min-h-screen">
                   <Navigation />
                   <ProductDetail />
-                  <ProductCatalog/>
+                  {/* <ProductCatalog/> */}
+                  <FeaturesSection/>
                   <ProductRelativeCard/>
                   <ContactSection/>
                 </div>
