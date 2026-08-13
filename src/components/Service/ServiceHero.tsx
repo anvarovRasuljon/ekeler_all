@@ -50,7 +50,7 @@ const ServiceHero: React.FC = () => {
                     —
                   </span>
 
-                  <span className="text-[8vw] lg:text-[9vw] font-extralight leading-[0.8] tracking-[-0.05em] text-white">
+                  <span className="text-[18vw] sm:text-[14vw] font-extralight leading-[0.8] tracking-[-0.05em] text-white">
                     {logo}
                   </span>
                 </React.Fragment>

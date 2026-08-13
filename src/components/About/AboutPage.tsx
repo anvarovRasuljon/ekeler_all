@@ -8,12 +8,12 @@ import type { AboutCompanyFeatureData } from './AboutFeatures';
 import AboutCompanyFeature from './AboutFeatures';
 
 import aboutMainImg from '../../assets/home_about_first_img.jpg';
-import aboutContentImg from '../../assets/home_features_img.png';
-import block370_1 from '../../assets/Industry_1.png';
-import block370_2 from '../../assets/Industry_2.png';
-import block350_1 from '../../assets/Industry_3.png';
-import block350_2 from '../../assets/Industry_4.png';
-import aboutFeatureImg from '../../assets/home_about_second_img.png';
+import aboutContentImg from '../../assets/about_first.png';
+import block370_1 from '../../assets/about_second.jpg';
+import block370_2 from '../../assets/about_sird.jpg';
+import block350_1 from '../../assets/about_four.jpg';
+import block350_2 from '../../assets/about_five.avif';
+import aboutFeatureImg from '../../assets/about_six.avif';
 
 const DEFAULT_IMAGE_DATA: AboutCompanyImageData = {
   image: aboutMainImg,

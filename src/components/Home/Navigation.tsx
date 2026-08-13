@@ -869,17 +869,19 @@ interface LanguageSelectProps {
 const LanguageSelect: React.FC<LanguageSelectProps> = ({ language, onChange, className }) => (
   <div className={cn('relative flex gap-2 items-center min-h-[44px]', className)}>
     <Globe size={16} className="text-[#E88029] shrink-0" />
-    <select
-      value={language}
-      onChange={(e) => onChange(e.target.value as Language)}
-      aria-label="Language"
-      className="appearance-none cursor-pointer rounded-full border border-[#ECECEC] bg-white py-1.5 pl-4 pr-10 text-[14px] font-normal text-[#1B1D20] outline-none transition-colors min-w-[100px] hover:border-[#E88029] focus:border-[#E88029]"
-    >
-      <option value="uz">UZ</option>
-      <option value="ru">RU</option>
-      <option value="eng">EN</option>
-    </select>
-    <ChevronDown size={14} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[#1B1D20]" />
+    <div className="relative flex items-center min-w-[100px] rounded-full border border-[#ECECEC] bg-white transition-colors hover:border-[#E88029] focus-within:border-[#E88029]">
+      <select
+        value={language}
+        onChange={(e) => onChange(e.target.value as Language)}
+        aria-label="Language"
+        className="appearance-none w-full cursor-pointer bg-transparent py-1.5 pl-3 pr-10 text-[14px] font-normal text-[#1B1D20] outline-none"
+      >
+        <option value="uz">UZ</option>
+        <option value="ru">RU</option>
+        <option value="eng">EN</option>
+      </select>
+      <ChevronDown size={14} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[#1B1D20]" />
+    </div>
   </div>
 )
 
