@@ -199,7 +199,7 @@ import ProductHero from "./components/Product/ProductHero";
 import CatalogCtaSection from "./components/Product/ProductCatalog";
 import ProductGrid from "./components/Product/ProductGrid";
 import ProductDetail from "./components/Product/ProductDetail/ProductDetail";
-import ProductCatalog from "./components/Product/ProductDetail/ProductCatalog";
+
 import { ProductRelativeCard } from "./components/Product/ProductDetail/ProductRelativeCard";
 import ServiceHero from "./components/Service/ServiceHero";
 import ServiceCtaSection from "./components/Service/ServiceCtaSection";
