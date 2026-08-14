@@ -94,7 +94,7 @@ function AboutCompanyFeature({
     <div className="flex flex-col gap-6 md:gap-8">
       {showImage && (
         <div
-          className="w-full max-w-[650px] h-[280px] md:h-[360px] rounded-lg overflow-hidden"
+          className="w-full h-[280px] md:h-auto md:aspect-[650/360] rounded-lg overflow-hidden"
         >
           <SanityImage
             source={data.image}
@@ -120,12 +120,12 @@ function AboutCompanyFeature({
         {(data.description || data.description_bottom) && (
           <div className="flex flex-col max-w-[490px]">
             {data.description && (
-              <p className="font-['Inter'] text-sm leading-relaxed text-[#1B1D20] sm:text-base whitespace-pre-line">
+              <p className="font-['Inter'] text-sm leading-relaxed text-[#1B1D20] sm:text-base whitespace-pre-line px-4 md:px-0">
                 {t(data.description)}
               </p>
             )}
             {data.description_bottom && (
-              <p className="font-['Inter'] text-sm leading-relaxed text-[#1B1D20] mt-6 sm:text-base whitespace-pre-line">
+              <p className="font-['Inter'] text-sm leading-relaxed text-[#1B1D20] mt-6 sm:text-base whitespace-pre-line px-4 md:px-0">
                 {t(data.description_bottom)}
               </p>
             )}

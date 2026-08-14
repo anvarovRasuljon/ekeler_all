@@ -111,12 +111,12 @@ const CatalogCtaSection: React.FC<CtaSectionProps> = ({
 
         {/* Badge + Title */}
         {badgeTextValue && (
-          <span className="mb-10 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
+          <span className="mb-10 mt-4 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
             {badgeTextValue}
           </span>
         )}
 
-        <h2 className=" w-full max-w-[610px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20]">
+        <h2 className="mb-8 w-full max-w-[610px] break-words font-normal text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,50px)] text-[#1B1D20] px-4 sm:px-0">
           {descBefore && <span className="text-[#1B1D20]">{descBefore}</span>}
           {descAfter && <span className="text-[#E88029]">{descAfter}</span>}
         </h2>

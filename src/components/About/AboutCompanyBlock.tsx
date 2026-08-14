@@ -329,9 +329,9 @@ function AboutCompanyBlock({
           )}
         </div> */}
 
-<div className="flex flex-row gap-3 items-start pr-3 mb-4 sm:gap-4">
+<div className="flex flex-row gap-3 items-start pr-0 mb-4 w-full sm:gap-4">
   {hasSanityImage(data.image370_1) && (
-    <div className="flex-[1_1_45%] min-w-0 h-[220px] rounded-[8px] overflow-hidden sm:h-[320px]">
+    <div className="w-[calc(60%-6px)] h-[170px] rounded-[8px] overflow-hidden min-w-0 sm:h-auto sm:aspect-[380/320]">
       <SanityImage
         source={data.image370_1}
         alt={(data.image370_1 as { alt?: string })?.alt}
@@ -343,7 +343,7 @@ function AboutCompanyBlock({
     </div>
   )}
   {hasSanityImage(data.image370_2) && (
-    <div className="flex-[1_1_45%] min-w-0 h-[150px] rounded-[8px] overflow-hidden sm:h-[200px]">
+    <div className="w-[calc(40%-6px)] h-[120px] rounded-[8px] overflow-hidden min-w-0 sm:h-auto sm:aspect-[270/200]">
       <SanityImage
         source={data.image370_2}
         alt={(data.image370_2 as { alt?: string })?.alt}
@@ -365,7 +365,7 @@ function AboutCompanyBlock({
             </h2>
           )}
           {(data.description1 || data.description1_bottom) && (
-            <div className="flex flex-col w-full max-w-[480px]">
+            <div className="flex flex-col w-full max-w-[480px] px-4 md:px-0">
               {data.description1 && (
                 <p className={`text-left whitespace-pre-line ${textClass} mb-[30px]`}>
                   {t(data.description1)}
@@ -384,10 +384,10 @@ function AboutCompanyBlock({
       {/* —— 2-blok: kichik + katta rasm → title + description → mini descr —— */}
       <div className="flex flex-col justify-between gap-8 lg:min-h-[500px] lg:gap-0">
         {/* Rasmlar: mobilda ham yonma-yon (2 column, 1 row) */}
-        <div className="flex flex-row gap-3 items-end pr-3 mb-5 sm:gap-4">
+        <div className="flex flex-row gap-3 items-end pr-0 mb-5 w-full sm:gap-4">
           {hasSanityImage(data.image350_1) && (
             <div
-              className="flex-[1_1_45%] h-[150px] rounded-[8px] overflow-hidden min-w-0 sm:h-[200px]"
+              className="w-[calc(40%-6px)] h-[120px] rounded-[8px] overflow-hidden min-w-0 sm:h-auto sm:aspect-[270/200]"
             >
               <SanityImage
                 source={data.image350_1}
@@ -401,7 +401,7 @@ function AboutCompanyBlock({
           )}
           {hasSanityImage(data.image350_2) && (
             <div
-              className="flex-[1_1_45%] h-[220px] rounded-[8px] overflow-hidden min-w-0 sm:h-[300px]"
+              className="w-[calc(60%-6px)] h-[170px] rounded-[8px] overflow-hidden min-w-0 sm:h-auto sm:aspect-[380/300]"
             >
               <SanityImage
                 source={data.image350_2}
@@ -426,7 +426,7 @@ function AboutCompanyBlock({
   )}
 
   {/* O'ng: 2 ta description — flex-col */}
-  <div className="flex w-full max-w-[480px] flex-col gap-5">
+  <div className="flex w-full max-w-[480px] flex-col gap-5 px-4 md:px-0">
     {data.description2 && (
       <p className={`whitespace-pre-line ${textClass} text-start`}>
         {t(data.description2)}

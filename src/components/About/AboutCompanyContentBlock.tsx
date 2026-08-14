@@ -108,7 +108,7 @@ function HighlightedDescription({
 function AboutCompanyContentBlock({
   data,
   minHeight = 'calc(100dvh - 100px)',
-  descriptionClassName = "font-['Inter'] font-normal text-[26px] leading-[34px] mb-[30px] sm:text-[20px] sm:leading-[20px] lg:text-[40px] lg:leading-[48px] text-[#1B1D20] max-w-[520px] whitespace-pre-line break-words",
+  descriptionClassName = "font-['Inter'] font-normal text-[26px] leading-[34px] mb-[30px] sm:text-[20px] sm:leading-[20px] lg:text-[40px] lg:leading-[48px] text-[#1B1D20] max-w-[520px] whitespace-pre-line break-words px-4",
   stacked = false,
 }: {
   data: AboutCompanyContentData | null;
@@ -135,32 +135,6 @@ function AboutCompanyContentBlock({
       className={stacked ? "flex flex-col gap-6 w-full" : "flex w-full flex-col justify-between gap-10 max-lg:!min-h-0 lg:gap-0"}
       style={stacked ? undefined : { minHeight }}
     >
-      {/* TEPADA: Title + Image */}
-      {/* <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-        {data.title && (
-          <h1
-            className="mb-6 rounded-full w-fit border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500"
-            style={{ letterSpacing: '-0.02em' }}
-          >
-            {t(data.title)}
-          </h1>
-        )}
-
-        {showImage && (
-          <div
-            className="w-full sm:w-[500px] h-[200px] rounded-lg overflow-hidden shrink-0"
-          >
-            <SanityImage
-              source={data.image}
-              alt={imageAlt}
-              className="object-cover w-full h-full"
-              width={500}
-              height={200}
-              reveal="bottom-top"
-            />
-          </div>
-        )}
-      </div> */}
       <div className="flex flex-row gap-4 justify-between items-start sm:gap-6">
         {data.title && (
           <h1
@@ -173,7 +147,7 @@ function AboutCompanyContentBlock({
 
         {showImage && (
           <div
-            className="w-[500px] h-[300px] rounded-lg overflow-hidden shrink-0"
+            className="w-[200px] h-[100px] rounded-lg overflow-hidden shrink-0 sm:w-[500px] sm:h-[300px]"
           >
             <SanityImage
               source={data.image}
@@ -188,7 +162,7 @@ function AboutCompanyContentBlock({
       </div>
 
       {/* PASTDA: Description → Tel/Email → Location */}
-      <div className="flex flex-col gap-5 items-start md:gap-6 w-[360px] sm:w-[480px] ">
+      <div className="flex flex-col gap-4 items-start md:gap-5 w-[360px] sm:w-[480px] ">
         {data.description && (
           <HighlightedDescription
             text={t(data.description)}
@@ -199,14 +173,16 @@ function AboutCompanyContentBlock({
 
         {(data.phone || data.email) && (
           <div
-            className="flex flex-wrap items-center gap-4 md:gap-8 font-['Inter'] font-normal text-[14px] leading-[18px] text-[#1B1D20]"
+            className="flex flex-wrap items-center gap-4 md:gap-8 px-4 font-['Inter'] font-normal text-[14px] leading-[18px] text-[#1B1D20]"
           >
             {data.phone && (
               <a
                 href={`tel:${data.phone.replace(/\s/g, '')}`}
                 className="flex items-center gap-2 hover:text-[#E88029] shrink-0"
               >
-                <Phone size={14} strokeWidth={1.5} />
+                <span className="inline-flex items-center justify-center rounded-full border border-[#ECECEC] p-[11px] lg:p-[14px]">
+                  <Phone strokeWidth={1.5} className="w-[9px] h-[9px] lg:w-3 lg:h-3" />
+                </span>
                 <span>{data.phone}</span>
               </a>
             )}
@@ -216,7 +192,9 @@ function AboutCompanyContentBlock({
                 href={`mailto:${data.email}`}
                 className="flex items-center gap-2 hover:text-[#E88029] shrink-0"
               >
-                <Mail size={14} strokeWidth={1.5} />
+                <span className="inline-flex items-center justify-center rounded-full border border-[#ECECEC] p-[11px] lg:p-[14px]">
+                  <Mail strokeWidth={1.5} className="w-[9px] h-[9px] lg:w-3 lg:h-3" />
+                </span>
                 <span>{data.email}</span>
               </a>
             )}
@@ -225,9 +203,11 @@ function AboutCompanyContentBlock({
 
         {data.location && (
           <div
-            className="flex items-start gap-2 max-w-[250px] font-['Inter'] font-normal text-[14px] leading-[18px] text-[#1B1D20] mt-1"
+            className="flex items-center gap-2 px-4 max-w-[250px] font-['Inter'] font-normal text-[14px] leading-[18px] text-[#1B1D20]"
           >
-            <MapPin size={14} strokeWidth={1.5} className="mt-0.5 shrink-0" />
+            <span className="inline-flex items-center justify-center rounded-full border border-[#ECECEC] p-[11px] lg:p-[14px] shrink-0">
+              <MapPin strokeWidth={1.5} className="w-[9px] h-[9px] lg:w-3 lg:h-3" />
+            </span>
             <span className="whitespace-pre-line">
               {t(data.location)}
             </span>

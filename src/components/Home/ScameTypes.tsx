@@ -93,7 +93,7 @@ const InpusSection: React.FC<InpusSectionProps> = ({
           {badgeTextValue}
         </span>
 
-        <h2 className="mb-8 w-full max-w-[510px] break-words font-normal text-[28px] leading-[34px] text-[#1B1D20] md:text-[40px] md:leading-[48px]">
+        <h2 className="mb-8 w-full max-w-[510px] break-words font-normal text-[28px] leading-[34px] text-[#1B1D20] md:text-[40px] md:leading-[48px] px-4 sm:px-0">
           {twoColorMode ? (
             <>
               {descBefore && <span className="text-[#1B1D20]">{descBefore}</span>}
