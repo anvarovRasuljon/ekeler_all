@@ -10,9 +10,9 @@ export const CONTACT_ITEMS: ContactItem[] = [
   {
     id: 1,
     title: { uz: "Telefon raqami", ru: "Номер телефона", eng: "Phone number" },
-    value: "+998 77 777-77-77",
+    value: "+998 90 808-87-89",
     icon: "phone",
-    href: "tel:+998777777777",
+    href: "tel:+998908088789",
   },
   {
     id: 2,

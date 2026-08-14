@@ -22,7 +22,7 @@ Kompaniya saytdagi ma'lumotlarning to'liqligi va aniqligini ta'minlashga harakat
 Ushbu Foydalanish shartlari istalgan vaqtda yangilanishi mumkin. O'zgarishlar sahifada e'lon qilingan kundan e'tiboran kuchga kiradi.
 8. Kontaktlar
 Foydalanish shartlariga oid savollaringiz bo'lsa:
-• Telefon: +99877 777-77-77
+• Telefon: +998 90 808-87-89
 • Email: info@ekeler.uz
-• Manzil: Республика Узбекистан, г. Ташкент,  `
+• Manzil: А.Темур 53, Toshkent,  `
 }

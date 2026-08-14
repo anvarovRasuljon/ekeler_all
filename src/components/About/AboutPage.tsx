@@ -33,9 +33,9 @@ const DEFAULT_CONTENT_DATA: AboutCompanyContentData = {
     uz: `birinchi ishlab chiqargan kompaniyamiz`,
     eng: `the first company to produce corrugated cardboard in Uzbekistan`,
   },
-  phone: '+998 90 123 45 67',
+  phone: '+998 90 808-87-89',
   email: 'info@ekeler.uz',
-  location: { ru: 'Ташкент, Узбекистан', uz: "Toshkent, O'zbekiston", eng: 'Tashkent, Uzbekistan' },
+  location: { ru: 'А.Темур 53, Ташкент', uz: "Amir Temur 53, Toshkent", eng: 'Amir Temur 53, Tashkent' },
 };
 const NAV_HEIGHT_PX = 65;
 const IMG_GAP = 30;

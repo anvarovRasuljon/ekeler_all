@@ -13,12 +13,12 @@ const DEFAULT_CONTENT_DATA: AboutCompanyContentData = {
     uz: "Ekeler bilan bog'laning. Savol, buyurtma yoki namuna so'rash uchun quyidagi ma'lumotlardan foydalaning.",
     eng: "Get in touch with Ekeler. Use the details below for questions, orders, or sample requests.",
   },
-  phone: "+998 77 777-77-77",
+  phone: "+998 90 808-87-89",
   email: "info@ekeler.uz",
   location: {
-    ru: "Ташкент, Узбекистан",
-    uz: "Toshkent, O'zbekiston",
-    eng: "Tashkent, Uzbekistan",
+    ru: "А.Темур 53, Ташкент",
+    uz: "Amir Temur 53, Toshkent",
+    eng: "Amir Temur 53, Tashkent",
   },
 };
 
@@ -38,7 +38,7 @@ export const ContactInfo: React.FC = () => {
           )}
           <iframe
             title="Office map"
-            src="https://maps.google.com/maps?q=Tashkent&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=Amir Temur 53, Amir Temur 53, Tashkent&t=&z=13&ie=UTF8&iwloc=&output=embed"
             className={`block w-full h-full border-0 transition-opacity duration-500 ${
               mapLoaded ? 'opacity-100' : 'opacity-0'
             }`}
@@ -65,7 +65,7 @@ export const ContactInfo: React.FC = () => {
               )}
               <iframe
                 title="Office map"
-                src="https://maps.google.com/maps?q=Tashkent&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=Amir Temur 53, Amir Temur 53, Tashkent&t=&z=13&ie=UTF8&iwloc=&output=embed"
                 className={`block w-full h-full border-0 transition-opacity duration-500 ${
                   mapLoaded ? 'opacity-100' : 'opacity-0'
                 }`}

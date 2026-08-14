@@ -31,7 +31,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   shortDescriptionHighlight = translations.home.contactSection.shortDescriptionHighlight,
   description = translations.home.contactSection.description,
   longDescription,
-  phone = "+998 90 123 45 67",
+  phone = "+998 90 808-87-89",
   email = "info@ekeler.uz",
   mapText = translations.home.contactSection.mapText,
 }) => {

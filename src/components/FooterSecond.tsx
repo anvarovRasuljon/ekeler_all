@@ -35,9 +35,9 @@ const FooterSecond: React.FC = () => {
   const navLabel = { ru: "Компания", uz: "Kompaniya", eng: "Company" };
   const socialLabel = { ru: "Социальные сети", uz: "Ijtimoiy tarmoqlar", eng: "Social networks" };
   const contactLabel = { ru: "Связаться с нами", uz: "Aloqaga chiqish", eng: "Contact us" };
-  const phone = "+998 71 200-66-88";
+  const phone = "+998 90 808-87-89";
   const email = "info@vitech.uz";
-  const address = { ru: "Республика Узбекистан, г. Ташкент, ул. Юкори Чирчик, 1 А", uz: "O'zbekiston Respublikasi, Toshkent sh., Yuqori Chirchiq ko'ch., 1 A", eng: "Republic of Uzbekistan, Tashkent, Yukori Chirchik st., 1 A" };
+  const address = { ru: "А.Темур 53, Ташкент", uz: "Amir Temur 53, Toshkent", eng: "Amir Temur 53, Tashkent" };
   const copyrightText = { ru: "© Все права защищены. 2025", uz: "© Barcha huquqlar himoyalangan. 2025", eng: "© All rights reserved. 2025" };
   const privacyPolicyLink = "/privacy-policy";
   const termsOfUseLink = "/terms-of-use";

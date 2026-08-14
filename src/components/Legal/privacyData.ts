@@ -28,7 +28,7 @@ orqali biz bilan bog'lanishingiz mumkin.
 Ushbu Maxfiylik siyosati vaqti-vaqti bilan yangilanishi mumkin. O'zgarishlar shu sahifada e'lon gilinadi.
 8. Kontaktlar
 Maxfiylik siyosatiga oid savollaringiz bo'lsa:
-• Telefon: +99877 777-77-77
+• Telefon: +998 90 808-87-89
 • Email: info@ekeler.uz
-• Manzil: Республика Узбекистан, г. Ташкент,  `
+• Manzil: А.Темур 53, Toshkent,  `
 }

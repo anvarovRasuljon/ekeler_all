@@ -16,7 +16,7 @@
 // const Hero: React.FC<HeroProps> = ({
 //   title = translations.home.hero.title,
 //   buttonText = translations.home.hero.buttonText,
-//   phone = "+998 90 123 45 67",
+//   phone = "+998 90 808-87-89",
 //   email = "info@ekeler.uz",
 //   logoText = "Ekeler",
 //   backgroundImage,
@@ -167,7 +167,7 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({
   title = translations.home.hero.title,
   buttonText = translations.home.hero.buttonText,
-  phone = "+998 90 123 45 67",
+  phone = "+998 90 808-87-89",
   email = "info@ekeler.uz",
   logoText = "Ekeler",
   backgroundImage,

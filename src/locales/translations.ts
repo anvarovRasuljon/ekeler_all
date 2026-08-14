@@ -128,9 +128,9 @@ export const translations = {
         eng: "In 2020, there was no company in Uzbekistan producing corrugated cardboard locally — all materials were imported. We filled that gap. Today, our clients are supplied with corrugated cardboard and pallets without import dependency, customs delays, or extra costs.",
       },
       mapText: {
-        uz: "Toshkent, O'zbekiston",
-        ru: "Ташкент, Узбекистан",
-        eng: "Tashkent, Uzbekistan",
+        uz: "Amir Temur 53, Toshkent",
+        ru: "А.Темур 53, Ташкент",
+        eng: "Amir Temur 53, Tashkent",
       },
     },
     featuresSection: {
