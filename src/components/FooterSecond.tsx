@@ -12,7 +12,7 @@ export interface FooterLink {
 const DEFAULT_NAV_LINKS: FooterLink[] = [
   { label: { ru: "Главная", uz: "Bosh sahifa", eng: "Home" }, href: "/" },
   { label: { ru: "О нас", uz: "Biz haqimizda", eng: "About" }, href: "/about" },
-  { label: { ru: "Услуги", uz: "Xizmatlar", eng: "Services" }, href: "/services" },
+  { label: { ru: "Отрасли", uz: "Tarmoqlar", eng: "Industries" }, href: "/service" },
   { label: { ru: "Продукты", uz: "Mahsulotlar", eng: "Products" }, href: "/products" },
   { label: { ru: "Контакты", uz: "Kontaktlar", eng: "Contact" }, href: "/contact" },
 ];
@@ -36,7 +36,7 @@ const FooterSecond: React.FC = () => {
   const socialLabel = { ru: "Социальные сети", uz: "Ijtimoiy tarmoqlar", eng: "Social networks" };
   const contactLabel = { ru: "Связаться с нами", uz: "Aloqaga chiqish", eng: "Contact us" };
   const phone = "+998 90 808-87-89";
-  const email = "info@vitech.uz";
+  const email = "info@ekeler.uz";
   const address = { ru: "А.Темур 53, Ташкент", uz: "Amir Temur 53, Toshkent", eng: "Amir Temur 53, Tashkent" };
   const copyrightText = { ru: "© Все права защищены. 2025", uz: "© Barcha huquqlar himoyalangan. 2025", eng: "© All rights reserved. 2025" };
   const privacyPolicyLink = "/privacy-policy";

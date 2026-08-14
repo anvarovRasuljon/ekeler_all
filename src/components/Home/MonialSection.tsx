@@ -113,7 +113,7 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
         )}
 
         <div className="mt-auto">
-          <div className="overflow-hidden flex items-center bg-white min-h-[350px] max-w-[1540px] mx-auto rounded-[8px] border border-[#ECECEC] shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
+          <div className="overflow-hidden flex flex-col items-center bg-white min-h-[350px] max-w-[1540px] mx-auto rounded-[8px] border border-[#ECECEC] shadow-[0_10px_40px_rgba(0,0,0,0.08)] lg:flex-row">
             <div className="flex flex-col lg:flex-row lg:items-stretch">
               {/* Chap arrow — faqat desktop (lg+), card bilan orasida #ECECEC border */}
               <button
@@ -153,7 +153,7 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
             </div>
 
             {/* Mobil (< lg): arrowlar pastda, top border bilan ajratilgan, ora-orasida 1 ta vertikal border */}
-            <div className="flex border-t border-[#ECECEC] lg:hidden">
+            <div className="flex w-full border-t border-[#ECECEC] lg:hidden">
               <button
                 type="button"
                 onClick={() => changePage("prev")}
@@ -186,7 +186,7 @@ const TestimonialCard = React.memo(function TestimonialCard({
   testimonial: Testimonial;
 }) {
   return (
-    <div className="flex min-h-[clamp(220px,14rem+4vw,280px)] max-h-[clamp(220px,14rem+4vw,280px)] flex-col justify-between overflow-hidden px-5 py-6 sm:px-8 sm:py-8">
+    <div className="flex min-h-[320px] max-h-[320px] flex-col justify-between overflow-hidden px-5 py-10 sm:min-h-[clamp(240px,14rem+4vw,320px)] sm:max-h-[clamp(240px,14rem+4vw,320px)] sm:px-8 sm:py-8">
       <p className="break-words text-[clamp(15px,0.9rem+0.2vw,18px)] leading-relaxed text-[#1B1D20]">
         {safeText(testimonial.quote)}
       </p>

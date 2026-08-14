@@ -832,7 +832,7 @@ import AnimatedImage from './AnimatedImage';
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/logo.svg'
-import { Globe, ChevronDown } from 'lucide-react'
+import { Globe, ChevronDown, X, Phone, Mail } from 'lucide-react'
 import { useLanguage } from '../../context/LanguageContext';
 import type { Language } from '../../context/LanguageContext'
 import { cn } from '../../lib/cn'
@@ -842,22 +842,29 @@ const navLinkClass =
 
 const labels = {
   ru: {
+    home: 'Главная',
     products: 'Продукция',
     about: 'О нас',
+    industries: 'Отрасли',
     contact: 'Контакты',
-    service:"Услуги"
+    service: 'Услуги',
   },
   uz: {
+    home: 'Bosh sahifa',
     products: 'Mahsulotlar',
     about: 'Biz haqimizda',
+    industries: 'Tarmoqlar',
     contact: 'Kontaktlar',
-    service: 'Tarmoqlar',
+    service: 'Xizmatlar',
   },
   eng: {
+    home: 'Home',
     products: 'Products',
-    about: 'About Us',
-    contact: 'Contact',
-    service:"Services"  },
+    about: 'About us',
+    industries: 'Industries',
+    contact: 'Contacts',
+    service: 'Services',
+  },
 }
 
 interface LanguageSelectProps {
@@ -983,10 +990,19 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
 
   useEffect(() => {
     if (!isOpen) return
-    const previous = document.body.style.overflow
+    const previousHtmlOverflow = document.documentElement.style.overflow
+    const previousBodyOverflow = document.body.style.overflow
+    const previousBodyTouchAction = document.body.style.touchAction
+    const previousBodyOverscroll = (document.body.style as any).overscrollBehavior
+    document.documentElement.style.overflow = 'hidden'
     document.body.style.overflow = 'hidden'
+    document.body.style.touchAction = 'none'
+    ;(document.body.style as any).overscrollBehavior = 'none'
     return () => {
-      document.body.style.overflow = previous
+      document.documentElement.style.overflow = previousHtmlOverflow
+      document.body.style.overflow = previousBodyOverflow
+      document.body.style.touchAction = previousBodyTouchAction
+      ;(document.body.style as any).overscrollBehavior = previousBodyOverscroll
     }
   }, [isOpen])
 
@@ -1074,8 +1090,8 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
               <a href="/service" className={navLinkClass}>
                 <div className="h-[1.3em] overflow-hidden">
                   <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
-                    <span className="text-[#1B1D20] text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-[1.3em]">{t.service}</span>
-                    <span className="text-[#E88029] text-[clamp(13px,0.8rem+0.1vw,15px)] font-medium leading-[1.3em]">{t.service}</span>
+                    <span className="text-[#1B1D20] text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-[1.3em]">{t.industries}</span>
+                    <span className="text-[#E88029] text-[clamp(13px,0.8rem+0.1vw,15px)] font-medium leading-[1.3em]">{t.industries}</span>
                   </div>
                 </div>
                 <span className="absolute bottom-[4px] left-1/2 h-[1.5px] w-0 -translate-x-1/2 bg-[#E88029] transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:w-full" />
@@ -1118,70 +1134,81 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
           </button>
         </div>
 
-        {/* Mobil: fon overlay */}
-        <div
-          aria-hidden={!isOpen}
-          onClick={close}
-          className={cn(
-            'fixed inset-0 z-40 transition-opacity duration-500 top-[65px] bg-black/40 lg:hidden',
-            isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none',
-          )}
-        />
-
-        {/* Mobil: slide-in panel (Responsiv o'lchamlari va flex tuzilishi to'g'irlandi) */}
+        {/* Mobil: to'liq ekran menyu */}
         <div
           id="mobile-nav-panel"
           ref={panelRef}
           className={cn(
-            'fixed right-0 top-[65px] z-50 h-[calc(100dvh-65px)] w-full sm:w-[82%] max-w-[360px] overflow-y-auto border-l border-neutral-200 bg-white px-6 py-8 transition-transform duration-500 ease-out lg:hidden flex flex-col justify-between',
+            'flex overflow-hidden fixed inset-0 z-50 flex-col bg-white transition-transform duration-500 ease-out h-[100dvh] lg:hidden',
             isOpen ? 'translate-x-0' : 'translate-x-full',
           )}
         >
-          <ul className="flex flex-col gap-4 p-0 m-0 list-none">
-            <li>
-              <a href="/products" onClick={close} className="block overflow-hidden relative py-2 group">
-                <div className="h-[1.3em] overflow-hidden">
-                  <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
-                    <span className="flex w-full items-center text-[#1B1D20] text-[18px] font-normal leading-[1.3em]">{t.products}</span>
-                    <span className="flex w-full items-center text-[#E88029] text-[18px] font-medium leading-[1.3em]">{t.products}</span>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li>
-              <Link to="/about" onClick={close} className="block overflow-hidden relative py-2 group">
-                <div className="h-[1.3em] overflow-hidden">
-                  <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
-                    <span className="flex w-full items-center text-[#1B1D20] text-[18px] font-normal leading-[1.3em]">{t.about}</span>
-                    <span className="flex w-full items-center text-[#E88029] text-[18px] font-medium leading-[1.3em]">{t.about}</span>
-                  </div>
-                </div>
+          {/* Header: logo + X */}
+          <div className="flex h-[65px] shrink-0 items-center justify-between px-6">
+            <Link to="/" onClick={close} className="flex items-center">
+              <AnimatedImage src={logo} alt="Ekeler Logo" className="h-[28px] w-auto" />
+            </Link>
+            <button
+              type="button"
+              onClick={close}
+              aria-label="Close menu"
+              className="flex h-[44px] w-[44px] items-center justify-center"
+            >
+              <X size={24} className="text-[#1B1D20]" />
+            </button>
+          </div>
+
+          {/* Menyu */}
+          <ul className="flex overflow-y-auto flex-col flex-1 gap-0 justify-start items-center m-0 list-none">
+            <li className="w-full border-b border-neutral-200">
+              <Link to="/" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
+                {t.home}
               </Link>
             </li>
-            <li>
-              <a href="/service" onClick={close} className="block overflow-hidden relative py-2 group">
-                <div className="h-[1.3em] overflow-hidden">
-                  <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
-                    <span className="flex w-full items-center text-[#1B1D20] text-[18px] font-normal leading-[1.3em]">{t.service}</span>
-                    <span className="flex w-full items-center text-[#E88029] text-[18px] font-medium leading-[1.3em]">{t.service}</span>
-                  </div>
-                </div>
+            <li className="w-full border-b border-neutral-200">
+              <a href="/products" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
+                {t.products}
               </a>
             </li>
-            <li>
-              <a href="/contact" onClick={close} className="block overflow-hidden relative py-2 group">
-                <div className="h-[1.3em] overflow-hidden">
-                  <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
-                    <span className="flex w-full items-center text-[#1B1D20] text-[18px] font-normal leading-[1.3em]">{t.contact}</span>
-                    <span className="flex w-full items-center text-[#E88029] text-[18px] font-medium leading-[1.3em]">{t.contact}</span>
-                  </div>
-                </div>
+            <li className="w-full border-b border-neutral-200">
+              <Link to="/about" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
+                {t.about}
+              </Link>
+            </li>
+            <li className="w-full border-b border-neutral-200">
+              <a href="/service" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
+                {t.industries}
+              </a>
+            </li>
+            <li className="w-full border-b border-neutral-200">
+              <a href="/contact" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
+                {t.contact}
               </a>
             </li>
           </ul>
 
-          <div className="pt-4 mt-auto border-t border-neutral-200 pb-safe">
+          {/* Footer */}
+          <div className="flex flex-col gap-2 items-center px-6 pt-2 pb-0 mb-8 shrink-0">
             <LanguageSelect language={language} onChange={setLanguage} />
+            <a href="tel:+998908088789" className="flex items-center gap-3 text-[#1B1D20] text-[14px]">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#ECECEC]">
+                <Phone size={16} />
+              </span>
+              +998 90 808-87-89
+            </a>
+            <a href="mailto:info@ekeler.uz" className="flex items-center gap-3 text-[#1B1D20] text-[14px]">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#ECECEC]">
+                <Mail size={16} />
+              </span>
+              info@ekeler.uz
+            </a>
+            <p className="text-center text-[12px] text-[#6B7280]">
+              {language === 'ru'
+                ? '© 2026 Ekeler. Все права защищены.'
+                : language === 'uz'
+                  ? '© 2026 Ekeler. Barcha huquqlar himoyalangan.'
+                  : '© 2026 Ekeler. All rights reserved.'}
+            </p>
           </div>
         </div>
       </nav>

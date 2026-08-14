@@ -35,7 +35,7 @@ interface FooterProps {
 const DEFAULT_NAV_LINKS: FooterLink[] = [
   { label: { ru: "Главная", uz: "Bosh sahifa", eng: "Home" }, href: "/" },
   { label: { ru: "Продукты", uz: "Mahsulotlar", eng: "Products" }, href: "/products" },
-  { label: { ru: "Отрасли", uz: "Tarmoqlar", eng: "Industries" }, href: "/services" },
+  { label: { ru: "Отрасли", uz: "Tarmoqlar", eng: "Industries" }, href: "/service" },
   { label: { ru: "Контакты", uz: "Kontaktlar", eng: "Contact" }, href: "/contact" },
   { label: { ru: "О нас", uz: "Biz haqimizda", eng: "About" }, href: "/about" },
 ];
@@ -58,7 +58,7 @@ const Footer: React.FC<FooterProps> = ({
   socialLinks = DEFAULT_SOCIAL_LINKS,
   contactLabel = { ru: "Свяжитесь с нами", uz: "Aloqaga chiqish", eng: "Contact us" },
   phone = "+998 90 808-87-89",
-  email = "info@vitech.uz",
+  email = "info@ekeler.uz",
   address = { ru: "Amir Temur 53, Toshkent", uz: "Amir Temur 53, Toshkent", eng: "Amir Temur 53, Toshkent" },
   copyrightText = { ru: "© 2026 Ekeler. Все права защищены.", uz: "© 2026 Ekeler. Barcha huquqlar himoyalangan.", eng: "© 2026 Ekeler. All rights reserved." },
   privacyPolicyLink = "/privacy-policy",

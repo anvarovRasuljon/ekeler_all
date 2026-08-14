@@ -122,7 +122,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({
                 key={i}
                 style={revealStyle(statsReveal.visible, 320 + i * 90)}
                 className={[
-                  "py-6 pr-0 sm:py-7",
+                  "border-b border-neutral-200 py-6 pr-0 sm:border-b-0 sm:py-7",
                   i % 2 === 0 ? "sm:pr-8" : "sm:pl-8 ",
                 ].join(" ")}
               >

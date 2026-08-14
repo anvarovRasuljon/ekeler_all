@@ -75,7 +75,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
         {imageUrl && (
           <div
             style={revealStyle(sectionReveal.visible, 0)}
-            className="overflow-hidden rounded-xl md:rounded-2xl"
+            className="hidden overflow-hidden rounded-xl md:block md:rounded-2xl"
           >
             <AnimatedImage
               src={imageUrl}

@@ -137,7 +137,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
 
         {/* Badge + Title */}
         {badgeTextValue && (
-          <span className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
+          <span className="mt-4 mb-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
             {badgeTextValue}
           </span>
         )}
@@ -163,7 +163,7 @@ const CtaSection: React.FC<CtaSectionProps> = ({
         {buttonLabel && (
           <Link
             to={buttonLink}
-            className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] mt-[28px] cursor-pointer transition-all duration-700 ease-out"
+            className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] mt-[28px] mb-8 cursor-pointer transition-all duration-700 ease-out"
           >
             <span className="inline-flex gap-6 items-center">
               <div className="contact-text-wrapper relative overflow-hidden h-[1.2em]">

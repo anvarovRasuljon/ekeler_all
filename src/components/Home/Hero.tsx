@@ -172,7 +172,7 @@ const Hero: React.FC<HeroProps> = ({
   logoText = "Ekeler",
   backgroundImage,
 }) => {
-  const [imageLoaded, setImageLoaded] = useState(!backgroundImage)
+  const [imageLoaded, setImageLoaded] = useState(!backgroundImage || (typeof window !== 'undefined' && window.innerWidth < 1024))
   const { t } = useLanguage()
   const buttonHref = "/products"
   const phoneValue = useMemo(() => (phone ? t(phone) : undefined), [t, phone])
@@ -189,23 +189,26 @@ const Hero: React.FC<HeroProps> = ({
 
   return (
     <div
-      className="box-border overflow-hidden relative w-full h-[calc(100dvh-73px)] transition-[clip-path,opacity] duration-[2000ms] ease-out"
+      className="box-border overflow-hidden relative z-0 w-full h-[calc(100svh-81px)] lg:h-[calc(100svh-73px)] transition-[clip-path,opacity] duration-[2000ms] ease-out"
       style={{
         clipPath: imageLoaded ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)',
         opacity: imageLoaded ? 1 : 0,
       }}
     >
       {backgroundImage ? (
-        <div className="absolute w-full h-full rounded-[8px]">
-          <OptimizedImage
-            src={backgroundImage}
-            alt="Hero background"
-            width={1920}
-            className="w-full h-full rounded-[8px]"
-            onLoad={() => setImageLoaded(true)}
-          />
+        <>
+          {/* Image + overlay: absolute so they scroll naturally with the page */}
+          <div className="absolute inset-0 rounded-[8px]">
+            <OptimizedImage
+              src={backgroundImage}
+              alt="Hero background"
+              width={1920}
+              className="w-full h-full rounded-[8px]"
+              onLoad={() => setImageLoaded(true)}
+            />
+          </div>
           <div className="absolute inset-0 z-[1] rounded-[8px] bg-[#0000002E]" />
-        </div>
+        </>
       ) : (
         <div className="absolute inset-[15px]" />
       )}
