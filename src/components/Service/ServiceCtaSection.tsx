@@ -91,9 +91,9 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
       <div className="flex relative z-10 flex-col flex-1 items-center px-0 min-w-0 text-center">
 
         {/* ===== MOBILE ONLY ===== */}
-        <div className="flex relative gap-1 justify-around mb-8 w-full sm:hidden">
+        <div className="flex relative gap-1 justify-between mb-8 w-full sm:hidden">
           {/* Left image */}
-          <div className="relative h-[120px] w-[180px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
+          <div className="relative h-[120px] w-[160px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
             <img
               src={inpus_left_img}
               alt=""
@@ -113,7 +113,7 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
           </div>
 
           {/* Right image */}
-          <div className="relative h-[120px] w-[180px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
+          <div className="relative h-[120px] w-[160px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
             <img
               src={inpus_right_img}
               alt=""
@@ -135,7 +135,7 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
 
         {/* Badge + Title */}
         {badgeTextValue && (
-          <span className="mb-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
+          <span className="mb-6 mt-6 rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500">
             {badgeTextValue}
           </span>
         )}

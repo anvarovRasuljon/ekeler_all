@@ -121,7 +121,7 @@ export const ContactPage: React.FC = () => {
           <div className="flex flex-col gap-16 mt-5 w-full min-w-0 lg:w-1/2 md:gap-20">
             <div className="flex flex-col gap-8">
               <div className="flex flex-row gap-4 justify-between items-start mb-[10] mt-5px">
-                <span className="w-fit shrink-0 rounded-full border border-neutral-300 px-4 py-1.5 font-['Inter'] text-xs font-medium tracking-wide text-neutral-500 ml-[-35px]">
+                <span className="w-fit shrink-0 rounded-full border border-neutral-300 px-4 py-1.5 font-['Inter'] text-xs font-medium tracking-wide text-neutral-500 ml-0 lg:ml-[-35px]">
                   {t.eyebrow}
                 </span>
                 <img

@@ -110,11 +110,13 @@ function AboutCompanyContentBlock({
   minHeight = 'calc(100dvh - 100px)',
   descriptionClassName = "font-['Inter'] font-normal text-[26px] leading-[34px] mb-[30px] sm:text-[20px] sm:leading-[20px] lg:text-[40px] lg:leading-[48px] text-[#1B1D20] max-w-[520px] whitespace-pre-line break-words px-4",
   stacked = false,
+  children,
 }: {
   data: AboutCompanyContentData | null;
   minHeight?: number | string;
   descriptionClassName?: string;
   stacked?: boolean;
+  children?: React.ReactNode;
 }) {
   const { t } = useLanguage();
 
@@ -162,7 +164,7 @@ function AboutCompanyContentBlock({
       </div>
 
       {/* PASTDA: Description → Tel/Email → Location */}
-      <div className="flex flex-col gap-4 items-start md:gap-5 w-[360px] sm:w-[480px] ">
+      <div className="flex flex-col gap-4 items-start md:gap-5 w-full sm:w-[480px]">
         {data.description && (
           <HighlightedDescription
             text={t(data.description)}
@@ -171,9 +173,11 @@ function AboutCompanyContentBlock({
           />
         )}
 
+        {children}
+
         {(data.phone || data.email) && (
           <div
-            className="flex flex-wrap items-center gap-4 md:gap-8 px-4 font-['Inter'] font-normal text-[14px] leading-[18px] text-[#1B1D20]"
+            className="flex flex-wrap items-center gap-4 md:gap-8 font-['Inter'] font-normal text-[14px] leading-[18px] text-[#1B1D20]"
           >
             {data.phone && (
               <a
@@ -203,7 +207,7 @@ function AboutCompanyContentBlock({
 
         {data.location && (
           <div
-            className="flex items-center gap-2 px-4 max-w-[250px] font-['Inter'] font-normal text-[14px] leading-[18px] text-[#1B1D20]"
+            className="flex items-center gap-2 max-w-[250px] font-['Inter'] font-normal text-[14px] leading-[18px] text-[#1B1D20]"
           >
             <span className="inline-flex items-center justify-center rounded-full border border-[#ECECEC] p-[11px] lg:p-[14px] shrink-0">
               <MapPin strokeWidth={1.5} className="w-[9px] h-[9px] lg:w-3 lg:h-3" />

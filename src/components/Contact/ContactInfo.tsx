@@ -28,29 +28,27 @@ export const ContactInfo: React.FC = () => {
   return (
     <div className="w-full bg-white text-[#1B1D20]">
       <div className="px-4 pt-6 pb-16 w-full md:px-6 lg:px-8">
-        {/* Mobil xarita */}
-        {/* Responsive: mobilda xarita foydalanish uchun yetarli balandlikda */}
-        <div className="relative mx-auto mb-8 h-[170px] w-[280px] overflow-hidden rounded-lg bg-neutral-100 sm:h-[270px] sm:w-[430px] lg:hidden">
-          {!mapLoaded && (
-            <div className="flex absolute inset-0 z-10 justify-center items-center">
-              <Loader2 className="w-8 h-8 animate-spin text-neutral-400" />
-            </div>
-          )}
-          <iframe
-            title="Office map"
-            src="https://maps.google.com/maps?q=Amir Temur 53, Amir Temur 53, Tashkent&t=&z=13&ie=UTF8&iwloc=&output=embed"
-            className={`block w-full h-full border-0 transition-opacity duration-500 ${
-              mapLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            loading="eager"
-            onLoad={() => setMapLoaded(true)}
-          />
-        </div>
-
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* CHAP — kontakt ma'lumotlari */}
-          <div className="flex flex-col ml-10 w-full min-w-0 lg:w-1/2">
-            <AboutCompanyContentBlock data={DEFAULT_CONTENT_DATA} stacked descriptionClassName={DESCRIPTION_CLASS} />
+          <div className="flex flex-col ml-0 w-full min-w-0 lg:w-1/2 lg:ml-10">
+            <AboutCompanyContentBlock data={DEFAULT_CONTENT_DATA} stacked descriptionClassName={DESCRIPTION_CLASS}>
+              <div className="relative w-full h-[200px] mb-6 overflow-hidden rounded-lg bg-neutral-100 sm:h-[270px] sm:w-[430px] lg:hidden">
+                {!mapLoaded && (
+                  <div className="flex absolute inset-0 z-10 justify-center items-center">
+                    <Loader2 className="w-8 h-8 animate-spin text-neutral-400" />
+                  </div>
+                )}
+                <iframe
+                  title="Office map"
+                  src="https://maps.google.com/maps?q=Amir Temur 53, Amir Temur 53, Tashkent&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  className={`block w-full h-full border-0 transition-opacity duration-500 ${
+                    mapLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  loading="eager"
+                  onLoad={() => setMapLoaded(true)}
+                />
+              </div>
+            </AboutCompanyContentBlock>
           </div>
 
           {/* O'NG — xarita */}
