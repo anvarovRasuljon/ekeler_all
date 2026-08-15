@@ -69,7 +69,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
 
   return (
     <div ref={sectionReveal.ref} id="contact" className="w-full bg-white">
-  <div className="border-t border-[#ECECEC] mb-20" />
+  <div className="border-t border-[#ECECEC] mb-6 md:mb-20" />
   <div className="grid grid-cols-1 gap-8 px-4 mx-auto max-w-[1540px] md:grid-cols-2 md:gap-12 md:px-6 lg:px-8">
     {/* Left column - image */}
         {imageUrl && (
@@ -91,7 +91,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
         )}
 
         {/* Right column */}
-        <div className="flex flex-col justify-between pb-6 h-full md:pb-10">
+        <div className="flex flex-col justify-between pb-2 h-full md:pb-10">
           {/* Top block */}
           <div>
             {eyebrowText && (
@@ -116,18 +116,18 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
 
           {/* Bottom block */}
-          <div className="mt-8">
+          <div className="mt-2 md:mt-8">
             {/* Description — mobile da kichikroq va soft rang */}
             {displayText && (
               <p
                 style={revealStyle(sectionReveal.visible, 220)}
-                className="mb-8 w-full max-w-[500px] break-words font-inter font-normal text-[15px] leading-[24px] text-[#6B7280] md:text-[clamp(18px,1.1rem+0.3vw,24px)] md:leading-[clamp(26px,1.5rem+0.4vw,32px)] md:text-[#1B1D20]"
+                className="mb-3 w-full max-w-[500px] break-words font-inter font-normal text-[15px] leading-[24px] text-[#6B7280] md:mb-8 md:text-[clamp(18px,1.1rem+0.3vw,24px)] md:leading-[clamp(26px,1.5rem+0.4vw,32px)] md:text-[#1B1D20]"
               >
                 {t(displayText)}
               </p>
             )}
 
-            <div className="mb-6 space-y-4">
+            <div className="mb-3 space-y-4 md:mb-6">
               <div className="flex flex-wrap gap-6 items-center">
                 {phone && (
                   <a href={`tel:${phone}`} style={revealStyle(sectionReveal.visible, 320)} className="flex items-center gap-4 min-h-[44px] cursor-pointer">
@@ -172,7 +172,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
           </div>
         </div>
       </div>
-  <div className="border-b border-[#ECECEC] mt-20" />
+  <div className="hidden border-b border-[#ECECEC] md:block mt-6 md:mt-20" />
     </div>
   );
 };

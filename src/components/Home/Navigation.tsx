@@ -1188,7 +1188,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
           </ul>
 
           {/* Footer */}
-          <div className="flex flex-col gap-2 items-center px-6 pt-2 pb-0 mb-8 shrink-0">
+          <div className="flex flex-col gap-8 items-center px-6 pt-6 pb-0 mb-[50px] shrink-0">
             <LanguageSelect language={language} onChange={setLanguage} />
             <a href="tel:+998908088789" className="flex items-center gap-3 text-[#1B1D20] text-[14px]">
               <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#ECECEC]">

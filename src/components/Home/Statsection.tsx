@@ -74,11 +74,11 @@ const StatsSection: React.FC<StatsSectionProps> = ({
 
   return (
     <div
-      className="mb-20 w-full bg-white"
+      className="mb-6 w-full bg-white md:mb-14"
     >
       {/* Main content */}
       {/* Responsive: mobilda 1 ustun + kichik padding, md dan boshlab 2 ustun */}
-<div className="grid grid-cols-1 gap-8 items-center px-4 py-12 mx-auto max-w-[1540px] md:grid-cols-2 md:gap-12 md:px-6 md:pb-20 md:pt-20 md:min-h-[80vh] md:max-h-[800px] lg:px-8">        {" "}
+<div className="grid grid-cols-1 gap-8 items-center px-4 pt-8 pb-4 mx-auto max-w-[1540px] md:grid-cols-2 md:gap-12 md:px-6 md:pb-14 md:pt-14 md:min-h-[40vh] md:max-h-[800px] lg:px-8">        {" "}
         {/* Left column */}
         <div className="flex flex-col">
           {/* Eyebrow badge */}
@@ -86,7 +86,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({
             <div
               ref={eyebrowReveal.ref}
               style={revealStyle(eyebrowReveal.visible, 0)}
-              className="mb-6 inline-flex w-fit items-center rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500"
+              className="mb-3 inline-flex w-fit items-center rounded-full border border-neutral-300 px-4 py-1.5 font-inter text-xs font-medium tracking-wide text-neutral-500 md:mb-6"
             >
               {eyebrowText}
             </div>
@@ -96,7 +96,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({
           <p
             ref={titleReveal.ref}
             style={revealStyle(titleReveal.visible, 120)}
-            className="mb-8 w-full max-w-[600px] break-words text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,48px)] md:mb-12"
+            className="mb-4 w-full max-w-[600px] break-words text-[clamp(24px,1.5rem+0.8vw,40px)] leading-[clamp(30px,2rem+1vw,48px)] md:mb-12"
           >
             {descBefore && <span className="text-[#1B1D20]">{descBefore}</span>}
             {descAfter && <span className="text-[#E88029]">{descAfter}</span>}
@@ -107,7 +107,7 @@ const StatsSection: React.FC<StatsSectionProps> = ({
             <p
               ref={miniReveal.ref}
               style={revealStyle(miniReveal.visible, 220)}
-              className="mb-8 w-full max-w-[400px] break-words text-[clamp(14px,0.85rem+0.1vw,16px)] leading-relaxed font-normal text-[#1B1D20] md:mb-10 md:leading-[24px]"
+              className="mb-4 w-full max-w-[400px] break-words text-[clamp(14px,0.85rem+0.1vw,16px)] leading-relaxed font-normal text-[#1B1D20] md:mb-10 md:leading-[24px]"
             >
               {miniText}
             </p>

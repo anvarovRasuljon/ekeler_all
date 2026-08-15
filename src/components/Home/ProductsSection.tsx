@@ -198,48 +198,54 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products = DEFAULT_PR
 
   return (
     <div className="mx-auto mb-12 w-full max-w-[1540px] bg-white md:mb-20">
-      <div>
+      <div className="grid grid-cols-2 gap-4 px-4 md:grid-cols-1 md:gap-0 md:px-0">
         {displayProducts.map((product, index) => (
           <div
             key={product.slug || index}
-            className="flex relative flex-col gap-5 justify-between items-start border-b group border-neutral-200 last:border-b-0 sm:px-6 sm:py-8 md:flex-row md:items-center md:gap-10 md:px-8 md:py-10 min-h-[44px]"
+            className="flex relative flex-col gap-3 justify-between items-start border-0 group md:flex-row md:items-center md:gap-10 md:border-b md:border-neutral-200 md:px-8 md:py-10 md:last:border-b-0 min-h-[44px]"
           >
             {/* Hover line */}
-            <div className="absolute bottom-0 left-0 h-[1px] w-full bg-neutral-200 overflow-hidden">
+            <div className="absolute bottom-0 left-0 h-[1px] w-full bg-transparent overflow-hidden md:bg-neutral-200">
               <div className="absolute left-0 top-0 h-full w-full origin-left scale-x-0 bg-[#D96C33] transition-transform duration-500 ease-out group-hover:scale-x-100" />
             </div>
 
             {/* Left: image + title */}
-            <div className="flex flex-col gap-6 items-start w-full md:w-auto md:flex-row md:items-center md:gap-10">
+            <div className="flex flex-col gap-2 items-start w-full md:w-auto md:flex-row md:items-center md:gap-10">
               {product.image && (
-                <AnimatedImage
-                  src={product.image}
-                  alt={product.name}
-                  width={200}
-                  height={150}
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  className="h-[200px] w-full flex-shrink-0 rounded-2xl object-cover md:w-[200px]"
-                />
+                <div className="relative h-[150px] w-full flex-shrink-0 md:h-[145px] md:w-[145px]">
+                  <AnimatedImage
+                    src={product.image}
+                    alt={product.name}
+                    width={200}
+                    height={150}
+                    loading="lazy"
+                    decoding="async"
+                    fetchPriority="low"
+                    className="h-full w-full rounded-[5px] object-cover"
+                  />
+                  <div className="absolute inset-0 rounded-[5px] bg-gradient-to-t from-black/60 to-transparent md:hidden" />
+                  <h3 className="absolute bottom-0 left-0 p-2 w-full break-words font-inter text-[14px] font-medium leading-[20px] text-white md:hidden">
+                    {product.name}
+                  </h3>
+                </div>
               )}
 
-              <h3 className="break-words font-inter text-[clamp(18px,1.1rem+0.3vw,24px)] font-medium leading-[clamp(24px,1.5rem+0.3vw,32px)] text-[#1B1D20]">
+              <h3 className="hidden break-words font-inter text-[15px] font-medium leading-[22px] text-[#1B1D20] md:block md:text-[clamp(18px,1.1rem+0.3vw,24px)] md:leading-[clamp(24px,1.5rem+0.3vw,32px)]">
                 {product.name}
               </h3>
             </div>
 
             {/* Right: description + icon */}
-            <div className="flex gap-6 justify-between items-center w-full md:w-auto">
+            <div className="flex gap-3 justify-between items-center w-full md:w-auto">
               {product.description && (
                 <p
-                  className="mb-5 w-full break-words font-inter text-[clamp(13px,0.8rem+0.1vw,16px)] font-normal leading-relaxed text-neutral-500 md:mb-0 md:w-[450px] md:leading-[20px]"
+                  className="mb-2 w-full break-words font-inter text-[13px] font-normal leading-[18px] text-neutral-500 md:mb-0 md:text-[clamp(13px,0.8rem+0.1vw,16px)] md:w-[450px] md:leading-[20px]"
                 >
                   {product.description}
                 </p>
               )}
 
-              <div className="flex flex-shrink-0 justify-center items-center w-11 h-11 md:h-12 md:w-12">
+              <div className="hidden flex-shrink-0 justify-center items-center w-11 h-11 md:flex md:h-12 md:w-12">
                 <svg
                   width="18"
                   height="18"
