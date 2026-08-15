@@ -280,12 +280,6 @@ return (
             <AboutCompanyContentBlock data={contentData} />
             <AboutCompanyBlock data={blockData} />
 
-            {/* Mobil/tablet rasm — Block va Feature orasida, faqat lg dan pastda ko'rinadi */}
-            {showMainImage && (
-              <div className="lg:hidden w-full rounded-lg overflow-hidden h-[50vh] max-h-[420px]">
-                {renderMainPortrait('w-full h-full object-cover')}
-              </div>
-            )}
 
             <AboutCompanyFeature data={featureData} />
           </div>

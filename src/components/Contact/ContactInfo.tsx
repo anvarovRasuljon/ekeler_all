@@ -32,7 +32,7 @@ export const ContactInfo: React.FC = () => {
           {/* CHAP — kontakt ma'lumotlari */}
           <div className="flex flex-col ml-0 w-full min-w-0 lg:w-1/2 lg:ml-10">
             <AboutCompanyContentBlock data={DEFAULT_CONTENT_DATA} stacked descriptionClassName={DESCRIPTION_CLASS}>
-              <div className="relative w-full h-[200px] mb-6 overflow-hidden rounded-lg bg-neutral-100 sm:h-[270px] sm:w-[430px] lg:hidden">
+              <div className="relative w-full h-[200px] mt-10 mb-6 overflow-hidden rounded-lg bg-neutral-100 sm:h-[270px] sm:w-[430px] lg:mt-0 lg:hidden">
                 {!mapLoaded && (
                   <div className="flex absolute inset-0 z-10 justify-center items-center">
                     <Loader2 className="w-8 h-8 animate-spin text-neutral-400" />
@@ -40,7 +40,7 @@ export const ContactInfo: React.FC = () => {
                 )}
                 <iframe
                   title="Office map"
-                  src="https://maps.google.com/maps?q=Amir Temur 53, Amir Temur 53, Tashkent&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                  src="https://yandex.uz/map-widget/v1/?ll=69.288163%2C41.294999&z=16&pt=69.288163%2C41.294999&theme=dark"
                   className={`block w-full h-full border-0 transition-opacity duration-500 ${
                     mapLoaded ? 'opacity-100' : 'opacity-0'
                   }`}
@@ -63,7 +63,7 @@ export const ContactInfo: React.FC = () => {
               )}
               <iframe
                 title="Office map"
-                src="https://maps.google.com/maps?q=Amir Temur 53, Amir Temur 53, Tashkent&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                src="https://yandex.uz/map-widget/v1/?ll=69.288163%2C41.294999&z=16&pt=69.288163%2C41.294999&theme=dark"
                 className={`block w-full h-full border-0 transition-opacity duration-500 ${
                   mapLoaded ? 'opacity-100' : 'opacity-0'
                 }`}

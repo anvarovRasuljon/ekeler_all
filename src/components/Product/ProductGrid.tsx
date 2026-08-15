@@ -107,8 +107,8 @@ const ProductGrid: React.FC = () => {
                   imgClassName="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
                   loading="lazy"
                 />
-                {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#1B1D20]/80 via-[#1B1D20]/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                {/* Gradient overlay: always on mobile, hover on desktop */}
+                <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#1B1D20]/80 via-[#1B1D20]/30 to-transparent opacity-100 transition-opacity duration-300 md:duration-700 md:opacity-0 md:group-hover:opacity-100" />
               </div>
 
               {/* Content: title doim, description hoverda */}
@@ -117,7 +117,7 @@ const ProductGrid: React.FC = () => {
                   {product.title}
                 </h3>
                 {product.short_description && (
-                  <p className="break-words text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-snug text-white/85 drop-shadow-md line-clamp-2 max-h-0 overflow-hidden opacity-0 transition-all duration-300 group-hover:max-h-[120px] group-hover:opacity-100">
+                  <p className="break-words text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-snug text-white/85 drop-shadow-md line-clamp-2 max-h-[120px] overflow-hidden opacity-100 transition-all duration-300 md:duration-700 md:max-h-0 md:opacity-0 md:group-hover:max-h-[120px] md:group-hover:opacity-100">
                     {product.short_description}
                   </p>
                 )}
