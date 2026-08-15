@@ -1,4 +1,4 @@
-export const termsEyebrow = { uz: 'TERMS OF USE', ru: 'УСЛОВИЯ ИСПОЛЬЗОВАНИЯ', eng: 'TERMS OF USE' }
+export const termsEyebrow = { uz: 'FOYDALANISH SHARTLARI', ru: 'УСЛОВИЯ ИСПОЛЬЗОВАНИЯ', eng: 'TERMS OF USE' }
 
 export const termsTitle = { uz: 'FOYDALANISH SHARTLARI', ru: 'УСЛОВИЯ ИСПОЛЬЗОВАНИЯ', eng: 'TERMS OF USE' }
 
@@ -24,5 +24,45 @@ Ushbu Foydalanish shartlari istalgan vaqtda yangilanishi mumkin. O'zgarishlar sa
 Foydalanish shartlariga oid savollaringiz bo'lsa:
 • Telefon: +998 90 808-87-89
 • Email: info@ekeler.uz
-• Manzil: А.Темур 53, Toshkent,  `
+• Manzil: А.Темур 53, Toshkent`,
+  ru: `Настоящие Условия использования определяют порядок пользования веб-сайтом ekeler.uz. Посещая сайт и используя его, вы полностью соглашаетесь со следующими условиями.
+1. Общие положения
+Настоящий документ устанавливает правила пользования сайтом и применяется ко всем пользователям.
+2. Использование услуг
+Через сайт можно получать информацию о продукции Ekeler, отправлять запросы и связываться с компанией. Размещенная на сайте информация носит справочный характер и не является официальным предложением (офертой) — точные цены и условия согласовываются отдельно в ответ на ваш запрос.
+3. Ответственность пользователя
+Пользователь несет ответственность за предоставление достоверной и правдивой информации при заполнении формы. Компания не несет ответственности за ситуации, возникшие в результате предоставления неверных контактных данных.
+4. Ограничения и запреты
+Запрещается использование сайта в противозаконных целях, нарушение его работы, а также копирование материалов, защищенных авторским правом, без разрешения.
+5. Интеллектуальная собственность
+Все тексты, изображения, логотипы и другие материалы на сайте принадлежат компании Ekeler. Их копирование, распространение или использование в коммерческих целях без разрешения запрещено.
+6. Ограничение ответственности
+Компания стремится обеспечить полноту и точность информации на сайте, но не берет на себя ответственность за неудобства, которые могут возникнуть из-за технических сбоев или перебоев.
+7. Изменения условий
+Настоящие Условия использования могут обновляться в любое время. Изменения вступают в силу с даты их публикации на странице.
+8. Контакты
+Если у вас есть вопросы об условиях использования:
+• Телефон: +998 90 808-87-89
+• Email: info@ekeler.uz
+• Адрес: А.Темур 53, Ташкент`,
+  eng: `These Terms of Use define the rules for using the ekeler.uz website. By accessing and using the site, you fully agree to the following terms.
+1. General provisions
+This document sets the rules for using the site and applies to all users.
+2. Use of services
+Through the site, you can get information about Ekeler products, send requests, and contact the company. The information provided on the site is for reference only and is not an official offer — exact prices and terms are agreed separately in response to your request.
+3. User responsibility
+The user is responsible for providing accurate and truthful information when filling out the form. The company is not responsible for situations arising from the provision of incorrect contact details.
+4. Restrictions and prohibitions
+It is prohibited to use the site for illegal purposes, disrupt its operation, or copy materials protected by copyright without permission.
+5. Intellectual property
+All texts, images, logos, and other materials on the site belong to Ekeler. Copying, distributing, or using them for commercial purposes without permission is prohibited.
+6. Limitation of liability
+The company strives to ensure the completeness and accuracy of the information on the site, but is not responsible for inconvenience that may arise due to technical failures or interruptions.
+7. Changes to terms
+These Terms of Use may be updated at any time. Changes take effect from the date of publication on the page.
+8. Contacts
+If you have any questions about the terms of use:
+• Phone: +998 90 808-87-89
+• Email: info@ekeler.uz
+• Address: А.Темур 53, Tashkent`
 }

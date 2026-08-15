@@ -10,11 +10,11 @@ export interface FooterLink {
 }
 
 const DEFAULT_NAV_LINKS: FooterLink[] = [
-  { label: { ru: "Главная", uz: "Bosh sahifa", eng: "Home" }, href: "/" },
+  { label: { ru: "Главная", uz: "Bosh sahifa", eng: "Home" }, href: "/home" },
   { label: { ru: "О нас", uz: "Biz haqimizda", eng: "About" }, href: "/about" },
-  { label: { ru: "Отрасли", uz: "Tarmoqlar", eng: "Industries" }, href: "/service" },
+  { label: { ru: "Отрасли", uz: "Tarmoqlar", eng: "Industries" }, href: "/industries" },
   { label: { ru: "Продукты", uz: "Mahsulotlar", eng: "Products" }, href: "/products" },
-  { label: { ru: "Контакты", uz: "Kontaktlar", eng: "Contact" }, href: "/contact" },
+  { label: { ru: "Контакты", uz: "Kontaktlar", eng: "Contact" }, href: "/contact-us" },
 ];
 
 const DEFAULT_SOCIAL_LINKS: FooterLink[] = [
@@ -47,7 +47,7 @@ const FooterSecond: React.FC = () => {
       className="relative w-full"
     >
       {/* Responsive: fiksatsiyalangan 100vh o'rniga min-h — mobilda kontent kesilmaydi */}
-      <div className="relative min-h-[calc(100dvh-65px)] w-full overflow-hidden">
+      <div className="relative min-h-[calc(100lvh-65px)] w-full overflow-hidden">
         <img
           src={backgroundImageUrl}
           alt={backgroundImageAlt}
@@ -128,7 +128,7 @@ const FooterSecond: React.FC = () => {
               {(phone || email || address) && (
                 <div>
                   {contactLabel && (
-                    <a href="/contact" className="font-inter font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-[#1B1D20] inline-block mb-5 border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]">{t(contactLabel)}</a>
+                    <a href="/contact-us" className="font-inter font-normal text-[12px] leading-[16px] tracking-[-0.02em] sm:font-inter sm:text-[14px] sm:leading-[22px] text-[#1B1D20] inline-block mb-5 border-b border-[#ECECEC] pb-1 transition-colors duration-300 hover:text-[#E88029] hover:border-[#E88029]">{t(contactLabel)}</a>
                   )}
                   <ul className="space-y-4">
                     {phone && (

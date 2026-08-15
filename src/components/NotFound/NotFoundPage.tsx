@@ -67,7 +67,7 @@ export const NotFoundPage: React.FC = () => {
         </p>
 
         <a
-          href="/"
+          href="/home"
           className="group inline-flex flex-col items-center text-white hover:text-white/80 cursor-pointer transition-all duration-700 ease-out"
         >
           <span className="inline-flex items-center gap-2">

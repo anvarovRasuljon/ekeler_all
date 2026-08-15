@@ -120,12 +120,12 @@ function AboutCompanyFeature({
         {(data.description || data.description_bottom) && (
           <div className="flex flex-col max-w-[490px]">
             {data.description && (
-              <p className="font-['Inter'] text-sm leading-relaxed text-[#1B1D20] sm:text-base whitespace-pre-line px-4 md:px-0">
+              <p className="font-['Inter'] font-normal text-[14px] leading-[22px] text-neutral-500 text-start whitespace-pre-line px-4 md:px-0">
                 {t(data.description)}
               </p>
             )}
             {data.description_bottom && (
-              <p className="font-['Inter'] text-sm leading-relaxed text-[#1B1D20] mt-6 sm:text-base whitespace-pre-line px-4 md:px-0">
+              <p className="font-['Inter'] font-normal text-[14px] leading-[22px] text-neutral-500 text-start whitespace-pre-line mt-6 px-4 md:px-0">
                 {t(data.description_bottom)}
               </p>
             )}

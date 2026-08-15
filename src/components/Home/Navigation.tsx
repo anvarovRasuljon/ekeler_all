@@ -134,7 +134,7 @@
 // // //         </ul>
 
 // // //         {/* Logo — mobilda chapda, desktopda markazda */}
-// // //         <Link to="/" onClick={close} className="flex items-center lg:justify-self-center">
+// // //         <Link to="/home" onClick={close} className="flex items-center lg:justify-self-center">
 // // //           <AnimatedImage src={logo} alt="Ekeler Logo" className="h-[clamp(28px,1.75rem+0.3vw,40px)] w-auto" />
 // // //         </Link>
 
@@ -151,7 +151,7 @@
 // // //             </a>
 // // //           </li>
 // // //           <li>
-// // //             <a href="/contact" className={navLinkClass}>
+// // //             <a href="/contact-us" className={navLinkClass}>
 // // //               {t.contact}
 // // //             </a>
 // // //           </li>
@@ -222,7 +222,7 @@
 // // //             </a>
 // // //           </li>
 // // //           <li>
-// // //             <a href="/contact" onClick={close} className={mobileLinkClass}>
+// // //             <a href="/contact-us" onClick={close} className={mobileLinkClass}>
 // // //               {t.contact}
 // // //             </a>
 // // //           </li>
@@ -416,19 +416,19 @@
 // //           </ul>
 
 // //           {/* Logo — mobilda chapda, desktopda markazda */}
-// //           <Link to="/" onClick={close} className="flex items-center lg:justify-self-center">
+// //           <Link to="/home" onClick={close} className="flex items-center lg:justify-self-center">
 // //             <AnimatedImage src={logo} alt="Ekeler Logo" className="h-[clamp(28px,1.75rem+0.3vw,40px)] w-auto" />
 // //           </Link>
 
 // //           {/* Desktop: o'ng ustun */}
 // //           <ul className="hidden list-none items-center gap-[16px] p-0 m-0 lg:flex xl:gap-[32px] lg:justify-self-end">
 // //             <li>
-// //               <a href="/service" className={navLinkClass}>
+// //               <a href="/industries" className={navLinkClass}>
 // //                 {t.service}
 // //               </a>
 // //             </li>
 // //             <li>
-// //               <a href="/contact" className={navLinkClass}>
+// //               <a href="/contact-us" className={navLinkClass}>
 // //                 {t.contact}
 // //               </a>
 // //             </li>
@@ -489,12 +489,12 @@
 // //               </Link>
 // //             </li>
 // //             <li>
-// //               <a href="/service" onClick={close} className={mobileLinkClass}>
+// //               <a href="/industries" onClick={close} className={mobileLinkClass}>
 // //                 {t.service}
 // //               </a>
 // //             </li>
 // //             <li>
-// //               <a href="/contact" onClick={close} className={mobileLinkClass}>
+// //               <a href="/contact-us" onClick={close} className={mobileLinkClass}>
 // //                 {t.contact}
 // //               </a>
 // //             </li>
@@ -695,14 +695,14 @@
 //           </ul>
 
 //           {/* Logo */}
-//           <Link to="/" onClick={close} className="flex items-center lg:justify-self-center">
+//           <Link to="/home" onClick={close} className="flex items-center lg:justify-self-center">
 //             <AnimatedImage src={logo} alt="Ekeler Logo" className="h-[clamp(28px,1.75rem+0.3vw,40px)] w-auto" />
 //           </Link>
 
 //           {/* Desktop: o'ng ustun */}
 //           <ul className="hidden list-none items-center gap-[16px] p-0 m-0 lg:flex xl:gap-[32px] lg:justify-self-end">
 //             <li>
-//               <a href="/service" className={navLinkClass}>
+//               <a href="/industries" className={navLinkClass}>
 //                 <div className="h-[1.3em] overflow-hidden">
 //                   <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
 //                     <span className="text-[#1B1D20] text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-[1.3em]">{t.service}</span>
@@ -713,7 +713,7 @@
 //               </a>
 //             </li>
 //             <li>
-//               <a href="/contact" className={navLinkClass}>
+//               <a href="/contact-us" className={navLinkClass}>
 //                 <div className="h-[1.3em] overflow-hidden">
 //                   <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
 //                     <span className="text-[#1B1D20] text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-[1.3em]">{t.contact}</span>
@@ -786,7 +786,7 @@
 //               </Link>
 //             </li>
 //             <li>
-//               <a href="/service" onClick={close} className="block overflow-hidden relative py-2 group">
+//               <a href="/industries" onClick={close} className="block overflow-hidden relative py-2 group">
 //                 <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
 //                   <span className="flex min-h-[32px] w-full items-center text-[#1B1D20] text-[16px] font-normal">{t.service}</span>
 //                   <span className="flex min-h-[32px] w-full items-center text-[#E88029] text-[16px] font-medium">{t.service}</span>
@@ -794,7 +794,7 @@
 //               </a>
 //             </li>
 //             <li>
-//               <a href="/contact" onClick={close} className="block overflow-hidden relative py-2 group">
+//               <a href="/contact-us" onClick={close} className="block overflow-hidden relative py-2 group">
 //                 <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
 //                   <span className="flex min-h-[32px] w-full items-center text-[#1B1D20] text-[16px] font-normal">{t.contact}</span>
 //                   <span className="flex min-h-[32px] w-full items-center text-[#E88029] text-[16px] font-medium">{t.contact}</span>
@@ -1080,14 +1080,14 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
           </ul>
 
           {/* Logo */}
-          <Link to="/" onClick={close} className="flex items-center lg:justify-self-center">
+          <Link to="/home" onClick={close} className="flex items-center lg:justify-self-center">
             <AnimatedImage src={logo} alt="Ekeler Logo" className="h-[clamp(24px,1.5rem+0.3vw,34px)] w-auto" />
           </Link>
 
           {/* Desktop: o'ng ustun */}
           <ul className="hidden list-none items-center gap-[16px] p-0 m-0 lg:flex xl:gap-[32px] lg:justify-self-end">
             <li>
-              <a href="/service" className={navLinkClass}>
+              <a href="/industries" className={navLinkClass}>
                 <div className="h-[1.3em] overflow-hidden">
                   <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
                     <span className="text-[#1B1D20] text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-[1.3em]">{t.industries}</span>
@@ -1098,7 +1098,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
               </a>
             </li>
             <li>
-              <a href="/contact" className={navLinkClass}>
+              <a href="/contact-us" className={navLinkClass}>
                 <div className="h-[1.3em] overflow-hidden">
                   <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
                     <span className="text-[#1B1D20] text-[clamp(13px,0.8rem+0.1vw,15px)] font-normal leading-[1.3em]">{t.contact}</span>
@@ -1145,7 +1145,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
         >
           {/* Header: logo + X */}
           <div className="flex h-[65px] shrink-0 items-center justify-between px-6">
-            <Link to="/" onClick={close} className="flex items-center">
+            <Link to="/home" onClick={close} className="flex items-center">
               <AnimatedImage src={logo} alt="Ekeler Logo" className="h-[28px] w-auto" />
             </Link>
             <button
@@ -1161,7 +1161,7 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
           {/* Menyu */}
           <ul className="flex overflow-y-auto flex-col flex-1 gap-0 justify-start items-center m-0 list-none">
             <li className="w-full border-b border-neutral-200">
-              <Link to="/" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
+              <Link to="/home" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
                 {t.home}
               </Link>
             </li>
@@ -1176,12 +1176,12 @@ const Navigation: React.FC<NavigationProps> = ({ showSpacer = true }) => {
               </Link>
             </li>
             <li className="w-full border-b border-neutral-200">
-              <a href="/service" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
+              <a href="/industries" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
                 {t.industries}
               </a>
             </li>
             <li className="w-full border-b border-neutral-200">
-              <a href="/contact" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
+              <a href="/contact-us" onClick={close} className="block py-3 text-center text-[#1B1D20] text-[18px] font-normal">
                 {t.contact}
               </a>
             </li>

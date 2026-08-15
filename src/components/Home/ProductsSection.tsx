@@ -225,13 +225,13 @@ const ProductsSection: React.FC<ProductsSectionProps> = ({ products = DEFAULT_PR
                   />
                   <div className="absolute inset-0 rounded-[5px] bg-gradient-to-t from-black/60 to-transparent md:hidden" />
                   <h3 className="absolute bottom-0 left-0 p-2 w-full break-words font-inter text-[14px] font-medium leading-[20px] text-white md:hidden">
-                    {product.name}
+                    {index + 1}. {product.name}
                   </h3>
                 </div>
               )}
 
               <h3 className="hidden break-words font-inter text-[15px] font-medium leading-[22px] text-[#1B1D20] md:block md:text-[clamp(18px,1.1rem+0.3vw,24px)] md:leading-[clamp(24px,1.5rem+0.3vw,32px)]">
-                {product.name}
+                {index + 1}. {product.name}
               </h3>
             </div>
 

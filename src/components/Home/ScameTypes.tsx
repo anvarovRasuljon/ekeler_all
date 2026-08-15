@@ -15,6 +15,7 @@ interface InpusSectionProps {
   descriptionHighlight?: any;
   descriptionPart2?: any;
   buttonText?: any;
+  buttonLink?: string;
   topImage?: any;
   bottomImage?: any;
 }
@@ -26,6 +27,7 @@ const InpusSection: React.FC<InpusSectionProps> = ({
   descriptionPart1 = translations.home.inpusSection.description,
   descriptionHighlight = translations.home.inpusSection.descriptionHighlight,
   buttonText = translations.home.inpusSection.buttonText,
+  buttonLink = '/about',
 }) => {
   const { t } = useLanguage();
   const fallbackBadge = { ru: 'О НАС', uz: 'BIZ HAQIMIZDA', eng: 'ABOUT US' };
@@ -105,7 +107,7 @@ const InpusSection: React.FC<InpusSectionProps> = ({
         </h2>
 
         <Link
-          to="/about"
+          to={buttonLink}
           className="group inline-flex w-fit flex-col items-center text-[clamp(13px,0.8rem+0.1vw,16px)] text-[#1B1D20] hover:text-[#E88029] mt-[28px] cursor-pointer transition-all duration-700 ease-out"
         >
           <span className="inline-flex gap-6 items-center">

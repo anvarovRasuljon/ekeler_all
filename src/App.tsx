@@ -176,7 +176,7 @@
 // export default App;
 
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navigation from "./components/Home/Navigation";
 import AboutUs from "./components/Home/AboutUs";
 import Statsection from "./components/Home/Statsection";
@@ -224,9 +224,12 @@ function App() {
       */}
       <div className="w-full overflow-x-clip">
         <Routes>
+          {/* ROOT REDIRECT */}
+          <Route path="/" element={<Navigate to="/home" replace />} />
+
           {/* HOME */}
           <Route
-            path="/"
+            path="/home"
             element={
               <>
                 <div className="p-2 w-full min-h-screen">
@@ -271,7 +274,7 @@ function App() {
                   <Navigation />
                   <AboutPage />
                <MonialsSection />
-                  <InpusSection />
+                  <InpusSection buttonLink="/contact-us" />
                 </div>
                 <FooterSecond />
               </>
@@ -294,7 +297,7 @@ function App() {
                   <CatalogCtaSection />
                   <ProductGrid />
                   <MonialsSection />
-                  <InpusSection />
+                  <InpusSection buttonLink="/contact-us" />
                 </div>
                 <FooterSecond />
               </>
@@ -321,7 +324,7 @@ function App() {
 
           {/* SERVICE */}
           <Route
-            path="/service"
+            path="/industries"
             element={
               <>
                 <div className="px-2 pt-2 w-full">
@@ -345,7 +348,7 @@ function App() {
 
           {/* CONTACT */}
           <Route
-            path="/contact"
+            path="/contact-us"
             element={
               <>
                 <div className="p-2 w-full min-h-screen">
