@@ -23,7 +23,7 @@ const ProductHero: React.FC = () => {
 
   return (
     <div
-      className="box-border overflow-hidden relative w-full h-[calc(60dvh-81px)] lg:h-[calc(100dvh-81px)] transition-[clip-path,opacity] duration-[2000ms] ease-out"
+      className="box-border overflow-hidden relative w-full h-[calc(60svh-81px)] lg:h-[calc(100svh-81px)] transition-[clip-path,opacity] duration-[2000ms] ease-out"
       style={{
         clipPath: imageLoaded ? 'inset(0 0 0 0)' : 'inset(0 0 100% 0)',
         opacity: imageLoaded ? 1 : 0,

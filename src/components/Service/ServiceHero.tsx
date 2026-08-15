@@ -17,7 +17,7 @@ const ServiceHero: React.FC = () => {
 
   return (
     // Responsive: mobilda minimal balandlik va kichikroq radius
-    <section className="box-border overflow-hidden relative w-full h-[calc(60dvh-66px)] lg:h-[calc(100dvh-66px)] mb-[10px] lg:mb-0 transition-[clip-path,opacity] duration-[2000ms] ease-out rounded-[8px]">
+    <section className="box-border overflow-hidden relative w-full h-[calc(60svh-66px)] lg:h-[calc(100svh-66px)] mb-[10px] lg:mb-0 transition-[clip-path,opacity] duration-[2000ms] ease-out rounded-[8px]">
       {/* Background */}
       <img
         src={productHeroBg}
