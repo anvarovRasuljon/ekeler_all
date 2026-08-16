@@ -1,6 +1,8 @@
 const escapeMd = (text: string) =>
   text.replace(/([_\*\[\]\(\)~`>#+\-=|\{\}\.!])/g, '\\$1');
 
+const cleanPhone = (phone: string) => phone.replace(/[^0-9+]/g, '');
+
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -24,7 +26,7 @@ export default async function handler(req: any, res: any) {
     `👤 *Ism:* ${escapeMd(String(firstName || '-'))}`,
     `👥 *Familiya:* ${escapeMd(String(lastName || '-'))}`,
     `🏢 *Kompaniya:* ${escapeMd(String(company || '-'))}`,
-    `📞 *Telefon:* ${escapeMd(String(phone || '-'))}`,
+    `📞 *Telefon:* ${phone ? `[${escapeMd(String(phone))}](tel:${cleanPhone(String(phone))})` : '-'}`,
     `📝 *Tavsif:* ${escapeMd(String(description || '-'))}`,
   ].join('\n');
 

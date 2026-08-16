@@ -1,9 +1,19 @@
 import AnimatedImage from './AnimatedImage';
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import CommentBg from "../../assets/Comment_bg.png";
-import avatar_1 from "../../assets/avatar_1.png";
-import avatar_2 from "../../assets/avatar_2.png";
 
+// ─── API types ────────────────────────────────────────────────────────────────
+interface CommentApiItem {
+  id: number;
+  commentator_full_name: string;
+  commentator_location: string;
+  comment_text: string;
+  commentator_profile_picture: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// ─── Internal type ────────────────────────────────────────────────────────────
 export interface Testimonial {
   id: string;
   quote: string;
@@ -12,36 +22,84 @@ export interface Testimonial {
   avatarUrl?: string;
 }
 
+// ─── Props ────────────────────────────────────────────────────────────────────
 export interface MonialsSectionProps {
   title?: string;
   subtitle?: string;
+  /** Pass custom testimonials to override API data */
   testimonials?: Testimonial[];
   className?: string;
 }
 
-const LOREM_20 =
-  "Lorem ipsum dolor sit amet consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim.";
-
-const DEFAULT_TESTIMONIALS: Testimonial[] = [
-  { id: "1", quote: LOREM_20, name: "John Doe", location: "Tashkent", avatarUrl: avatar_1 },
-  { id: "2", quote: LOREM_20, name: "Jane Smith", location: "Samarkand", avatarUrl: avatar_2 },
-  { id: "3", quote: LOREM_20, name: "Bob Brown", location: "Bukhara", avatarUrl: avatar_1 },
-  { id: "4", quote: LOREM_20, name: "Alice Green", location: "Fergana", avatarUrl: avatar_2 },
-  { id: "5", quote: LOREM_20, name: "Tom White", location: "Andijan", avatarUrl: avatar_1 },
-];
-
-function safeText(value: any): string {
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+function safeText(value: unknown): string {
   if (!value) return "";
   if (typeof value === "string") return value;
-  return value.ru || value.uz || value.eng || "";
+  const v = value as Record<string, string>;
+  return v.ru || v.uz || v.eng || "";
 }
 
+const BASE_URL = import.meta.env.VITE_BACKEND_URL ?? "https://api.ekeler.uz";
+
+function mapApiItem(item: CommentApiItem): Testimonial {
+  return {
+    id: String(item.id),
+    quote: item.comment_text,
+    name: item.commentator_full_name,
+    location: item.commentator_location,
+    avatarUrl: item.commentator_profile_picture
+      ? item.commentator_profile_picture.startsWith("http")
+        ? item.commentator_profile_picture
+        : `${BASE_URL}${item.commentator_profile_picture}`
+      : undefined,
+  };
+}
+
+// ─── Fetch hook ───────────────────────────────────────────────────────────────
+function useComments() {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setError(false);
+
+    fetch(`${BASE_URL}/api/v1/comments?page=0&size=50`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json() as Promise<CommentApiItem[]>;
+      })
+      .then((data) => {
+        if (cancelled) return;
+        setTestimonials(data.map(mapApiItem));
+      })
+      .catch(() => {
+        if (!cancelled) setError(true);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => { cancelled = true; };
+  }, []);
+
+  return { testimonials, loading, error };
+}
+
+// ─── Main component ───────────────────────────────────────────────────────────
 const MonialsSection: React.FC<MonialsSectionProps> = ({
   title = "",
   subtitle = "",
-  testimonials = DEFAULT_TESTIMONIALS,
+  testimonials: propTestimonials,
   className = "",
 }) => {
+  const { testimonials: apiTestimonials, loading, error } = useComments();
+
+  // Prefer prop testimonials; fallback to API data
+  const testimonials: Testimonial[] = propTestimonials ?? apiTestimonials;
+
   // Mobil (< lg / 1024px): 1 ta card. Desktop (lg+): 2 ta card.
   const [perPage, setPerPage] = useState(1);
   const [page, setPage] = useState(0);
@@ -55,9 +113,7 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  useEffect(() => {
-    setPage(0);
-  }, [testimonials]);
+  useEffect(() => { setPage(0); }, [testimonials]);
 
   const pageCount = useMemo(
     () => Math.max(1, Math.ceil(testimonials.length / perPage)),
@@ -74,7 +130,6 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
       if (animating || testimonials.length <= perPage) return;
       setDirection(dir);
       setAnimating(true);
-
       setTimeout(() => {
         setPage((p) =>
           dir === "next" ? (p + 1) % pageCount : (p - 1 + pageCount) % pageCount
@@ -85,9 +140,40 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
     [animating, pageCount, perPage, testimonials.length]
   );
 
-  if (!testimonials || testimonials.length === 0) {
-    return null;
+  // Loading skeleton
+  if (loading) {
+    return (
+      <section
+        className={`flex overflow-hidden relative flex-col w-full bg-center bg-no-repeat bg-cover min-h-[85vh] max-h-[85vh] rounded-[8px] ${className}`}
+        style={{ backgroundImage: `url(${CommentBg})` }}
+      >
+        <div className="mx-[25px] flex flex-col flex-1 px-0 pb-[30px] pt-20 sm:pt-28 lg:pt-32">
+          {(title || subtitle) && (
+            <header className="flex flex-col items-center text-center">
+              {title && (
+                <h2 className="break-words text-[28px] font-light leading-tight text-white sm:text-[42px] lg:text-[72px]">
+                  {title}
+                </h2>
+              )}
+              {subtitle && (
+                <p className="mt-4 text-sm leading-relaxed whitespace-pre-line text-white/80 sm:text-base">
+                  {subtitle}
+                </p>
+              )}
+            </header>
+          )}
+          <div className="mt-auto">
+            <div className="overflow-hidden flex flex-col items-center bg-white min-h-[350px] max-w-[1540px] mx-auto rounded-[8px] border border-[#ECECEC] shadow-[0_10px_40px_rgba(0,0,0,0.08)]">
+              <SkeletonCard />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
   }
+
+  // Error or empty
+  if (error || testimonials.length === 0) return null;
 
   const navDisabled = testimonials.length <= perPage;
 
@@ -113,9 +199,14 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
         )}
 
         <div className="mt-auto">
-          <div className="overflow-hidden flex flex-col items-center bg-white min-h-[350px] max-w-[1540px] mx-auto rounded-[8px] border border-[#ECECEC] shadow-[0_10px_40px_rgba(0,0,0,0.08)] lg:flex-row">
-            <div className="flex flex-col lg:flex-row lg:items-stretch">
-              {/* Chap arrow — faqat desktop (lg+), card bilan orasida #ECECEC border */}
+          {/*
+            Card container: always stretches to fill width.
+            When only 1 card is visible on desktop (e.g. last odd item),
+            the card itself takes up the entire row via flex-1 / w-full.
+          */}
+          <div className="overflow-hidden flex flex-col bg-white min-h-[350px] max-w-[1540px] mx-auto rounded-[8px] border border-[#ECECEC] shadow-[0_10px_40px_rgba(0,0,0,0.08)] lg:flex-row">
+            <div className="flex flex-col flex-1 lg:flex-row lg:items-stretch">
+              {/* Left arrow — desktop only */}
               <button
                 type="button"
                 onClick={() => changePage("prev")}
@@ -126,8 +217,9 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
                 <ArrowIcon direction="left" />
               </button>
 
+              {/* Cards grid — always fills remaining width */}
               <div
-                className={`grid min-w-0 flex-1 grid-cols-1 lg:grid-cols-2 transition-all duration-300 ease-out ${
+                className={`grid flex-1 min-w-0 grid-cols-1 lg:grid-cols-2 transition-all duration-300 ease-out ${
                   animating
                     ? direction === "next"
                       ? "opacity-0 translate-x-6"
@@ -140,7 +232,7 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
                 ))}
               </div>
 
-              {/* O'ng arrow — faqat desktop (lg+) */}
+              {/* Right arrow — desktop only */}
               <button
                 type="button"
                 onClick={() => changePage("next")}
@@ -152,7 +244,7 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
               </button>
             </div>
 
-            {/* Mobil (< lg): arrowlar pastda, top border bilan ajratilgan, ora-orasida 1 ta vertikal border */}
+            {/* Mobile arrows — below cards */}
             <div className="flex w-full border-t border-[#ECECEC] lg:hidden">
               <button
                 type="button"
@@ -180,18 +272,19 @@ const MonialsSection: React.FC<MonialsSectionProps> = ({
   );
 };
 
+// ─── Testimonial card ─────────────────────────────────────────────────────────
 const TestimonialCard = React.memo(function TestimonialCard({
   testimonial,
 }: {
   testimonial: Testimonial;
 }) {
   return (
-    <div className="flex min-h-[320px] max-h-[320px] flex-col justify-between overflow-hidden px-5 py-10 sm:min-h-[clamp(240px,14rem+4vw,320px)] sm:max-h-[clamp(240px,14rem+4vw,320px)] sm:px-8 sm:py-8">
+    <div className="flex w-full flex-col justify-between overflow-hidden px-5 py-10 min-h-[320px] sm:px-8 sm:py-8">
       <p className="break-words text-[clamp(15px,0.9rem+0.2vw,18px)] leading-relaxed text-[#1B1D20]">
         {safeText(testimonial.quote)}
       </p>
 
-      <div className="flex gap-3 items-center mt-6">
+      <div className="flex items-center gap-3 mt-6">
         {testimonial.avatarUrl && (
           <AnimatedImage
             src={testimonial.avatarUrl}
@@ -216,6 +309,27 @@ const TestimonialCard = React.memo(function TestimonialCard({
   );
 });
 
+// ─── Loading skeleton ─────────────────────────────────────────────────────────
+const SkeletonCard = React.memo(function SkeletonCard() {
+  return (
+    <div className="flex w-full flex-col justify-between px-5 py-10 min-h-[320px] sm:px-8 sm:py-8 animate-pulse">
+      <div className="space-y-3">
+        <div className="w-full h-4 bg-gray-200 rounded" />
+        <div className="w-5/6 h-4 bg-gray-200 rounded" />
+        <div className="w-4/6 h-4 bg-gray-200 rounded" />
+      </div>
+      <div className="flex items-center gap-3 mt-6">
+        <div className="h-[55px] w-[55px] shrink-0 rounded-[8px] bg-gray-200" />
+        <div className="flex-1 space-y-2">
+          <div className="h-3 bg-gray-200 rounded w-28" />
+          <div className="w-20 h-3 bg-gray-200 rounded" />
+        </div>
+      </div>
+    </div>
+  );
+});
+
+// ─── Arrow icon ───────────────────────────────────────────────────────────────
 const ArrowIcon = React.memo(function ArrowIcon({
   direction,
 }: {
