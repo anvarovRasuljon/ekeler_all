@@ -1,8 +1,5 @@
-const escapeHtml = (text: string) =>
-  text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+const escapeMd = (text: string) =>
+  text.replace(/([_\*\[\]\(\)~`>#+\-=|\{\}\.!])/g, '\\$1');
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -21,13 +18,15 @@ export default async function handler(req: any, res: any) {
 
   const { firstName, lastName, company, phone, description, language } = req.body || {};
 
-  const message = `<b>Yangi murojaat (ekeler.uz)</b>\n` +
-    `<b>Ism:</b> ${escapeHtml(String(firstName || '-'))}\n` +
-    `<b>Familiya:</b> ${escapeHtml(String(lastName || '-'))}\n` +
-    `<b>Kompaniya:</b> ${escapeHtml(String(company || '-'))}\n` +
-    `<b>Telefon:</b> ${escapeHtml(String(phone || '-'))}\n` +
-    `<b>Tavsif:</b> ${escapeHtml(String(description || '-'))}\n` +
-    `<b>Til:</b> ${escapeHtml(String(language || '-'))}`;
+  const message = [
+    '🎉 *Yangi murojaat*',
+    '',
+    `👤 *Ism:* ${escapeMd(String(firstName || '-'))}`,
+    `👥 *Familiya:* ${escapeMd(String(lastName || '-'))}`,
+    `🏢 *Kompaniya:* ${escapeMd(String(company || '-'))}`,
+    `📞 *Telefon:* ${escapeMd(String(phone || '-'))}`,
+    `📝 *Tavsif:* ${escapeMd(String(description || '-'))}`,
+  ].join('\n');
 
   const token = process.env.TELEGRAM_BOT_TOKEN || '8608889308:AAFGMWlAUnJVuSXVb6Jc6lgTG9XixWKDYXk';
   const chatId = process.env.TELEGRAM_CHAT_ID || '-5497877953';
@@ -41,7 +40,7 @@ export default async function handler(req: any, res: any) {
       body: JSON.stringify({
         chat_id: chatId,
         text: message,
-        parse_mode: 'HTML',
+        parse_mode: 'MarkdownV2',
       }),
     });
     const data = (await telegramRes.json()) as { ok: boolean; description?: string };
