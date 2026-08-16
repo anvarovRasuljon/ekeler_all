@@ -57,7 +57,7 @@ const INPUT_CLASS =
 const LABEL_CLASS = "font-['Inter'] text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20] align-middle";
 
 export const ZohoLeadForm: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const formRef = useRef<HTMLFormElement>(null);
   const postedRef = useRef(false);
   const [submitted, setSubmitted] = useState(false);
@@ -181,6 +181,25 @@ export const ZohoLeadForm: React.FC = () => {
       enctype: form.enctype,
     });
     L("5-payload", "page origin:", window.location.origin, "| href:", window.location.href);
+
+    /* ---------- ETAP 5.5: Telegram botga xabar yuborish ---------- */
+    const telegramPayload = {
+      firstName: String(fd.get("First Name") || ""),
+      lastName: String(fd.get("Last Name") || ""),
+      company: String(fd.get("Company") || ""),
+      phone: String(fd.get("Phone") || ""),
+      description: String(fd.get("Description") || ""),
+      language,
+    };
+    L("5-telegram", "Telegram payload:", telegramPayload);
+    void fetch("/api/telegram", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(telegramPayload),
+      keepalive: true,
+    }).catch((err) => {
+      L("5-telegram", "Telegram xabari yuborishda xato:", err);
+    });
 
     /* ---------- ETAP 7: native POST ---------- */
     postedRef.current = true;
