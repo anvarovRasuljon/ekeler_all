@@ -42,3 +42,112 @@
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 } 
+
+@keyframes wordReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.animate-word-reveal {
+  opacity: 0;
+  animation: wordReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* --- Umumiy Text Slide Hover Animatsiyasi --- */
+.contact-item-hover:hover .contact-icon {
+  border-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
+}
+
+.contact-text-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 1.2em;
+}
+
+.contact-text-inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 500ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.contact-item-hover:hover .contact-text-inner {
+  transform: translateY(-50%);
+}
+
+/* --- Umumiy kontaktlar va elementlar uchun (o'zgarmas) --- */
+.hover-item {
+  position: relative;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding-bottom: 0.5rem;
+}
+
+.hover-text-wrapper {
+  position: relative;
+  overflow: hidden;
+  height: 1.2em;
+}
+
+.hover-text-inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 500ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.hover-item:hover .hover-text-inner {
+  transform: translateY(-50%);
+}
+
+.hover-line-default {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background-color: rgba(236, 236, 236, 0.4);
+  transition: background-color 500ms ease;
+}
+
+.hover-item:hover .hover-line-default {
+  background-color: transparent;
+}
+
+.hover-line-active {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1.5px;
+  width: 100%;
+  background-color: #FFFFFF;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 500ms cubic-bezier(0.76, 0, 0.24, 1);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6);
+}
+
+.hover-item:hover .hover-line-active {
+  transform: scaleX(1);
+}
+
+/* --- Faqat Product tugmasi uchun maxsus iconka animatsiyasi (fon va bordersiz) --- */
+.product-btn-item {
+  position: relative;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 0.5rem;
+}
+
+.product-btn-item:hover .product-icon-anim {
+  transform: translate(2px, -2px) rotate(45deg) scale(1.15);
+}

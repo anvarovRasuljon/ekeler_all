@@ -17,7 +17,7 @@ const ServiceHero: React.FC = () => {
 
   return (
     // Responsive: mobilda minimal balandlik va kichikroq radius
-    <section className="box-border overflow-hidden relative w-full h-[calc(60svh-66px)] lg:h-[calc(100svh-66px)] mb-[10px] lg:mb-0 transition-[clip-path,opacity] duration-[2000ms] ease-out rounded-[8px]">
+    <section className="box-border overflow-hidden relative w-full h-[calc(60svh-66px)] lg:h-[calc(100svh-73px)] mb-[10px] lg:mb-0 transition-[clip-path,opacity] duration-[2000ms] ease-out rounded-[8px]">
       {/* Background */}
       <img
         src={productHeroBg}
@@ -36,7 +36,7 @@ const ServiceHero: React.FC = () => {
       <div className="absolute inset-0 bg-black/15" />
 
       {/* Animated Marquee */}
-      <div className="overflow-hidden absolute inset-x-0 bottom-6 pointer-events-none select-none">
+      <div className="absolute inset-x-0 overflow-hidden pointer-events-none select-none bottom-6">
         <div
           className="flex w-max whitespace-nowrap will-change-transform animate-marquee"
         >
