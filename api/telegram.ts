@@ -21,12 +21,12 @@ export default async function handler(req: any, res: any) {
 
   const { firstName, lastName, company, phone, description, language } = req.body || {};
 
-  const message = `<b>Yangi murojaat (ekeler.uz)</b><br>` +
-    `<b>Ism:</b> ${escapeHtml(String(firstName || '-'))}<br>` +
-    `<b>Familiya:</b> ${escapeHtml(String(lastName || '-'))}<br>` +
-    `<b>Kompaniya:</b> ${escapeHtml(String(company || '-'))}<br>` +
-    `<b>Telefon:</b> ${escapeHtml(String(phone || '-'))}<br>` +
-    `<b>Tavsif:</b> ${escapeHtml(String(description || '-'))}<br>` +
+  const message = `<b>Yangi murojaat (ekeler.uz)</b>\n` +
+    `<b>Ism:</b> ${escapeHtml(String(firstName || '-'))}\n` +
+    `<b>Familiya:</b> ${escapeHtml(String(lastName || '-'))}\n` +
+    `<b>Kompaniya:</b> ${escapeHtml(String(company || '-'))}\n` +
+    `<b>Telefon:</b> ${escapeHtml(String(phone || '-'))}\n` +
+    `<b>Tavsif:</b> ${escapeHtml(String(description || '-'))}\n` +
     `<b>Til:</b> ${escapeHtml(String(language || '-'))}`;
 
   const token = process.env.TELEGRAM_BOT_TOKEN || '8608889308:AAFGMWlAUnJVuSXVb6Jc6lgTG9XixWKDYXk';
