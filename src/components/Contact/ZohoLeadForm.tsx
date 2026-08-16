@@ -520,15 +520,17 @@ export const ZohoLeadForm: React.FC = () => {
     const phone = String(fd.get("Phone") || "");
     const description = String(fd.get("Description") || "");
 
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
     // 1. Telegram botga yuborish
-    void fetch("/api/telegram", {
+    void fetch(`${backendUrl}/api/telegram`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ firstName, lastName, company, phone, description, language }),
     }).catch((err) => L("telegram-err", err));
 
     // 2. /api/v1/contacts ga yuborish
-    void fetch("/api/v1/contacts", {
+    void fetch(`${backendUrl}/api/v1/contacts`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
