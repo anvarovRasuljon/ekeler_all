@@ -31,7 +31,7 @@ export default async function handler(req: any, res: any) {
   ].join('\n');
 
   const token = process.env.TELEGRAM_BOT_TOKEN || '8608889308:AAFGMWlAUnJVuSXVb6Jc6lgTG9XixWKDYXk';
-  const chatId = process.TELEGRAM_CHAT_ID || '-5497877953';
+  const chatId = process.env.TELEGRAM_CHAT_ID || '-5497877953';
 
   console.log('[Telegram] sending to chat', chatId, 'payload:', { firstName, lastName, company, phone, description, language });
 

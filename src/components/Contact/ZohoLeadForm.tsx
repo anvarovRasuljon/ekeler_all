@@ -481,35 +481,17 @@ export const ZohoLeadForm: React.FC = () => {
       return;
     }
 
-    try {
-      (document as unknown as { charset: string }).charset = "UTF-8";
-    } catch {
-      // ignore
-    }
-
+    // --- Validation qismi o'zgarishsiz qoladi ---
     for (let i = 0; i < MND_FIELDS.length; i++) {
       const fieldObj = form.elements.namedItem(MND_FIELDS[i]) as HTMLInputElement | HTMLTextAreaElement | null;
       if (!fieldObj) continue;
-
       const trimmed = fieldObj.value.replace(/^\s+|\s+$/g, "");
       if (trimmed.length === 0) {
-        alert(t(FLD_LANG_VAL[i]) + t({ ru: ' не может быть пустым.', uz: ' bo‘sh bo‘lishi mumkin emas.', eng: ' cannot be empty.' }));
+        alert(t(FLD_LANG_VAL[i]) + " to'ldirilishi shart!");
         fieldObj.focus();
         setLoading(false);
         e.preventDefault();
         return;
-      }
-    }
-
-    const urlparams = new URLSearchParams(window.location.search);
-    if (urlparams.has("service") && urlparams.get("service") === "smarturl") {
-      const service = urlparams.get("service") as string;
-      if (!form.elements.namedItem("service")) {
-        const smarturlfield = document.createElement("input");
-        smarturlfield.setAttribute("type", "hidden");
-        smarturlfield.setAttribute("value", service);
-        smarturlfield.setAttribute("name", "service");
-        form.appendChild(smarturlfield);
       }
     }
 
@@ -520,39 +502,25 @@ export const ZohoLeadForm: React.FC = () => {
     const phone = String(fd.get("Phone") || "");
     const description = String(fd.get("Description") || "");
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || "https://api.ekeler.uz";
-
-    // 1. Telegram botga to'g'ridan-to'g'ri yuborish
+    // 1. TELEGRAM'GA YUBORISH (HTML formatida)
     const TELEGRAM_BOT_TOKEN = "8608889308:AAFGMWlAUnJVuSXVb6Jc6lgTG9XixWKDYXk";
     const TELEGRAM_CHAT_ID = "-5497877953";
 
-    const escapeMd = (text: string) =>
-      text.replace(/([_\*\[\]\(\)~`>#+\-=|\{\}\.!])/g, '\\$1');
+    const tgText = `<b>Yangi murojaat</b>\n\n<b>Ism:</b> ${firstName}\n<b>Familiya:</b> ${lastName}\n<b>Kompaniya:</b> ${company}\n<b>Telefon:</b> ${phone}\n<b>Tavsif:</b> ${description}`;
 
-    const cleanPhone = (p: string) => p.replace(/[^0-9+]/g, '');
-
-    const tgMessage = [
-      '🎉 *Yangi murojaat*',
-      '',
-      `👤 *Ism:* ${escapeMd(firstName || '-')}`,
-      `👥 *Familiya:* ${escapeMd(lastName || '-')}`,
-      `🏢 *Kompaniya:* ${escapeMd(company || '-')}`,
-      `📞 *Telefon:* ${phone ? `[${escapeMd(phone)}](tel:${cleanPhone(phone)})` : '-'}`,
-      `📝 *Tavsif:* ${escapeMd(description || '-')}`,
-    ].join('\n');
-
-    void fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         chat_id: TELEGRAM_CHAT_ID,
-        text: tgMessage,
-        parse_mode: 'MarkdownV2',
+        text: tgText,
+        parse_mode: 'HTML', // MarkdownV2 o'rniga HTML ishlatamiz, bu xatosiz ishlaydi
       }),
-    }).catch((err) => L("telegram-err", err));
+    }).catch((err) => console.log("Telegram xatosi:", err));
 
-    // 2. /api/v1/contacts ga yuborish
-    void fetch(`${backendUrl}/api/v1/contacts`, {
+    // 2. BACKENDGA YUBORISH
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || "https://api.ekeler.uz";
+    fetch(`${backendUrl}/api/v1/contacts`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -562,11 +530,12 @@ export const ZohoLeadForm: React.FC = () => {
         product_name: company,
         description: description,
       }),
-    }).catch((err) => L("contacts-err", err));
+    }).catch((err) => console.log("Backend xatosi:", err));
 
     postedRef.current = true;
+    // e.preventDefault() chaqirilmaydi, chunki Zoho formasi native submit bo'lishi kerak
   };
-
+ 
   const handleIframeLoad = () => {
     if (!postedRef.current) return;
     postedRef.current = false;
