@@ -196,10 +196,14 @@ export const ZohoLeadForm: React.FC = () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(telegramPayload),
-      keepalive: true,
-    }).catch((err) => {
-      L("5-telegram", "Telegram xabari yuborishda xato:", err);
-    });
+    })
+      .then(async (res) => {
+        const data = await res.json();
+        L("5-telegram", "Telegram javobi:", res.status, data);
+      })
+      .catch((err) => {
+        L("5-telegram", "Telegram xabari yuborishda xato:", err);
+      });
 
     /* ---------- ETAP 7: native POST ---------- */
     postedRef.current = true;
