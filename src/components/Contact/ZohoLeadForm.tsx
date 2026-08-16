@@ -443,7 +443,7 @@ const INPUT_CLASS =
 const LABEL_CLASS = "font-['Inter'] text-[14px] font-normal leading-[22px] tracking-[-0.02em] text-[#1B1D20] align-middle";
 
 export const ZohoLeadForm: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const formRef = useRef<HTMLFormElement>(null);
   const postedRef = useRef(false);
   const [submitted, setSubmitted] = useState(false);
@@ -520,13 +520,35 @@ export const ZohoLeadForm: React.FC = () => {
     const phone = String(fd.get("Phone") || "");
     const description = String(fd.get("Description") || "");
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || "https://api.ekeler.uz";
 
-    // 1. Telegram botga yuborish
-    void fetch(`${backendUrl}/api/telegram`, {
+    // 1. Telegram botga to'g'ridan-to'g'ri yuborish
+    const TELEGRAM_BOT_TOKEN = "8608889308:AAFGMWlAUnJVuSXVb6Jc6lgTG9XixWKDYXk";
+    const TELEGRAM_CHAT_ID = "-5497877953";
+
+    const escapeMd = (text: string) =>
+      text.replace(/([_\*\[\]\(\)~`>#+\-=|\{\}\.!])/g, '\\$1');
+
+    const cleanPhone = (p: string) => p.replace(/[^0-9+]/g, '');
+
+    const tgMessage = [
+      '🎉 *Yangi murojaat*',
+      '',
+      `👤 *Ism:* ${escapeMd(firstName || '-')}`,
+      `👥 *Familiya:* ${escapeMd(lastName || '-')}`,
+      `🏢 *Kompaniya:* ${escapeMd(company || '-')}`,
+      `📞 *Telefon:* ${phone ? `[${escapeMd(phone)}](tel:${cleanPhone(phone)})` : '-'}`,
+      `📝 *Tavsif:* ${escapeMd(description || '-')}`,
+    ].join('\n');
+
+    void fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ firstName, lastName, company, phone, description, language }),
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: tgMessage,
+        parse_mode: 'MarkdownV2',
+      }),
     }).catch((err) => L("telegram-err", err));
 
     // 2. /api/v1/contacts ga yuborish
