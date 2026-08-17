@@ -298,11 +298,10 @@ const CtaSection: React.FC<CtaSectionProps> = ({
           fetchPriority="low"
           className="object-cover w-full h-full rounded-[8px]"
           style={{
-            filter: inView ? "blur(0px)" : "blur(18px)",
             opacity: inView ? 1 : 0.6,
             transform: inView ? "scale(1)" : "scale(1.05)",
-            transition: "filter 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
-            willChange: "filter, transform, opacity",
+            transition: "opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
+            willChange: "transform, opacity",
           }}
         />
       </div>
@@ -319,14 +318,13 @@ const CtaSection: React.FC<CtaSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className={`h-full w-full object-cover transition-[clip-path,filter,opacity,transform] duration-1000 ease-out ${
+              className={`h-full w-full object-cover transition-[clip-path,opacity,transform] duration-1000 ease-out ${
                 inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(100%_0_0_0)]'
               }`}
               style={{
-                filter: inView ? "blur(0px)" : "blur(18px)",
                 opacity: inView ? 1 : 0.6,
                 transform: inView ? "scale(1)" : "scale(1.05)",
-                willChange: "filter, transform, opacity",
+                willChange: "transform, opacity",
               }}
             />
           </div>
@@ -338,14 +336,13 @@ const CtaSection: React.FC<CtaSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className={`h-full w-full object-cover transition-[clip-path,filter,opacity,transform] duration-1000 ease-out ${
+              className={`h-full w-full object-cover transition-[clip-path,opacity,transform] duration-1000 ease-out ${
                 inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(0_0_100%_0)]'
               }`}
               style={{
-                filter: inView ? "blur(0px)" : "blur(18px)",
                 opacity: inView ? 1 : 0.6,
                 transform: inView ? "scale(1)" : "scale(1.05)",
-                willChange: "filter, transform, opacity",
+                willChange: "transform, opacity",
               }}
             />
           </div>
@@ -365,9 +362,8 @@ const CtaSection: React.FC<CtaSectionProps> = ({
                 className={`inline-block will-change-transform ${w.colored ? 'text-[#E88029]' : 'text-[#1B1D20]'}`}
                 style={{
                   opacity: inView ? 1 : 0,
-                  filter: inView ? "blur(0px)" : "blur(6px)",
                   transform: inView ? "translateY(0%)" : "translateY(115%)",
-                  transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, filter 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
+                  transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
                 }}
               >
                 {w.text}
@@ -416,11 +412,10 @@ const CtaSection: React.FC<CtaSectionProps> = ({
           fetchPriority="low"
           className="object-cover w-full h-full rounded-[8px]"
           style={{
-            filter: inView ? "blur(0px)" : "blur(18px)",
             opacity: inView ? 1 : 0.6,
             transform: inView ? "translateY(0) scale(1)" : "translateY(-100%) scale(1.05)",
-            transition: "filter 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 3000ms cubic-bezier(0,0,0.2,1)",
-            willChange: "filter, transform, opacity",
+            transition: "opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 3000ms cubic-bezier(0,0,0.2,1)",
+            willChange: "transform, opacity",
           }}
         />
       </div>

@@ -70,10 +70,9 @@ const BlurImage: React.FC<BlurImageProps> = ({ src, alt, className = "", width, 
         onLoad={() => setLoaded(true)}
         className={`h-auto w-full object-cover grayscale transition duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${className}`}
         style={{
-          filter: loaded ? "blur(0px)" : "blur(12px)",
-          transform: loaded ? "scale(1)" : "scale(1.05)",
           opacity: loaded ? 1 : 0.6,
-          willChange: "filter, transform, opacity",
+          transform: loaded ? "scale(1)" : "scale(1.05)",
+          willChange: "transform, opacity",
           backfaceVisibility: "hidden",
           WebkitBackfaceVisibility: "hidden",
         }}

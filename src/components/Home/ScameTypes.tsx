@@ -110,7 +110,7 @@
 //           to={buttonLink}
 //           className="group inline-flex w-fit flex-col items-center text-[clamp(13px,0.8rem+0.1vw,16px)] text-[#1B1D20] hover:text-[#E88029] mt-[28px] cursor-pointer transition-all duration-700 ease-out"
 //         >
-//           <span className="inline-flex items-center gap-6">
+//           <span className="inline-flex gap-6 items-center">
 //             <div className="contact-text-wrapper relative overflow-hidden h-[1.2em]">
 //               <div className="contact-text-inner flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
 //                 <p className="whitespace-nowrap text-[clamp(13px,0.8rem+0.1vw,16px)] font-['Inter'] font-normal leading-[1.2em] text-[#1B1D20]">
@@ -316,9 +316,8 @@ const InpusSection: React.FC<InpusSectionProps> = ({
                     className={`inline-block will-change-transform ${w.colored ? "text-[#E88029]" : "text-[#1B1D20]"}`}
                     style={{
                       opacity: inView ? 1 : 0,
-                      filter: inView ? "blur(0px)" : "blur(6px)",
                       transform: inView ? "translateY(0%)" : "translateY(115%)",
-                      transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, filter 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
+                      transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
                     }}
                   >
                     {w.text}
@@ -341,7 +340,7 @@ const InpusSection: React.FC<InpusSectionProps> = ({
             transitionDelay: `${allWords.length * 28 + 150}ms`,
           }}
         >
-          <span className="inline-flex items-center gap-6">
+          <span className="inline-flex gap-6 items-center">
             <div className="contact-text-wrapper relative overflow-hidden h-[1.2em]">
               <div className="contact-text-inner flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
                 <p className="whitespace-nowrap text-[clamp(13px,0.8rem+0.1vw,16px)] font-['Inter'] font-normal leading-[1.2em] text-[#1B1D20]">

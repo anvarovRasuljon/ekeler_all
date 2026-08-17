@@ -31,11 +31,11 @@ const DEFAULT_GALLERY: GalleryCardData[] = [
 ];
 
 const REVEALS = [
-  { from: { y: 80, opacity: 0, filter: 'blur(20px)', scale: 1.05 } },
-  { from: { x: -80, opacity: 0, filter: 'blur(20px)', scale: 1.05 } },
-  { from: { x: 80, opacity: 0, filter: 'blur(20px)', scale: 1.05 } },
-  { from: { y: -80, opacity: 0, filter: 'blur(20px)', scale: 1.05 } },
-  { from: { scale: 1.2, opacity: 0, filter: 'blur(20px)', rotate: -3 } },
+  { from: { y: 80, opacity: 0, scale: 1.05 } },
+  { from: { x: -80, opacity: 0, scale: 1.05 } },
+  { from: { x: 80, opacity: 0, scale: 1.05 } },
+  { from: { y: -80, opacity: 0, scale: 1.05 } },
+  { from: { scale: 1.2, opacity: 0, rotate: -3 } },
 ];
 
 interface GalleryImageProps {
@@ -84,7 +84,6 @@ const GalleryImage = React.memo(function GalleryImage({ src, alt, reveal, classN
       scale: 1,
       rotate: 0,
       opacity: 1,
-      filter: 'blur(0px)',
       duration: 1.4,
       ease: 'power3.out',
     });

@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navigation from "./components/Home/Navigation";
 import AboutUs from "./components/Home/AboutUs";
@@ -14,21 +15,21 @@ import Hero from "./components/Home/Hero";
 import HomeContactSection from "./components/Home/ContactSection";
 import { ContactSection } from "./components/ContactSection";
 import FeaturesSection from "./components/Home/FeaturesSection";
-import AboutPage from "./components/About/AboutPage";
-import ContactPage from "./components/Contact/ContactPage";
 import FooterSecond from "./components/FooterSecond";
-import ProductHero from "./components/Product/ProductHero";
-import CatalogCtaSection from "./components/Product/ProductCatalog";
-import ProductGrid from "./components/Product/ProductGrid";
-import ProductDetail from "./components/Product/ProductDetail/ProductDetail";
-
-import { ProductRelativeCard } from "./components/Product/ProductDetail/ProductRelativeCard";
-import ServiceHero from "./components/Service/ServiceHero";
-import ServiceCtaSection from "./components/Service/ServiceCtaSection";
 import ContactInfo from "./components/Contact/ContactInfo";
 import NotFoundPage from "./components/NotFound/NotFoundPage";
-import PrivacyPolicyPage from "./components/Legal/PrivacyPolicyPage";
-import TermsOfUsePage from "./components/Legal/TermsOfUsePage";
+
+const AboutPage = lazy(() => import("./components/About/AboutPage"));
+const ContactPage = lazy(() => import("./components/Contact/ContactPage"));
+const ProductHero = lazy(() => import("./components/Product/ProductHero"));
+const CatalogCtaSection = lazy(() => import("./components/Product/ProductCatalog"));
+const ProductGrid = lazy(() => import("./components/Product/ProductGrid"));
+const ProductDetail = lazy(() => import("./components/Product/ProductDetail/ProductDetail"));
+const ProductRelativeCard = lazy(() => import("./components/Product/ProductDetail/ProductRelativeCard").then(m => ({ default: m.ProductRelativeCard })));
+const ServiceHero = lazy(() => import("./components/Service/ServiceHero"));
+const ServiceCtaSection = lazy(() => import("./components/Service/ServiceCtaSection"));
+const PrivacyPolicyPage = lazy(() => import("./components/Legal/PrivacyPolicyPage"));
+const TermsOfUsePage = lazy(() => import("./components/Legal/TermsOfUsePage"));
 
 function App() {
   return (
@@ -43,7 +44,7 @@ function App() {
             path="/home"
             element={
               <>
-                <div className="w-full min-h-screen p-2">
+                <div className="p-2 w-full min-h-screen">
                     {/* Mobil spacer: nav mobilda `fixed` bo'lgani uchun Hero
                         uning ostiga kirib ketmasligi kerak. */}
                     <div className="h-[65px] lg:hidden" aria-hidden="true" />
@@ -80,15 +81,17 @@ function App() {
           <Route
             path="/about"
             element={
-              <>
-                <div className="w-full min-h-screen p-2">
-                  <Navigation />
-                  <AboutPage />
-               <MonialsSection />
-                  <InpusSection buttonLink="/contact-us" />
-                </div>
-                <FooterSecond />
-              </>
+              <Suspense fallback={null}>
+                <>
+                  <div className="p-2 w-full min-h-screen">
+                    <Navigation />
+                    <AboutPage />
+                    <MonialsSection />
+                    <InpusSection buttonLink="/contact-us" />
+                  </div>
+                  <FooterSecond />
+                </>
+              </Suspense>
             }
           />
 
@@ -96,22 +99,20 @@ function App() {
           <Route
             path="/products"
             element={
-              <>
-                <div className="w-full min-h-screen p-2">
-                  {/* Mobil spacer: nav mobilda `fixed` bo'lgani uchun ProductHero
-                      uning ostiga kirib ketmasligi kerak. */}
-                  <div className="h-[65px] lg:hidden" aria-hidden="true" />
-
-                  <ProductHero />
-
-                  <Navigation showSpacer={false} />
-                  <CatalogCtaSection />
-                  <ProductGrid />
-                  <MonialsSection />
-                  <InpusSection buttonLink="/contact-us" />
-                </div>
-                <FooterSecond />
-              </>
+              <Suspense fallback={null}>
+                <>
+                  <div className="p-2 w-full min-h-screen">
+                    <div className="h-[65px] lg:hidden" aria-hidden="true" />
+                    <ProductHero />
+                    <Navigation showSpacer={false} />
+                    <CatalogCtaSection />
+                    <ProductGrid />
+                    <MonialsSection />
+                    <InpusSection buttonLink="/contact-us" />
+                  </div>
+                  <FooterSecond />
+                </>
+              </Suspense>
             }
           />
 
@@ -119,17 +120,18 @@ function App() {
           <Route
             path="/products/:slug"
             element={
-              <>
-                <div className="w-full min-h-screen p-2">
-                  <Navigation />
-                  <ProductDetail />
-                  {/* <ProductCatalog/> */}
-                  <FeaturesSection/>
-                  <ProductRelativeCard/>
-                  <ContactSection/>
-                </div>
-                <FooterSecond />
-              </>
+              <Suspense fallback={null}>
+                <>
+                  <div className="p-2 w-full min-h-screen">
+                    <Navigation />
+                    <ProductDetail />
+                    <FeaturesSection/>
+                    <ProductRelativeCard/>
+                    <ContactSection/>
+                  </div>
+                  <FooterSecond />
+                </>
+              </Suspense>
             }
           />
 
@@ -137,23 +139,20 @@ function App() {
           <Route
             path="/industries"
             element={
-              <>
-                <div className="w-full px-2 pt-2">
-                  {/* Mobil spacer: nav mobilda `fixed` bo'lgani uchun ServiceHero
-                      uning ostiga kirib ketmasligi kerak. */}
-                  <div className="h-[65px] lg:hidden" aria-hidden="true" />
-
-                  <ServiceHero/>
-
-                  <Navigation showSpacer={false} />
-                    </div>
-                    
-                      <div className="px-6 w-full min-h-screen bg-[#FFF7F0]">
-                  <ServiceCtaSection />
-                  <GalleryCard />
-                </div>
-                <FooterSecond />
-              </>
+              <Suspense fallback={null}>
+                <>
+                  <div className="px-2 pt-2 w-full">
+                    <div className="h-[65px] lg:hidden" aria-hidden="true" />
+                    <ServiceHero/>
+                    <Navigation showSpacer={false} />
+                  </div>
+                  <div className="px-6 w-full min-h-screen bg-[#FFF7F0]">
+                    <ServiceCtaSection />
+                    <GalleryCard />
+                  </div>
+                  <FooterSecond />
+                </>
+              </Suspense>
             }
           />
 
@@ -161,27 +160,29 @@ function App() {
           <Route
             path="/contact-us"
             element={
-              <>
-                <div className="w-full min-h-screen p-2">
-                  <Navigation />
-                  <ContactPage />
-                  <ContactInfo/>
-                </div>
-                <FooterSecond />
-              </>
+              <Suspense fallback={null}>
+                <>
+                  <div className="p-2 w-full min-h-screen">
+                    <Navigation />
+                    <ContactPage />
+                    <ContactInfo/>
+                  </div>
+                  <FooterSecond />
+                </>
+              </Suspense>
             }
           />
 
           {/* PRIVACY POLICY */}
           <Route
             path="/privacy-policy"
-            element={<PrivacyPolicyPage />}
+            element={<Suspense fallback={null}><PrivacyPolicyPage /></Suspense>}
           />
 
           {/* TERMS OF USE */}
           <Route
             path="/terms-of-use"
-            element={<TermsOfUsePage />}
+            element={<Suspense fallback={null}><TermsOfUsePage /></Suspense>}
           />
 
           {/* 404 */}
@@ -189,7 +190,7 @@ function App() {
             path="*"
             element={
               <>
-                <div className="w-full min-h-screen p-2">
+                <div className="p-2 w-full min-h-screen">
                   <Navigation />
                   <NotFoundPage />
                 </div>

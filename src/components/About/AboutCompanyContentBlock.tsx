@@ -355,9 +355,8 @@ function HighlightedDescription({
             className={`inline-block will-change-transform ${w.colored ? 'text-[#E88029]' : 'text-[#1B1D20]'}`}
             style={{
               opacity: inView ? 1 : 0,
-              filter: inView ? "blur(0px)" : "blur(6px)",
               transform: inView ? "translateY(0%)" : "translateY(115%)",
-              transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, filter 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
+              transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
             }}
           >
             {w.text}

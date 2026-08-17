@@ -12,8 +12,8 @@ export default function AnimatedImage({
   return (
     <img
       {...props}
-      className={`${className || ''} transition-all duration-700 ${
-        loaded ? 'blur-0' : 'blur-[15px]'
+      className={`${className || ''} transition-opacity duration-700 ${
+        loaded ? 'opacity-100' : 'opacity-0'
       }`}
       onLoad={(e) => {
         setLoaded(true);

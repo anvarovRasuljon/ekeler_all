@@ -88,10 +88,10 @@
 //       </div>
 
 //       {/* Center content */}
-//       <div className="relative z-10 flex flex-col items-center flex-1 min-w-0 px-0 text-center">
+//       <div className="flex relative z-10 flex-col flex-1 items-center px-0 min-w-0 text-center">
 
 //         {/* ===== MOBILE ONLY ===== */}
-//         <div className="relative flex justify-between w-full gap-1 mb-8 sm:hidden">
+//         <div className="flex relative gap-1 justify-between mb-8 w-full sm:hidden">
 //           {/* Left image */}
 //           <div className="relative h-[120px] w-[160px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
 //             <img
@@ -163,7 +163,7 @@
 //             to={buttonLink}
 //             className="group inline-flex flex-col items-center text-[16px] text-[#1B1D20] hover:text-[#E88029] mt-[28px] cursor-pointer transition-all duration-700 ease-out"
 //           >
-//             <span className="inline-flex items-center gap-6">
+//             <span className="inline-flex gap-6 items-center">
 //               <div className="contact-text-wrapper relative overflow-hidden h-[1.2em]">
 //                 <div className="contact-text-inner flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
 //                   <p className="whitespace-nowrap text-[16px] font-['Inter'] font-normal leading-[1.2em] text-[#1B1D20]">
@@ -294,20 +294,19 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
           fetchPriority="low"
           className="object-cover w-full h-full rounded-[8px]"
           style={{
-            filter: inView ? "blur(0px)" : "blur(18px)",
             opacity: inView ? 1 : 0.6,
             transform: inView ? "scale(1)" : "scale(1.05)",
-            transition: "filter 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
-            willChange: "filter, transform, opacity",
+            transition: "opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
+            willChange: "transform, opacity",
           }}
         />
       </div>
 
       {/* Center content */}
-      <div className="relative z-10 flex flex-col items-center flex-1 min-w-0 px-0 text-center">
+      <div className="flex relative z-10 flex-col flex-1 items-center px-0 min-w-0 text-center">
 
         {/* ===== MOBILE ONLY ===== */}
-        <div className="relative flex justify-between w-full gap-1 mb-8 sm:hidden">
+        <div className="flex relative gap-1 justify-between mb-8 w-full sm:hidden">
           {/* Left image */}
           <div className="relative h-[120px] w-[160px] overflow-hidden rounded-b-[12px] rounded-t-none shadow-sm">
             <img
@@ -316,14 +315,13 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className={`h-full w-full object-cover transition-[clip-path,filter,opacity,transform] duration-1000 ease-out ${
+              className={`h-full w-full object-cover transition-[clip-path,opacity,transform] duration-1000 ease-out ${
                 inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(100%_0_0_0)]'
               }`}
               style={{
-                filter: inView ? "blur(0px)" : "blur(18px)",
                 opacity: inView ? 1 : 0.6,
                 transform: inView ? "scale(1)" : "scale(1.05)",
-                willChange: "filter, transform, opacity",
+                willChange: "transform, opacity",
               }}
             />
           </div>
@@ -336,14 +334,13 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
               loading="lazy"
               decoding="async"
               fetchPriority="low"
-              className={`h-full w-full object-cover transition-[clip-path,filter,opacity,transform] duration-1000 ease-out ${
+              className={`h-full w-full object-cover transition-[clip-path,opacity,transform] duration-1000 ease-out ${
                 inView ? '[clip-path:inset(0_0_0_0)]' : '[clip-path:inset(0_0_100%_0)]'
               }`}
               style={{
-                filter: inView ? "blur(0px)" : "blur(18px)",
                 opacity: inView ? 1 : 0.6,
                 transform: inView ? "scale(1)" : "scale(1.05)",
-                willChange: "filter, transform, opacity",
+                willChange: "transform, opacity",
               }}
             />
           </div>
@@ -363,9 +360,8 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
                 className={`inline-block will-change-transform ${w.colored ? 'text-[#E88029]' : 'text-[#1B1D20]'}`}
                 style={{
                   opacity: inView ? 1 : 0,
-                  filter: inView ? "blur(0px)" : "blur(6px)",
                   transform: inView ? "translateY(0%)" : "translateY(115%)",
-                  transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, filter 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
+                  transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`,
                 }}
               >
                 {w.text}
@@ -379,7 +375,7 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
             to={buttonLink}
             className="group relative inline-flex flex-col items-start text-[16px] text-[#1B1D20] hover:text-[#E88029] mt-[28px] pb-2 cursor-pointer transition-all duration-700 ease-out"
           >
-            <span className="inline-flex items-center gap-2">
+            <span className="inline-flex gap-2 items-center">
               <div className="relative overflow-hidden h-[1.5em] leading-[1.5em]">
                 <div className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:-translate-y-1/2">
                   <span className="block whitespace-nowrap text-[16px] font-['Inter'] font-normal leading-[1.5em] text-[#1B1D20]">
@@ -412,11 +408,10 @@ const ServiceCtaSection: React.FC<ServiceCtaSectionProps> = ({
           fetchPriority="low"
           className="object-cover w-full h-full rounded-[8px]"
           style={{
-            filter: inView ? "blur(0px)" : "blur(18px)",
             opacity: inView ? 1 : 0.6,
             transform: inView ? "translateY(0) scale(1)" : "translateY(-100%) scale(1.05)",
-            transition: "filter 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 3000ms cubic-bezier(0,0,0.2,1)",
-            willChange: "filter, transform, opacity",
+            transition: "opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 3000ms cubic-bezier(0,0,0.2,1)",
+            willChange: "transform, opacity",
           }}
         />
       </div>
