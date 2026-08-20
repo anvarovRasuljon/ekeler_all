@@ -56,10 +56,11 @@ function getSuffix(lang: string) {
 
 function pickComment(item: CommentApiItem, lang: string): Testimonial {
   const suffix = getSuffix(lang);
-  const name = item[`commentator_full_name_${suffix}`] || item.commentator_full_name_uz || '';
-  const location = item[`commentator_location_${suffix}`] || item.commentator_location_uz || '';
-  const text = item[`comment_text_${suffix}`] || item.comment_text_uz || '';
-  const picture = item[`commentator_profile_picture_${suffix}`] || item.commentator_profile_picture_uz || null;
+  const r = item as unknown as Record<string, string>;
+  const name = r[`commentator_full_name_${suffix}`] || r.commentator_full_name_uz || '';
+  const location = r[`commentator_location_${suffix}`] || r.commentator_location_uz || '';
+  const text = r[`comment_text_${suffix}`] || r.comment_text_uz || '';
+  const picture = r[`commentator_profile_picture_${suffix}`] || r.commentator_profile_picture_uz || null;
   return {
     id: String(item.id),
     quote: text,

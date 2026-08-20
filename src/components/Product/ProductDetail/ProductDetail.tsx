@@ -32,11 +32,12 @@ interface ApiProductDetail {
 function pickDetail(product: ApiProductDetail | null, lang: string) {
   if (!product) return null;
   const suffix = getSuffix(lang);
+  const r = product as unknown as Record<string, string>;
   return {
     ...product,
-    title: product[`title_${suffix}`] || product.title_uz || '',
-    short_description: product[`short_description_${suffix}`] || product.short_description_uz || '',
-    description: product[`description_${suffix}`] || product.description_uz || '',
+    title: r[`title_${suffix}`] || r.title_uz || '',
+    short_description: r[`short_description_${suffix}`] || r.short_description_uz || '',
+    description: r[`description_${suffix}`] || r.description_uz || '',
   };
 }
 
