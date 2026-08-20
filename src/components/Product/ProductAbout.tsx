@@ -1,8 +1,8 @@
 import ProductImage from './ProductImage';
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
-import aboutLeft from "../../assets/prochni_3.png";
-import aboutRight from "../../assets/prochni_4.png";
+import aboutLeft from "../../assets/prochni_3.webp";
+import aboutRight from "../../assets/prochni_4.webp";
 import { useLanguage } from "../../context/LanguageContext";
 
 interface LocaleString {

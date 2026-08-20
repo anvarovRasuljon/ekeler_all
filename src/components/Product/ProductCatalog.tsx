@@ -1,7 +1,7 @@
 import ProductImage from './ProductImage';
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import inpus_left_img from "../../assets/redyImg_left.png";
-import inpus_right_img from "../../assets/redyimg_right.png";
+import inpus_left_img from "../../assets/redyImg_left.webp";
+import inpus_right_img from "../../assets/redyimg_right.webp";
 import { useLanguage } from "../../context/LanguageContext";
 import { translations } from "../../locales/translations";
 

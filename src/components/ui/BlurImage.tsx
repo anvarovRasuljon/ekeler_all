@@ -33,7 +33,7 @@ const BlurImage: React.FC<BlurImageProps> = ({ src, alt, className = "", width, 
   return (
     <div
       ref={wrapperRef}
-      className="relative overflow-hidden"
+      className="overflow-hidden relative"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? "translate3d(0,0,0) scale(1)" : "translate3d(0,24px,0) scale(1.02)",
@@ -68,7 +68,7 @@ const BlurImage: React.FC<BlurImageProps> = ({ src, alt, className = "", width, 
         decoding="async"
         fetchPriority="low"
         onLoad={() => setLoaded(true)}
-        className={`h-auto w-full object-cover grayscale transition duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${className}`}
+        className={`h-auto w-full object-cover  transition duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${className}`}
         style={{
           opacity: loaded ? 1 : 0.6,
           transform: loaded ? "scale(1)" : "scale(1.05)",

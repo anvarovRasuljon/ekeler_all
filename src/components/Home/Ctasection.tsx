@@ -1,8 +1,8 @@
 // import React, { useEffect, useMemo, useRef, useState } from "react";
 // import { Link } from "react-router-dom";
 // import { ArrowUpRight } from "lucide-react";
-// import inpus_left_img from "../../assets/home_features_img.png";
-// import inpus_right_img from "../../assets/redyimg_right.png";
+// import inpus_left_img from "../../assets/home_features_img.webp";
+// import inpus_right_img from "../../assets/redyimg_right.webp";
 // import { useLanguage } from "../../context/LanguageContext";
 // import { translations } from "../../locales/translations";
 
@@ -219,8 +219,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import inpus_left_img from "../../assets/home_features_img.png";
-import inpus_right_img from "../../assets/redyimg_right.png";
+import inpus_left_img from "../../assets/home_features_img.webp";
+import inpus_right_img from "../../assets/redyimg_right.webp";
 import { useLanguage } from "../../context/LanguageContext";
 import { translations } from "../../locales/translations";
 

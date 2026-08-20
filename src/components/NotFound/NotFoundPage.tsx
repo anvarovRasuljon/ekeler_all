@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { ArrowUpRight } from "lucide-react";
-import commentBg from "../../assets/Comment_bg.png";
+import commentBg from "../../assets/Comment_bg.webp";
 import subtract from "../../assets/Subtract.svg";
 import { useLanguage } from "../../context/LanguageContext";
 import type { Language } from "../../context/LanguageContext";

@@ -1,0 +1,1 @@
+var e=`/assets/redyimg_right-BWZ4znBK.webp`;export{e as t};

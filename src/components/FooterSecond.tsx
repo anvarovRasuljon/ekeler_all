@@ -1,6 +1,6 @@
 // import React from "react";
 // import { ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
-// import backgroundImageUrl from "../assets/Footer_second.png";
+// import backgroundImageUrl from "../assets/Footer_second.webp";
 // import { useLanguage } from "../context/LanguageContext";
 
 // export interface FooterLink {
@@ -208,7 +208,7 @@
 
 import React from "react";
 import { ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
-import backgroundImageUrl from "../assets/Footer_second.png";
+import backgroundImageUrl from "../assets/Footer_second.webp";
 import { useLanguage } from "../context/LanguageContext";
 
 export interface FooterLink {

@@ -1,14 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import FadeImage from "../../ui/FadeImage";
+import { useLanguage } from "../../../context/LanguageContext";
 
 const BASE_URL = "https://api.ekeler.uz";
 
-interface ApiProduct {
-  id: number;
-  title: string;
-  short_description: string;
-  main_image: string;
+function getSuffix(lang: string) {
+  return lang === 'eng' ? 'en' : lang;
+}
+
+function pickProduct(product: any, lang: string): { id: number; title: string; short_description: string; main_image: string } {
+  const suffix = getSuffix(lang);
+  return {
+    id: product.id,
+    title: product[`title_${suffix}`] || product.title || product.title_uz || '',
+    short_description: product[`short_description_${suffix}`] || product.short_description || product.short_description_uz || '',
+    main_image: product.main_image || '',
+  };
 }
 
 function buildImageUrl(path: string): string {
@@ -16,7 +24,7 @@ function buildImageUrl(path: string): string {
   return path.startsWith("http") ? path : `${BASE_URL}${path}`;
 }
 
-const ProductCard: React.FC<ApiProduct> = ({ id, title, short_description, main_image }) => {
+const ProductCard: React.FC<ReturnType<typeof pickProduct>> = ({ id, title, short_description, main_image }) => {
   return (
     <Link
       to={`/products/${id}`}
@@ -40,8 +48,10 @@ const ProductCard: React.FC<ApiProduct> = ({ id, title, short_description, main_
 };
 
 const ProductRelativeCard: React.FC = () => {
-  const [products, setProducts] = useState<ApiProduct[]>([]);
+  const { language } = useLanguage();
+  const [rawProducts, setRawProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const products = useMemo(() => rawProducts.map(item => pickProduct(item, language)), [rawProducts, language]);
 
   useEffect(() => {
     fetch(`${BASE_URL}/api/v1/products?page=0&size=3`)
@@ -50,8 +60,8 @@ const ProductRelativeCard: React.FC = () => {
         return res.json();
       })
       .then(data => {
-        const items: ApiProduct[] = Array.isArray(data) ? data : data.content || data.data || [];
-        setProducts(items.slice(0, 3));
+        const items: any[] = Array.isArray(data) ? data : data.content || data.data || [];
+        setRawProducts(items.slice(0, 3));
       })
       .catch(err => console.error("ProductRelativeCard fetch error:", err))
       .finally(() => setLoading(false));

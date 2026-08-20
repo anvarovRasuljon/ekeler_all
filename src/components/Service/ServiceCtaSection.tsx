@@ -1,8 +1,8 @@
 // import React, { useEffect, useMemo, useRef, useState } from "react";
 // import { Link } from "react-router-dom";
 // import { ArrowUpRight } from "lucide-react";
-// import inpus_left_img from "../../assets/secont_ctasection_img.png";
-// import inpus_right_img from "../../assets/secont_ctasection_img_right_top.png";
+// import inpus_left_img from "../../assets/secont_ctasection_img.webp";
+// import inpus_right_img from "../../assets/secont_ctasection_img_right_top.webp";
 // import { useLanguage } from "../../context/LanguageContext";
 
 // interface ServiceCtaSectionProps {
@@ -217,8 +217,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import inpus_left_img from "../../assets/Home_Contact_img.png";
-import inpus_right_img from "../../assets/redyimg_right.png";
+import inpus_left_img from "../../assets/Home_Contact_img.webp";
+import inpus_right_img from "../../assets/redyimg_right.webp";
 import { useLanguage } from "../../context/LanguageContext";
 
 interface ServiceCtaSectionProps {

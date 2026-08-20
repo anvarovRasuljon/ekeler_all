@@ -2,11 +2,11 @@ import React from "react";
 import { gsap } from 'gsap';
 import { useLanguage } from "../../context/LanguageContext";
 import { translations } from "../../locales/translations";
-import industry_1 from "../../assets/Industry_1.png";
-import industry_2 from "../../assets/Industry_2.png";
-import industry_3 from "../../assets/Industry_3.png";
-import industry_4 from "../../assets/Industry_4.png";
-import industry_5 from "../../assets/Industry_5.png";
+import industry_1 from "../../assets/Industry_1.webp";
+import industry_2 from "../../assets/Industry_2.webp";
+import industry_3 from "../../assets/Industry_3.webp";
+import industry_4 from "../../assets/Industry_4.webp";
+import industry_5 from "../../assets/Industry_5.webp";
 
 export interface GalleryCardData {
   id: string;

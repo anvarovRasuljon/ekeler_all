@@ -7,11 +7,21 @@ import { useLanguage } from "../../../context/LanguageContext";
 
 const BASE_URL = "https://api.ekeler.uz";
 
+function getSuffix(lang: string) {
+  return lang === 'eng' ? 'en' : lang;
+}
+
 interface ApiProductDetail {
   id: number;
-  title: string;
-  short_description: string;
-  description: string;
+  title_uz: string;
+  title_ru: string;
+  title_en: string;
+  short_description_uz: string;
+  short_description_ru: string;
+  short_description_en: string;
+  description_uz: string;
+  description_ru: string;
+  description_en: string;
   main_image: string;
   images: string[];
   custom_fields: unknown;
@@ -19,30 +29,58 @@ interface ApiProductDetail {
   updated_at: string;
 }
 
-function parseCustomFields(raw: unknown): Record<string, string>[] {
-  if (!raw) return [];
-  if (typeof raw === 'object' && raw !== null) {
-    if (Array.isArray(raw)) return raw as Record<string, string>[];
-    return Object.entries(raw).map(([key, value]) => ({ label: key.trim(), value: String(value) }));
-  }
-  if (typeof raw !== 'string') return [];
-  let parsed: any;
-  try {
-    parsed = JSON.parse(raw);
-  } catch {
+function pickDetail(product: ApiProductDetail | null, lang: string) {
+  if (!product) return null;
+  const suffix = getSuffix(lang);
+  return {
+    ...product,
+    title: product[`title_${suffix}`] || product.title_uz || '',
+    short_description: product[`short_description_${suffix}`] || product.short_description_uz || '',
+    description: product[`description_${suffix}`] || product.description_uz || '',
+  };
+}
+
+function normalizeCustomFields(raw: unknown): any {
+  if (!raw) return null;
+  if (typeof raw === 'string') {
     try {
       const cleaned = raw
         .replace(/,\s*([}\]])/g, '$1')
         .replace(/([{,]\s*)([A-Za-z0-9_ ]+?)\s*:/g, '$1"$2":');
-      parsed = JSON.parse(cleaned);
+      return JSON.parse(cleaned);
     } catch {
-      return [];
+      return null;
     }
   }
-  if (Array.isArray(parsed)) return parsed;
-  if (typeof parsed === "object" && parsed !== null) {
-    return Object.entries(parsed).map(([key, value]) => ({ label: key.trim(), value: String(value) }));
+  return raw;
+}
+
+function parseCustomFields(raw: unknown, lang: string): Record<string, string>[] {
+  const parsed = normalizeCustomFields(raw);
+  if (!parsed) return [];
+
+  if (Array.isArray(parsed)) {
+    return parsed
+      .filter((item): item is Record<string, string> => item && typeof item === 'object')
+      .map(item => ({ label: String(item.label || item.key || ''), value: String(item.value || '') }));
   }
+
+  if (typeof parsed === 'object' && parsed !== null) {
+    const suffix = getSuffix(lang);
+    const localized = (parsed as Record<string, any>)[suffix];
+
+    if (localized && typeof localized === 'object' && !Array.isArray(localized)) {
+      return Object.entries(localized).map(([key, value]) => ({
+        label: key.trim(),
+        value: typeof value === 'object' ? JSON.stringify(value) : String(value),
+      }));
+    }
+
+    if (localized !== undefined && (localized === null || typeof localized !== 'object')) {
+      return [{ label: '', value: String(localized) }];
+    }
+  }
+
   return [];
 }
 
@@ -53,7 +91,7 @@ function buildImageUrl(path: string): string {
 
 const ProductDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [product, setProduct] = useState<ApiProductDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -79,21 +117,22 @@ const ProductDetail: React.FC = () => {
       .finally(() => setLoading(false));
   }, [slug]);
 
-  const customFields = useMemo(() => parseCustomFields(product?.custom_fields || ""), [product]);
+  const p = useMemo(() => pickDetail(product, language), [product, language]);
+  const customFields = useMemo(() => parseCustomFields(p?.custom_fields || "", language), [p, language]);
   const heroFields = customFields;
 
   const data: ProductDetailData = useMemo(() => {
-    if (!product) return {} as ProductDetailData;
-    const allImages = [product.main_image, ...(product.images || [])].map(buildImageUrl);
+    if (!p) return {} as ProductDetailData;
+    const allImages = [p.main_image, ...(p.images || [])].map(buildImageUrl);
     return {
-      title: product.title,
-      shortDescription: product.short_description,
-      description: product.description,
-      image: buildImageUrl(product.main_image),
+      title: p.title,
+      shortDescription: p.short_description,
+      description: p.description,
+      image: buildImageUrl(p.main_image),
       images: allImages,
       customFields: customFields.map(f => ({ label: f.label || f.key || "", value: f.value || "" })),
     };
-  }, [product, customFields]);
+  }, [p, customFields]);
 
   const galleryImages = useMemo(() => data.images?.slice(1) || [], [data]);
 
@@ -105,7 +144,7 @@ const ProductDetail: React.FC = () => {
     );
   }
 
-  if (error || !product) {
+  if (error || !p) {
     return (
       <div className="flex min-h-[400px] items-center justify-center">
         <p className="text-center text-red-500">{error ? `${t(errorLabel)} ${error}` : t(notFoundLabel)}</p>
@@ -121,12 +160,12 @@ const ProductDetail: React.FC = () => {
           {/* LEFT: title + custom_fields */}
           <div className="flex flex-col gap-6">
             <h1 className="break-words text-[clamp(28px,2rem+1vw,72px)] font-medium leading-tight text-neutral-900">
-              {product.title}
+              {p.title}
             </h1>
 
-            {product.short_description && (
+            {p.short_description && (
               <p className="text-[clamp(14px,0.85rem+0.1vw,16px)] text-neutral-500">
-                {product.short_description}
+                {p.short_description}
               </p>
             )}
 
@@ -148,10 +187,10 @@ const ProductDetail: React.FC = () => {
 
           {/* RIGHT: main image */}
           <div className="flex justify-center items-center">
-            {product.main_image && (
+            {p.main_image && (
               <FadeImage
-                src={buildImageUrl(product.main_image)}
-                alt={product.title}
+                src={buildImageUrl(p.main_image)}
+                alt={p.title}
                 loading="eager"
                 className="w-full max-w-full"
                 imgClassName="h-auto max-h-[320px] w-full max-w-full rounded-xl object-cover sm:max-h-[440px] lg:max-h-[600px]"

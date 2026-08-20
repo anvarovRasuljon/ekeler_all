@@ -2,8 +2,8 @@
 // import React, { useEffect, useMemo, useRef, useState } from "react";
 // import { ArrowUpRight } from "lucide-react";
 // import { Link } from "react-router-dom";
-// import inpus_right_img from "../../assets/Industry_1.png";
-// import inpus_left_img from "../../assets/inpus_left.png";
+// import inpus_right_img from "../../assets/Industry_1.webp";
+// import inpus_left_img from "../../assets/inpus_left.webp";
 // import { useLanguage } from "../../context/LanguageContext";
 // import { translations } from "../../locales/translations";
 
@@ -232,8 +232,8 @@ import AnimatedImage from './AnimatedImage';
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import inpus_right_img from "../../assets/Industry_1.png";
-import inpus_left_img from "../../assets/inpus_left.png";
+import inpus_right_img from "../../assets/Industry_1.webp";
+import inpus_left_img from "../../assets/inpus_left.webp";
 import { useLanguage } from "../../context/LanguageContext";
 import { translations } from "../../locales/translations";
 

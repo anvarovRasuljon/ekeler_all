@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useLanguage } from "../../context/LanguageContext";
 import { translations } from "../../locales/translations";
-import imageUrl from "../../assets/home_stat_img.png";
+import imageUrl from "../../assets/home_stat_img.webp";
 import BlurImage from "../ui/BlurImage";
 import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
 

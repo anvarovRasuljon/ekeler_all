@@ -1,14 +1,23 @@
 import AnimatedImage from './AnimatedImage';
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import CommentBg from "../../assets/Comment_bg.png";
+import CommentBg from "../../assets/Comment_bg.webp";
+import { useLanguage } from "../../context/LanguageContext";
 
 // ─── API types ────────────────────────────────────────────────────────────────
 interface CommentApiItem {
   id: number;
-  commentator_full_name: string;
-  commentator_location: string;
-  comment_text: string;
-  commentator_profile_picture: string | null;
+  commentator_full_name_uz: string;
+  commentator_full_name_ru: string;
+  commentator_full_name_en: string;
+  commentator_location_uz: string;
+  commentator_location_ru: string;
+  commentator_location_en: string;
+  comment_text_uz: string;
+  comment_text_ru: string;
+  comment_text_en: string;
+  commentator_profile_picture_uz: string;
+  commentator_profile_picture_ru: string;
+  commentator_profile_picture_en: string;
   created_at: string;
   updated_at: string;
 }
@@ -41,23 +50,37 @@ function safeText(value: unknown): string {
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL ?? "https://api.ekeler.uz";
 
-function mapApiItem(item: CommentApiItem): Testimonial {
+function getSuffix(lang: string) {
+  return lang === 'eng' ? 'en' : lang;
+}
+
+function pickComment(item: CommentApiItem, lang: string): Testimonial {
+  const suffix = getSuffix(lang);
+  const name = item[`commentator_full_name_${suffix}`] || item.commentator_full_name_uz || '';
+  const location = item[`commentator_location_${suffix}`] || item.commentator_location_uz || '';
+  const text = item[`comment_text_${suffix}`] || item.comment_text_uz || '';
+  const picture = item[`commentator_profile_picture_${suffix}`] || item.commentator_profile_picture_uz || null;
   return {
     id: String(item.id),
-    quote: item.comment_text,
-    name: item.commentator_full_name,
-    location: item.commentator_location,
-    avatarUrl: item.commentator_profile_picture
-      ? item.commentator_profile_picture.startsWith("http")
-        ? item.commentator_profile_picture
-        : `${BASE_URL}${item.commentator_profile_picture}`
+    quote: text,
+    name,
+    location,
+    avatarUrl: picture
+      ? picture.startsWith("http")
+        ? picture
+        : `${BASE_URL}${picture}`
       : undefined,
   };
 }
 
+function mapApiItem(item: CommentApiItem, lang: string): Testimonial {
+  return pickComment(item, lang);
+}
+
 // ─── Fetch hook ───────────────────────────────────────────────────────────────
 function useComments() {
-  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const { language } = useLanguage();
+  const [rawTestimonials, setRawTestimonials] = useState<CommentApiItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -73,7 +96,7 @@ function useComments() {
       })
       .then((data) => {
         if (cancelled) return;
-        setTestimonials(data.map(mapApiItem));
+        setRawTestimonials(data);
       })
       .catch(() => {
         if (!cancelled) setError(true);
@@ -84,6 +107,8 @@ function useComments() {
 
     return () => { cancelled = true; };
   }, []);
+
+  const testimonials = useMemo(() => rawTestimonials.map(item => mapApiItem(item, language)), [rawTestimonials, language]);
 
   return { testimonials, loading, error };
 }
@@ -284,7 +309,7 @@ const TestimonialCard = React.memo(function TestimonialCard({
         {safeText(testimonial.quote)}
       </p>
 
-      <div className="flex items-center gap-3 mt-6">
+      <div className="flex gap-3 items-center mt-6">
         {testimonial.avatarUrl && (
           <AnimatedImage
             src={testimonial.avatarUrl}
@@ -318,10 +343,10 @@ const SkeletonCard = React.memo(function SkeletonCard() {
         <div className="w-5/6 h-4 bg-gray-200 rounded" />
         <div className="w-4/6 h-4 bg-gray-200 rounded" />
       </div>
-      <div className="flex items-center gap-3 mt-6">
+      <div className="flex gap-3 items-center mt-6">
         <div className="h-[55px] w-[55px] shrink-0 rounded-[8px] bg-gray-200" />
         <div className="flex-1 space-y-2">
-          <div className="h-3 bg-gray-200 rounded w-28" />
+          <div className="w-28 h-3 bg-gray-200 rounded" />
           <div className="w-20 h-3 bg-gray-200 rounded" />
         </div>
       </div>

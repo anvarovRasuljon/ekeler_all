@@ -1,9 +1,9 @@
 import AnimatedImage from './AnimatedImage';
 import React from "react";
-import yengillik_img from "../../assets/yengillik_img.png";
-import yuqorimustahkamlik_img from "../../assets/yuqorimustahkamlik_img.png";
-import qaytaishlash_img from "../../assets/qaytaishlash_img.png";
-import mahalliy_img from "../../assets/mahalliy_img.png";
+import yengillik_img from "../../assets/yengillik_img.webp";
+import yuqorimustahkamlik_img from "../../assets/yuqorimustahkamlik_img.webp";
+import qaytaishlash_img from "../../assets/qaytaishlash_img.webp";
+import mahalliy_img from "../../assets/mahalliy_img.webp";
 import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
 
 interface Product {

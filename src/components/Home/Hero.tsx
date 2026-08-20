@@ -78,7 +78,7 @@
 //             return words.map((word, i) => (
 //               <span
 //                 key={`${word}-${i}`}
-//                 className="inline-block mr-2 overflow-hidden align-bottom"
+//                 className="inline-block overflow-hidden mr-2 align-bottom"
 //                 aria-hidden={false}
 //               >
 //                 <span
@@ -238,7 +238,6 @@ import React, { useMemo, useState } from 'react'
 import { Phone, Mail, ArrowUpRight } from 'lucide-react'
 import { useLanguage } from '../../context/LanguageContext'
 import { translations } from '../../locales/translations'
-import OptimizedImage from '../Image'
 
 interface HeroProps {
   title?: any
@@ -283,11 +282,13 @@ const Hero: React.FC<HeroProps> = ({
       {backgroundImage ? (
         <>
           <div className="absolute inset-0 rounded-[8px]">
-            <OptimizedImage
+            <img
               src={backgroundImage}
               alt="Hero background"
               width={1920}
-              className="w-full h-full rounded-[8px]"
+              className="w-full h-full rounded-[8px] object-cover"
+              fetchPriority="high"
+              decoding="async"
               onLoad={() => setImageLoaded(true)}
             />
           </div>
@@ -313,7 +314,7 @@ const Hero: React.FC<HeroProps> = ({
             return words.map((word, i) => (
               <span
                 key={`${word}-${i}`}
-                className="inline-block mr-2 overflow-hidden align-bottom"
+                className="inline-block overflow-hidden mr-2 align-bottom"
                 aria-hidden={false}
               >
                 <span

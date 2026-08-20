@@ -5,7 +5,7 @@
 // // import SmsIco from "../../assets/sms.svg";
 // // import Call from "../../assets/call.svg";
 // // import LocationIcon from "../../assets/location.svg";
-// // import imageUrl from "../../assets/Home_Contact_img.png";
+// // import imageUrl from "../../assets/Home_Contact_img.webp";
 // // import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
 
 // // interface ContactSectionProps {
@@ -187,7 +187,7 @@
 // import SmsIco from "../../assets/sms.svg";
 // import Call from "../../assets/call.svg";
 // import LocationIcon from "../../assets/location.svg";
-// import imageUrl from "../../assets/Home_Contact_img.png";
+// import imageUrl from "../../assets/Home_Contact_img.webp";
 // import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
 
 // interface ContactSectionProps {
@@ -384,7 +384,7 @@ import { translations } from "../../locales/translations";
 import SmsIco from "../../assets/sms.svg";
 import Call from "../../assets/call.svg";
 import LocationIcon from "../../assets/location.svg";
-import imageUrl from "../../assets/Home_Contact_img.png";
+import imageUrl from "../../assets/Home_Contact_img.webp";
 import { useRevealOnScroll } from "../../hooks/useRevealOnScroll";
 
 interface ContactSectionProps {

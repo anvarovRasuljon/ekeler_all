@@ -1,10 +1,10 @@
 // // import AnimatedImage from './AnimatedImage';
 // // import React, { useMemo } from "react";
 // // import { ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
-// // // import bgFallback from "../../assets/hero.png";
+// // // import bgFallback from "../../assets/hero.webp";
 // // // import { urlFor } from "../../sanity/client";
 // // import { useLanguage } from "../../context/LanguageContext";
-// // import backgroundImageUrl from "../../assets/Footer_bg_img.png"
+// // import backgroundImageUrl from "../../assets/Footer_bg_img.webp"
 
 
 // // export interface FooterLink {
@@ -224,7 +224,7 @@
 // import React, { useMemo, FC } from "react";
 // import { ArrowUpRight, Phone, Mail, MapPin } from "lucide-react";
 // import { useLanguage } from "../../context/LanguageContext";
-// import backgroundImageUrl from "../../assets/Footer_bg_img.png";
+// import backgroundImageUrl from "../../assets/Footer_bg_img.webp";
 
 // export interface FooterLink {
 //   label: any; 
@@ -516,7 +516,7 @@ import React, { useMemo } from "react";
 import type { FC } from "react";
 import { Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
-import backgroundImageUrl from "../../assets/Footer_bg_img.png";
+import backgroundImageUrl from "../../assets/Footer_bg_img.webp";
 
 export interface FooterLink {
   label: any; 

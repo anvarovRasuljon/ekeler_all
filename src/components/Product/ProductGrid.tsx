@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import FadeImage from "../ui/FadeImage";
 import { useLanguage } from "../../context/LanguageContext";
@@ -6,18 +6,24 @@ import { useLanguage } from "../../context/LanguageContext";
 const BASE_URL = "https://api.ekeler.uz";
 const PAGE_SIZE = 9;
 
-interface ApiProduct {
-  id: number;
-  title: string;
-  short_description: string;
-  description: string;
-  main_image: string;
-  custom_fields: string;
+function getSuffix(lang: string) {
+  return lang === 'eng' ? 'en' : lang;
+}
+
+function pickProduct(product: any, lang: string): { id: number; title: string; short_description: string; main_image: string } {
+  const suffix = getSuffix(lang);
+  return {
+    id: product.id,
+    title: product[`title_${suffix}`] || product.title || product.title_uz || '',
+    short_description: product[`short_description_${suffix}`] || product.short_description || product.short_description_uz || '',
+    main_image: product.main_image || '',
+  };
 }
 
 const ProductGrid: React.FC = () => {
-  const { t } = useLanguage()
-  const [products, setProducts] = useState<ApiProduct[]>([]);
+  const { t, language } = useLanguage()
+  const [rawProducts, setRawProducts] = useState<any[]>([]);
+  const products = useMemo(() => rawProducts.map(item => pickProduct(item, language)), [rawProducts, language]);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -31,8 +37,8 @@ const ProductGrid: React.FC = () => {
       const res = await fetch(`${BASE_URL}/api/v1/products?page=${targetPage}&size=${PAGE_SIZE}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
-      const items: ApiProduct[] = Array.isArray(data) ? data : data.content || data.data || [];
-      setProducts(prev => targetPage === 0 ? items : [...prev, ...items]);
+      const items: any[] = Array.isArray(data) ? data : data.content || data.data || [];
+      setRawProducts(prev => targetPage === 0 ? items : [...prev, ...items]);
       setHasMore(items.length === PAGE_SIZE);
     } catch (err) {
       console.error("ProductGrid fetch error:", err);

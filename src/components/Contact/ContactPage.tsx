@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import contactMainImage from "../../assets/contact_main_img.png";
-import contactMiniImage from "../../assets/contact_mini_img.png";
+import contactMainImage from "../../assets/contact_main_img.webp";
+import contactMiniImage from "../../assets/contact_mini_img.webp";
 import { useLanguage } from "../../context/LanguageContext";
 import type { Language } from "../../context/LanguageContext";
 import ZohoLeadForm from "./ZohoLeadForm";

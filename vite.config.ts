@@ -27,8 +27,14 @@ export default defineConfig({
           if (id.includes('node_modules/react-router-dom/')) {
             return 'vendor-router'
           }
-          if (['lucide-react', 'swiper', 'gsap'].some((n) => id.includes(`node_modules/${n}/`))) {
-            return 'vendor-ui'
+          if (id.includes('node_modules/gsap/')) {
+            return 'vendor-gsap'
+          }
+          if (id.includes('node_modules/swiper/')) {
+            return 'vendor-swiper'
+          }
+          if (id.includes('node_modules/lucide-react/')) {
+            return 'vendor-icons'
           }
           if (id.includes('node_modules/@sanity/') || id.includes('node_modules/sanity/')) {
             return 'vendor-sanity'

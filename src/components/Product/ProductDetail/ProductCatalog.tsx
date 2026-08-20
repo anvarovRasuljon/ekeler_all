@@ -2,8 +2,8 @@ import ProductImage from '../ProductImage';
 import React, { useMemo } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import inpus_left_img from "../../../assets/Inpus_left_img.png";
-import inpus_right_img from "../../../assets/Inpus_right_img.png";
+import inpus_left_img from "../../../assets/Inpus_left_img.webp";
+import inpus_right_img from "../../../assets/Inpus_right_img.webp";
 import { useLanguage } from "../../../context/LanguageContext";
 
 interface InpusSectionProps {

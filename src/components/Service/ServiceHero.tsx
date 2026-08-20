@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import productHeroBg from "../../assets/BlogHero_bg.png";
+import productHeroBg from "../../assets/BlogHero_bg.webp";
 import { useLanguage } from "../../context/LanguageContext";
 
 const ServiceHero: React.FC = () => {

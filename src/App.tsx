@@ -6,11 +6,11 @@ import Statsection from "./components/Home/Statsection";
 import InpusSection from "./components/Home/ScameTypes";
 import Footer from "./components/Home/Footer";
 import ProductsSection from "./components/Home/ProductsSection";
-import CtaSection from "./components/Home/Ctasection";
-import GalleryCard from "./components/Home/IndustrialGalery";
-import MonialsSection from "./components/Home/MonialSection";
+const CtaSection = lazy(() => import("./components/Home/Ctasection"));
+const GalleryCard = lazy(() => import("./components/Home/IndustrialGalery"));
+const MonialsSection = lazy(() => import("./components/Home/MonialSection"));
 import "./App.css";
-import homeHeroBg from "./assets/Home_hero_bg.png";
+import homeHeroBg from "./assets/Home_hero_bg.webp";
 import Hero from "./components/Home/Hero";
 import HomeContactSection from "./components/Home/ContactSection";
 import { ContactSection } from "./components/ContactSection";
@@ -64,11 +64,11 @@ function App() {
                     <FeaturesSection />
 
                     <ProductsSection />
- <CtaSection />
+                    <Suspense fallback={null}><CtaSection /></Suspense>
 
-                    <GalleryCard />
-  
-                    <MonialsSection />
+                    <Suspense fallback={null}><GalleryCard /></Suspense>
+
+                    <Suspense fallback={null}><MonialsSection /></Suspense>
 
                     <InpusSection />
                 </div>
@@ -148,7 +148,7 @@ function App() {
                   </div>
                   <div className="px-6 w-full min-h-screen bg-[#FFF7F0]">
                     <ServiceCtaSection />
-                    <GalleryCard />
+                    <Suspense fallback={null}><GalleryCard /></Suspense>
                   </div>
                   <FooterSecond />
                 </>

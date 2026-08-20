@@ -1,5 +1,5 @@
 import React from "react";
-import CommentBg from "../../assets/Comment_bg.png";
+import CommentBg from "../../assets/Comment_bg.webp";
 import { useLanguage } from "../../context/LanguageContext";
 import { CONTACT_ITEMS } from "./contact.data";
 import { ContactCard } from "./ContactCard";
