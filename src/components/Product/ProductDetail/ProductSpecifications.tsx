@@ -1,12 +1,6 @@
-import ProductImage from '../ProductImage';
 import React, { useMemo, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
 import { Plus, Minus } from "lucide-react";
 import { useLanguage } from "../../../context/LanguageContext";
-
-import "swiper/css";
-import "swiper/css/pagination";
 
 export interface ProductDetailData {
   title: string;
@@ -29,8 +23,6 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
   const badgeLabel = { ru: 'Основная информация', uz: 'Asosiy maʼlumot', eng: 'Key information' };
   const headingLabel = { ru: 'Технические параметры', uz: 'Texnik parametrlar', eng: 'Specifications' };
 
-  const images = data.images || [];
-
   const specs = useMemo(() => {
     return data.customFields || [];
   }, [data]);
@@ -44,8 +36,8 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
 
   return (
     <section className="w-full bg-[#3F5D53] text-white">
-      <div className="mx-auto grid max-w-[1500px] grid-cols-1 items-start gap-8 px-4 py-12 sm:px-6 sm:py-16 md:px-12 md:py-20 lg:grid-cols-2 lg:gap-12">
-        {/* LEFT: Accordion specs */}
+      <div className="mx-auto max-w-[1500px] px-4 py-12 sm:px-6 sm:py-16 md:px-12 md:py-20">
+        {/* Accordion specs */}
         <div className="flex flex-col">
           <span className="self-start px-4 py-1.5 mb-6 text-xs font-medium tracking-wide text-white/80 uppercase border rounded-full border-white/40">
             {t(badgeLabel)}
@@ -108,7 +100,7 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
                 </div>
               )}
 
-              <div className="grid grid-rows-4 grid-flow-col auto-cols-min gap-x-8 gap-y-5 px-4 pb-6 sm:px-6 sm:pb-8">
+              <div className="grid grid-rows-4 grid-flow-col auto-cols-fr justify-between gap-x-8 gap-y-5 px-4 pb-6 sm:px-6 sm:pb-8">
                 {specs.map((spec, i) => (
                   <div key={i} className="flex min-w-[160px] flex-col">
                     <span className="text-xs tracking-wider uppercase text-white/50">
@@ -123,51 +115,7 @@ const ProductSpecifications: React.FC<ProductSpecificationsProps> = ({ data }) =
             </div>
           </div>
         </div>
-
-        {/* RIGHT: Swiper gallery — main image + other images */}
-        {images.length > 0 && (
-          <div className="rounded-2xl bg-[#C9B79C] p-1 sm:p-2 md:rounded-2xl md:p-4">
-              <div className="w-full aspect-[4/3]">
-                <Swiper
-                  modules={[Pagination]}
-                  pagination={{ clickable: true }}
-                  loop={images.length > 1}
-                  speed={400}
-                  grabCursor={true}
-                  simulateTouch={true}
-                  allowTouchMove={true}
-                  observer={true}
-                  observeParents={true}
-                  resizeObserver={true}
-                  spaceBetween={0}
-                  slidesPerView={1}
-                  className="w-full h-full rounded-2xl"
-                >
-                  {images.map((img, idx) => (
-                    <SwiperSlide key={idx}>
-                      <ProductImage
-                        src={img}
-                        alt={`${data.title} — ${idx + 1}`}
-                        className="object-cover w-full h-full"
-                        loading="lazy"
-                        decoding="async"
-                        fetchPriority="low"
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-          </div>
-        )}
       </div>
-      <style>{`
-        .swiper-pagination-bullet {
-          background: #d1d5db !important;
-        }
-        .swiper-pagination-bullet-active {
-          background: #9ca3af !important;
-        }
-      `}</style>
     </section>
   );
 };

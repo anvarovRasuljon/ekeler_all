@@ -135,7 +135,7 @@ const ProductDetail: React.FC = () => {
     };
   }, [p, customFields]);
 
-  const galleryImages = useMemo(() => data.images?.slice(1) || [], [data]);
+  const galleryImages = useMemo(() => (p?.images || []).map(buildImageUrl), [p]);
 
   if (loading) {
     return (
@@ -194,7 +194,7 @@ const ProductDetail: React.FC = () => {
                 alt={p.title}
                 loading="eager"
                 className="w-full max-w-full"
-                imgClassName="h-auto max-h-[320px] w-full max-w-full rounded-xl object-cover sm:max-h-[440px] lg:max-h-[600px]"
+                imgClassName="h-auto max-h-[320px] w-full max-w-full rounded-xl object-contain sm:max-h-[440px] lg:max-h-[600px]"
               />
             )}
           </div>
